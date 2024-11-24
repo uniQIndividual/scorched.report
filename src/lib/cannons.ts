@@ -611,27 +611,27 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "author": "GerbSnail",
                 "cost": Math.max(),
                 "scoin_bonus": 0,
-                "description": "",
+                "description": "This is Ecdragonz's Secret Cannon. More details about it can be found in the TWAS, but the gist is that this cannon appears in our DnD campaign and is wielded by an eldritch abomination (played by Zombie). It's made of mostly small parts of the Rasputin heavy frame model and other Rasputin assets, and its 'taken' looking corruption at the front reflects its corrupted power source. Its name ingame is the Scourge Cannon, if you were wondering.",
                 "image": ""
             },
             {
                 "id": "ScornchedCannon",
                 "name": "Scornched Cannon",
-                "alt_name": "",
+                "alt_name": "Cob Cannon",
                 "author": "GerbSnail",
                 "cost": Math.max(),
                 "scoin_bonus": 0,
-                "description": "",
+                "description": "This is Zombie's Secret Cannon. It is one of the very first ever created, and its use is fairly outdated since we very rarely see anyone earning a multiple of seven anymore. Either way, I see it as a landmark and it plays into Zombie's love for corn so I think it's nice. Definitely on the list of ones to redo in the future though.",
                 "image": "/images/cannons/special/normal.png"
             },
             {
                 "id": "",
                 "name": "18470",
-                "alt_name": "",
+                "alt_name": "[PLACEHOLDER NAME]",
                 "author": "GerbSnail",
                 "cost": Math.max(),
                 "scoin_bonus": 0,
-                "description": "",
+                "description": "This is my secret cannon. Outside of Scorched and 3D art, I also have a love for going out of bounds and glitching Destiny as a whole. The Simple Prop at the center of the cannon is actually an asset that exists in Destiny, and it can be seen rarely in places such as out of box in the Dreadnaught and the Menagerie, and down below the final boss arena in the original Black Garden. This cannon represents all three of my Destiny-related passions in one neat little package.",
                 "image": ""
             },
         ]
