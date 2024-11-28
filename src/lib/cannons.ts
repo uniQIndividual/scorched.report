@@ -13,7 +13,7 @@ export type SCORCHED_SEASON_TYPE = {
 }
 
 export type SCORCHED_CANNONS = {
-    "id": string,
+    "hash": string,
     "name": string,
     "alt_name": string,
     "author": string,
@@ -24,450 +24,460 @@ export type SCORCHED_CANNONS = {
 }
 
 const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
-    "season_1": {
+    "S1": {
         "name": "Season 1",
         "release_date": 0,
         "twas": "",
         "pass_price": 0,
         "cannons": [
             {
-                "id": "2f463bb9-367c-4785-aead-e104e86f4584",
+                "hash": "PistolCannon",
                 "name": "Pistol",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 100,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/PistolCannon.png"
             },
             {
-                "id": "",
+                "hash": "ShrapnelCannon",
                 "name": "Shrapnel Cannon",
-                "alt_name": "",
+                "alt_name": "Scorch Rifle",
                 "author": "GerbSnail",
                 "cost": 250,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/ShrapnelCannon.png"
             },
             {
-                "id": "",
+                "hash": "ScrapCannon",
                 "name": "Scrap Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 500,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/"
             },
             {
-                "id": "",
+                "hash": "BasicCannon",
                 "name": "Basic Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 1000,
                 "scoin_bonus": 2,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/BasicCannon.png"
             },
             {
-                "id": "",
+                "hash": "ArcCannon",
                 "name": "Shock Cannon",
                 "alt_name": "Arc Cannon",
                 "author": "GerbSnail",
                 "cost": 1250,
                 "scoin_bonus": 3,
                 "description": "",
-                "image": "/images/cannons/season1/arc.png"
+                "image": "/images/cannons/season1/ArcCannon.png"
             },
             {
-                "id": "",
+                "hash": "VoidCannon",
                 "name": "Null Cannon",
                 "alt_name": "Void Cannon",
                 "author": "GerbSnail",
                 "cost": 1500,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/VoidCannon.png"
             },
             {
-                "id": "",
+                "hash": "StasisCannon",
                 "name": "Shatter Cannon",
                 "alt_name": "Stasis Cannon",
                 "author": "GerbSnail",
                 "cost": 2000,
                 "scoin_bonus": 5,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/StasisCannon.png"
             },
             {
-                "id": "",
+                "hash": "Scorchality",
                 "name": "Scorchality",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 2500,
                 "scoin_bonus": 6,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/Scorchality.png"
             },
             {
-                "id": "",
+                "hash": "MIRVCannon",
                 "name": "MIRV Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 3000,
                 "scoin_bonus": 7,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/MIRVCannon.png"
             },
             {
-                "id": "",
+                "hash": "WaveCannon",
                 "name": "Wave Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 3500,
                 "scoin_bonus": 8,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/WaveCannon.png"
             },
             {
-                "id": "",
+                "hash": "ScorchBreaker",
                 "name": "Scorch Breaker",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 4000,
                 "scoin_bonus": 9,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/ScorchBreaker.png"
             },
             {
-                "id": "",
+                "hash": "ScorchBringer",
                 "name": "Scorch Bringer",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 4000,
                 "scoin_bonus": 10,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/ScorchBringer.png"
             },
             {
-                "id": "",
+                "hash": "ScorchedSimulant",
                 "name": "Scorched Simulant",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 6000,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/ScorchedSimulant.png"
             },
             {
-                "id": "",
+                "hash": "SaladinsCriticism",
                 "name": "Saladin's Criticism",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 7000,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/SaladinsCriticism.png"
             },
             {
-                "id": "",
+                "hash": "TrialsCannon",
                 "name": "Trials Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 8000,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/TrialsCannon.png"
             },
             {
-                "id": "",
+                "hash": "SaintsReverence",
                 "name": "Saint's Reverence",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 9000,
                 "scoin_bonus": 23,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/SaintsReverence.png"
             },
             {
-                "id": "",
+                "hash": "ScorchingLion",
                 "name": "Scorching Lion",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 10000,
                 "scoin_bonus": 29,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/ScorchingLion.png"
             },
             {
-                "id": "",
+                "hash": "ScorchedLens",
                 "name": "Scorched Lens",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 12500,
                 "scoin_bonus": 36,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/ScorchedLens.png"
             },
             {
-                "id": "",
+                "hash": "MaliceCannon",
                 "name": "Malice Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 15000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/MaliceCannon.png"
             },
             {
-                "id": "",
+                "hash": "Gjallon",
                 "name": "Gjallon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 17500,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/Gjallon.png"
             },
             {
-                "id": "",
+                "hash": "PolarisHalberd",
                 "name": "Polaris Halberd",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 20000,
                 "scoin_bonus": 70,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/PolarisHalberd.png"
             },
             {
-                "id": "",
+                "hash": "FusorCannon",
                 "name": "Fusor Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 25000,
                 "scoin_bonus": 90,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/FusorCannon.png"
             },
             {
-                "id": "",
+                "hash": "TelestoCannon",
                 "name": "Coming Soon...",
                 "alt_name": "Telesto Cannon",
                 "author": "GerbSnail",
                 "cost": 999999,
                 "scoin_bonus": 100,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season1/TelestoCannon.png"
             },
         ]
     },
-    "season_2": {
+    "S2": {
         "name": "Season 2",
         "release_date": 1682913600,
         "twas": "1682913600",
         "pass_price": 0,
         "cannons": [
             {
-                "id": "",
+                "hash": "ThreadboundCannon",
                 "name": "Threadbound Cannon",
-                "alt_name": "",
+                "alt_name": "Strand",
                 "author": "GerbSnail",
                 "cost": 1500,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/ThreadboundCannon.png"
             },
             {
-                "id": "",
+                "hash": "WhisperingCannon",
                 "name": "The Whispering Cannon",
-                "alt_name": "",
+                "alt_name": "Taken",
                 "author": "GerbSnail",
                 "cost": 2000,
                 "scoin_bonus": 5,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/WhisperingCannon.png"
             },
             {
-                "id": "",
+                "hash": "HeirloomCannon",
                 "name": "Heirloom Cannon",
-                "alt_name": "",
+                "alt_name": "Heir",
                 "author": "GerbSnail",
                 "cost": 2500,
                 "scoin_bonus": 6,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/HeirloomCannon.png"
             },
             {
-                "id": "",
+                "hash": "NaniteCannon",
                 "name": "Nanite Cannon",
-                "alt_name": "",
+                "alt_name": "Outbreak",
                 "author": "GerbSnail",
                 "cost": 3000,
                 "scoin_bonus": 7,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/NaniteCannon.png"
             },
             {
-                "id": "",
+                "hash": "CoolerNaniteCannon",
                 "name": "The Cooler Nanite Cannon",
-                "alt_name": "",
+                "alt_name": "Quicksilver",
                 "author": "GerbSnail",
                 "cost": 3500,
                 "scoin_bonus": 8,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/CoolerNaniteCannon.png"
             },
             {
-                "id": "",
+                "hash": "TapedTravesty",
                 "name": "The Taped Travesty",
-                "alt_name": "",
+                "alt_name": "By definition a trident",
                 "author": "GerbSnail",
                 "cost": 4000,
                 "scoin_bonus": 9,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/TapedTravesty.png"
             },
             {
-                "id": "",
+                "hash": "VexHeadCannon",
                 "name": "Scorched Cannon?",
-                "alt_name": "Vex Head Cannon",
+                "alt_name": "Vex Head Cannon; ah_yup_that_things_a_scorch_cannon",
                 "author": "GerbSnail",
                 "cost": 5000,
                 "scoin_bonus": 10,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/VexHeadCannon.png"
             },
             {
-                "id": "",
+                "hash": "CerbCannon",
                 "name": "Headcanon",
                 "alt_name": "Cerb Cannon",
                 "author": "GerbSnail",
                 "cost": 6000,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/CerbCannon.png"
             },
             {
-                "id": "",
+                "hash": "DivCannon",
                 "name": "Divinity Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 7000,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/DivCannon.png"
             },
             {
-                "id": "",
+                "hash": "RuthlessCannon",
                 "name": "Ruthless Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 8000,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/RuthlessCannon.png"
             },
             {
-                "id": "",
+                "hash": "VulcanCannon",
                 "name": "Vulcan Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 9000,
                 "scoin_bonus": 23,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/VulcanCannon.png"
             },
             {
-                "id": "",
+                "hash": "WitherScorched",
                 "name": "Witherscorched",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 10000,
                 "scoin_bonus": 29,
                 "description": "",
-                "image": "/images/cannons/season2/witherhoard.png"
+                "image": "/images/cannons/season2/WitherScorched.png"
             },
             {
-                "id": "",
+                "hash": "ClosingAct",
                 "name": "The Closing Act",
-                "alt_name": "",
+                "alt_name": "ngl_I_forgot_what_this_one_was_called",
                 "author": "GerbSnail",
                 "cost": 12500,
                 "scoin_bonus": 36,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/ClosingAct.png"
             },
             {
-                "id": "",
+                "hash": "NecroCannon",
                 "name": "Necro Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 15000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/NecroCannon.png"
             },
             {
-                "id": "",
+                "hash": "CryoCannon",
                 "name": "Cryo Cannon",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 17500,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/CryoCannon.png"
             },
             {
-                "id": "",
+                "hash": "IcyHotCannon",
+                "name": "IcyHot Cannon",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 20000,
+                "scoin_bonus": 56,
+                "description": "",
+                "image": "/images/cannons/season2/IcyHotCannon.png"
+            },
+            {
+                "hash": "Scorchcalibur",
                 "name": "Scorchcalibur",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 25000,
                 "scoin_bonus": 90,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season2/Scorchcalibur.png"
             },
         ]
     },
-    "season_3": {
+    "S3": {
         "name": "Season 3",
         "release_date": 1707850800,
         "twas": "1707850800",
         "pass_price": 2500,
         "cannons": [
             {
-                "id": "",
+                "hash": "WickedImplement",
                 "name": "Tool of Evil",
-                "alt_name": "Wicked Implement",
+                "alt_name": "Wicked Implement, this_thing_is_still_really_ugly",
                 "author": "GerbSnail",
                 "cost": 0,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/WickedImplement.png"
             },
             {
-                "id": "",
+                "hash": "Duality",
                 "name": "Calus' Nightmare",
                 "alt_name": "Duality",
                 "author": "GerbSnail",
                 "cost": 400,
                 "scoin_bonus": 5,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/Duality.png"
             },
             {
-                "id": "",
+                "hash": "Dawn",
                 "name": "Paradoxical Flame",
                 "alt_name": "Dawn",
                 "author": "GerbSnail",
                 "cost": 550,
                 "scoin_bonus": 6,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/Dawn.png"
             },
             {
-                "id": "53bfb800-ba99-40e9-9838-7fce016ab5f2",
+                "hash": "CurseofOsiris",
                 "name": "Scorched Calamity 12",
                 "alt_name": "Curse of Osiris",
                 "author": "GerbSnail",
@@ -477,17 +487,17 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/Curse_of_Osiris.png"
             },
             {
-                "id": "",
+                "hash": "Navigator",
                 "name": "The GPS",
                 "alt_name": "Navigator",
                 "author": "GerbSnail",
                 "cost": 1000,
                 "scoin_bonus": 10,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/Navigator.png"
             },
             {
-                "id": "42ea3e2a-ed8f-4030-9122-c4ef310f1cbb",
+                "hash": "Lorentz",
                 "name": "EM Cannon",
                 "alt_name": "Lorentz",
                 "author": "uniQ",
@@ -497,7 +507,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/Lorentz.png"
             },
             {
-                "id": "ccbba7a7-c588-439a-b324-f72b135b6ec5",
+                "hash": "Cannon?",
                 "name": "Cannon?",
                 "alt_name": "",
                 "author": "GerbSnail",
@@ -507,27 +517,27 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/cannon.png"
             },
             {
-                "id": "",
+                "hash": "Leviathan",
                 "name": "Burning Opulence",
                 "alt_name": "Leviathan",
                 "author": "GerbSnail",
                 "cost": 1600,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/Leviathan.png"
             },
             {
-                "id": "",
+                "hash": "LastWish",
                 "name": "Wishful Cannon",
                 "alt_name": "LastWish",
                 "author": "GerbSnail",
                 "cost": 1900,
                 "scoin_bonus": 23,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/LastWish.png"
             },
             {
-                "id": "beccd689-c783-468e-bb5b-b20c82361013",
+                "hash": "BlackArmory",
                 "name": "Ada's Retirement Plan",
                 "alt_name": "Black Armory",
                 "author": "GerbSnail",
@@ -537,64 +547,64 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/BlackArmory.png"
             },
             {
-                "id": "",
+                "hash": "GOS",
                 "name": "Sanctified Cannon",
                 "alt_name": "GOS",
                 "author": "GerbSnail",
                 "cost": 2500,
                 "scoin_bonus": 36,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/GOS.png"
             },
             {
-                "id": "",
+                "hash": "DSC",
                 "name": "STATUS: INFERNO",
                 "alt_name": "DSC",
                 "author": "GerbSnail",
                 "cost": 3000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/DSC.png"
             },
             {
-                "id": "",
+                "hash": "Vow",
                 "name": "Lubrae's Resolution",
                 "alt_name": "Vow",
                 "author": "GerbSnail",
                 "cost": 3500,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/Vow.png"
             },
             {
-                "id": "",
+                "hash": "Tesselation",
                 "name": "Refraction",
                 "alt_name": "Tesselation",
                 "author": "GerbSnail",
                 "cost": 4000,
                 "scoin_bonus": 70,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/Tesselation.png"
             },
             {
-                "id": "",
+                "hash": "Nine",
                 "name": "Fire of the Future",
                 "alt_name": "Nine",
                 "author": "GerbSnail",
                 "cost": 5000,
                 "scoin_bonus": 90,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/Nine.png"
             },
             {
-                "id": "",
+                "hash": "SimpleProp",
                 "name": "■■■.Name = String::new(\"placeholder\");",
                 "alt_name": "SimpleProp",
                 "author": "GerbSnail",
                 "cost": 999999,
                 "scoin_bonus": 100,
                 "description": "",
-                "image": ""
+                "image": "/images/cannons/season3/SimpleProp.png"
             },
         ]
     },
@@ -605,34 +615,34 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
         "pass_price": 0,
         "cannons": [
             {
-                "id": "",
+                "hash": "CoriolisCannon",
                 "name": "10201",
                 "alt_name": "Coriolis Cannon",
                 "author": "GerbSnail",
                 "cost": Math.max(),
                 "scoin_bonus": 0,
                 "description": "This is Ecdragonz's Secret Cannon. More details about it can be found in the TWAS, but the gist is that this cannon appears in our DnD campaign and is wielded by an eldritch abomination (played by Zombie). It's made of mostly small parts of the Rasputin heavy frame model and other Rasputin assets, and its 'taken' looking corruption at the front reflects its corrupted power source. Its name ingame is the Scourge Cannon, if you were wondering.",
-                "image": ""
+                "image": "/images/cannons/special/CoriolisCannon.png"
             },
             {
-                "id": "ScornchedCannon",
+                "hash": "ScornchedCannon",
                 "name": "Scornched Cannon",
                 "alt_name": "Cob Cannon",
                 "author": "GerbSnail",
                 "cost": Math.max(),
                 "scoin_bonus": 0,
                 "description": "This is Zombie's Secret Cannon. It is one of the very first ever created, and its use is fairly outdated since we very rarely see anyone earning a multiple of seven anymore. Either way, I see it as a landmark and it plays into Zombie's love for corn so I think it's nice. Definitely on the list of ones to redo in the future though.",
-                "image": "/images/cannons/special/normal.png"
+                "image": "/images/cannons/special/ScornchedCannon.png"
             },
             {
-                "id": "",
+                "hash": "CoriolisCannon2",
                 "name": "18470",
-                "alt_name": "[PLACEHOLDER NAME]",
+                "alt_name": "[PLACEHOLDER NAME], Scourge_Cannon",
                 "author": "GerbSnail",
                 "cost": Math.max(),
                 "scoin_bonus": 0,
                 "description": "This is my secret cannon. Outside of Scorched and 3D art, I also have a love for going out of bounds and glitching Destiny as a whole. The Simple Prop at the center of the cannon is actually an asset that exists in Destiny, and it can be seen rarely in places such as out of box in the Dreadnaught and the Menagerie, and down below the final boss arena in the original Black Garden. This cannon represents all three of my Destiny-related passions in one neat little package.",
-                "image": ""
+                "image": "/images/cannons/special/CoriolisCannon2.png"
             },
         ]
     }
