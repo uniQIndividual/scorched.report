@@ -17,12 +17,9 @@ import { Radar } from "../components/profile/Summary";
 import { Activity } from "../components/profile/Experience";
 import { Performance } from "../components/profile/Performance";
 import MatchHistory from "../components/profile/MatchHistory";
-import PGCRLookup from "./PGCRLookup";
 import { CannonCollection } from "../components/profile/CannonCollection";
 import { CharacterInfo } from "../components/profile/CharacterInfo";
 
-import { profileinfo } from "../../public/data/mock/ProfileInfo";
-import { HistoricStats } from "../../public/data/mock/HistoricStats";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Maps } from "../components/profile/Maps";
 
@@ -561,9 +558,7 @@ const ReportLookup = () => {
                 text: error?.description?.toString()
               });
               console.error(error);
-              // TODO: remove this
-              return HistoricStats
-              //return []
+              return []
             }).then(async (response) => {
               try { // gonna keep trying and continue with 0 stats if anything fails
 

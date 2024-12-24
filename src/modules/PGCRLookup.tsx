@@ -5,8 +5,6 @@ import API from "../lib/api";
 import * as fzstd from 'fzstd';
 import update from 'immutability-helper';
 import LoadingAnimation from "../components/LoadingAnimation";
-import { type Scorcher } from "../lib/entities";
-import { testpgcr } from "../../public/data/mock/13821490368";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 
 const Wrapper = ({ item }) => {
