@@ -1,0 +1,18 @@
+---
+const { heading } = Astro.props;
+---
+
+<li class={heading.depth >= 2 ? "mt-1" : "mt-4"}>
+  <a href={`#${  heading.slug}`} class={heading.depth >= 2 ? "font-light" : ""}>
+    {heading.text}
+  </a>
+  {
+    heading.subheadings.length > 0 && (
+      <ul class="ml-6">
+        {heading.subheadings.map((subheading: any) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>

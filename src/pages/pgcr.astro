@@ -1,0 +1,8 @@
+---
+import LayoutSidebar from '../app/LayoutSidebar.astro';
+import PGCRLookup from '../modules/PGCRLookup.tsx';
+---
+
+<LayoutSidebar>
+	<PGCRLookup client:only="react" />
+</LayoutSidebar>

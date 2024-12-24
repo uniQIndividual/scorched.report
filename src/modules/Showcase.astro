@@ -1,0 +1,41 @@
+---
+/* eslint max-lines: 'off' */
+import SCORCHED_CANNONS from "../lib/cannons";
+import SeasonSection from "../components/SeasonSection.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+
+const headings: {
+	depth: number;
+	slug: string;
+	text: string;
+	subheadings: never[];
+}[] = [];
+
+Object.keys(SCORCHED_CANNONS).map((key) =>
+	headings.push({
+		depth: 1,
+		slug: SCORCHED_CANNONS[key].name
+			.toLowerCase()
+			.replaceAll(" ", "-")
+			.replaceAll(/[^\w-_]/gm, ""),
+		text: SCORCHED_CANNONS[key].name,
+		subheadings: [],
+	})
+);
+---
+
+<TableOfContents headings={headings} />
+<div
+	class="lg:w-[calc(100vw-400px)] dark:bg-gray-900"
+>
+	<div class="m-4">
+		<div class="text-gray-900 dark:text-gray-100 text-5xl m-4">Scorched Cannon Showcase</div>
+	</div>
+	<div class="">
+		{
+			Object.keys(SCORCHED_CANNONS).map((key) => (
+				<SeasonSection season={SCORCHED_CANNONS[`${key}`]} />
+			))
+		}
+	</div>
+</div>

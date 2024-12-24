@@ -1,0 +1,12 @@
+---
+// eslint-disable-next-line import/no-unresolved
+import { getEntry } from 'astro:content';
+import LayoutSidebar from '../../app/LayoutSidebar.astro';
+
+const entry = await getEntry('twas', '1682913600');
+const { Content } = await entry.render();
+---
+
+<LayoutSidebar>
+	    <Content />
+</LayoutSidebar>

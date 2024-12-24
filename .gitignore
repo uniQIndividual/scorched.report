@@ -26,6 +26,7 @@ pnpm-debug.log*
 
 # test data
 public/images/potential
+public/images/cannons/staging
 public/data/mock
 
 # additional tools

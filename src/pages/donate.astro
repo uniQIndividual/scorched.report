@@ -1,0 +1,16 @@
+---
+// eslint-disable-next-line import/no-unresolved
+import { getEntry } from 'astro:content';
+import LayoutSidebar from '../app/LayoutSidebar.astro';
+import MarkdownWrapper from '../app/MarkdownWrapper.astro';
+
+
+const entry = await getEntry('pages', 'donate');
+const { Content } = await entry.render();
+---
+
+<LayoutSidebar>
+    <MarkdownWrapper>
+	    <Content />
+    </MarkdownWrapper>
+</LayoutSidebar>

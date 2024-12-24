@@ -1,0 +1,30 @@
+---
+import TableOfContents from "../components/TableOfContents.astro";
+
+const { frontmatter, headings } = Astro.props;
+
+let newSlug = "";
+if (frontmatter && frontmatter.title) {
+    newSlug = frontmatter.title.toLowerCase().replaceAll(" ","-").replaceAll(/[^\w-_]/gm,"");
+    headings.unshift({depth: 1, slug: newSlug, text: frontmatter.title})
+}
+---
+
+<TableOfContents headings={headings} />
+<div class="flex justify-center">
+<div
+	class="prose dark:prose-invert
+    prose-h1:font-bold prose-h1:text-xxl
+    prose-a:dark:text-gray-100 prose-p:text-justify prose-img:rounded-xl
+    prose-h1-dark:text-gray-50 dark:text-gray-300 mt-12 mb-4 xl:mr-56"
+>
+	<div class="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl 3xl:max-w-3xl">
+		{frontmatter && frontmatter.title && frontmatter.author ? 
+        <h1 class="mb-0" id={newSlug}>{frontmatter.title}</h1> 
+        <span class="font-extralight italic">by</span> 
+        <span class="font-extralight italic">{frontmatter.author}</span> : 
+        ""}
+		<slot />
+	</div>
+</div>
+</div>

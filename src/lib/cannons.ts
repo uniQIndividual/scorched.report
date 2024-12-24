@@ -38,7 +38,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 100,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": "/images/cannons/season1/PistolCannon.png"
+                "image": "/images/cannons/season1/PistolCannon.webp"
             },
             {
                 "hash": "ShrapnelCannon",
@@ -48,7 +48,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 250,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": "/images/cannons/season1/ShrapnelCannon.png"
+                "image": "/images/cannons/season1/ShrapnelCannon.webp"
             },
             {
                 "hash": "ScrapCannon",
@@ -58,7 +58,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 500,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": "/images/cannons/season1/"
+                "image": "/images/cannons/season1/ScrapCannon.webp"
             },
             {
                 "hash": "BasicCannon",
@@ -68,7 +68,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1000,
                 "scoin_bonus": 2,
                 "description": "",
-                "image": "/images/cannons/season1/BasicCannon.png"
+                "image": "/images/cannons/season1/BasicCannon.webp"
             },
             {
                 "hash": "ArcCannon",
@@ -78,7 +78,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1250,
                 "scoin_bonus": 3,
                 "description": "",
-                "image": "/images/cannons/season1/ArcCannon.png"
+                "image": "/images/cannons/season1/ArcCannon.webp"
             },
             {
                 "hash": "VoidCannon",
@@ -88,7 +88,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1500,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": "/images/cannons/season1/VoidCannon.png"
+                "image": "/images/cannons/season1/VoidCannon.webp"
             },
             {
                 "hash": "StasisCannon",
@@ -98,7 +98,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 2000,
                 "scoin_bonus": 5,
                 "description": "",
-                "image": "/images/cannons/season1/StasisCannon.png"
+                "image": "/images/cannons/season1/StasisCannon.webp"
             },
             {
                 "hash": "Scorchality",
@@ -108,7 +108,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 2500,
                 "scoin_bonus": 6,
                 "description": "",
-                "image": "/images/cannons/season1/Scorchality.png"
+                "image": "/images/cannons/season1/Scorchality.webp"
             },
             {
                 "hash": "MIRVCannon",
@@ -118,7 +118,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3000,
                 "scoin_bonus": 7,
                 "description": "",
-                "image": "/images/cannons/season1/MIRVCannon.png"
+                "image": "/images/cannons/season1/MIRVCannon.webp"
             },
             {
                 "hash": "WaveCannon",
@@ -128,7 +128,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3500,
                 "scoin_bonus": 8,
                 "description": "",
-                "image": "/images/cannons/season1/WaveCannon.png"
+                "image": "/images/cannons/season1/WaveCannon.webp"
             },
             {
                 "hash": "ScorchBreaker",
@@ -138,7 +138,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 4000,
                 "scoin_bonus": 9,
                 "description": "",
-                "image": "/images/cannons/season1/ScorchBreaker.png"
+                "image": "/images/cannons/season1/ScorchBreaker.webp"
             },
             {
                 "hash": "ScorchBringer",
@@ -148,7 +148,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 4000,
                 "scoin_bonus": 10,
                 "description": "",
-                "image": "/images/cannons/season1/ScorchBringer.png"
+                "image": "/images/cannons/season1/ScorchBringer.webp"
             },
             {
                 "hash": "ScorchedSimulant",
@@ -158,7 +158,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 6000,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": "/images/cannons/season1/ScorchedSimulant.png"
+                "image": "/images/cannons/season1/ScorchedSimulant.webp"
             },
             {
                 "hash": "SaladinsCriticism",
@@ -168,7 +168,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 7000,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": "/images/cannons/season1/SaladinsCriticism.png"
+                "image": "/images/cannons/season1/SaladinsCriticism.webp"
             },
             {
                 "hash": "TrialsCannon",
@@ -178,7 +178,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 8000,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": "/images/cannons/season1/TrialsCannon.png"
+                "image": "/images/cannons/season1/TrialsCannon.webp"
             },
             {
                 "hash": "SaintsReverence",
@@ -188,7 +188,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 9000,
                 "scoin_bonus": 23,
                 "description": "",
-                "image": "/images/cannons/season1/SaintsReverence.png"
+                "image": "/images/cannons/season1/SaintsReverence.webp"
             },
             {
                 "hash": "ScorchingLion",
@@ -198,7 +198,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 10000,
                 "scoin_bonus": 29,
                 "description": "",
-                "image": "/images/cannons/season1/ScorchingLion.png"
+                "image": "/images/cannons/season1/ScorchingLion.webp"
             },
             {
                 "hash": "ScorchedLens",
@@ -208,7 +208,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 12500,
                 "scoin_bonus": 36,
                 "description": "",
-                "image": "/images/cannons/season1/ScorchedLens.png"
+                "image": "/images/cannons/season1/ScorchedLens.webp"
             },
             {
                 "hash": "MaliceCannon",
@@ -218,7 +218,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 15000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": "/images/cannons/season1/MaliceCannon.png"
+                "image": "/images/cannons/season1/MaliceCannon.webp"
             },
             {
                 "hash": "Gjallon",
@@ -228,7 +228,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 17500,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": "/images/cannons/season1/Gjallon.png"
+                "image": "/images/cannons/season1/Gjallon.webp"
             },
             {
                 "hash": "PolarisHalberd",
@@ -238,7 +238,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 20000,
                 "scoin_bonus": 70,
                 "description": "",
-                "image": "/images/cannons/season1/PolarisHalberd.png"
+                "image": "/images/cannons/season1/PolarisHalberd.webp"
             },
             {
                 "hash": "FusorCannon",
@@ -248,7 +248,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 25000,
                 "scoin_bonus": 90,
                 "description": "",
-                "image": "/images/cannons/season1/FusorCannon.png"
+                "image": "/images/cannons/season1/FusorCannon.webp"
             },
             {
                 "hash": "TelestoCannon",
@@ -258,7 +258,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 999999,
                 "scoin_bonus": 100,
                 "description": "",
-                "image": "/images/cannons/season1/TelestoCannon.png"
+                "image": "/images/cannons/season1/TelestoCannon.webp"
             },
         ]
     },
@@ -276,7 +276,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1500,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": "/images/cannons/season2/ThreadboundCannon.png"
+                "image": "/images/cannons/season2/ThreadboundCannon.webp"
             },
             {
                 "hash": "WhisperingCannon",
@@ -286,7 +286,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 2000,
                 "scoin_bonus": 5,
                 "description": "",
-                "image": "/images/cannons/season2/WhisperingCannon.png"
+                "image": "/images/cannons/season2/WhisperingCannon.webp"
             },
             {
                 "hash": "HeirloomCannon",
@@ -296,7 +296,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 2500,
                 "scoin_bonus": 6,
                 "description": "",
-                "image": "/images/cannons/season2/HeirloomCannon.png"
+                "image": "/images/cannons/season2/HeirloomCannon.webp"
             },
             {
                 "hash": "NaniteCannon",
@@ -306,7 +306,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3000,
                 "scoin_bonus": 7,
                 "description": "",
-                "image": "/images/cannons/season2/NaniteCannon.png"
+                "image": "/images/cannons/season2/NaniteCannon.webp"
             },
             {
                 "hash": "CoolerNaniteCannon",
@@ -316,7 +316,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3500,
                 "scoin_bonus": 8,
                 "description": "",
-                "image": "/images/cannons/season2/CoolerNaniteCannon.png"
+                "image": "/images/cannons/season2/CoolerNaniteCannon.webp"
             },
             {
                 "hash": "TapedTravesty",
@@ -326,7 +326,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 4000,
                 "scoin_bonus": 9,
                 "description": "",
-                "image": "/images/cannons/season2/TapedTravesty.png"
+                "image": "/images/cannons/season2/TapedTravesty.webp"
             },
             {
                 "hash": "VexHeadCannon",
@@ -336,7 +336,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 5000,
                 "scoin_bonus": 10,
                 "description": "",
-                "image": "/images/cannons/season2/VexHeadCannon.png"
+                "image": "/images/cannons/season2/VexHeadCannon.webp"
             },
             {
                 "hash": "CerbCannon",
@@ -346,7 +346,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 6000,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": "/images/cannons/season2/CerbCannon.png"
+                "image": "/images/cannons/season2/CerbCannon.webp"
             },
             {
                 "hash": "DivCannon",
@@ -356,7 +356,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 7000,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": "/images/cannons/season2/DivCannon.png"
+                "image": "/images/cannons/season2/DivCannon.webp"
             },
             {
                 "hash": "RuthlessCannon",
@@ -366,7 +366,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 8000,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": "/images/cannons/season2/RuthlessCannon.png"
+                "image": "/images/cannons/season2/RuthlessCannon.webp"
             },
             {
                 "hash": "VulcanCannon",
@@ -376,7 +376,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 9000,
                 "scoin_bonus": 23,
                 "description": "",
-                "image": "/images/cannons/season2/VulcanCannon.png"
+                "image": "/images/cannons/season2/VulcanCannon.webp"
             },
             {
                 "hash": "WitherScorched",
@@ -386,7 +386,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 10000,
                 "scoin_bonus": 29,
                 "description": "",
-                "image": "/images/cannons/season2/WitherScorched.png"
+                "image": "/images/cannons/season2/WitherScorched.webp"
             },
             {
                 "hash": "ClosingAct",
@@ -396,7 +396,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 12500,
                 "scoin_bonus": 36,
                 "description": "",
-                "image": "/images/cannons/season2/ClosingAct.png"
+                "image": "/images/cannons/season2/ClosingAct.webp"
             },
             {
                 "hash": "NecroCannon",
@@ -406,7 +406,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 15000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": "/images/cannons/season2/NecroCannon.png"
+                "image": "/images/cannons/season2/NecroCannon.webp"
             },
             {
                 "hash": "CryoCannon",
@@ -416,7 +416,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 17500,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": "/images/cannons/season2/CryoCannon.png"
+                "image": "/images/cannons/season2/CryoCannon.webp"
             },
             {
                 "hash": "IcyHotCannon",
@@ -426,7 +426,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 20000,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": "/images/cannons/season2/IcyHotCannon.png"
+                "image": "/images/cannons/season2/IcyHotCannon.webp"
             },
             {
                 "hash": "Scorchcalibur",
@@ -436,7 +436,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 25000,
                 "scoin_bonus": 90,
                 "description": "",
-                "image": "/images/cannons/season2/Scorchcalibur.png"
+                "image": "/images/cannons/season2/Scorchcalibur.webp"
             },
         ]
     },
@@ -454,7 +454,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 0,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": "/images/cannons/season3/WickedImplement.png"
+                "image": "/images/cannons/season3/WickedImplement.webp"
             },
             {
                 "hash": "Duality",
@@ -464,7 +464,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 400,
                 "scoin_bonus": 5,
                 "description": "",
-                "image": "/images/cannons/season3/Duality.png"
+                "image": "/images/cannons/season3/Duality.webp"
             },
             {
                 "hash": "Dawn",
@@ -474,7 +474,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 550,
                 "scoin_bonus": 6,
                 "description": "",
-                "image": "/images/cannons/season3/Dawn.png"
+                "image": "/images/cannons/season3/Dawn.webp"
             },
             {
                 "hash": "CurseofOsiris",
@@ -484,7 +484,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 750,
                 "scoin_bonus": 8,
                 "description": "",
-                "image": "/images/cannons/season3/Curse_of_Osiris.png"
+                "image": "/images/cannons/season3/Curse_of_Osiris.webp"
             },
             {
                 "hash": "Navigator",
@@ -494,7 +494,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1000,
                 "scoin_bonus": 10,
                 "description": "",
-                "image": "/images/cannons/season3/Navigator.png"
+                "image": "/images/cannons/season3/Navigator.webp"
             },
             {
                 "hash": "Lorentz",
@@ -504,7 +504,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1200,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": "/images/cannons/season3/Lorentz.png"
+                "image": "/images/cannons/season3/Lorentz.webp"
             },
             {
                 "hash": "Cannon?",
@@ -514,7 +514,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1400,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": "/images/cannons/season3/cannon.png"
+                "image": "/images/cannons/season3/cannon.webp"
             },
             {
                 "hash": "Leviathan",
@@ -524,7 +524,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1600,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": "/images/cannons/season3/Leviathan.png"
+                "image": "/images/cannons/season3/Leviathan.webp"
             },
             {
                 "hash": "LastWish",
@@ -534,7 +534,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1900,
                 "scoin_bonus": 23,
                 "description": "",
-                "image": "/images/cannons/season3/LastWish.png"
+                "image": "/images/cannons/season3/LastWish.webp"
             },
             {
                 "hash": "BlackArmory",
@@ -544,7 +544,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 2200,
                 "scoin_bonus": 29,
                 "description": "",
-                "image": "/images/cannons/season3/BlackArmory.png"
+                "image": "/images/cannons/season3/BlackArmory.webp"
             },
             {
                 "hash": "GOS",
@@ -554,7 +554,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 2500,
                 "scoin_bonus": 36,
                 "description": "",
-                "image": "/images/cannons/season3/GOS.png"
+                "image": "/images/cannons/season3/GOS.webp"
             },
             {
                 "hash": "DSC",
@@ -564,7 +564,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": "/images/cannons/season3/DSC.png"
+                "image": "/images/cannons/season3/DSC.webp"
             },
             {
                 "hash": "Vow",
@@ -574,7 +574,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3500,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": "/images/cannons/season3/Vow.png"
+                "image": "/images/cannons/season3/Vow.webp"
             },
             {
                 "hash": "Tesselation",
@@ -584,7 +584,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 4000,
                 "scoin_bonus": 70,
                 "description": "",
-                "image": "/images/cannons/season3/Tesselation.png"
+                "image": "/images/cannons/season3/Tesselation.webp"
             },
             {
                 "hash": "Nine",
@@ -594,8 +594,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 5000,
                 "scoin_bonus": 90,
                 "description": "",
-                "image": "/images/cannons/season3/Nine.png"
-            },
+                "image": "/images/cannons/season3/Nine.webp"
+            },/*
             {
                 "hash": "SimpleProp",
                 "name": "■■■.Name = String::new(\"placeholder\");",
@@ -603,8 +603,18 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "author": "GerbSnail",
                 "cost": 999999,
                 "scoin_bonus": 100,
+                "description": "This is my secret cannon. Outside of Scorched and 3D art, I also have a love for going out of bounds and glitching Destiny as a whole. The Simple Prop at the center of the cannon is actually an asset that exists in Destiny, and it can be seen rarely in places such as out of box in the Dreadnaught and the Menagerie, and down below the final boss arena in the original Black Garden. This cannon represents all three of my Destiny-related passions in one neat little package.",
+                "image": "/images/cannons/season3/SimpleProp.webp"
+            },*/
+            {
+                "hash": "hidden",
+                "name": "[Classified]",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 999999,
+                "scoin_bonus": 100,
                 "description": "",
-                "image": "/images/cannons/season3/SimpleProp.png"
+                "image": "/images/cannons/hidden/hidden.webp"
             },
         ]
     },
@@ -619,30 +629,30 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "name": "10201",
                 "alt_name": "Coriolis Cannon",
                 "author": "GerbSnail",
-                "cost": Math.max(),
+                "cost": Math.min(),
                 "scoin_bonus": 0,
                 "description": "This is Ecdragonz's Secret Cannon. More details about it can be found in the TWAS, but the gist is that this cannon appears in our DnD campaign and is wielded by an eldritch abomination (played by Zombie). It's made of mostly small parts of the Rasputin heavy frame model and other Rasputin assets, and its 'taken' looking corruption at the front reflects its corrupted power source. Its name ingame is the Scourge Cannon, if you were wondering.",
-                "image": "/images/cannons/special/CoriolisCannon.png"
+                "image": "/images/cannons/special/CoriolisCannon.webp"
             },
             {
                 "hash": "ScornchedCannon",
                 "name": "Scornched Cannon",
                 "alt_name": "Cob Cannon",
                 "author": "GerbSnail",
-                "cost": Math.max(),
+                "cost": Math.min(),
                 "scoin_bonus": 0,
                 "description": "This is Zombie's Secret Cannon. It is one of the very first ever created, and its use is fairly outdated since we very rarely see anyone earning a multiple of seven anymore. Either way, I see it as a landmark and it plays into Zombie's love for corn so I think it's nice. Definitely on the list of ones to redo in the future though.",
-                "image": "/images/cannons/special/ScornchedCannon.png"
+                "image": "/images/cannons/special/ScornchedCannon.webp"
             },
             {
                 "hash": "CoriolisCannon2",
                 "name": "18470",
                 "alt_name": "[PLACEHOLDER NAME], Scourge_Cannon",
                 "author": "GerbSnail",
-                "cost": Math.max(),
+                "cost": Math.min(),
                 "scoin_bonus": 0,
-                "description": "This is my secret cannon. Outside of Scorched and 3D art, I also have a love for going out of bounds and glitching Destiny as a whole. The Simple Prop at the center of the cannon is actually an asset that exists in Destiny, and it can be seen rarely in places such as out of box in the Dreadnaught and the Menagerie, and down below the final boss arena in the original Black Garden. This cannon represents all three of my Destiny-related passions in one neat little package.",
-                "image": "/images/cannons/special/CoriolisCannon2.png"
+                "description": "",
+                "image": "/images/cannons/special/CoriolisCannon2.webp"
             },
         ]
     }

@@ -1,0 +1,9 @@
+---
+import LayoutSidebar from "../../app/LayoutSidebar.astro";
+import { MapScience } from "../../components/science/maps";
+---
+
+<LayoutSidebar>
+    <div class="text-6xl text-gray-100 flex justify-center mt-2 mb-10 font-semibold">Map Ranking</div>
+	<MapScience client:only="react" />
+</LayoutSidebar>

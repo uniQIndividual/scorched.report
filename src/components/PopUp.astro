@@ -1,0 +1,125 @@
+---
+const { timer, description, id, fullscreen } = Astro.props;
+
+if (!timer) {
+	throw new Error("Timer attribute is a must.");
+} else if (!description) {
+	throw new Error("description attribute is a must.");
+}
+---
+
+<pop-up
+	role="dialog"
+	aria-modal="false"
+	aria-label={description}
+	id={id}
+	data-message={timer}
+	class="IHNA-popup !m-0 hidden w-screen h-screen backdrop-blur-sm bg-opacity-20 bg-gray-900 top-0 left-0 z-[9999] fixed"
+>
+	<div
+		class=`popup-content bg-white dark:bg-gray-700
+     -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 
+      absolute isolate overflow-clip p-2 max-h-screen max-w-screen ${fullscreen ? "min-w-full" : "rounded-lg w-2/5"}`
+	>
+		<div class="popclose absolute right-3 top-3 left-auto z-10">
+			<button
+				aria-label="Close"
+				class="w-10 h-10 rounded-full relative shadow bg-gray-100 dark:bg-gray-600"
+			>
+				<span
+					class="w-5 h-1 bg-gray-800 dark:bg-gray-100 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-AtomicTangerine-900 rounded-full block rotate-45 absolute"
+				>
+				</span>
+				<span
+					class="w-5 h-1 bg-gray-800 dark:bg-gray-100 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-AtomicTangerine-900 rounded-full block -rotate-45 absolute"
+				>
+				</span>
+			</button>
+		</div>
+		<div class="m-2">
+			<slot />
+		</div>
+	</div>
+</pop-up>
+
+<script>
+	class PopUp extends HTMLElement {
+		constructor() {
+			super();
+			this.timer = this.getAttribute("data-message");
+
+			// Bind the event handlers once and store them
+			this.boundHandleOutsideClick = this.handleOutsideClick.bind(this);
+			this.boundHandleEscapeKey = this.handleEscapeKey.bind(this);
+			this.boundClosePop = this.closePop.bind(this);
+		}
+
+		connectedCallback() {
+			setTimeout(() => {
+				this.popUpClose = this.shadowRoot
+					? this.shadowRoot.querySelector(".popup-content > div > button")
+					: this.querySelector(":scope > .popup-content > div > button");
+
+				if (!this.popUpClose) {
+					console.error("Close button not found");
+					return;
+				}
+
+				// Use the bound function for the close button as well
+				this.popUpClose.addEventListener("click", this.boundClosePop);
+				//this.openPop();
+
+				// Add the event listeners using the bound handlers
+				this.addEventListener("click", this.boundHandleOutsideClick);
+				document.addEventListener("keydown", this.boundHandleEscapeKey);
+			}, this.timer * 1000);
+		}
+
+		disconnectedCallback() {
+			// Remove the event listeners using the bound handlers
+			if (this.popUpClose) {
+				this.popUpClose.removeEventListener("click", this.boundClosePop);
+			}
+			this.removeEventListener("click", this.boundHandleOutsideClick);
+			document.removeEventListener("keydown", this.boundHandleEscapeKey);
+
+			// If you have other cleanup tasks, add them here
+		}
+
+		handleOutsideClick(e) {
+			if (!this.querySelector(".popup-content").contains(e.target)) {
+				this.closePop();
+			}
+		}
+
+		handleEscapeKey(e) {
+			if (e.key === "Escape") {
+				this.closePop();
+			}
+		}
+
+		openPop() {
+			this.classList.remove("hidden");
+			this.classList.add("fade-in");
+			this.disableScroll();
+			this.setAttribute("aria-modal", true);
+		}
+
+		closePop() {
+			this.classList.add("hidden");
+			this.classList.remove("fade-in");
+			this.enableScroll();
+			this.setAttribute("aria-modal", false);
+		}
+
+		disableScroll() {
+			document.body.style.overflow = "hidden";
+		}
+
+		enableScroll() {
+			document.body.style.overflow = "";
+		}
+	}
+
+	customElements.define("pop-up", PopUp);
+</script>

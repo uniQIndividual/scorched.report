@@ -1,0 +1,394 @@
+export type Cannons = {
+	"hash": string;
+	"kills": number;
+	"masterworkExtraScoins": number;
+	"masterworkAmount": number;
+}
+
+
+export type matchTableEntry = { // The full match representation used for displaying
+	"id": number,
+	"elo": number,
+	"date": number,
+	"kills": number,
+	"deaths": number,
+	"assists": number,
+	"medals": {
+		"iMadeThisForYou": boolean,
+		"weRan": boolean,
+		"crownTaker": boolean,
+		"seventhColumn": boolean,
+		"annihilation": boolean,
+		"ghost": boolean,
+		"undefeated": boolean,
+		"mostDamage": boolean,
+	},
+	"team": boolean,
+	"map": string,
+	"won": boolean,
+	"win_chance": number,
+	"kd": number,
+    "time": number,
+	"kpm": number,
+	"efficiency": number
+}
+
+export type pgcrCutDown = { // The smaller match representation for storing
+	"id": number,
+	"elo": number,
+	"date": number,
+	"kills": number,
+	"deaths": number,
+	"assists": number,
+	"medals": {
+		"iMadeThisForYou": boolean,
+		"weRan": boolean,
+		"crownTaker": boolean,
+		"seventhColumn": boolean,
+		"annihilation": boolean,
+		"ghost": boolean,
+		"undefeated": boolean,
+		"mostDamage": boolean,
+	},
+	"team": boolean,
+	"map": string,
+	"won": boolean,
+	"win_chance": number,
+    "time": number,
+}
+
+export type historicStatsPerCharacter = {
+	"activitiesEntered": number,
+	"activitiesWon": number,
+	"assists": number,
+	"totalKillDistance": number,
+	"kills": number,
+	"secondsPlayed": number,
+	"deaths": number,
+	"averageLifespan": number,
+	"score": number,
+	"bestSingleGameKills": number,
+	"bestSingleGameScore": number,
+	"opponentsDefeated": number,
+	"precisionKills": number,
+	"objectivesCompleted": number,
+	"resurrectionsPerformed": number,
+	"resurrectionsReceived": number,
+	"suicides": number,
+	"winLossRatio": number,
+	"allParticipantsCount": number,
+	"allParticipantsScore": number,
+	"allParticipantsTimePlayed": number,
+	"longestKillSpree": number,
+	"longestKillSpreeMatch": number,
+	"longestSingleLife": number,
+	"orbsDropped": number,
+	"orbsGathered": number,
+	"remainingTimeAfterQuitSeconds": number,
+	"teamScore": number,
+	"totalActivityDurationSeconds": number,
+	"combatRating": number,
+	"fastestCompletionMs": number,
+	"longestKillDistance": number,
+	"fireTeamActivities": number,
+	"weaponKills": {
+		"weaponKillsRelic": number,
+		"weaponKillsAutoRifle": number,
+		"weaponKillsBeamRifle": number,
+		"weaponKillsBow": number,
+		"weaponKillsGlaive": number,
+		"weaponKillsFusionRifle": number,
+		"weaponKillsHandCannon": number,
+		"weaponKillsTraceRifle": number,
+		"weaponKillsMachineGun": number,
+		"weaponKillsPulseRifle": number,
+		"weaponKillsRocketLauncher": number,
+		"weaponKillsScoutRifle": number,
+		"weaponKillsShotgun": number,
+		"weaponKillsSniper": number,
+		"weaponKillsSubmachinegun": number,
+		"weaponKillsSideArm": number,
+		"weaponKillsSword": number,
+		"weaponKillsAbility": number,
+		"weaponKillsGrenade": number,
+		"weaponKillsGrenadeLauncher": number,
+		"weaponKillsSuper": number,
+		"weaponKillsMelee": number,
+	},
+	"medals": {
+		"total": number,
+		"totalGold": number,
+		"iMadeThisForYou": number,
+		"weRan": number,
+		"crownTaker": number,
+		"seventhColumn": number,
+		"annihilation": number,
+		"undefeated": number,
+		"ghost": number,
+		"mostDamage": number,
+	},
+}
+
+export const medalsBungie = {
+	"iMadeThisForYou": {
+		"text": "I Made This for You",
+		"description": "In a single life, defeat 50 opposing Guardians.",
+		"src": "/images/icons/medals/iMadeThisForYou.png"
+	},
+	"weRan": {
+		"text": "We Ran Out of Medals",
+		"description": "In a single life, defeat 20 opposing Guardians.",
+		"src": "/images/icons/medals/weRan.png"
+	},
+	"crownTaker": {
+		"text": "The Crown Is Mine",
+		"description": "Defeat an opponent who is on a streak of 20 or more.\n(This medal is bugged because Bungie's API does not mention if you received one)",
+		"src": "/images/icons/medals/crownTaker.png"
+	},
+	"seventhColumn": {
+		"text": "Seventh Column",
+		"description": "Rapidly defeat 7 opposing Guardians. ",
+		"src": "/images/icons/medals/seventhColumn.png"
+	},
+	"annihilation": {
+		"text": "Annihilation",
+		"description": "Land final blows on the entire enemy team before any of them respawn.",
+		"src": "/images/icons/medals/annihilation.png"
+	},
+	"ghost": {
+		"text": "Ghost in the Night",
+		"description": "Land final blows on seven opponents without taking any damage from any source.",
+		"src": "/images/icons/medals/ghost.png"
+	},
+	"undefeated": {
+		"text": "Undefeated",
+		"description": "Complete a match in which you are never defeated by an opponent.",
+		"src": "/images/icons/medals/undefeated.png"
+	},
+	"mostDamage": {
+		"text": "Fight Me!",
+		"description": "Deal the most total damage to opponents in a single match.",
+		"src": "/images/icons/medals/mostDamage.png"
+	},
+}
+
+export const awards = {
+	"contributor": {
+		"description": "Awarded for great contributions to Scorched Report",
+		"text": "Scorched Report contributor",
+		"src": "/images/icons/awards/Crossed_Cannons_smaller.png",
+		"glow": "shadow-awardGlow"
+	},
+	"seMember": {
+		"description": "Awarded for being a Scorched Enthusiasts",
+		"text": "Putting the fun in Team Scorched",
+		"src": "/images/icons/awards/test2_1.png",
+		"glow": ""
+	},
+	"seFriend": {
+		"description": "Awarded to friends of SE",
+		"text": "Friend of SE",
+		"src": "/images/icons/awards/Crossed_Cannons_gold_smaller.png",
+		"glow": ""
+	},
+	"seEnemy": {
+		"description": "Awarded to special enemies of SE (This a satirical award not to be taken seriously)",
+		"text": "Enemy of SE",
+		"src": "/images/icons/awards/Crossed_Cannons_gold_smaller.png",
+		"glow": "shadow-awardGlowRed"
+	},
+	"streak50": {
+		"description": "Awarded for getting an \"I made this for you\" medal by reaching a 50 streak",
+		"text": "I also made this for you",
+		"src": "/images/icons/awards/Crossed_Cannons_gold_smaller.png",
+		"glow": "shadow-awardGlow"
+	},
+	"streak2x20": {
+		"description": "Awarded for getting two \"We ran out of medals\" within a single match",
+		"text": "Streaks on streaks",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": "shadow-awardGlow"
+	},
+	"streak20": {
+		"description": "Awarded for getting a \"We ran out of medals\" medal by reaching a 20 streak",
+		"text": "You ran and succeeded",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"kills50": {
+		"description": "Awarded for reaching 50 kills in a single match",
+		"text": "The reason the queue is currently empty",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": "shadow-awardGlow"
+	},
+	"kills40": {
+		"description": "Awarded for reaching 40 kills in a single match",
+		"text": "A force to be reckoned with",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"kills30": {
+		"description": "Awarded for reaching 30 kills in a single match",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"total100k": {
+		"description": "Awarded for reaching 100 000 kills in Team Scorched",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": "shadow-awardGlow"
+	},
+	"total75k": {
+		"description": "Awarded for reaching 75 000 kills in Team Scorched",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"total50k": {
+		"description": "Awarded for reaching 50 000 kills in Team Scorched",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"total25k": {
+		"description": "Awarded for reaching 25 000 kills in Team Scorched",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"total10k": {
+		"description": "Awarded for reaching 10 000 kills in Team Scorched",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"total5k": {
+		"description": "Awarded for reaching 5 000 kills in Team Scorched",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"total1k": {
+		"description": "Awarded for reaching 1 000 kills in Team Scorched",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"medalSeventh": {
+		"description": "Awarded for getting at least one seventh column",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"armyOfOne": {
+		"description": "Awarded for getting more kills than all teammates and enemies combined",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": "shadow-awardGlow"
+	},
+	"carryPartner": {
+		"description": "",
+		"text": "",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+	"specialKills": {
+		"description": "Wait, that's illegal!",
+		"text": "Awarded for getting a kill with something that isn't a Scorched Cannon",
+		"src": "/images/icons/awards/test1_1.png",
+		"glow": ""
+	},
+}
+
+export type Scorcher = {
+	"id": string, // Let's only convert this to BigInt when necessary
+	"platform": number, // Let's only convert this to BigInt when necessary
+	"profile": {
+		"profileName": string,
+		"clanName": string,
+		"bannerUrl": string,
+		"lightLevel": number,
+		"guardianrank": number, // lol
+		"privacy": number
+	},
+	"characters": { [key: string]: any }, // Idk let's just paste whatever Bungie returns in here
+	"awards": {
+		"contributor": Boolean,
+		"seMember": Boolean,
+		"seFriend": Boolean,
+		"seEnemy": Boolean,
+		"streak50": Boolean,
+		"streak2x20": Boolean,
+		"streak20": Boolean,
+		"kills50": Boolean,
+		"kills40": Boolean,
+		"kills30": Boolean,
+		"total100k": Boolean,
+		"total75k": Boolean,
+		"total50k": Boolean,
+		"total25k": Boolean,
+		"total10k": Boolean,
+		"total5k": Boolean,
+		"total1k": Boolean,
+		"medalSeventh": Boolean,
+		"armyOfOne": Boolean,
+		"carryPartner": Boolean,
+	},
+	"performance": { // These are redundant when Bungie's api is up, otherwise is calculated from backups
+		"trueSkill": number,
+		"matches": number,
+		"wins": number,
+		"losses": number,
+		"kills": number,
+		"deaths": number,
+		"assists": number,
+		"timeSpent": number,
+		"fastestWin": number,
+	},
+	"soloPerformance": {
+		"trueSkill": number,
+		"matches": number,
+		"wins": number,
+		"losses": number,
+		"kills": number,
+		"deaths": number,
+		"assists": number,
+		"timeSpent": number,
+	},
+	"specials": {
+		"abilities": number,
+		"melee": number,
+		"grenade": number,
+		"super": number,
+	},
+	"minigame": {
+		"completedTutorial": Boolean,
+		"scoins": number,
+		"selectedSeason": string,
+		"equippedCannons": {},
+		"ownedCannons": {},
+		"coinBonus": number,
+		"currentLevel": number,
+		"ownedSeasons": Cannons[],
+		"completedSeasons": []
+	},
+	"crucible": {
+		"matches": number,
+		"kills": number
+	},
+	"bungieHistoricAccountStats": historicStatsPerCharacter, // Holds the data we can only get from Bungie's api
+	"bungieHistoricStats": { [key: string]: historicStatsPerCharacter },
+	"matchHistory": {
+		[key: string]: pgcrCutDown
+	}
+}
+
+export type DestinyActivityDefinitionType = {
+	[key: string]: {
+		"description": string,
+		"name": string,
+		"pgcrImage": string
+	}
+}
+

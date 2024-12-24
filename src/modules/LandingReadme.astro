@@ -1,0 +1,222 @@
+---
+import { IsScorchedLive } from "../components/IsScorchedLive";
+import Search from "../components/UserSearch";
+const activities = [
+	{
+		name: "Scorched Report Launch",
+		date: "December 2024",
+		text: "Scorched Report launched on December 24 as a gift to the wonderful Team Scorched community",
+		link: "",
+		link_text: "Read TWAS",
+		image: "",
+	},
+	{
+		name: "uniQ hits 100 000 kills",
+		date: "December 2024",
+		text: "The third place for hitting 100k kills in Team Scorched goes to uniQ.",
+		link: "",
+		link_text: "Read TWAS",
+		image: "",
+	},
+	{
+		name: "Hiraeth hits 100 000 kills",
+		date: "July 2024",
+		text: "Hiraeth joins TheZombieReborn 	as the second person to ever achieve more than 100 000 kills in Team Scorched.",
+		link: "",
+		link_text: "Read TWAS",
+		image: "hiraeth_100k_720p.webp",
+	},
+	{
+		name: "This Week at Scorched: 2/13/24",
+		date: "February 2024",
+		text: "Howdy Howdy my favorite pyro psychos! Last time we wrote one of these we had a whole new wave of cannons upon us with the launch of Scorched Bot Season 2!",
+		link: "/twas/1707850800",
+		link_text: "Read TWAS",
+		image: "",
+	},
+	{
+		name: 'SE looks back onto 2023',
+		date: "December 2023",
+		text: "With 2023 coming to a close, Scorched Enthusiasts celebrates a happy past year.",
+		link: "",
+		link_text: "",
+		image: "SE_2023_final.webp",
+	},
+	{
+		name: 'First "I made this for you" medal in Team Scorched',
+		date: "October 2023",
+		text: "NAZE HAS FUCKING DONE IT. THEY HAVE GOTTEN THE GLORIOUS MEDAL. THE DEED HAS FINALLY BEEN DONE.\nJust a shame the last kill was after the Victory message	 so it'll never show up in the API.",
+		link: "",
+		link_text: "",
+		image: "imadethisforyou.webp",
+	},
+	{
+		name: "100 000 kills barrier broken by TheZombieReborn",
+		date: "July 2023",
+		text: "TheZombieReborn becomes the first person to hit 100 000 kills in Team Scorched.",
+		link: "",
+		link_text: "Read TWAS",
+		image: "zombie_100k.webp",
+	},
+	{
+		name: "Vex outraged over Bungie's party rotation changes",
+		date: "March 2023",
+		text: "A large Vex army lead by the infamous Vex leader Sir Mac O Cheez has been spotted in the Black Garden. According to our sources they're looking to negotiate better rotation times for party game modes after Team Scorched is no longer available every 3 weeks.",
+		link: "",
+		link_text: "",
+		image: "macnvex.webp",
+	},
+	{
+		name: "Founding of Scorched Enthusiasts",
+		date: "December 2022",
+		text: "We are a people with a dream: to bring upon the world the divine balance of the most chaotic of game modes. We aim to take no prisoners in this world, but in our dedication to Scorched we shall strike furious anger upon our adversaries and never bend to any pressure. All that may oppose us shall be consigned to our flames. We humbly ask in return is your absolute allegiance to the most glorious and most highly favored of game modes. We seek your commitment to this struggle and all strife we endure in the future. We are the largest group of Scorched Enthusiasts from the group we graciously call the Scorched Realm. Our fire shall never fade.",
+		link: "https://www.bungie.net/en/ClanV2?groupid=4983002",
+		link_text: "Bungie Clan",
+		image: "",
+	},
+	{
+		name: "This Week at Scorched: 5/1/22",
+		date: "May 2022",
+		text: "Welcome back Pyros & Maniacs, today we’ve been cooking up something behind the scenes. I’ll cut to the chase here for you. As I’m sure you’re aware a lovely new batch of cannons has been cooking up, but what could this possibly mean?",
+		link: "/twas/1682913600",
+		link_text: "Read TWAS",
+		image: "",
+	},
+	{
+		name: "Release of Team Scorched",
+		date: "February 2023",
+		text: "Team up. Burn 'em down. 🔥\n Team Scorched is now LIVE in Crucible Labs.",
+		link: "https://x.com/bungie/status/1033042981572423680",
+		link_text: "Original Announcement",
+		image: "",
+	},
+];
+---
+
+<div class="">
+	<header
+		class="p-8 flex justify-center items-center flex-wrap flex-col w-full mt-16"
+	>
+		<span
+			class="text-4xl sm:text-5xl flex justify-center 2xl:text-8xl font- bg-clip-text bg-center font-bungo font-black text-transparent bg-cover bg-[url('/images/potential/Scorched_Gif.gif')]"
+			>SCORCHED.REPORT</span
+		>
+		<p
+			class="text-3xl mt-10 dark:text-gray-200 text-gray-600 font-extralight leading-tight"
+		>
+			The home of everything Team Scorched
+		</p>
+		<p class="my-10">
+			<IsScorchedLive client:only="react" />
+		</p>
+		<div class="my-10">
+			<Search client:only="react" />
+		</div>
+
+		<div class="p-4 mb-4 rounded-lg shadow-sm sm:p-6 xl:mb-0">
+			<div class="flex items-center justify-between mb-4">
+				<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+					Latest Activity
+				</h3>
+			</div>
+			<ol class="relative border-l border-gray-200 dark:border-gray-700">
+				{
+					activities.map((activity) => {
+						return (
+							<li class="mb-10 ml-4  max-w-[500px]">
+								<div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700"></div>
+								<time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+									{activity.date}
+								</time>
+								<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+									{activity.name}
+								</h3>
+								<p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+									{activity.text}
+								</p>
+								{activity.image == "" ? "" :<img src={"/images/news/" + activity.image} />}
+								{activity.link == "" ? (
+									""
+								) : (
+									<a
+										href={activity.link}
+										class="inline-flex items-center text-xs font-medium hover:underline text-primary-700 sm:text-sm dark:text-primary-500"
+									>
+										{activity.link_text}{" "}
+										<svg
+											class="w-3 h-3 ml-2"
+											fill="currentColor"
+											viewBox="0 0 20 20"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"></path>
+										</svg>
+									</a>
+								)}
+							</li>
+						);
+					})
+				}
+			</ol>
+		</div>
+
+		{
+			/* 
+		<div class="flex justify-center w-full">
+			<img
+				src={"images/shaxx_logo_smaller.png"}
+				class="h-64 w-64 mask-radial mask-from-100 mask-via-[0.75] mask-to-0"
+			/>
+		</div>
+	</header>
+	<div class="dark:text-gray-300 text-2xl font-thin justify-center flex">from https://dev.to/cruip_com/create-an-infinite-horizontal-scroll-animation-with-tailwind-css-2ck 
+		<div
+			class="w-[70%] inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]"
+		>
+			<ul
+				class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll whitespace-nowrap"
+			>
+				<li>
+					“That’s one of the game modes they actually did a good job with” -
+					GoldExgle
+				</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+			</ul>
+			<ul
+				class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll whitespace-nowrap"
+				aria-hidden="true"
+			>
+				<li>
+					“That’s one of the game modes they actually did a good job with” -
+					GoldExgle
+				</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+				<li>Something</li>
+			</ul>
+		</div>
+	</div>*/
+		}
+
+	<style>
+		/* Override in Markdown H1 title */
+		.readme :global(h1:nth-of-type(2)) {
+			display: none;
+		}
+
+		.svg-inline :global(svg) {
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+</div>

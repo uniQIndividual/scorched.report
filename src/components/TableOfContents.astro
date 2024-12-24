@@ -1,0 +1,46 @@
+---
+import TableOfContentsHeading from "./TableOfContentsHeading.astro";
+
+const { headings } = Astro.props;
+
+function buildToc(headingsArray: any[]) {
+	let toBuildToc: any[] = [];
+	const parentHeadings = new Map();
+
+	if (headingsArray) {
+		headingsArray.forEach((h: any) => {
+			const heading = { ...h, subheadings: [] };
+			parentHeadings.set(heading.depth, heading);
+			if (heading.depth === 1) {
+				toBuildToc.push(heading);
+			} else {
+				parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+			}
+		});
+	}
+    if (toBuildToc.length === 1) {
+        toBuildToc = toBuildToc[0].subheadings;
+        toBuildToc.forEach((h :any)=>{
+            // eslint-disable-next-line no-param-reassign
+            h.depth -= 1;
+        })
+    }
+	return toBuildToc;
+}
+
+const toc = buildToc(headings);
+---
+
+{
+	toc.length > 0 ? (
+		<nav class="invisible xl:visible fixed right-4 top-20 text-gray-800 dark:text-gray-200 p-4 rounded-lg leading-loose font-semibold text-base backdrop-blur-sm">
+			<ul>
+				{toc.map((heading) => (
+					<TableOfContentsHeading heading={heading} />
+				))}
+			</ul>
+		</nav>
+	) : (
+		""
+	)
+}
