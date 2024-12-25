@@ -319,6 +319,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
 
                 } catch (error) {
+                    console.log(error);
+                    
                     triggerCrash({
                         title: 'Data parsing failed',
                         text: error!.toString()

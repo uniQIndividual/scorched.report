@@ -78,7 +78,7 @@ export const Profile = (stats: Scorcher) => {
         </div>`};
 
         // use default cannon if necessary
-    const noCannon = stats.minigame.selectedSeason == "";
+    const noCannon = stats.minigame.selectedSeason == "" || stats.minigame.equippedCannons[stats.minigame.selectedSeaso] == undefined;
     const equippedSeason = noCannon ? "S1" : stats.minigame.selectedSeason
     const equippedCannon = noCannon ? 3 : SCORCHED_CANNONS[equippedSeason]?.cannons.map((item, i) => {
         if (item.hash === stats.minigame.equippedCannons[equippedSeason].base_cannon_hash) return i;
