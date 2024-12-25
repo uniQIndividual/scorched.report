@@ -7,7 +7,7 @@ const API_KEY = (() => {
 	switch (location.origin) {
 		case "http://localhost:2121":
 			return "384cff14272c4367b83c334163831342"
-		case "https://scorched.report/":
+		case "https://scorched.report":
 			return "131362d4d4044f138120580ffabc8299"
 		case "https://uniQIndividual.github.io":
 			return "92420034656747a9ad26ea3d58e61281"
