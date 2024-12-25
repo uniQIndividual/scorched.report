@@ -240,7 +240,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                                 if (index >= 0 && matchHistory[index].elo != 0) {
 
-                                    if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value%2 == 0) {
+                                    if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value % 2 == 0) {
                                         newRenderInfo = update(newRenderInfo, { team1WinChance: { $set: matchHistory[index].win_chance } })
                                     }
 
@@ -254,7 +254,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                                 }
 
-                            } catch {
+                            } catch (error) {
+                                console.log(error);
 
                             }
                         });
@@ -273,8 +274,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
                             quit: entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value,
                             playtime: entry.values.timePlayedSeconds.basic.value
                         }
-                        
-                        if (Number(entry.values.team.basic.value)%2 == 0) { // Team 1
+
+                        if (Number(entry.values.team.basic.value) % 2 == 0) { // Team 1
                             if (newEntry.quit) {
                                 newRenderInfo.team_left_1.push(newEntry);
                             } else {
@@ -282,7 +283,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 newRenderInfo = update(newRenderInfo, { team1Score: { $set: entry.values.teamScore.basic.value } });
                             }
                         } else {
-                            if (Number(entry.values.team.basic.value)%2 == 1) { // Team2
+                            if (Number(entry.values.team.basic.value) % 2 == 1) { // Team2
                                 newRenderInfo.team2.push(newEntry);
                                 newRenderInfo = update(newRenderInfo, { team2Score: { $set: entry.values.teamScore.basic.value } });
                             } else {
@@ -298,7 +299,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                         // Update if we want a specific person's stats                        
                         if (!newRenderInfo.anonym && entry.player.destinyUserInfo.membershipId == membershipId) {
-                            newRenderInfo = update(newRenderInfo, { teamPreference: { $set: entry.values.team.basic.value%2 == 0 ? 0 : 1 } });
+                            newRenderInfo = update(newRenderInfo, { teamPreference: { $set: entry.values.team.basic.value % 2 == 0 ? 0 : 1 } });
                             newRenderInfo = update(newRenderInfo, { heading: { $set: entry.values.standing.basic.displayValue } })
                         }
 
@@ -584,14 +585,14 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                                 </td>
                                             </tr>
                                             {renderTeamList(renderInfo.team1)}
-                                            {renderInfo.team1.length + renderInfo.team_left_1.length <= 6 ? renderTeamList(renderInfo.team_left_1): ""}
+                                            {renderInfo.team1.length + renderInfo.team_left_1.length <= 6 ? renderTeamList(renderInfo.team_left_1) : ""}
                                             <tr className="h-4"> {/* empty space*/}
                                                 <td className="!border-0">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td className="!border-0 w-max align-bottom min-w-[220px]">
-                                                    {renderInfo.team2Score} Points {renderInfo.team1WinChance == 0 ? "" : <span className="text-lg font-thin">{((1 -renderInfo.team1WinChance) * 100).toPrecision(2) + "% Win Chance"}</span>}
+                                                    {renderInfo.team2Score} Points {renderInfo.team1WinChance == 0 ? "" : <span className="text-lg font-thin">{((1 - renderInfo.team1WinChance) * 100).toPrecision(2) + "% Win Chance"}</span>}
                                                 </td>
                                                 <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
                                                 </td>
@@ -645,7 +646,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                                 </td>
                                             </tr>
                                             {renderTeamList(renderInfo.team2)}
-                                            {renderInfo.team2.length + renderInfo.team_left_2.length <= 6 ? renderTeamList(renderInfo.team_left_2): ""}
+                                            {renderInfo.team2.length + renderInfo.team_left_2.length <= 6 ? renderTeamList(renderInfo.team_left_2) : ""}
                                         </tbody>
                                     </table>
                                     <table className="w-full">
