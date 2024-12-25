@@ -36,10 +36,11 @@ Just a couple notes for now
 - Bungie does not report the "the crown is mine medal" i.e. I have no idea how many you received. Or maybe I can't find it.
 - Some PGCRs are just broken in a way that messes with calculations, e.g. 4817214499, 4817311121, 4817752159, 4817909354, 4818017690, 4818075093, 4818102193, 4819219037, 4819294202, 4819416171, 4819512047, 4819797530, 4819995377
 
-
 ## How is Elo calculated?
 
-It currently uses a pure OpenSkill implementation. There are som important caveats to Team Scorched, but it shall suffice for now. I also can't implement weighting since [skillratings](https://github.com/atomflunder/skillratings/issues/12) does not currently support it. I might look more into implementing that when I have more time.
+It currently uses a pure OpenSkill implementation with a base rating of 1000 with an uncertainty of 1000/3 and a beta of 100. This might be too low and narrow, though we'd get even more escalating scores otherwise. There are some other important caveats to Team Scorched, in particular to estimating outcomes, but it shall suffice for now. I also can't implement weighting since [skillratings](https://github.com/atomflunder/skillratings/issues/12) does not currently support it. I might look more into implementing that when I have more time. Same is the case for score margins, etc.
+
+Also OpenSkill can never perfectly reflect "skill", it is a approximation of your relative win chances and the uncertainty of your rating. High win-ratios, K/D alone won't guarantee a good score. In the end this is meant as a entertaining, somewhat arbitrary comparison stat for you and an interesting statistical exercise for me.
 
 ## These colors seem off
 
