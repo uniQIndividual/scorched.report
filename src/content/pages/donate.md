@@ -15,3 +15,5 @@ If you want to donate your resources to scorched.report, I'd be very grateful fo
 
 - bungo-pgcr-15b
 - a way to supply me with PGCRs in somewhat regular intervals without me having to build my own crawlers
+- suggestions
+- bug smashing

@@ -203,8 +203,6 @@ export const LeaderboardExperience = () => {
         accessorKey: 'start_date',
         header: 'First Match',
         accessorFn(originalRow) {
-          console.log(originalRow.start_date);
-          
           return new Date(originalRow.start_date)
         },
         filterVariant: 'date-range' as const,
@@ -275,5 +273,6 @@ export const LeaderboardExperience = () => {
         <MantineReactTable table={table} />
       </MantineProvider>
     </div>
+    <div className="text-lg text-gray-400 flex justify-center mt-2 mb-40  font-light">Please play Team Scorched because it's fun, not because a number on a random website tells you to.</div>
   </div>) : "";
 }
