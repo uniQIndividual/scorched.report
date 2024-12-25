@@ -11,12 +11,9 @@ scorched.report is licensed under the MIT License found below. It is built upon 
 - Scorched Bot access and additional PGCRs by nblock
 - [Flowbite Astro Admin Dashboard](https://github.com/themesberg/flowbite-astro-admin-dashboard) under the MIT License
 - [Member Report](https://github.com/nwLSteam/member.report) by nwL
-- 
-- theme, data, icons
-- 
+
 Destiny and the Destiny logo are among the trademarks of Bungie, Inc.
 See Bungie’s [Terms of Use](https://www.bungie.net/7/en/legal/terms) for more info.
-
 
 MIT License
 

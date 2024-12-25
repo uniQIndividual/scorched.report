@@ -18,7 +18,8 @@ const { season } = Astro.props;
 		</span>
 
 		<div class="p-4 mt-4 text-gray-500 dark:text-gray-500">
-			Released on
+			{season.release_date == 0 ? <div></div> :
+			 <div>Released on
 			<div class="text-gray-800 dark:text-gray-200">
 				{
 					new Date(season.release_date * 1000).toLocaleString(undefined, {
@@ -31,9 +32,10 @@ const { season } = Astro.props;
 				}
 				<a
 					class="ml-1 text-primary-700 hover:text-gray-920 dark:hover:text-gray-50"
-					href={`/twas/${season?.twas}`}>Read TWAS</a
-				>
+					href={`/twas/${season?.twas}`}>Read TWAS</a>
 			</div>
+			</div>
+			}
 
 			<div class="mt-3">
 				Unlockable cannons
