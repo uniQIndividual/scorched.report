@@ -291,11 +291,11 @@ const ReportLookup = () => {
                 const data = response.data
 
 
-                newStats = update(newStats, { minigame: { selectedSeason: { $set: data.selected_season } } })
-                newStats = update(newStats, { minigame: { ownedSeasons: { $set: data.owned_seasons } } })
-                newStats = update(newStats, { minigame: { ownedCannons: { $set: data.owned_cannons } } })
-                newStats = update(newStats, { minigame: { equippedCannons: { $set: data.current_cannon } } })
-                newStats = update(newStats, { minigame: { scoins: { $set: data.scoins } } })
+                newStats = update(newStats, { minigame: { selectedSeason: { $set: data.selected_season || newStats.minigame.selectedSeason } } })
+                newStats = update(newStats, { minigame: { ownedSeasons: { $set: data.owned_seasons || newStats.minigame.ownedSeasons } } })
+                newStats = update(newStats, { minigame: { ownedCannons: { $set: data.owned_cannons || newStats.minigame.ownedCannons } } })
+                newStats = update(newStats, { minigame: { equippedCannons: { $set: data.current_cannon || newStats.minigame.equippedCannons } } })
+                newStats = update(newStats, { minigame: { scoins: { $set: data.scoins || newStats.minigame.scoins } } })
 
                 setStats(newStats)
               }
