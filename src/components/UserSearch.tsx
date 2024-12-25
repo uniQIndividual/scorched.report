@@ -175,7 +175,6 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 								to={`/report?id=${player.data.destinyMemberships[0].membershipId}&platform=${player.data.destinyMemberships[0].membershipType}`} />
 						})}
 						{this.state.bungiePlayers.map(player => {
-							console.log(player);
 
 							if (player.data.clan == null) {
 								return

@@ -76,7 +76,6 @@ export const LeaderboardPerformance = () => {
             const out = new TextDecoder().decode(fzstd.decompress(compressed));
 
             let json = JSON.parse(out);
-            console.log(Object.keys(json).length);
 
             for (let i = 0; i < Object.keys(json).length && i < 1000; i++) {
               const key = Object.keys(json)[i] || "";
@@ -102,14 +101,12 @@ export const LeaderboardPerformance = () => {
 
             })
 
-            console.log(oldData);
 
           }
         } catch {
 
         }
       });
-      console.log(oldData);
 
       /* const historyDB = new DatabaseMiddleware({
          databaseName: "PGCRHistory",
@@ -182,9 +179,6 @@ export const LeaderboardPerformance = () => {
           return 1;
         return 0;
       });
-      console.log("hi");
-
-      console.log(newData);
 
       setData(newData);
       triggerRender(true);
@@ -290,12 +284,20 @@ export const LeaderboardPerformance = () => {
     mantineTableContainerProps: {
       className: ""
     },
+    enableRowNumbers: true,
     //enableColumnResizing: true,
     enableExpandAll: false, // this could easily get you rate limited I'd assume
     enableFullScreenToggle: false, // ik I'm incredibly sad as well, but it breaks too many things
-    initialState: { density: 'xs' }
+    initialState: {
+      density: 'xs',
+      sorting: [
+        {
+            id: 'elo',
+            desc: true
+        }
+    ]
+     }
   });
-  console.log("render");
 
   return render ? (<div className=''>
     <div className="text-gray-100 flex justify-center mb-10 mt-20">
@@ -307,6 +309,6 @@ export const LeaderboardPerformance = () => {
         <MantineReactTable table={table} />
       </MantineProvider>
     </div>
-    <div className="text-lg text-gray-400 flex justify-center mt-2 mb-40  font-semibold">You can update the leaderboards by viewing someone's profile</div>
+    <div className="text-lg text-gray-400 flex justify-center mt-2 mb-40  font-light">Please play Team Scorched because it's fun, not because a number on a random website tells you to.</div>
   </div>) : "";
 }

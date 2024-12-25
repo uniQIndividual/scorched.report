@@ -811,6 +811,7 @@ const ReportLookup = () => {
                       },
                       streak20: {
                         $apply(v) {
+                          return false // TODO:
                           return v || (newStats.bungieHistoricAccountStats.longestKillSpree >= 20 && newStats.bungieHistoricAccountStats.longestKillSpree < 50)
                         },
                       },
@@ -1095,7 +1096,7 @@ const ReportLookup = () => {
                 "seEnemy": newStats.awards.seEnemy,
                 "streak50": Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.iMadeThisForYou, false),
                 "streak2x20": newStats.awards.streak2x20,
-                "streak20": Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.weRan, false),
+                "streak20": false,//TODO: Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.weRan, false),
                 "kills50": newStats.awards.kills50,
                 "kills40": newStats.awards.kills40,
                 "kills30": newStats.awards.kills30,
@@ -1106,7 +1107,7 @@ const ReportLookup = () => {
                 "total10k": totalKills >= 10000 && totalKills < 25000,
                 "total5k": totalKills >= 5000 && totalKills < 10000,
                 "total1k": totalKills >= 1000 && totalKills < 5000,
-                "medalSeventh": Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.seventhColumn, false),
+                "medalSeventh": false,//TODO: Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.seventhColumn, false),
                 "armyOfOne": newStats.awards.armyOfOne,
                 "carryPartner": newStats.awards.carryPartner,
               }
@@ -1182,7 +1183,6 @@ const ReportLookup = () => {
     })
     .catch(e => console.error(e));*/
   if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)
-  console.log("RENDER");
 
   if (render) return (<div>
     <div className="text-5xl text-gray-100 flex justify-center mt-2 font-semibold">Summary</div>

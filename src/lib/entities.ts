@@ -176,31 +176,31 @@ export const awards = {
 	"contributor": {
 		"description": "Awarded for great contributions to Scorched Report",
 		"text": "Scorched Report contributor",
-		"src": "/images/icons/awards/Crossed_Cannons_smaller.png",
+		"src": "/images/icons/awards/Crossed_Cannons_smaller.webp",
 		"glow": "shadow-awardGlow"
 	},
 	"seMember": {
 		"description": "Awarded for being a Scorched Enthusiasts",
 		"text": "Putting the fun in Team Scorched",
-		"src": "/images/icons/awards/test2_1.png",
+		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
 		"glow": ""
 	},
 	"seFriend": {
 		"description": "Awarded to friends of SE",
 		"text": "Friend of SE",
-		"src": "/images/icons/awards/Crossed_Cannons_gold_smaller.png",
+		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
 		"glow": ""
 	},
 	"seEnemy": {
 		"description": "Awarded to special enemies of SE (This a satirical award not to be taken seriously)",
 		"text": "Enemy of SE",
-		"src": "/images/icons/awards/Crossed_Cannons_gold_smaller.png",
+		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
 		"glow": "shadow-awardGlowRed"
 	},
 	"streak50": {
 		"description": "Awarded for getting an \"I made this for you\" medal by reaching a 50 streak",
 		"text": "I also made this for you",
-		"src": "/images/icons/awards/Crossed_Cannons_gold_smaller.png",
+		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
 		"glow": "shadow-awardGlow"
 	},
 	"streak2x20": {
@@ -218,61 +218,61 @@ export const awards = {
 	"kills50": {
 		"description": "Awarded for reaching 50 kills in a single match",
 		"text": "The reason the queue is currently empty",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/50.webp",
 		"glow": "shadow-awardGlow"
 	},
 	"kills40": {
 		"description": "Awarded for reaching 40 kills in a single match",
 		"text": "A force to be reckoned with",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/40.webp",
 		"glow": ""
 	},
 	"kills30": {
 		"description": "Awarded for reaching 30 kills in a single match",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/30.webp",
 		"glow": ""
 	},
 	"total100k": {
-		"description": "Awarded for reaching 100 000 kills in Team Scorched",
+		"description": "Awarded for reaching 100000 kills in Team Scorched",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/100k.webp",
 		"glow": "shadow-awardGlow"
 	},
 	"total75k": {
-		"description": "Awarded for reaching 75 000 kills in Team Scorched",
+		"description": "Awarded for reaching 75000 kills in Team Scorched",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/75k.webp",
 		"glow": ""
 	},
 	"total50k": {
-		"description": "Awarded for reaching 50 000 kills in Team Scorched",
+		"description": "Awarded for reaching 50000 kills in Team Scorched",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/50k.webp",
 		"glow": ""
 	},
 	"total25k": {
-		"description": "Awarded for reaching 25 000 kills in Team Scorched",
+		"description": "Awarded for reaching 25000 kills in Team Scorched",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/25k.webp",
 		"glow": ""
 	},
 	"total10k": {
-		"description": "Awarded for reaching 10 000 kills in Team Scorched",
+		"description": "Awarded for reaching 10000 kills in Team Scorched",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/10k.webp",
 		"glow": ""
 	},
 	"total5k": {
-		"description": "Awarded for reaching 5 000 kills in Team Scorched",
+		"description": "Awarded for reaching 5000 kills in Team Scorched",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/5k.webp",
 		"glow": ""
 	},
 	"total1k": {
-		"description": "Awarded for reaching 1 000 kills in Team Scorched",
+		"description": "Awarded for reaching 1000 kills in Team Scorched",
 		"text": "",
-		"src": "/images/icons/awards/test1_1.png",
+		"src": "/images/icons/awards/1k.webp",
 		"glow": ""
 	},
 	"medalSeventh": {

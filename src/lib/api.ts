@@ -121,8 +121,6 @@ const API = {
 				);
 			},
 			GetCharacterPGCRHistory(id: string, platform: string, character: string, page: number, matchesPerPage: number) {
-				console.log(character);
-				
 				return API.make_call(
 					`https://stats.bungie.net/Platform/Destiny2/${platform}/Account/${id}/Character/${character}/Stats/Activities/?mode=62&count=${matchesPerPage}&page=${page}`,
 					"GET",
@@ -167,8 +165,6 @@ const API = {
 				);
 			},
 			GetHistoricCharacterStats(id: string, platform: string, character: string) {
-				console.log(character);
-				
 				return API.make_call(
 					`https://www.bungie.net/Platform/Destiny2/${platform}/Account/${id}/Character/${character}/Stats/?modes=62&groups=1,3`, // note these are only for team scorched
 					"GET",

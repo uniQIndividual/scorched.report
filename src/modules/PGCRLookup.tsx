@@ -72,7 +72,6 @@ const PGCRLookup = (props: basicMatchInfo) => {
                 return;
             }
             triggerStarted(true);
-            console.log("started");
 
 
             let matchid = 0;

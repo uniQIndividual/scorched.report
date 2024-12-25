@@ -24,10 +24,16 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
   const [data, setData] = React.useState(initialState);
 
   React.useEffect(() => {
-    console.log("TABLE RENDER");
-    
-    let newTable = stats.matchHistory != undefined ? Object.values(stats.matchHistory).map((match, index) => {
-      let previousElo = index == 0 ? 1000 : (Object.values(stats.matchHistory)[index - 1]?.elo || 1000);
+    let tmpMatchHistory = stats.matchHistory != undefined ? Object.values(stats.matchHistory).sort(function(a, b){
+      if (Number(a.id) < Number(b.id))
+       return -1;
+      if (Number(a.id) > Number(b.id))
+       return 1;
+      return 0;
+     }) : [];
+     
+    let newTable = tmpMatchHistory.map((match, index) => {
+      let previousElo = index == 0 ? 1000 : (tmpMatchHistory[index - 1]?.elo || 1000);
       return {
         "id": match.id,
         "elo": match.elo,
@@ -49,12 +55,12 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         "efficiency": (match.kills + match.assists) / (match.deaths == 0 ? 1 : match.deaths)
       }
     }).sort(function(a, b){
-      if (a.id > b.id)
+      if (Number(a.id) > Number(b.id))
        return -1;
-      if (a.id < b.id)
+      if (Number(a.id) < Number(b.id))
        return 1;
       return 0;
-     }) : [];
+     });
     setData(newTable)
     
   }, [props]);
