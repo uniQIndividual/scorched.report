@@ -153,7 +153,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 							</div>
 							<input
 								type="text"
-								id="q" name="q"
+								id="scorcher_search" name="scorcher_search"
 								className=" bg-[rgba(0,0,0,0.2)] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-950 focus:border-primary-950 block w-full pl-10 p-4 dark:border-gray-400 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-200 dark:focus:border-gray-200"
 								placeholder="Find scorchers..."
 							/>
@@ -161,7 +161,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 					</div>
 					{/*<input type="search" id="q" name="q" className="bg-gray-100 w-96 flex justify-center"
 					       placeholder={"Find scorchers..."} />*/}
-					<button type="submit" className="w-full text-gray-900 dark:text-gray-100"> </button>
+					<button type="submit" className="hidden w-0 h-0 text-gray-900 dark:text-gray-100"> </button>
 					<div className="pt-2 flex flex-wrap justify-center">
 						{this.state.players.map(player => {
 							if (player.data.clan == null || player.data.destinyMemberships.length == 0) {
