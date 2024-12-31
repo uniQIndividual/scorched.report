@@ -74,7 +74,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 	searchPlayers(event: any) {
 		event.preventDefault();
 		this.setState((_prevState) => ({ error: { title: "", text: "" } }));
-		let query = event.target.q.value;
+		let query = event.target.scorcher_search.value;
 
 		API.requests.User.SearchByGlobalNamePost(query)
 			.then(data => {
@@ -123,7 +123,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 			bungiePlayers: [],
 		});
 
-		if (event.target.q.value !== "") {
+		if (event.target.scorcher_search.value !== "") {
 			this.searchPlayers(event);
 		}
 	}
