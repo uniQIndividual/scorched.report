@@ -130,7 +130,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 
 	override render() {
 		return (
-			<div className="mt-4 w-full flex justify-center" onClick={(e) => {
+			<div className="mt-4 flex justify-center" onClick={(e) => {
 				e.stopPropagation();
 			}}>
 				<form className="flex flex-wrap justify-center" onSubmit={this.searchFormEventHandler}>

@@ -22,10 +22,10 @@ export const IsScorchedLive = () => {
         })
     })
     return data == undefined ? "" :     data == true ? 
-    (<div className="text-5xl font-bold text-red-600 ">
+    (<div className="text-5xl font-bold text-red-600 text-center">
         Team Scorched is live!
     </div>) 
-    : (<div className="text-2xl font-bold text-gray-300 ">
+    : (<div className="text-2xl font-bold text-gray-300 text-center">
         Team Scorched is not live
     </div>)
 }

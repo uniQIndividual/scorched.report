@@ -87,7 +87,7 @@ module.exports = {
 					'monospace',
 				],
 				bungo: [
-					//'Protestant' let's not lol
+					// 'Protestant' let's not lol
 					'Arial'
 				]
 			},
@@ -168,7 +168,7 @@ module.exports = {
 
 	plugins: [
 		//
-		//require('flowbite/plugin'),
+		// require('flowbite/plugin'),
 		require('flowbite-typography'),
 		require('@tailwindcss/typography'),
 		require('@pyncz/tailwind-mask-image'),

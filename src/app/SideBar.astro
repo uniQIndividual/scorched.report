@@ -10,14 +10,14 @@ const allTWAS = await getCollection("twas");
 
 <aside
 	id="sidebar"
-	class="fixed left-0 z-20 flex flex-col flex-shrink-0 hidden w-[350px] h-full pt-16 font-normal duration-75 lg:flex transition-width"
+	class="fixed left-0 z-20 flex flex-col flex-shrink-0 hidden w-full lg:w-[350px] h-full pt-16 font-normal duration-75 lg:flex transition-width"
 	aria-label="Sidebar"
 >
 	<img
 		src="/images/sidebar/test4.webp"
 		class="fixed object-right h-full min-w-[400px] max-w-[400px] object-cover top-0"
 	/>
-	<div class="relative flex flex-col flex-1 min-h-0 pt-0">
+	<div class="relative flex flex-col items-center lg:items-baseline flex-1 min-h-0 pt-0 ">
 		<div
 			class:list={[
 				"flex flex-col flex-1 pt-5 overflow-y-auto",
@@ -27,11 +27,11 @@ const allTWAS = await getCollection("twas");
 			]}
 			dir="rtl"
 		>
-			<div class="peer pr-10" dir="ltr">
+			<div class="peer lg:pl-10 flex" dir="ltr">
 				<Search client:only="react" />
 			</div>
 			<div
-				class="group pt-10 flex-col flex-1 px-3 space-y-1 opacity-100 peer-hover:opacity-100 hover:opacity-100"
+				class="group lg:pt-10 flex-col flex-1 px-3 space-y-1 opacity-100 peer-hover:opacity-100 hover:opacity-100"
 				dir="ltr"
 			>
 				<ul class="pb-2 space-y-2">
@@ -109,14 +109,21 @@ const allTWAS = await getCollection("twas");
 							<li class="">
 								<a
 									href="/leaderboards/experience"
-									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Experience</a
 								>
 							</li>
 							<li class="">
 								<a
+									href="/leaderboards/special"
+									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									>Special Kills</a
+								>
+							</li>
+							<li class="">
+								<a
 									href="/leaderboards/performance"
-									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Overall Performance</a
 								>
 							</li>
@@ -165,32 +172,40 @@ const allTWAS = await getCollection("twas");
 							</svg>
 						</button>
 						<ul id="dropdown-science" class="hidden space-y-2 py-2">
-							<!-- if not (eq .Params.group science) }}hidden {{ end }} -->
 							<li class="">
-								<!-- {{ if eq $page_slug "products" }} -->
-								<!-- bg-gray-100 dark:bg-gray-700 -->
 								<a
-									href="/science/playtime"
-									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
-									>Playtime over time</a
+									href="/science/elo"
+									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									>Elo</a
 								>
 							</li>
 							<li class="">
-								<!--  {{ if eq $page_slug "users" }} -->
-								<!-- bg-gray-100 dark:bg-gray-700 -->
+								<a
+									href="/science/playtime"
+									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									>Playtime</a
+								>
+							</li>
+							<li class="">
+								<a
+									href="/science/matchmaking"
+									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									>Matchmaking</a
+								>
+							</li>
+							<li class="">
 								<a
 									href="/science/maps"
-									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Maps</a
 								>
 							</li>
 						</ul>
 					</li>
 					<li class="">
-						<!-- {{ if eq $page_slug "settings" }} -->
 						<a
 							href="/showcase"
-							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] grayscale hover:grayscale-0"
+							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 						>
 							<img src="/images/exotic_cannon.png" class="w-7 h-7" />
 							<span
@@ -239,18 +254,16 @@ const allTWAS = await getCollection("twas");
 						</button>
 						<ul id="dropdown-auth" class="hidden py-2 space-y-2">
 							{
-								allTWAS.map((entry) => {
-									return (
+								allTWAS.map((entry) => (
 										<li class="">
 											<a
-												href={"/twas/" + entry.slug}
-												class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+												href={`/twas/${entry.slug}`}
+												class="flex items-center p-2 text-gray-900 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 											>
 												{entry.data.title}
 											</a>
 										</li>
-									);
-								})
+									))
 							}
 						</ul>
 					</li>

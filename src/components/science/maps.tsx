@@ -82,6 +82,14 @@ export const MapScience = () => {
 
 
     console.log(newMapRankings);
+    console.log(Object.keys(newMapRankings).map(map => {
+        return ({
+            x: map,
+            y: newMapRankings[map].rankings
+        })
+    }
+    ));
+    
 
     const series = [
         {
@@ -155,12 +163,12 @@ const tiers = {
 
     return (
         <div>
-            <div className="text-lg text-gray-400 flex justify-center mt-20 mb-20  font-light">This data is based on individuals ratings by {Object.values(newMapRankings)[0].rankings.length} Scorchers.</div>
-            <div className="flex justify-center mt-20 mb-12 text-black">
+            <div className="text-lg text-gray-400 flex justify-center mt-20 font-light">This data is based on individuals ratings by {Object.values(newMapRankings)[0].rankings.length} Scorchers.</div>
+            <div className="flex justify-center mt-4 mb-12 text-black">
                 <div className="table border-spacing-2">
                     {Object.keys(tiers).map(tier => {
                         return(
-                    <div className="table-row-group">
+                    <div className="table-row-group" key={"tierlist_div_tier_" + tier}>
                         <div className="table-row">
                             <div className="table-cell align-middle w-32 py-3 px-6" style={{backgroundColor: tiers[tier]}}>
                                 <div className="px-14">
@@ -171,7 +179,7 @@ const tiers = {
                                 <div className="flex flex-wrap">
                                 {Object.values(newMapRankings).map(map => {
                                     if(map.tier == tier)
-                                    return <img key={map.image + "image"} src={"https://www.bungie.net" + map.image} className="h-36" />
+                                    return <img key={map.image + "image"} src={"https://www.bungie.net" + map.image} className="max-h-36 object-scale-down" />
                                 })}
                                 </div>
                             </div>
@@ -181,7 +189,7 @@ const tiers = {
                 </div>
             </div>
             <div className="flex justify-center">
-                <ReactApexChart options={options} series={series} type="boxPlot" width={"1200"} height={1000} />
+                <ReactApexChart options={options} series={series} type="boxPlot" width={"100%"} height={1000} />
             </div>
         </div>
     );

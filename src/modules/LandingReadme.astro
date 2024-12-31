@@ -1,6 +1,7 @@
 ---
 import { IsScorchedLive } from "../components/IsScorchedLive";
 import Search from "../components/UserSearch";
+
 const activities = [
 	{
 		name: "Scorched Report Launch",
@@ -35,7 +36,7 @@ const activities = [
 		image: "",
 	},
 	{
-		name: 'SE looks back onto 2023',
+		name: "SE looks back onto 2023",
 		date: "December 2023",
 		text: "With 2023 coming to a close, Scorched Enthusiasts celebrates a happy past year.",
 		link: "",
@@ -94,21 +95,20 @@ const activities = [
 ---
 
 <div class="">
-	<header
-		class="p-8 flex justify-center items-center flex-wrap flex-col w-full mt-16"
+	<h1
+		class="text-3xl text-center sm:text-5xl 2xl:text-8xl bg-clip-text bg-center font-bungo font-black text-transparent bg-cover bg-[url('/images/Scorched_Gif.gif')]"
 	>
-		<span
-			class="text-4xl sm:text-5xl flex justify-center 2xl:text-8xl font- bg-clip-text bg-center font-bungo font-black text-transparent bg-cover bg-[url('/images/Scorched_Gif.gif')]"
-			>SCORCHED.REPORT</span
-		>
-		<p
-			class="text-3xl mt-10 dark:text-gray-200 text-gray-600 font-extralight leading-tight"
-		>
-			The home of everything Team Scorched
-		</p>
-		<p class="my-10">
+		SCORCHED.REPORT
+	</h1>
+	<div
+		class="text-3xl text-center mt-10 dark:text-gray-200 text-gray-600 font-extralight leading-tight"
+	>
+		The home of everything Team Scorched
+	</div>
+	<header class="p-8 flex items-center flex-wrap flex-col w-full mt-16">
+		<div class="my-10">
 			<IsScorchedLive client:only="react" />
-		</p>
+		</div>
 		<div class="my-10">
 			<Search client:only="react" />
 		</div>
@@ -121,41 +121,43 @@ const activities = [
 			</div>
 			<ol class="relative border-l border-gray-200 dark:border-gray-700">
 				{
-					activities.map((activity) => {
-						return (
-							<li class="mb-10 ml-4  max-w-[500px]">
-								<div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700"></div>
-								<time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-									{activity.date}
-								</time>
-								<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-									{activity.name}
-								</h3>
-								<p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-									{activity.text}
-								</p>
-								{activity.image == "" ? "" :<img src={"/images/news/" + activity.image} />}
-								{activity.link == "" ? (
-									""
-								) : (
-									<a
-										href={activity.link}
-										class="inline-flex items-center text-xs font-medium hover:underline text-primary-700 sm:text-sm dark:text-primary-500"
+					activities.map((activity) => (
+						<li class="mb-10 ml-4  max-w-[500px]">
+							<div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700" />
+							<time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+								{activity.date}
+							</time>
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+								{activity.name}
+							</h3>
+							<p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+								{activity.text}
+							</p>
+							{activity.image === "" ? (
+								""
+							) : (
+								<img src={`/images/news/${activity.image}`} />
+							)}
+							{activity.link === "" ? (
+								""
+							) : (
+								<a
+									href={activity.link}
+									class="inline-flex items-center text-xs font-medium hover:underline text-primary-700 sm:text-sm dark:text-primary-500"
+								>
+									{activity.link_text}{" "}
+									<svg
+										class="w-3 h-3 ml-2"
+										fill="currentColor"
+										viewBox="0 0 20 20"
+										xmlns="http://www.w3.org/2000/svg"
 									>
-										{activity.link_text}{" "}
-										<svg
-											class="w-3 h-3 ml-2"
-											fill="currentColor"
-											viewBox="0 0 20 20"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"></path>
-										</svg>
-									</a>
-								)}
-							</li>
-						);
-					})
+										<path d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" />
+									</svg>
+								</a>
+							)}
+						</li>
+					))
 				}
 			</ol>
 		</div>
@@ -205,18 +207,19 @@ const activities = [
 				<li>Something</li>
 			</ul>
 		</div>
-	</div>*/
+	</div> */
 		}
 
-	<style>
-		/* Override in Markdown H1 title */
-		.readme :global(h1:nth-of-type(2)) {
-			display: none;
-		}
+		<style>
+			/* Override in Markdown H1 title */
+			.readme :global(h1:nth-of-type(2)) {
+				display: none;
+			}
 
-		.svg-inline :global(svg) {
-			height: 100%;
-			width: 100%;
-		}
-	</style>
+			.svg-inline :global(svg) {
+				height: 100%;
+				width: 100%;
+			}
+		</style>
+	</header>
 </div>
