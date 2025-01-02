@@ -2,7 +2,7 @@
 	id="theme-toggle"
 	data-tooltip-target="tooltip-toggle"
 	type="button"
-	class="hidden  text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+	class=" text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
 >
 	<svg
 		id="theme-toggle-dark-icon"
@@ -30,14 +30,12 @@
 <div
 	id="tooltip-toggle"
 	role="tooltip"
-	class="hidden absolute z-10 invisible  px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip" 
->{/* TODO:reenable inline-block */}
+	class="absolute z-10 invisible  px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip" >
 	Toggle dark mode
 	<div class="tooltip-arrow" data-popper-arrow></div>
 </div>
 
 <script>
-	/* TODO: reenable
 	const themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
 	const themeToggleLightIcon = document.getElementById(
 		"theme-toggle-light-icon"
@@ -58,7 +56,7 @@
 
 	let event = new Event("dark-mode");
 
-	themeToggleBtn.addEventListener("click", function () {
+	themeToggleBtn.addEventListener("click", () => {
 		// toggle icons
 		themeToggleDarkIcon.classList.toggle("hidden");
 		themeToggleLightIcon.classList.toggle("hidden");
@@ -74,16 +72,14 @@
 			}
 
 			// if NOT set via local storage previously
+		} else if (document.documentElement.classList.contains("dark")) {
+			document.documentElement.classList.remove("dark");
+			localStorage.setItem("color-theme", "light");
 		} else {
-			if (document.documentElement.classList.contains("dark")) {
-				document.documentElement.classList.remove("dark");
-				localStorage.setItem("color-theme", "light");
-			} else {
-				document.documentElement.classList.add("dark");
-				localStorage.setItem("color-theme", "dark");
-			}
+			document.documentElement.classList.add("dark");
+			localStorage.setItem("color-theme", "dark");
 		}
 
 		document.dispatchEvent(event);
-	}); */
+	});
 </script>

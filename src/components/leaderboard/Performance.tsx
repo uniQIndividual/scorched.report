@@ -309,6 +309,6 @@ export const LeaderboardPerformance = () => {
         <MantineReactTable table={table} />
       </MantineProvider>
     </div>
-    <div className="text-lg text-gray-400 flex justify-center mt-2 mb-40  font-light">Please play Team Scorched because it's fun, not because a number on a random website tells you to.</div>
+    <div className="text-lg text-gray-400 flex justify-center mt-2 mb-40  font-light">Please play Team Scorched because it's fun, not because a number on some random website tells you to.</div>
   </div>) : "";
 }

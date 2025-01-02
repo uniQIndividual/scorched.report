@@ -154,7 +154,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 							<input
 								type="text"
 								id="scorcher_search" name="scorcher_search"
-								className=" bg-[rgba(0,0,0,0.2)] border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-950 focus:border-primary-950 block w-full pl-10 p-4 dark:border-gray-400 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-200 dark:focus:border-gray-200"
+								className=" bg-[rgba(0,0,0,0.2)] border border-gray-300 text-gray-900 dark:text-gray-200 sm:text-sm rounded-lg focus:ring-primary-950 focus:border-primary-950 block w-full pl-10 p-4 dark:border-gray-400 placeholder-gray-800 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-200 dark:focus:border-gray-200"
 								placeholder="Find scorchers..."
 							/>
 						</div>

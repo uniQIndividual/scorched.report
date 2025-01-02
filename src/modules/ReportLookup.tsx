@@ -1185,7 +1185,7 @@ const ReportLookup = () => {
   if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)
 
   if (render) return (<div>
-    <div className="text-5xl text-gray-100 flex justify-center mt-2 font-semibold">Summary</div>
+    <div className="text-5xl flex justify-center mt-2 font-semibold  text-gray-800 dark:text-gray-100">Summary</div>
     <div className="justify-center flex mt-12">
       <div
         className="mt-2 grid grid-cols-1 gap-6 2xl:grid-cols-2 w-max"
@@ -1213,10 +1213,10 @@ const ReportLookup = () => {
             })} </div> </div>} />
 
     </div>
-    <div className="mt-10 w-full flex justify-center">
+    <div className="mt-10 flex justify-center">
       <Wrapper item={<CannonCollection {...stats} />} />
     </div>
-    <div className="mt-10 w-full flex justify-center">
+    <div className="mt-10 flex justify-center">
       <Wrapper item={<MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} />
     </div>
     {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}

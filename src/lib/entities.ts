@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export type Cannons = {
 	"hash": string;
 	"kills": number;
@@ -235,25 +236,25 @@ export const awards = {
 	},
 	"total100k": {
 		"description": "Awarded for reaching 100000 kills in Team Scorched",
-		"text": "",
+		"text": "Scorched Earth",
 		"src": "/images/icons/awards/100k.webp",
 		"glow": "shadow-awardGlow"
 	},
 	"total75k": {
 		"description": "Awarded for reaching 75000 kills in Team Scorched",
-		"text": "",
+		"text": "Shaxx is Concerned",
 		"src": "/images/icons/awards/75k.webp",
 		"glow": ""
 	},
 	"total50k": {
 		"description": "Awarded for reaching 50000 kills in Team Scorched",
-		"text": "",
+		"text": "Scorcher of Mass Destruction",
 		"src": "/images/icons/awards/50k.webp",
 		"glow": ""
 	},
 	"total25k": {
 		"description": "Awarded for reaching 25000 kills in Team Scorched",
-		"text": "",
+		"text": "Just Getting Started",
 		"src": "/images/icons/awards/25k.webp",
 		"glow": ""
 	},
@@ -314,26 +315,26 @@ export type Scorcher = {
 	},
 	"characters": { [key: string]: any }, // Idk let's just paste whatever Bungie returns in here
 	"awards": {
-		"contributor": Boolean,
-		"seMember": Boolean,
-		"seFriend": Boolean,
-		"seEnemy": Boolean,
-		"streak50": Boolean,
-		"streak2x20": Boolean,
-		"streak20": Boolean,
-		"kills50": Boolean,
-		"kills40": Boolean,
-		"kills30": Boolean,
-		"total100k": Boolean,
-		"total75k": Boolean,
-		"total50k": Boolean,
-		"total25k": Boolean,
-		"total10k": Boolean,
-		"total5k": Boolean,
-		"total1k": Boolean,
-		"medalSeventh": Boolean,
-		"armyOfOne": Boolean,
-		"carryPartner": Boolean,
+		"contributor": boolean,
+		"seMember": boolean,
+		"seFriend": boolean,
+		"seEnemy": boolean,
+		"streak50": boolean,
+		"streak2x20": boolean,
+		"streak20": boolean,
+		"kills50": boolean,
+		"kills40": boolean,
+		"kills30": boolean,
+		"total100k": boolean,
+		"total75k": boolean,
+		"total50k": boolean,
+		"total25k": boolean,
+		"total10k": boolean,
+		"total5k": boolean,
+		"total1k": boolean,
+		"medalSeventh": boolean,
+		"armyOfOne": boolean,
+		"carryPartner": boolean,
 	},
 	"performance": { // These are redundant when Bungie's api is up, otherwise is calculated from backups
 		"trueSkill": number,
@@ -363,11 +364,11 @@ export type Scorcher = {
 		"super": number,
 	},
 	"minigame": {
-		"completedTutorial": Boolean,
+		"completedTutorial": boolean,
 		"scoins": number,
 		"selectedSeason": string,
-		"equippedCannons": {},
-		"ownedCannons": {},
+		"equippedCannons": object,
+		"ownedCannons": object,
 		"coinBonus": number,
 		"currentLevel": number,
 		"ownedSeasons": Cannons[],

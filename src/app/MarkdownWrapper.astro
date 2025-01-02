@@ -10,21 +10,24 @@ if (frontmatter && frontmatter.title) {
 }
 ---
 
-<TableOfContents headings={headings} />
-<div class="flex justify-center">
-<div
-	class="max-w-[100vw] lg:max-w-[80vw] xl:max-w-[60vw] 2xl:max-w-[80vw] p-6 text-clip overflow-hidden
-    leading-7
-    prose dark:prose-invert
-    prose-h1:font-bold prose-h1:text-xxl
-    prose-a:dark:text-gray-100 prose-p:text-justify prose-img:rounded-xl prose-blockquote:not-italic prose-blockquote:dark:text-gray-300 prose-blockquote:text-gray-700 prose-blockquote:font-normal prose-blockquote:p-4
-    prose-h1-dark:text-gray-50 dark:text-gray-300 mt-12 mb-4"
->
+<div class="flex justify-center 2xl:justify-normal 2xl:ml-[2%]">
+    <div class="max-w-[100vw] lg:max-w-[60vw] xl:max-w-[60vw] 2xl:max-w-[60vw] p-6 text-clip overflow-hidden
+    
+    dark:text-gray-300 mt-4 mb-4">
 		{frontmatter && frontmatter.title && frontmatter.author ? 
-        <h1 class="mb-0" id={newSlug}>{frontmatter.title}</h1> 
+        <h1 class="mb-0 dark:text-gray-50 font-bold text-4xl" id={newSlug}>{frontmatter.title}</h1> 
         <span class="font-extralight italic">by</span> 
         <span class="font-extralight italic">{frontmatter.author}</span> : 
         ""}
+        <TableOfContents headings={headings} />
+    <div
+	class="leading-7
+    prose dark:prose-invert
+    prose-h1-dark:text-gray-50 prose-h1:font-bold prose-h1:text-xxl
+    prose-a:dark:text-gray-200 prose-p:text-justify prose-img:rounded-xl prose-blockquote:not-italic prose-blockquote:dark:text-gray-300 prose-blockquote:text-gray-700 prose-blockquote:font-normal prose-blockquote:p-4
+   prose-a:underline-offset-2 a:hover:text-gray-50"
+    >
 		<slot />
 	</div>
+    </div>
 </div>
