@@ -1,6 +1,6 @@
 # Scorched Report
 
-This website is still under active construction and only public for testing purposes. It may be missing information and be buggy. Please let me know and I'll try to get on it.
+This website is still under active construction and only public for testing purposes. It may be missing information and be buggy. Please let me know about any issues you encounter and I'll try to get on it.
 
 Scorched Report was mainly created by uniQ with a lot of help from nblock. The Scorched Cannons was kindly created by GerbSnail and the TWAS entries by our resident lore guardian, Jon.
 
