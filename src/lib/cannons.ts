@@ -331,7 +331,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
             {
                 "hash": "VexHeadCannon",
                 "name": "Scorched Cannon?",
-                "alt_name": "Vex Head Cannon; ah_yup_that_things_a_scorch_cannon",
+                "alt_name": "Vex Head Cannon; ah yup that things a scorch cannon",
                 "author": "GerbSnail",
                 "cost": 5000,
                 "scoin_bonus": 10,
@@ -391,7 +391,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
             {
                 "hash": "ClosingAct",
                 "name": "The Closing Act",
-                "alt_name": "ngl_I_forgot_what_this_one_was_called",
+                "alt_name": "ngl I forgot what this one was called",
                 "author": "GerbSnail",
                 "cost": 12500,
                 "scoin_bonus": 36,
@@ -449,7 +449,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
             {
                 "hash": "WickedImplement",
                 "name": "Tool of Evil",
-                "alt_name": "Wicked Implement, this_thing_is_still_really_ugly",
+                "alt_name": "Wicked Implement, this thing is still really ugly",
                 "author": "GerbSnail",
                 "cost": 0,
                 "scoin_bonus": 4,
