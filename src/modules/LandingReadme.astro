@@ -94,30 +94,48 @@ const activities = [
 ];
 ---
 
-<div class="">
+<div class="m-4">
+	<div class="flex justify-center">
+		<svg
+			width="80%"
+			height="100%"
+			viewBox="0 0 500 50"
+			preserveAspectRatio="xMinYMid meet"
+			xmlns="http://www.w3.org/2000/svg"
+			xmlns:xlink="http://www.w3.org/1999/xlink"
+		>
+			<text
+				x="2"
+				y="40"
+				class="text-[2.8rem] bg-clip-text bg-center font-bungo font-black fill-gray-900 dark:fill-gray-50 dark:brightness-200"
+				>SCORCHED.REPORT</text
+			>
+		</svg>
+	</div>
+	<!--
 	<h1
-		class="text-3xl text-center sm:text-5xl 2xl:text-8xl bg-clip-text bg-center font-bungo font-black text-transparent bg-cover bg-[url('/images/Scorched_Gif.gif')]"
+		class="text-3xl text-center sm:text-5xl 2xl:text-8xl bg-clip-text bg-center font-bungo font-black text-gray-50 dark:brightness-200 bg-cover"
 	>
 		SCORCHED.REPORT
-	</h1>
+	</h1> -->
 	<div
-		class="text-3xl text-center mt-10 dark:text-gray-200 text-gray-600 font-extralight leading-tight"
+		class="text-3xl text-center mt-8 dark:text-gray-200 text-gray-600 font-extralight leading-tight"
 	>
 		The home of everything Team Scorched
 	</div>
-	<header class="p-8 flex items-center flex-wrap flex-col w-full mt-16">
-		<div class="my-10">
-			<IsScorchedLive client:only="react" />
-		</div>
+	<div class="object-center">
+		<IsScorchedLive client:only="react" />
+	</div>
+	<header class="p-8 flex items-center flex-wrap flex-col w-full mt-10">
 		<div class="my-10">
 			<Search client:only="react" />
 		</div>
 
 		<div class="p-4 mb-4 rounded-lg shadow-sm sm:p-6 xl:mb-0">
 			<div class="flex items-center justify-between mb-4">
-				<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+				<h2 class="text-lg font-semibold text-gray-900 dark:text-white">
 					Latest Activity
-				</h3>
+				</h2>
 			</div>
 			<ol class="relative border-l border-gray-200 dark:border-gray-700">
 				{
@@ -211,14 +229,79 @@ const activities = [
 		}
 
 		<style>
-			/* Override in Markdown H1 title */
-			.readme :global(h1:nth-of-type(2)) {
-				display: none;
+			/* Override in Markdown H1 title */ /* SVG FIRE */
+
+			#svg-view {
+				width: 252px;
+				height: 125px;
+				left: 0px;
 			}
 
-			.svg-inline :global(svg) {
-				height: 100%;
+			.mo-fire svg {
 				width: 100%;
+				height: auto;
+				position: relative;
+				right: 40px;
+			}
+			.flame {
+				animation-name: flameDisappear;
+				animation-duration: 2s;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+				opacity: 0.5;
+				transform-origin: 45% 45% 0;
+			}
+			.flame.one {
+				animation-delay: 1s;
+				animation-duration: 3s;
+			}
+			.flame.two {
+				animation-duration: 5s;
+				animation-delay: 1s;
+			}
+
+			.flame-main {
+				animation-name: flameMovement;
+				animation-duration: 2s;
+				animation-timing-function: ease-in-out;
+				animation-iteration-count: infinite;
+			}
+			.flame-main.one {
+				animation-duration: 2.2s;
+				animation-delay: 1s;
+			}
+			.flame-main.two {
+				animation-duration: 2s;
+				animation-delay: 1s;
+			}
+			.flame-main.three {
+				animation-duration: 2.1s;
+				animation-delay: 3s;
+			}
+			.flame-main.four {
+				animation-duration: 3.2s;
+				animation-delay: 4s;
+			}
+			.flame-main.five {
+				animation-duration: 2.5s;
+				animation-delay: 5s;
+			}
+			@keyframes flameMovement {
+				50% {
+					transform: scale(0.98, 1) translate(0, 2px) rotate(-1deg);
+				}
+			}
+			@keyframes flameDisappear {
+				0% {
+					transform: translate(0) rotate(180deg);
+				}
+				50% {
+					opacity: 1;
+				}
+				100% {
+					transform: translate(-10px, -40px) rotate(180deg);
+					opacity: 0;
+				}
 			}
 		</style>
 	</header>
