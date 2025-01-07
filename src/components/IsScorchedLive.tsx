@@ -21,7 +21,7 @@ export const IsScorchedLive = () => {
             }
         })
     })
-    return !(data == undefined ? "" : data == true) ?
+    return data == undefined ? "" : data == true ?
         (/*<div className="text-5xl font-bold text-red-600 text-center">
             Team Scorched is live!
         </div>*/
@@ -309,7 +309,7 @@ c-3.156,7.76,0.219,14.943,12.113,19.614C963.82,417.971,967.399,461.364,956.425,4
                     >Team Scorched is live!</text>
                 </svg>
             </div>)
-        : (<div className="text-2xl font-bold text-gray-300 text-center">
+        : (<div className="text-2xl font-bold text-gray-300 text-center mt-10">
             Team Scorched is not live
         </div>)
 }
