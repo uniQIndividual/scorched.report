@@ -1,14 +1,22 @@
 ---
 /* eslint max-lines: 'off' */
 
+import { Image } from "astro:assets";
 import ColorModeSwitcher from "../components/ColorModeSwitcher.astro";
+import ImgGdnphotographer from "../../public/images/external/gdnphotographer.webp";
+import ImgMemberReport from "../../public/images/external/memberReport.webp";
+import ImgBrayTech from "../../public/images/external/braytech.webp";
+import ImgCrucibleReport from "../../public/images/external/crucibleReport.webp";
+import ImgGloryReport from "../../public/images/external/gloryReport.webp";
 ---
 
 <style>
 	.topic {
 	}
 </style>
-<nav class="fixed z-30 w-full dark:transparent bg-[rgba(50,50,50,1)] lg:bg-[rgba(0,0,0,0)]">
+<nav
+	class="fixed z-30 w-full dark:transparent bg-[rgba(50,50,50,1)] lg:bg-[rgba(0,0,0,0)]"
+>
 	<div class="px-3 py-3 lg:px-5 lg:pl-3">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center justify-start">
@@ -49,12 +57,13 @@ import ColorModeSwitcher from "../components/ColorModeSwitcher.astro";
 						class="cursor-pointer self-center font-semibold text-2xl whitespace-nowrap text-white lg:text-black lg:dark:text-white"
 						>Scorched Report</span
 					>
-					<span class="text-gray-300 dark:text-gray-300 text-sm font-light">beta</span>
+					<span class="text-gray-300 dark:text-gray-300 text-sm font-light"
+						>beta</span
+					>
 				</a>
 			</div>
 
 			<div class="flex items-center">
-
 				<!-- Apps -->
 				<button
 					type="button"
@@ -77,7 +86,7 @@ import ColorModeSwitcher from "../components/ColorModeSwitcher.astro";
 				</button>
 				<!-- Dropdown menu -->
 				<div
-					class="z-20 z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:bg-gray-900 dark:divide-gray-600"
+					class="z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:bg-gray-900 dark:divide-gray-600"
 					id="apps-dropdown"
 				>
 					<div
@@ -89,194 +98,163 @@ import ColorModeSwitcher from "../components/ColorModeSwitcher.astro";
 						<a
 							href="https://scorched.nblock.dev/"
 							target="_blank"
-							class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
+							class="block w-28 h-28 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
 						>
-						<svg
-							class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="none"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"
-							></path>
-						</svg>
-							<div
-								class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
-							>
-								Scorched Bot
+							<div class="pt-4 cursor-pointer">
+								<svg
+									class="mx-auto mb-1 cursor-pointer"
+									aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									fill="none"
+									viewBox="0 0 1024 1024"
+								>
+									<defs>
+										<style>
+											.cls-1 {
+												fill: #d64720;
+												fill-rule: evenodd;
+											}
+										</style>
+									</defs>
+									<path
+										id="Color_Fill_1"
+										data-name="Color Fill 1"
+										class="cls-1"
+										d="M613,348h12c2.892,6.346,7.393,8.968,11,14,3.793,5.292,5.768,11.961,10,17,3.3,3.928,8.013,7.847,11,12,4.444,6.179,6.887,13.633,15,16,8.549,2.494,28.343-4.764,42-1,9.294,2.561,17.563,7.649,31,5v-2c0.8-1.18.773-1.681,1-4-6.783-6.433-12.024-15.844-12-29,5.613-4.488,7-9.272,17-10,1.73,1.342,3.783.721,6,2,3.451,1.991,17.006,22.54,20,27,4,5.964,5.92,13.357,12,17,3.351,2.008,5.656.561,10,2,3.439,1.139,8.182,4.82,11,6,5.141,2.152,11.253.027,13,0,9.141-.141,20.583.847,29,3h19c7.623,1.777,14.4.431,25,3,2.063,0.5,10.108-1.1,15,0,29.558,6.671,55.952,3.59,94,6,14.66,19.1,10.71,29.768,5,55-4.71,2.948-11.146,8.2-15,9l-107,1c-18.261,3.873-35.3.68-56,5-4.256.888-16.846-1.951-24,0-4.7,1.281-17.535,5.321-22,8-7.232,4.34-11.062,13.169-16,20-3.737,5.17-9.533,9.456-14,14-7.26.425-18.675-.981-21-8-4.541-6.856,3.895-14.783,5-21-3.035-3.616-4.86-7.527-13-6-8.564,1.606-24.934,4.57-35,6-12.807,1.819-28.21-7.656-38-1-15.8,6.128-18.465,28.839-32,37-7.128,4.3-20.45-.768-23-7-4.417-5.625-.008-10.109-11-10-4.946,5.664-14.434,2.573-15,13,7.727,5.222,11.575,14.362,17,22,6.631,9.336,14.9,19.084,21,29,3.825,6.215,4.37,12.822,8,19,3.612,6.148,7.523,9.092,10,15,3.21,7.657.624,14.1,0,22-2.818,2.22-3.1,4.6-7,6-1.838,1.238-5.7,1.089-9,1-1.824-2.44-5.3-3.575-7-6-4.254-6.082-6.679-12.047-11-18l-6-5c-6.307-9.04-12.834-21.06-22-27-4.052-2.626-9.093-2.364-13-5-4.647-3.135-18.373-18.205-22-23-4.682-6.19-11.8-13.01-15-20s-3.023-18.915-9-23c-12.081-8.258-27.859,1-37,4-6.234,2.047-11.328-.21-15,4-8.269,4.462.72,13.556-14,14-1.975,1.029-10.368.34-14,1l-1,3c-2.563,5.206,4.115,15.392,1,23-5.166,12.618-28.18,32.646-29,45a131.576,131.576,0,0,1,14,12c0.4,8.264-.253,14.832-6,17-10.18,9.232-20.981-.188-30,1-7.142.941-20.433,19.289-26,16-3.375-1.1-5.035-3.927-8-5-10.927-3.953-19.962-3.637-29-9-3.714-2.2-4.016-7.855-8-10-9.124-5.24-25.619,11.253-39,7-6.318-2.008-13.362-8.14-19-11-4.922-2.5-9.237-.917-15-3-2.8-1.013-6-4.978-9-6-5.6-1.9-11.06-1.932-16-3-6.343-10.9-8.566-15.387-3-28,1.409-3.193.716-5.958,4-7,4.334-1.376,10.867,2.952,14,4,12.52,4.19,23.752,8.091,36,11,12.073,2.868,22.747-6.026,30-9,4.545-1.864,8.7-.239,14-2,3.1-1.029,6.9-4.989,10-6,6.508-2.122,11.834-.254,18-2,3.819-1.082,8.337-3.994,12-5,6.925-1.9,12.027.247,17-3,5.43-3.545,9.848-10.958,10-20-12.413-6.363-25.172-8.334-34-18-19,.285-32.978,13.68-53,6-8.218-3.152-11.567-11.619-18-16-6.864-4.675-14.48-4.741-23-8-2.438-.933-5.582-4-8-5l-18-3c-4.953-1.394-10.309-4.729-15-6l-40-2c-19.253-4.266-46.462-4.439-66-9H77c-13.02-.009-25.393-0.87-35-5-11.322-4.867-20.033-18.449-27-28C8.063,463.49.018,458.042,0,441c3.743-4.631,5.21-11.486,10-15,18.6-13.647,42.449-20.671,66-27,6.961-1.871,13.222.563,19,1,4.87,0.369,24.543-2.262,34-4,8.861-1.629,17.533,2.955,28,1,15.3-2.858,37.83-6.8,54-10,6.473-1.283,20.063-.624,26-2,12.428-2.88,20.02,1.745,30,0,13.828-2.418,31.085-2.052,40-4,12,4.178,25.3,6.458,40,10,2.482,0.6,4.772-1.107,9,0,7.535,1.973,17.065,8.262,27,7,7.864-1,12.592-7.245,19-10,9.6-4.126,22.423-5.425,30-7,15.643-3.252,39.643,7.622,49,14,6.3,4.291,7.6,11.482,18,12a110.569,110.569,0,0,1,13-16c14.023-.454,53.59,2.232,69,0,8.267-1.2,22.5,2.374,30,1,1.372-2.542,1.917-3.5,2-8-6.28-6.345-7.507-15.329-7-26C609,355.69,611.257,351.518,613,348Z"
+									></path>
+								</svg>
+								<div
+									class="text-sm font-medium px-4 text-gray-900 dark:text-white cursor-pointer"
+								>
+									Scorched Bot
+								</div>
 							</div>
 						</a>
 						<a
 							href="https://member.report/"
 							target="_blank"
-							class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
+							class="block w-28 h-28 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
 						>
-							<svg
-								class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								fill="none"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"
-								></path>
-							</svg>
-
-							<div
-								class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
-							>
-								Member Report
+							<div class="pt-4 cursor-pointer">
+								<Image
+									src={ImgMemberReport}
+									alt={"Member Report Picture"}
+									class={"mx-auto mb-1 cursor-pointer"}
+									height={"28"}
+									width={"28"}
+								/>
+								<div
+									class="text-sm font-medium px-4 text-gray-900 dark:text-white cursor-pointer"
+								>
+									Member Report
+								</div>
 							</div>
 						</a>
 						<a
 							href="https://bray.tech/"
 							target="_blank"
-							class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
+							class="block w-28 h-28 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
 						>
-							
-						<svg
-						class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="none"
-						viewBox="0 0 24 24"
-					>
-						<path
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"
-						></path>
-					</svg>
-							<div
-								class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
-							>
-								BrayTech
+							<div class="pt-4 cursor-pointer">
+								<Image
+									src={ImgBrayTech}
+									alt={"BrayTech Picture"}
+									class={"mx-auto mb-1 cursor-pointer"}
+									height={"28"}
+									width={"28"}
+								/>
+								<div
+									class="text-sm font-medium px-4 text-gray-900 dark:text-white cursor-pointer"
+								>
+									BrayTech
+								</div>
 							</div>
 						</a>
 						<a
 							href="https://crucible.report/"
 							target="_blank"
-							class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
+							class="block w-28 h-28 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
 						>
-						<svg
-							class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="none"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"
-							></path>
-						</svg>
-							<div
-								class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
-							>
-								Crucible Report
+							<div class="pt-4 cursor-pointer">
+								<Image
+									src={ImgCrucibleReport}
+									alt={"Crucible Report Picture"}
+									class={"mx-auto mb-1 cursor-pointer"}
+									height={"28"}
+									width={"28"}
+								/>
+								<div
+									class="text-sm font-medium px-4 text-gray-900 dark:text-white cursor-pointer"
+								>
+									Crucible Report
+								</div>
 							</div>
 						</a>
 						<a
 							href="https://guardianphotographer.com/"
-							class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
+							class="block w-28 h-28 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
 						>
-						<svg
-							class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="none"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"
-							></path>
-						</svg>
-							<div
-								class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
-							>
-								Guardian Photographer
+							<div class="pt-4 cursor-pointer">
+								<Image
+									src={ImgGdnphotographer}
+									alt={"Guardian Photographer Picture"}
+									class={"mx-auto mb-1 cursor-pointer"}
+									height={"28"}
+									width={"28"}
+								/>
+								<div
+									class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer text-center"
+								>
+									Guardian Photographer
+								</div>
 							</div>
 						</a>
 						<a
 							href="https://glory.report/"
-							class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
+							class="block w-28 h-28 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
 						>
-						<svg
-							class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="none"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"
-							></path>
-						</svg>
-							<div
-								class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
-							>
-								glory.report
+							<div class="pt-4 cursor-pointer">
+								<Image
+									src={ImgGloryReport}
+									alt={"Glory Report Picture"}
+									class={"mx-auto mb-1 cursor-pointer"}
+									height={"28"}
+									width={"28"}
+								/>
+								<div
+									class="text-sm font-medium px-4 text-gray-900 dark:text-white cursor-pointer"
+								>
+									glory.report
+								</div>
 							</div>
 						</a>
 						<a
 							href="steam://launch/230410"
-							class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
+							class="block w-28 h-28 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
 						>
-							<svg
-								class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+							<div class="pt-4 cursor-pointer">
+								<svg
+									class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400 cursor-pointer"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
 								>
-								</path>
-							</svg>
-							<div
-								class="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
-							>
-								Quit Destiny 2
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+									>
+									</path>
+								</svg>
+								<div
+									class="text-sm font-medium px-4 text-gray-900 dark:text-white cursor-pointer"
+								>
+									Quit Destiny 2
+								</div>
 							</div>
 						</a>
 					</div>
