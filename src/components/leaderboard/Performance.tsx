@@ -4,6 +4,7 @@ import * as fzstd from 'fzstd';
 import { MantineProvider } from "@mantine/core";
 import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef } from "mantine-react-table";
 import { DatabaseMiddleware } from "../../lib/IndexedDB";
+import LoadingAnimation from "../../components/LoadingAnimation";
 
 export const LeaderboardPerformance = () => {
 
@@ -292,11 +293,11 @@ export const LeaderboardPerformance = () => {
       density: 'xs',
       sorting: [
         {
-            id: 'elo',
-            desc: true
+          id: 'elo',
+          desc: true
         }
-    ]
-     }
+      ]
+    }
   });
 
   return render ? (<div className=''>
@@ -309,6 +310,9 @@ export const LeaderboardPerformance = () => {
         <MantineReactTable table={table} />
       </MantineProvider>
     </div>
-    <div className="text-lg text-gray-400 flex justify-center mt-2 mb-40  font-light">Please play Team Scorched because it's fun, not because a number on some random website tells you to.</div>
-  </div>) : "";
+    <div className="text-lg text-gray-400 text-center mx-6 mt-2 mb-40 font-light">Please play Team Scorched because it's fun, not because a number on some random website tells you to.</div>
+  </div>) :
+    <div className="flex h-72 justify-center pr-24">
+      <LoadingAnimation />
+    </div>;
 }

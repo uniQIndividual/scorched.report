@@ -3,6 +3,13 @@ import FooterSidebar from "./FooterSidebar.astro";
 import LayoutCommon from "./LayoutCommon.astro";
 import NavBarSidebar from "./NavBarSidebar.astro";
 import SideBar from "./SideBar.astro";
+
+const { frontmatter } = Astro.props;
+
+let newSlug = "";
+if (frontmatter && frontmatter.title) {
+    newSlug = frontmatter.title.toLowerCase().replaceAll(" ","-").replaceAll(/[^\w-_]/gm,"");
+}
 ---
 
 <style is:global>
@@ -40,8 +47,13 @@ import SideBar from "./SideBar.astro";
 	<div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
 		<div
 			id="main-content"
-			class="relative w-full h-full overflow-y-hidden bg-gray-50 lg:ml-[380px] mt-6 lg:mt-2 dark:bg-gray-900 min-h-screen"
+			class="relative w-full h-full overflow-y-hidden bg-gray-50 lg:ml-[380px] lg:mt-2 dark:bg-gray-900 min-h-screen"
 		>
+		{frontmatter && frontmatter.title && frontmatter.author ? 
+        <h1 class="mb-0 dark:text-gray-50 font-bold text-4xl" id={newSlug}>{frontmatter.title}</h1> 
+        <span class="font-extralight italic">by</span> 
+        <span class="font-extralight italic">{frontmatter.author}</span> : 
+        ""}
 			<slot />
 
 			<FooterSidebar />

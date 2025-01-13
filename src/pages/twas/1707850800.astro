@@ -1,12 +1,12 @@
 ---
 // eslint-disable-next-line import/no-unresolved
-import { getEntry } from 'astro:content';
 import LayoutSidebar from '../../app/LayoutSidebar.astro';
-
-const entry = await getEntry('twas', '1707850800');
-const { Content } = await entry.render();
+import MarkdownWrapper from "../../app/MarkdownWrapper.astro";
+import { Content } from "../../content/twas/1707850800.md"
 ---
 
 <LayoutSidebar>
-	    <Content />
+	<MarkdownWrapper>
+		<Content />
+	</MarkdownWrapper>
 </LayoutSidebar>
