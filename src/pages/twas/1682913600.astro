@@ -1,21 +1,8 @@
 ---
 // eslint-disable-next-line import/no-unresolved
-import { getEntry, render } from "astro:content";
 import LayoutSidebar from "../../app/LayoutSidebar.astro";
 import MarkdownWrapper from "../../app/MarkdownWrapper.astro";
 import { Content } from "../../content/twas/1682913600.md"
-import TableOfContents from "../components/TableOfContents.astro";
-
-
-const { frontmatter, headings } = Astro.props;
-
-let newSlug = "";
-if (frontmatter && frontmatter.title) {
-    newSlug = frontmatter.title.toLowerCase().replaceAll(" ","-").replaceAll(/[^\w-_]/gm,"");
-    headings.unshift({depth: 1, slug: newSlug, text: frontmatter.title})
-}
-
-const entry = await getEntry("twas", "1682913600");
 //const { Content } = await render(entry);
 ---
 
