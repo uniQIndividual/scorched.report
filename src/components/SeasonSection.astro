@@ -7,15 +7,15 @@ const { season } = Astro.props;
 
 <div class="p-4 mt-28">
 	<div class="m-6 text-gray-500 dark:text-gray-500 ml-[10%]">
-		<span
-			class="text-4xl font-semibold text-gray-900 dark:text-white"
+		<h2
+			class="text-4xl font-semibold text-gray-900 dark:text-white "
 			id={season.name
 				.toLowerCase()
 				.replaceAll(" ", "-")
 				.replaceAll(/[^\w-_]/gm, "")}
 		>
 			{season?.name}
-		</span>
+			</h2>
 
 		<div class="p-4 mt-4 text-gray-500 dark:text-gray-500">
 			{season.release_date == 0 ? <div></div> :

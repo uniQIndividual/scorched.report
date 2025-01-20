@@ -10,14 +10,24 @@ const headings: {
 	subheadings: never[];
 }[] = [];
 
+headings.push({
+	depth: 1,
+	slug: "Scorched Cannon Showcase"
+		.toLowerCase()
+		.replaceAll(" ", "-")
+		.replaceAll(/[^\w-_]/gm, ""),
+	text: "Scorched Cannon Showcase",
+	subheadings: []
+})
+
 Object.keys(SCORCHED_CANNONS).map((key) =>
 	headings.push({
-		depth: 1,
-		slug: SCORCHED_CANNONS[key].name
+		depth: 2,
+		slug: SCORCHED_CANNONS[key]!.name
 			.toLowerCase()
 			.replaceAll(" ", "-")
 			.replaceAll(/[^\w-_]/gm, ""),
-		text: SCORCHED_CANNONS[key].name,
+		text: SCORCHED_CANNONS[key]!.name,
 		subheadings: [],
 	})
 );
@@ -25,15 +35,10 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
 
 <div class="flex justify-center 2xl:justify-normal 2xl:ml-[2%]">
 	<div
-		class="max-w-[100vw] lg:max-w-[60vw] xl:max-w-[60vw] 2xl:max-w-[60vw] p-6 text-clip overflow-hidden
+		class="max-w-[100vw] p-6 text-clip overflow-hidden
     
     dark:text-gray-300 mt-4 mb-4"
 	>
-		<div class="m-4">
-			<div class="text-gray-900 dark:text-gray-100 text-5xl m-4">
-				Scorched Cannon Showcase
-			</div>
-		</div>
 		<TableOfContents headings={headings} />
 		<div class="">
 			{
