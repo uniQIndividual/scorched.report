@@ -10,7 +10,7 @@ if (frontmatter && frontmatter.title) {
 }
 ---
 
-<div class={"flex justify-center " + (Object.keys(headings || {}).length > 2 ? " 2xl:justify-normal 2xl:ml-[2%]" : "")}>
+<div class={"flex justify-center " + (Object.keys(headings || {}).length > 2 ? " 2xl:mr-[350px]" : "")}>
     <div class={"max-w-[100vw] lg:max-w-[60vw] xl:max-w-[60vw] 2xl:max-w-[60vw] p-6 text-clip overflow-hidden dark:text-gray-300 mt-4 mb-4"}>
 		{frontmatter && frontmatter.title && frontmatter.author ? 
         <h1 class="mb-0 dark:text-gray-50 font-bold text-4xl" id={newSlug}>{frontmatter.title}</h1> 

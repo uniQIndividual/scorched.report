@@ -1,5 +1,4 @@
 ---
-
 import { Image } from "astro:assets";
 import ColorModeSwitcher from "../components/ColorModeSwitcher.astro";
 import ImgSRLogo from "../assets/scorchedreport-logo.png";
@@ -8,6 +7,7 @@ import ImgMemberReport from "../assets/external/memberReport.webp";
 import ImgBrayTech from "../assets/external/brayTech.webp";
 import ImgCrucibleReport from "../assets/external/crucibleReport.webp";
 import ImgGloryReport from "../assets/external/gloryReport.webp";
+import TooltipSimple from "../components/TooltipSimple.astro";
 ---
 
 <style>
@@ -73,6 +73,8 @@ import ImgGloryReport from "../assets/external/gloryReport.webp";
 				<button
 					type="button"
 					data-dropdown-toggle="apps-dropdown"
+					data-tooltip-target="tooltip-community-projects"
+					aria-label="Other Community Projects"
 					class="hidden p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
 				>
 					<span class="sr-only">Other cool Resources</span>
@@ -89,15 +91,19 @@ import ImgGloryReport from "../assets/external/gloryReport.webp";
 						</path>
 					</svg>
 				</button>
+				<TooltipSimple
+					id="tooltip-community-projects"
+					title="Other Community Projects"
+				/>
 				<!-- Dropdown menu -->
 				<div
-					class="z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:bg-gray-900 dark:divide-gray-600"
+					class="z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-2xl dark:bg-gray-920 dark:divide-gray-600"
 					id="apps-dropdown"
 				>
 					<div
-						class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-100"
 					>
-						Additional Resources
+						Other Community Projects
 					</div>
 					<div class="grid grid-cols-3 gap-4 p-4">
 						<a
@@ -264,7 +270,6 @@ import ImgGloryReport from "../assets/external/gloryReport.webp";
 						</a>
 					</div>
 				</div>
-
 				<ColorModeSwitcher />
 			</div>
 		</div>
