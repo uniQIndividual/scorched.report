@@ -1,6 +1,10 @@
+---
+import TooltipSimple from "./TooltipSimple.astro";
+---
+
 <button
 	id="theme-toggle"
-	data-tooltip-target="tooltip-toggle"
+	data-tooltip-target="tooltip-color-mode-switcher"
 	type="button"
 	class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
 >
@@ -27,14 +31,7 @@
 		</path>
 	</svg>
 </button>
-<div
-	id="tooltip-toggle"
-	role="tooltip"
-	class="absolute z-10 invisible px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
->
-	Toggle dark mode
-	<div class="tooltip-arrow" data-popper-arrow></div>
-</div>
+<TooltipSimple id="tooltip-color-mode-switcher" title="Toggle dark mode" />
 
 <script>
 	const themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
