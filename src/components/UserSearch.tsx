@@ -136,11 +136,17 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 				<form className="flex flex-wrap justify-center" onSubmit={this.searchFormEventHandler}>
 					<div className="relative mt-1 backdrop-blur-sm max-w-[242px]">
 						<div className="w-[242px]">
+							<input
+								type="text"
+								id="scorcher_search" name="scorcher_search"
+								className=" bg-[rgba(0,0,0,0.3)] dark:bg-[rgba(0,0,0,0.2)] focus:bg-[rgba(0,0,0,0.5)] text-white dark:text-white sm:text-sm rounded-lg block w-full pl-10 p-4 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] border border-gray-300 dark:border-gray-300 placeholder-gray-100 dark:placeholder-gray-300 lg:dark:placeholder-gray-200 "
+								placeholder="Find scorchers..."
+							/>
 							<div
 								className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
 							>
 								<svg
-									className="w-5 h-5 text-gray-500 dark:text-gray-400"
+									className="w-5 h-5 text-gray-200 dark:text-gray-300"
 									fill="currentColor"
 									viewBox="0 0 20 20"
 									xmlns="http://www.w3.org/2000/svg"
@@ -151,12 +157,6 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 									</path>
 								</svg>
 							</div>
-							<input
-								type="text"
-								id="scorcher_search" name="scorcher_search"
-								className=" bg-[rgba(0,0,0,0.2)] border border-gray-300 text-gray-900 dark:text-gray-200 sm:text-sm rounded-lg focus:ring-primary-950 focus:border-primary-950 block w-full pl-10 p-4 dark:border-gray-400 placeholder-gray-800 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-200 dark:focus:border-gray-200"
-								placeholder="Find scorchers..."
-							/>
 						</div>
 					</div>
 					{/*<input type="search" id="q" name="q" className="bg-gray-100 w-96 flex justify-center"

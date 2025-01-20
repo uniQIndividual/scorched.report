@@ -1,6 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import Search from "../components/UserSearch";
+import sidebarBackgroundDark from "../assets/sidebar/dark.webp";
+import sidebarBackgroundLight from "../assets/sidebar/light.webp";
 
 const allTWAS = await getCollection("twas");
 ---
@@ -10,22 +13,32 @@ const allTWAS = await getCollection("twas");
 	class="fixed left-0 z-20 flex flex-col flex-shrink-0 hidden w-full lg:w-[350px] h-full pt-20 font-normal duration-75 lg:flex transition-width"
 	aria-label="Sidebar"
 >
-<img
-id="sidebar_image"
-	src="/images/sidebar/dark.webp"
-	class="fixed object-right h-full w-full lg:w-[400px] object-cover top-0"
-/>
-	<div class="relative flex flex-col items-center lg:items-baseline flex-1 min-h-0 pt-0 ">
+	<Image
+		alt="Sidebar Background"
+		class="images-light hidden fixed object-right h-full w-full lg:w-[400px] object-cover top-0"
+		src={sidebarBackgroundLight}
+	/>
+	<Image
+		alt="Dark Sidebar Background"
+		class="images-dark hidden fixed object-right h-full w-full lg:w-[400px] object-cover top-0"
+		src={sidebarBackgroundDark}
+	/>
+	<div
+		class="relative flex flex-col items-center lg:items-baseline flex-1 min-h-0 pt-0"
+	>
 		<div
 			class:list={[
-				"flex flex-col flex-1 pt-5 overflow-y-auto",
+				"flex flex-col flex-1 pt-5 overflow-y-auto w-[350px]",
 				"scrollbar scrollbar-w-2 scrollbar-thumb-rounded-[0.1667rem]",
 				"scrollbar-thumb-gray-200 scrollbar-track-gray-400",
 				"dark:scrollbar-thumb-gray-300 dark:scrollbar-track-gray-800",
 			]}
 			dir="rtl"
 		>
-			<div class="peer mb-2 flex justify-center lg:justify-normal lg:pl-10" dir="ltr">
+			<div
+				class="peer mb-2 flex justify-center lg:justify-normal lg:pl-10"
+				dir="ltr"
+			>
 				<Search client:only="react" />
 			</div>
 			<div
@@ -68,7 +81,11 @@ id="sidebar_image"
 							aria-controls="dropdown-layouts"
 							data-collapse-toggle="dropdown-layouts"
 						>
-						<img src="/images/icons/leaderboards.webp" class="w-7 h-7" />
+							<img
+								src="/images/icons/leaderboards.webp"
+								alt="Leaderboard Icon"
+								class="w-7 h-7"
+							/>
 							<span
 								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>Leaderboards</span
@@ -236,15 +253,15 @@ id="sidebar_image"
 						<ul id="dropdown-auth" class="hidden py-2 space-y-2">
 							{
 								allTWAS.map((entry) => (
-										<li class="">
-											<a
-												href={`/twas/${entry.id}`}
-												class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
-											>
-												{entry.data.title}
-											</a>
-										</li>
-									))
+									<li class="">
+										<a
+											href={`/twas/${entry.id}`}
+											class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+										>
+											{entry.data.title}
+										</a>
+									</li>
+								))
 							}
 						</ul>
 					</li>
@@ -266,7 +283,7 @@ id="sidebar_image"
 									d="M8.597 3.2A1 1 0 0 0 7.04 4.289a3.49 3.49 0 0 1 .057 1.795 3.448 3.448 0 0 1-.84 1.575.999.999 0 0 0-.077.094c-.596.817-3.96 5.6-.941 10.762l.03.049a7.73 7.73 0 0 0 2.917 2.602 7.617 7.617 0 0 0 3.772.829 8.06 8.06 0 0 0 3.986-.975 8.185 8.185 0 0 0 3.04-2.864c1.301-2.2 1.184-4.556.588-6.441-.583-1.848-1.68-3.414-2.607-4.102a1 1 0 0 0-1.594.757c-.067 1.431-.363 2.551-.794 3.431-.222-2.407-1.127-4.196-2.224-5.524-1.147-1.39-2.564-2.3-3.323-2.788a8.487 8.487 0 0 1-.432-.287Z"
 								></path>
 							</svg>
-	
+
 							<span
 								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>Secret Tips and Tricks</span

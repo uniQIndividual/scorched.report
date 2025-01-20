@@ -41,6 +41,8 @@
 	const themeToggleLightIcon = document.getElementById(
 		"theme-toggle-light-icon"
 	);
+	const imagesLight = document.getElementsByClassName("images-light");
+	const imagesDark = document.getElementsByClassName("images-dark");
 
 	// Change the icons inside the button based on previous settings
 	if (
@@ -49,10 +51,14 @@
 			window.matchMedia("(prefers-color-scheme: dark)").matches)
 	) {
 		themeToggleLightIcon.classList.remove("hidden");
-		document.getElementById('sidebar_image')?.setAttribute("src", '/images/sidebar/dark.webp');
+		Object.values(imagesDark).map((item) => {
+			item.classList.remove("hidden");
+		});
 	} else {
 		themeToggleDarkIcon.classList.remove("hidden");
-		document.getElementById('sidebar_image')?.setAttribute("src", '/images/sidebar/light.webp');
+		Object.values(imagesLight).map((item) => {
+			item.classList.remove("hidden");
+		});
 	}
 
 	const themeToggleBtn = document.getElementById("theme-toggle");
@@ -64,27 +70,42 @@
 		themeToggleDarkIcon.classList.toggle("hidden");
 		themeToggleLightIcon.classList.toggle("hidden");
 
+		Object.values(imagesLight).map((item) => {
+			item.classList.toggle("hidden");
+		});
+		Object.values(imagesDark).map((item) => {
+			item.classList.toggle("hidden");
+		});
+
 		// if set via local storage previously
 		if (localStorage.getItem("color-theme")) {
 			if (localStorage.getItem("color-theme") === "light") {
 				document.documentElement.classList.add("dark");
 				localStorage.setItem("color-theme", "dark");
-				document.getElementById('sidebar_image')?.setAttribute("src", '/images/sidebar/dark.webp');
+				document
+					.getElementById("sidebar_image")
+					?.setAttribute("src", "/images/sidebar/dark.webp");
 			} else {
 				document.documentElement.classList.remove("dark");
 				localStorage.setItem("color-theme", "light");
-				document.getElementById('sidebar_image')?.setAttribute("src", '/images/sidebar/light.webp');
+				document
+					.getElementById("sidebar_image")
+					?.setAttribute("src", "/images/sidebar/light.webp");
 			}
 
 			// if NOT set via local storage previously
 		} else if (document.documentElement.classList.contains("dark")) {
 			document.documentElement.classList.remove("dark");
 			localStorage.setItem("color-theme", "light");
-			document.getElementById('sidebar_image')?.setAttribute("src", '/images/sidebar/light.webp');
+			document
+				.getElementById("sidebar_image")
+				?.setAttribute("src", "/images/sidebar/light.webp");
 		} else {
 			document.documentElement.classList.add("dark");
 			localStorage.setItem("color-theme", "dark");
-			document.getElementById('sidebar_image')?.setAttribute("src", '/images/sidebar/dark.webp');
+			document
+				.getElementById("sidebar_image")
+				?.setAttribute("src", "/images/sidebar/dark.webp");
 		}
 
 		document.dispatchEvent(event);

@@ -163,7 +163,7 @@ const tiers = {
 
     return (
         <div>
-            <div className="text-lg text-gray-400 flex justify-center mt-20 font-light">This data is based on individuals ratings by {Object.values(newMapRankings)[0].rankings.length} Scorchers.</div>
+            <div className="text-lg text-gray-400 flex justify-center mt-20 font-light">This data is based on individual ratings by {Object.values(newMapRankings)[0].rankings.length} Scorchers.</div>
             <div className="flex justify-center mt-4 mb-12 text-black">
                 <div className="table border-spacing-2">
                     {Object.keys(tiers).map(tier => {

@@ -2,11 +2,12 @@
 
 import { Image } from "astro:assets";
 import ColorModeSwitcher from "../components/ColorModeSwitcher.astro";
-import ImgGdnphotographer from "../../public/images/external/gdnphotographer.webp";
-import ImgMemberReport from "../../public/images/external/memberReport.webp";
-import ImgBrayTech from "../../public/images/external/brayTech.webp";
-import ImgCrucibleReport from "../../public/images/external/crucibleReport.webp";
-import ImgGloryReport from "../../public/images/external/gloryReport.webp";
+import ImgSRLogo from "../assets/scorchedreport-logo.png";
+import ImgGdnphotographer from "../assets/external/gdnphotographer.webp";
+import ImgMemberReport from "../assets/external/memberReport.webp";
+import ImgBrayTech from "../assets/external/brayTech.webp";
+import ImgCrucibleReport from "../assets/external/crucibleReport.webp";
+import ImgGloryReport from "../assets/external/gloryReport.webp";
 ---
 
 <style>
@@ -14,7 +15,7 @@ import ImgGloryReport from "../../public/images/external/gloryReport.webp";
 	}
 </style>
 <nav
-	class="fixed z-30 w-full dark:transparent bg-[rgba(50,50,50,1)] lg:bg-[rgba(0,0,0,0)]"
+	class="fixed z-30 w-full dark:transparent bg-[rgba(50,50,50,1)] lg:bg-[rgba(0,0,0,0)] lg:bg-gradient-to-b lg:from-gray-50 lg:dark:from-gray-900"
 >
 	<div class="px-3 py-3 lg:px-5 lg:pl-3">
 		<div class="flex items-center justify-between">
@@ -51,7 +52,12 @@ import ImgGloryReport from "../../public/images/external/gloryReport.webp";
 					</svg>
 				</button>
 				<a href="/" class="flex ml-2 md:mr-24">
-					<img src={"/images/logo2.png"} class="h-10 lg:h-14 mr-3 mt-1" />
+					<Image
+						src={ImgSRLogo}
+						loading="eager"
+						alt={"Scorched Report Logo"}
+						class={"h-10 w-10 lg:h-14 lg:w-14 mr-3 mt-1"}
+					/>
 					<span
 						class="cursor-pointer self-center font-semibold text-2xl whitespace-nowrap text-white lg:text-black lg:dark:text-white"
 						>Scorched Report</span
