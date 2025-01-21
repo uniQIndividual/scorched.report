@@ -29,7 +29,7 @@ export type matchTableEntry = { // The full match representation used for displa
 	"won": boolean,
 	"win_chance": number,
 	"kd": number,
-    "time": number,
+	"time": number,
 	"kpm": number,
 	"efficiency": number
 }
@@ -55,7 +55,7 @@ export type pgcrCutDown = { // The smaller match representation for storing
 	"map": string,
 	"won": boolean,
 	"win_chance": number,
-    "time": number,
+	"time": number,
 }
 
 export type historicStatsPerCharacter = {

@@ -1,5 +1,5 @@
 import React from "react";
-import { awards, type Scorcher } from "../../pages/entities";
+import { awards, type Scorcher } from "../../lib/entities";
 import ApexChart from "react-apexcharts";
 import { Tooltip } from 'react-tooltip'
 

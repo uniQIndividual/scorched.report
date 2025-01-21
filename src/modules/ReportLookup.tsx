@@ -11,7 +11,7 @@ import API from "../lib/api";
 import * as fzstd from 'fzstd';
 import update from 'immutability-helper';
 import LoadingAnimation from "../components/LoadingAnimation";
-import { type historicStatsPerCharacter, type pgcrCutDown, type Scorcher } from "../pages/entities";
+import { type historicStatsPerCharacter, type pgcrCutDown, type Scorcher } from "../lib/entities";
 import { Profile } from "../components/profile/Profile";
 import { Radar } from "../components/profile/Summary";
 import { Activity } from "../components/profile/Experience";

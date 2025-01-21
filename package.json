@@ -44,6 +44,7 @@
 		"@types/react-dom": "^18.3.1",
 		"apexcharts": "^4.3.0",
 		"astro": "^5.1.6",
+		"clsx": "^2.1.1",
 		"dayjs": "^1.11.13",
 		"flowbite": "^2.1.1",
 		"flowbite-typography": "^1.0.3",

@@ -1,6 +1,6 @@
 import React from "react";
-import { type Scorcher } from "../../pages/entities";
-import { awards, medalsBungie } from "../../pages/entities";
+import { type Scorcher } from "../../lib/entities";
+import { awards, medalsBungie } from "../../lib/entities";
 import { Tooltip } from 'react-tooltip'
 import SCORCHED_CANNONS from "../../lib/cannons";
 

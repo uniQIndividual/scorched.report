@@ -1,5 +1,5 @@
 import React from "react";
-import { type Scorcher } from "../../pages/entities";
+import { type Scorcher } from "../../lib/entities";
 import ReactApexChart from "react-apexcharts";
 
 
