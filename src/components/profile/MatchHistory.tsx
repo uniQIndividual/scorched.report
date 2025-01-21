@@ -5,8 +5,8 @@ import {
   type MRT_ColumnDef,
 } from 'mantine-react-table';
 import { createStyles, MantineProvider } from '@mantine/core';
-import { type DestinyActivityDefinitionType, type Scorcher } from '../../lib/entities';
-import { type matchTableEntry, medalsBungie } from '../../lib/entities';
+import { type DestinyActivityDefinitionType, type Scorcher } from '../../pages/entities';
+import { type matchTableEntry, medalsBungie } from '../../pages/entities';
 import PGCRLookup from '../../modules/PGCRLookup';
 import React from 'react';
 import update from 'immutability-helper';

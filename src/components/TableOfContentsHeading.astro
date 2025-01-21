@@ -5,7 +5,7 @@ const { heading } = Astro.props;
 <li class={heading.depth >= 2 ? "mt-1" : "mt-4"}>
 	<a
 		href={`#${heading.slug || heading.id}`}
-		class={"underline underline-offset-2 decoration-primary-700 decoration-2" +
+		class={"underline underline-offset-2 decoration-primary-700 decoration-2 hover:text-black dark:hover:text-white" +
 			(heading.depth >= 2
 				? heading.depth >= 3
 					? " font-light"

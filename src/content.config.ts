@@ -9,10 +9,11 @@ const pages = defineCollection({
     })
 });
 const twas = defineCollection({
-    loader: glob({ pattern: "**/*.md", base: "./src/content/twas" }),
+    loader: glob({ pattern: "**/*.md", base: "./src/pages/twas" }),
     schema: z.object({
         title: z.string(),
         author: z.string(),
+        description: z.string(),
         updatedDate: z.coerce.date().optional(),
     }),
 });

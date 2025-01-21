@@ -13,7 +13,7 @@ if (frontmatter && frontmatter.title) {
 <div class={"flex justify-center " + (Object.keys(headings || {}).length > 2 ? " 2xl:mr-[350px]" : "")}>
     <div class={"max-w-[100vw] lg:max-w-[60vw] xl:max-w-[60vw] 2xl:max-w-[60vw] p-6 text-clip overflow-hidden dark:text-gray-300 mt-4 mb-4"}>
 		{frontmatter && frontmatter.title ? 
-        <h1 class="mb-0 text-gray-900 dark:text-gray-50 font-bold text-4xl" id={newSlug}>{frontmatter.title}</h1>  : 
+        <h1 class={(headings && headings.length < 2 ? "mb-8" : "mb-0") + " text-gray-900 dark:text-gray-50 font-bold text-4xl"} id={newSlug}>{frontmatter.title}</h1>  : 
         ""}
         {frontmatter && frontmatter.author ? <span class="font-extralight italic">by</span> 
         <span class="font-extralight italic">{frontmatter.author}</span> : 

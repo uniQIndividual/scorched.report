@@ -1,10 +1,10 @@
 ---
 title: 'Donate'
+description: "Scorched Report is specifically designed in a way so it does not create any noteworthy ongoing expenses for me."
+layout: '../app/MarkdownStandalone.astro'
 ---
 
-# Donate
-
-scorched.report is specifically designed such that it does not create any noteworthy ongoing expenses for me. If you want to donate money to Destiny 2 fan projects please consider the following projects currently looking for funding:
+Scorched Report is specifically designed in a way so it does not create any noteworthy ongoing expenses for me. If you want to donate money to Destiny 2 fan projects please consider the following projects currently looking for funding:
 
 - [Andrew Sun](https://andrewsun.com/donate/) (Destiny 2 Post Game Carnage Report Dataset)
 - [Crucible Report / Trials Report](https://www.buymeacoffee.com/trialsreport)

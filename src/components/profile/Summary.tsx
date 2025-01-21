@@ -1,5 +1,5 @@
 import React from "react";
-import { type Scorcher } from "../../lib/entities";
+import { type Scorcher } from "../../pages/entities";
 import ApexChart from "react-apexcharts";
 
 const textColor = '#e3e4ea';

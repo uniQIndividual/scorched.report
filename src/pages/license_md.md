@@ -1,10 +1,10 @@
 ---
 title: 'License'
+description: "Scorched Report is available under the MIT License"
+layout: '../app/MarkdownStandalone.astro'
 ---
 
-# License
-
-scorched.report is licensed under the MIT License found below. It is built upon the amazing work by many other people:
+Scorched Report is available under the MIT License found below. It is built upon the amazing work by many other people:
 
 - [Destiny 2 Post Game Carnage Report Dataset](https://d2.asun.co/pgcr.html) by Andrew Sun under the Open Database License (ODbL)
 - Scorched Cannon images from GerbSnail
@@ -17,7 +17,7 @@ See Bungie’s [Terms of Use](https://www.bungie.net/7/en/legal/terms) for more 
 
 MIT License
 
-Copyright (c) 2024 uniQ
+Copyright (c) 2025 uniQ
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

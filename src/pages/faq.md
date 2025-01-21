@@ -1,6 +1,7 @@
 ---
 title: 'FAQ'
-layout: '../../app/MarkdownWrapper.astro'
+description: "https://www.youtube.com/watch?v=S-eWvdLwMoU&t=6397s"
+layout: '../app/MarkdownStandalone.astro'
 ---
 
 ## Who are these Scorched Enthusiasts?
