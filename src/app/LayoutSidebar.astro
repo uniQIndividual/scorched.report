@@ -12,6 +12,7 @@ const {
 	og_description = "The home of everything Team Scorched",
 	og_image = "/images/logo2.png",
 	title,
+	make_title,
 } = Astro.props;
 
 let newSlug = "";
@@ -29,12 +30,11 @@ if (title) {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>
-			{"Scorched Report" + (title != undefined ? " - " + title : "")}
+			{(title != undefined ? title + " | " : "") + "Scorched Report"}
 		</title>
 
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={pkg.description} />
-		<meta name="" content={pkg.description} />
 		<link rel="icon" type="image/svg+xml" href={"/images/logo2.png"} />
 		<link
 			rel="sitemap"
@@ -84,12 +84,12 @@ if (title) {
 					class="relative w-full h-full overflow-y-hidden bg-gray-50 lg:ml-[380px] lg:mr-4 lg:mt-2 dark:bg-gray-900 min-h-screen text-gray-500 dark:text-gray-400"
 				>
 					{
-						title ? (
+						make_title ? (
 							<h1
 								class="text-gray-900 dark:text-gray-100 text-center font-bold text-4xl lg:text-5xl 3xl:text-5xl m-8"
 								id={newSlug}
 							>
-								{title}
+								{make_title}
 							</h1>
 						) : (
 							""

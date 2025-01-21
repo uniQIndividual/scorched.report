@@ -13,7 +13,7 @@ if (frontmatter && frontmatter.title) {
 <div class={"flex justify-center " + (Object.keys(headings || {}).length > 2 ? " 2xl:mr-[350px]" : "")}>
     <div class={"max-w-[100vw] lg:max-w-[60vw] xl:max-w-[60vw] 2xl:max-w-[60vw] p-6 text-clip overflow-hidden dark:text-gray-300 mt-4 mb-4"}>
 		{frontmatter && frontmatter.title ? 
-        <h1 class="mb-0 dark:text-gray-50 font-bold text-4xl" id={newSlug}>{frontmatter.title}</h1>  : 
+        <h1 class="mb-0 text-gray-900 dark:text-gray-50 font-bold text-4xl" id={newSlug}>{frontmatter.title}</h1>  : 
         ""}
         {frontmatter && frontmatter.author ? <span class="font-extralight italic">by</span> 
         <span class="font-extralight italic">{frontmatter.author}</span> : 
@@ -22,7 +22,8 @@ if (frontmatter && frontmatter.title) {
         <div
 	    class="leading-7 2xl:mt-10 prose text-gray-800 dark:text-gray-200
         dark:prose-invert prose-h1:mb-4 prose-h1:mt-14 prose-h2:mb-4 prose-h2:mt-10
-        prose-h1-dark:text-gray-50 prose-h1:font-bold prose-h1:text-xxl
+        prose-h1:text-gray-900 prose-h1:dark:text-gray-50 prose-h1:font-bold prose-h1:text-xxl
+        prose-strong:dark:text-gray-200
         prose-a:text-gray-900 prose-a:dark:text-gray-50 prose-a:underline-offset-2 prose-p:text-justify prose-img:rounded-xl  prose-blockquote:font-normal prose-blockquote:p-4
         prose-blockquote:pt-1 prose-blockquote:rounded-lg prose-blockquote:not-italic prose-blockquote:dark:text-gray-300 prose-blockquote:text-gray-700 prose-blockquote:bg-[rgba(0,0,0,0.2)]"
         >

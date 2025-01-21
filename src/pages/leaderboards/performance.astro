@@ -3,9 +3,11 @@ import LayoutSidebar from "../../app/LayoutSidebar.astro";
 import { LeaderboardPerformance } from "../../components/leaderboard/Performance";
 ---
 
-<LayoutSidebar title="Performance Leaderboard"
+<LayoutSidebar
+	title="Performance Leaderboard"
+	make_title="Performance Leaderboard"
 	og_title="Team Scorched Performance Leaderboard"
 	og_description="View the best Team Scorched players"
-    >
+>
 	<LeaderboardPerformance client:only="react" />
 </LayoutSidebar>

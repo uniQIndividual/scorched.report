@@ -1,0 +1,15 @@
+---
+import MarkdownWrapper from "./MarkdownWrapper.astro";
+import LayoutSidebar from "./LayoutSidebar.astro";
+const { frontmatter, headings } = Astro.props;
+---
+
+<LayoutSidebar
+	title={frontmatter && frontmatter.title ? frontmatter.title : undefined}
+	og_title={frontmatter && frontmatter.title ? frontmatter.title : undefined}
+	og_description={frontmatter && frontmatter.description ? frontmatter.description : undefined}
+>
+	<MarkdownWrapper frontmatter={frontmatter} headings={headings}>
+		<slot />
+	</MarkdownWrapper>
+</LayoutSidebar>
