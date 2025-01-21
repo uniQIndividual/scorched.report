@@ -235,7 +235,7 @@ export const LeaderboardPerformance = () => {
         header: 'Highest Kill Match',
         filterVariant: 'range',
         size: 50,
-        Cell: ({ cell }) => <a className="hover:text-white underline underline-offset-4 decoration-[1px]" href={"/pgcr?id=" + cell.row.original.highestKillMatch}>{cell.getValue<number>()}</a>
+        Cell: ({ cell }) => <a className="hover:text-white underline underline-offset-4 decoration-[1px]" href={"/pgcr?id=" + cell.row.original.highestKillMatch + "&membershipid="+ cell.row.original.membershipID}>{cell.getValue<number>()}</a>
       },
       {
         accessorKey: 'wins',

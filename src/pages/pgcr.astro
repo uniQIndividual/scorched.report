@@ -1,8 +1,13 @@
 ---
-import LayoutSidebar from '../app/LayoutSidebar.astro';
-import PGCRLookup from '../modules/PGCRLookup.tsx';
+import LayoutSidebar from "../app/LayoutSidebar.astro";
+import PGCRLookup from "../modules/PGCRLookup.tsx";
 ---
 
-<LayoutSidebar>
+<LayoutSidebar
+	title="Match Lookup"
+	make_title="Match Lookup"
+	og_title="Match Lookup"
+	og_description="Lookup your Team Scorched matches."
+>
 	<PGCRLookup client:only="react" />
 </LayoutSidebar>
