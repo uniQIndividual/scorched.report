@@ -174,9 +174,9 @@ export const LeaderboardPerformance = () => {
 
       })
       newData = newData.sort(function (a, b) {
-        if (a.elo < b.elo)
-          return -1;
         if (a.elo > b.elo)
+          return -1;
+        if (a.elo < b.elo)
           return 1;
         return 0;
       });
@@ -286,6 +286,7 @@ export const LeaderboardPerformance = () => {
       className: ""
     },
     enableRowNumbers: true,
+    rowNumberMode: 'original',
     //enableColumnResizing: true,
     enableExpandAll: false, // this could easily get you rate limited I'd assume
     enableFullScreenToggle: false, // ik I'm incredibly sad as well, but it breaks too many things
@@ -310,7 +311,6 @@ export const LeaderboardPerformance = () => {
         <MantineReactTable table={table} />
       </MantineProvider>
     </div>
-    <div className="text-lg text-gray-400 text-center mx-6 mt-2 mb-40 font-light">Please play Team Scorched because it's fun, not because a number on some random website tells you to.</div>
   </div>) :
     <div className="flex h-72 justify-center pr-24">
       <LoadingAnimation />

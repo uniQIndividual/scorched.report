@@ -3,7 +3,15 @@ import LayoutSidebar from "../../app/LayoutSidebar.astro";
 import { LeaderboardExperience } from "../../components/leaderboard/Experience";
 ---
 
-<LayoutSidebar>
-    <div class="text-6xl text-gray-100 flex justify-center mt-2 mb-10 font-semibold">Experience Leaderboard</div>
+<LayoutSidebar
+	title="Experience Leaderboard"
+	make_title="Experience Leaderboard"
+	og_title="Team Scorched Experience Leaderboard"
+	og_description="View the most experienced Team Scorched players"
+>
 	<LeaderboardExperience client:only="react" />
+	<div class="text-lg text-gray-400 text-center mx-6 mt-2 mb-40 font-light">
+		Please play Team Scorched because it's fun, not because a number on some
+		random website tells you to.
+	</div>
 </LayoutSidebar>

@@ -145,9 +145,9 @@ export const LeaderboardExperience = () => {
 
       })
       newData = newData.sort(function (a, b) {
-        if (a.elo < b.elo)
+        if (a.matches > b.matches)
           return -1;
-        if (a.elo > b.elo)
+        if (a.matches < b.matches)
           return 1;
         return 0;
       });
@@ -249,18 +249,20 @@ export const LeaderboardExperience = () => {
       className: ""
     },
     enableRowNumbers: true,
+    rowNumberMode: 'original',
     //enableColumnResizing: true,
     enableExpandAll: false, // this could easily get you rate limited I'd assume
     enableFullScreenToggle: false, // ik I'm incredibly sad as well, but it breaks too many things
-    initialState: { density: 'xs',
-      
+    initialState: {
+      density: 'xs',
+
       sorting: [
         {
-            id: 'matches',
-            desc: true
+          id: 'matches',
+          desc: true
         }
-    ]
-     }
+      ]
+    }
   });
 
   return render ? (<div className=''>
@@ -273,6 +275,5 @@ export const LeaderboardExperience = () => {
         <MantineReactTable table={table} />
       </MantineProvider>
     </div>
-    <div className="text-lg text-gray-400 flex justify-center mt-2 mb-40  font-light">Please play Team Scorched because it's fun, not because a number on a random website tells you to.</div>
   </div>) : "";
 }
