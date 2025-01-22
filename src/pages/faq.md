@@ -43,6 +43,10 @@ It currently uses a pure OpenSkill implementation with a base rating of 1000 wit
 
 Also OpenSkill can never perfectly reflect "skill", it is a approximation of your relative win chances and the uncertainty of your rating. High win-ratios, K/D alone won't guarantee a good score. In the end this is meant as a entertaining, somewhat arbitrary comparison stat for you and an interesting statistical exercise for me. But hey, that's why you can see the individual ratings for every single match and something feels wrong you can let me know.
 
+## I'm missing an achievement/match/etc
+
+Simply send me a message.
+
 ## These colors seem off
 
 Idk I'm playing with colorblind setting because they look much better imo anyway and that's what I modeled after. If you see something that seems legitimately broken please message me.

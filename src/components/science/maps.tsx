@@ -1,6 +1,5 @@
 import ReactApexChart from "react-apexcharts";
 import { mapRankings } from "../../lib/mapRankings";
-import type { string } from "astro:schema";
 import update from 'immutability-helper';
 
 export const MapScience = () => {
@@ -94,6 +93,10 @@ export const MapScience = () => {
     const series = [
         {
             data: Object.keys(newMapRankings).map(map => {
+                console.log({
+                    x: map,
+                    y: newMapRankings[map].rankings
+                });
                 return ({
                     x: map,
                     y: newMapRankings[map].rankings
