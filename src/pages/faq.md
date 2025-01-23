@@ -35,6 +35,7 @@ Just a couple notes for now
 - Obviously cheated entries are excluded from leaderboards and ratings
 - Some PGCRs are simply gone, i.e. Bungie does not show them anywhere. These matches essentially don't exist anymore. Nothing I can do.
 - Bungie does not report the "the crown is mine medal" i.e. I have no idea how many you received. Or maybe I can't find it.
+- Bungie seems to have an issue with disconnecting players and notes impossibly low playtimes. This seems to mainly affect matches around April 14, 2023.
 - Some PGCRs are just broken in a way that messes with calculations, e.g. 4817214499, 4817311121, 4817752159, 4817909354, 4818017690, 4818075093, 4818102193, 4819219037, 4819294202, 4819416171, 4819512047, 4819797530, 4819995377
 
 ## How is Elo calculated?

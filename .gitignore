@@ -28,5 +28,6 @@ pnpm-debug.log*
 public/images/potential
 public/images/cannons/staging
 public/data/mock
+/src/assets/icons/sidebar/potential
 
 # additional tools

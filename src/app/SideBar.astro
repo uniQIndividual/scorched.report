@@ -4,6 +4,15 @@ import { Image } from "astro:assets";
 import Search from "../components/UserSearch";
 import sidebarBackgroundDark from "../assets/sidebar/dark.webp";
 import sidebarBackgroundLight from "../assets/sidebar/light.webp";
+import sidebarIconTipsAndTricks from "../assets/icons/sidebar/tips_and_tricks.webp";
+import sidebarIconDonate from "../assets/icons/sidebar/donate.webp";
+import sidebarIconInfo from "../assets/icons/sidebar/info.webp";
+import sidebarIconAbout from "../assets/icons/sidebar/about.webp";
+import sidebarIconScience from "../assets/icons/sidebar/science.webp";
+import sidebarIconTWAS from "../assets/icons/sidebar/twas.webp";
+import sidebarIconHome from "../assets/icons/sidebar/home.webp";
+import sidebarIconLeaderboard from "../assets/icons/sidebar/leaderboards.webp";
+import sidebarIconExoticCannon from "../assets/icons/sidebar/exotic_cannon.webp";
 
 const allTWAS = await getCollection("twas");
 ---
@@ -50,24 +59,16 @@ const allTWAS = await getCollection("twas");
 					<li class="">
 						<a
 							href="/"
-							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+							class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 						>
-							<svg
-								fill="currentColor"
-								class="w-7 h-7 min-w-fit text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-								aria-hidden="true"
-							>
-								<path
-									d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
-								>
-								</path>
-								<path
-									d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
-								>
-								</path>
-							</svg>
+						<Image
+							alt="Home Icon"
+							src={sidebarIconHome}
+							loading="eager"
+							height="36"
+							width="36"
+							class="w-9 h-9 min-w-9"
+						/>
 							<span
 								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>Home</span
@@ -77,22 +78,25 @@ const allTWAS = await getCollection("twas");
 					<li class="">
 						<button
 							type="button"
-							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
-							aria-controls="dropdown-layouts"
-							data-collapse-toggle="dropdown-layouts"
+							class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+							aria-controls="dropdown-leaderboard"
+							data-collapse-toggle="dropdown-leaderboard"
 						>
-							<img
-								src="/images/icons/leaderboards.webp"
-								alt="Leaderboard Icon"
-								class="w-7 h-7"
-							/>
+						<Image
+							alt="Leaderboard Icon"
+							src={sidebarIconLeaderboard}
+							loading="eager"
+							height="36"
+							width="36"
+							class="w-9 h-9 min-w-9"
+						/>
 							<span
 								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>Leaderboards</span
 							>
 							<svg
 								sidebar-toggle-item
-								class="w-7 h-7"
+								class="w-9 h-9"
 								fill="currentColor"
 								viewBox="0 0 20 20"
 								xmlns="http://www.w3.org/2000/svg"
@@ -103,25 +107,25 @@ const allTWAS = await getCollection("twas");
 								</path>
 							</svg>
 						</button>
-						<ul id="dropdown-layouts" class="hidden py-2 space-y-2">
+						<ul id="dropdown-leaderboard" class="hidden py-2 space-y-2 ml-14">
 							<li class="">
 								<a
 									href="/leaderboards/performance"
-									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Performance</a
 								>
 							</li>
 							<li class="">
 								<a
 									href="/leaderboards/experience"
-									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Experience</a
 								>
 							</li>
 							<li class="">
 								<a
 									href="/leaderboards/special"
-									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Special Kills</a
 								>
 							</li>
@@ -130,35 +134,25 @@ const allTWAS = await getCollection("twas");
 					<li class="">
 						<button
 							type="button"
-							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+							class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 							aria-controls="dropdown-science"
 							data-collapse-toggle="dropdown-science"
 						>
-							<svg
-								class="w-7 h-7 min-w-fit text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								fill="none"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M4 4v15a1 1 0 0 0 1 1h15M8 16l2.5-5.5 3 3L17.273 7 20 9.667"
-								></path>
-							</svg>
-
+						<Image
+							alt="Science Icon"
+							src={sidebarIconScience}
+							loading="eager"
+							height="36"
+							width="36"
+							class="w-9 h-9 min-w-9"
+						/>
 							<span
-								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000 text-left whitespace-nowrap"
+								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>Science</span
 							>
 							<svg
 								sidebar-toggle-item
-								class="w-7 h-7"
+								class="w-9 h-9"
 								fill="currentColor"
 								viewBox="0 0 20 20"
 								xmlns="http://www.w3.org/2000/svg"
@@ -169,32 +163,32 @@ const allTWAS = await getCollection("twas");
 								</path>
 							</svg>
 						</button>
-						<ul id="dropdown-science" class="hidden space-y-2 py-2">
+						<ul id="dropdown-science" class="hidden py-2 space-y-2 ml-14">
 							<li class="">
 								<a
 									href="/science/elo"
-									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center h-6 p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Elo</a
 								>
 							</li>
 							<li class="">
 								<a
 									href="/science/playtime"
-									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Playtime</a
 								>
 							</li>
 							<li class="">
 								<a
 									href="/science/matchmaking"
-									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Matchmaking</a
 								>
 							</li>
 							<li class="">
 								<a
 									href="/science/maps"
-									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+									class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 									>Maps</a
 								>
 							</li>
@@ -203,9 +197,16 @@ const allTWAS = await getCollection("twas");
 					<li class="">
 						<a
 							href="/showcase"
-							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+							class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 						>
-							<img src="/images/exotic_cannon.png" class="w-7 h-7" />
+						<Image
+							alt="Cannon Showcase Icon"
+							src={sidebarIconExoticCannon}
+							loading="eager"
+							height="36"
+							width="36"
+							class="w-9 h-9 min-w-9"
+						/>
 							<span
 								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>Cannon Showcase</span
@@ -215,31 +216,25 @@ const allTWAS = await getCollection("twas");
 					<li class="">
 						<button
 							type="button"
-							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
-							aria-controls="dropdown-auth"
-							data-collapse-toggle="dropdown-auth"
+							class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+							aria-controls="dropdown-twas"
+							data-collapse-toggle="dropdown-twas"
 						>
-							<svg
-								class="w-7 h-7 min-w-fit text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								fill="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									fill-rule="evenodd"
-									d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11.5c.07 0 .14-.007.207-.021.095.014.193.021.293.021h2a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1h-1a1 1 0 1 0 0 2v11h-2V5a2 2 0 0 0-2-2H5Zm7 4a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm-6 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1ZM7 6a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Zm1 3V8h1v1H8Z"
-									clip-rule="evenodd"></path>
-							</svg>
+						<Image
+							alt="This Week at Scorched Icon"
+							src={sidebarIconTWAS}
+							loading="eager"
+							height="36"
+							width="36"
+							class="w-9 h-9 min-w-9"
+						/>
 							<span
 								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>This Week at Scorched</span
 							>
 							<svg
 								sidebar-toggle-item
-								class="w-7 h-7"
+								class="w-9 h-9"
 								fill="currentColor"
 								viewBox="0 0 20 20"
 								xmlns="http://www.w3.org/2000/svg"
@@ -250,13 +245,13 @@ const allTWAS = await getCollection("twas");
 								</path>
 							</svg>
 						</button>
-						<ul id="dropdown-auth" class="hidden py-2 space-y-2">
+						<ul id="dropdown-twas" class="hidden py-2 space-y-2 ml-14">
 							{
 								allTWAS.map((entry) => (
 									<li class="">
 										<a
 											href={`/twas/${entry.id}`}
-											class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg pl-11 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
+											class="flex items-center p-2 text-gray-200 transition duration-75 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg pl-6 group hover:bg-[rgba(0,0,0,0.75)] dark:text-gray-200"
 										>
 											{entry.data.title}
 										</a>
@@ -268,22 +263,16 @@ const allTWAS = await getCollection("twas");
 					<li class="">
 						<a
 							href="/howtoplay"
-							class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+							class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 						>
-							<svg
-								class="w-7 h-7 min-w-fit text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								fill="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									d="M8.597 3.2A1 1 0 0 0 7.04 4.289a3.49 3.49 0 0 1 .057 1.795 3.448 3.448 0 0 1-.84 1.575.999.999 0 0 0-.077.094c-.596.817-3.96 5.6-.941 10.762l.03.049a7.73 7.73 0 0 0 2.917 2.602 7.617 7.617 0 0 0 3.772.829 8.06 8.06 0 0 0 3.986-.975 8.185 8.185 0 0 0 3.04-2.864c1.301-2.2 1.184-4.556.588-6.441-.583-1.848-1.68-3.414-2.607-4.102a1 1 0 0 0-1.594.757c-.067 1.431-.363 2.551-.794 3.431-.222-2.407-1.127-4.196-2.224-5.524-1.147-1.39-2.564-2.3-3.323-2.788a8.487 8.487 0 0 1-.432-.287Z"
-								></path>
-							</svg>
-
+							<Image
+								alt="Secret Tips and Tricks Icon"
+								src={sidebarIconTipsAndTricks}
+								loading="eager"
+								height="36"
+								width="36"
+								class="w-9 h-9 min-w-9"
+							/>
 							<span
 								class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 								sidebar-toggle-item>Secret Tips and Tricks</span
@@ -294,26 +283,16 @@ const allTWAS = await getCollection("twas");
 				<div class="pt-2 space-y-2">
 					<a
 						href="/donate"
-						class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+						class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 					>
-						<svg
-							class="w-7 h-7 min-w-fit text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="none"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M8 17.345a4.76 4.76 0 0 0 2.558 1.618c2.274.589 4.512-.446 4.999-2.31.487-1.866-1.273-3.9-3.546-4.49-2.273-.59-4.034-2.623-3.547-4.488.486-1.865 2.724-2.899 4.998-2.31.982.236 1.87.793 2.538 1.592m-3.879 12.171V21m0-18v2.2"
-							></path>
-						</svg>
-
+					<Image
+						alt="Donate Icon"
+						src={sidebarIconDonate}
+						loading="eager"
+						height="36"
+						width="36"
+						class="w-9 h-9 min-w-9"
+					/>
 						<span
 							class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 							sidebar-toggle-item>Donate</span
@@ -321,23 +300,16 @@ const allTWAS = await getCollection("twas");
 					</a>
 					<a
 						href="/faq"
-						class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+						class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 					>
-						<svg
-							class="w-7 h-7 min-w-fit text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
-								clip-rule="evenodd"></path>
-						</svg>
-
+					<Image
+						alt="FAQ Icon"
+						src={sidebarIconInfo}
+						loading="eager"
+						height="36"
+						width="36"
+						class="w-9 h-9 min-w-9"
+					/>
 						<span
 							class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 							sidebar-toggle-item>FAQ</span
@@ -345,23 +317,16 @@ const allTWAS = await getCollection("twas");
 					</a>
 					<a
 						href="/about"
-						class="flex items-center p-3 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+						class="flex items-center p-2 text-base transition-all duration-100 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
 					>
-						<svg
-							class="w-7 h-7 min-w-fit text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z"
-								clip-rule="evenodd"></path>
-						</svg>
-
+					<Image
+						alt="About Icon"
+						src={sidebarIconAbout}
+						loading="eager"
+						height="36"
+						width="36"
+						class="w-9 h-9 min-w-9"
+					/>
 						<span
 							class="flex-1 ml-3 text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition duration-1000"
 							sidebar-toggle-item>About</span
