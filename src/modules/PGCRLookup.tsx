@@ -178,87 +178,78 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                     // Get Players
                     //await response.entries.forEach(async entry => {
-                    for (let i = 0; i < response.entries.length; i++) {
+                    await Promise.all(response.entries.map((entry, i) => fetch('/data/scorcher/' + Number(entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 3)) + '.json.zst').then(async res => {
                         let entry = response.entries[i];
                         let elo = 1000;
                         let matchup = 0;
                         let matchupWins = 0;
                         let previousElo = "";
+                        let compressedBuf = await res.arrayBuffer();
 
-                        await fetch('/data/scorcher/' + Number(entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 3)) + '.json.zst').then(
-                            res => {
-                                if (res.status == 200) {
-                                    return res.arrayBuffer()
-                                } else {
-                                    return new ArrayBuffer(0)
-                                }
-                            }
-                        ).then(async (compressedBuf) => {
-                            try {
-                                let matchHistory = [];
+                        try {
+                            let matchHistory = [];
 
-                                if (compressedBuf.byteLength != 0) { // No local DB, skip forward
-                                    const compressed = new Uint8Array(compressedBuf)
-                                    const out = new TextDecoder().decode(fzstd.decompress(compressed));
+                            if (compressedBuf.byteLength != 0) { // No local DB, skip forward
+                                const compressed = new Uint8Array(compressedBuf)
+                                const out = new TextDecoder().decode(fzstd.decompress(compressed));
 
-                                    let json = JSON.parse(out);
+                                let json = JSON.parse(out);
 
-                                    if (json.hasOwnProperty(entry.player.destinyUserInfo.membershipId)) { // User is the local database
-                                        matchHistory = json[entry.player.destinyUserInfo.membershipId].matchHistory;
-                                        let sameMatch = matchHistory.find(e => e.id == matchid);
-                                        if (sameMatch != undefined) {
-                                            elo = sameMatch.elo;
-                                        } else {
-                                            // We assume we're missing only recent entries
-                                            // thus we use the most recent entry
-                                            // We also assume acceding order
-                                            elo = matchHistory[matchHistory.length - 1].elo;
-                                        }
-
-                                    }
-                                }
-
-                                let indexedMatchHistory = await historyDB.getValue(entry.player.destinyUserInfo.membershipId);
-                                if (indexedMatchHistory != null) {
-                                    matchHistory = Object.values(indexedMatchHistory);;
-                                }
-
-                                matchHistory = matchHistory.sort(function (a, b) {
-                                    if (Number(a.id) < Number(b.id))
-                                        return -1;
-                                    if (Number(a.id) > Number(b.id))
-                                        return 1;
-                                    return 0;
-                                });
-
-                                let matchup_result = getMatchup(matchHistoryMain, Object.values(matchHistory));
-
-                                matchup = matchup_result.matchup;
-                                matchupWins = matchup_result.matchWins;
-
-                                var index = matchHistory.map(function (e) { return String(e.id); }).indexOf(String(matchid));
-
-                                if (index >= 0 && matchHistory[index].elo != 0) {
-
-                                    if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value % 2 == 0) {
-                                        newRenderInfo = update(newRenderInfo, { team1WinChance: { $set: matchHistory[index].win_chance } })
-                                    }
-
-                                    if (index > 0) {
-                                        previousElo = (elo - matchHistory[index - 1].elo) > 0 ? "+" + (elo - matchHistory[index - 1].elo) : String(elo - matchHistory[index - 1].elo);
+                                if (json.hasOwnProperty(entry.player.destinyUserInfo.membershipId)) { // User is the local database
+                                    matchHistory = json[entry.player.destinyUserInfo.membershipId].matchHistory;
+                                    let sameMatch = matchHistory.find(e => e.id == matchid);
+                                    if (sameMatch != undefined) {
+                                        elo = sameMatch.elo;
                                     } else {
-                                        let newElo = elo - 1000
-                                        previousElo = previousElo == "" ? (newElo) > 0 ? "+" + (newElo) : String(newElo) : previousElo;
+                                        // We assume we're missing only recent entries
+                                        // thus we use the most recent entry
+                                        // We also assume acceding order
+                                        elo = matchHistory[matchHistory.length - 1].elo;
                                     }
-                                } else {
 
                                 }
+                            }
 
-                            } catch (error) {
-                                console.log(error);
+                            let indexedMatchHistory = await historyDB.getValue(entry.player.destinyUserInfo.membershipId);
+                            if (indexedMatchHistory != null) {
+                                matchHistory = Object.values(indexedMatchHistory);;
+                            }
+
+                            matchHistory = matchHistory.sort(function (a, b) {
+                                if (Number(a.id) < Number(b.id))
+                                    return -1;
+                                if (Number(a.id) > Number(b.id))
+                                    return 1;
+                                return 0;
+                            });
+
+                            let matchup_result = getMatchup(matchHistoryMain, Object.values(matchHistory));
+
+                            matchup = matchup_result.matchup;
+                            matchupWins = matchup_result.matchWins;
+
+                            var index = matchHistory.map(function (e) { return String(e.id); }).indexOf(String(matchid));
+
+                            if (index >= 0 && matchHistory[index].elo != 0) {
+
+                                if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value % 2 == 0) {
+                                    newRenderInfo = update(newRenderInfo, { team1WinChance: { $set: matchHistory[index].win_chance } })
+                                }
+
+                                if (index > 0) {
+                                    previousElo = (elo - matchHistory[index - 1].elo) > 0 ? "+" + (elo - matchHistory[index - 1].elo) : String(elo - matchHistory[index - 1].elo);
+                                } else {
+                                    let newElo = elo - 1000
+                                    previousElo = previousElo == "" ? (newElo) > 0 ? "+" + (newElo) : String(newElo) : previousElo;
+                                }
+                            } else {
 
                             }
-                        });
+
+                        } catch (error) {
+                            console.log(error);
+                        }
+
                         const newEntry: userEntry = {
                             membershipId: entry.player.destinyUserInfo.membershipId,
                             membershipType: entry.player.destinyUserInfo.membershipType,
@@ -306,7 +297,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
                         // it doesn't seem to matter which person we choose?
                         newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
                         setRenderInfo(newRenderInfo)
-                    };
+                    }))
+                    );
 
                     newRenderInfo = update(newRenderInfo, { date: { $set: new Date(response.period).toString() } })
 
@@ -320,7 +312,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                 } catch (error) {
                     console.log(error);
-                    
+
                     triggerCrash({
                         title: 'Data parsing failed',
                         text: error!.toString()
