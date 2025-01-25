@@ -339,7 +339,7 @@ const ReportLookup = () => {
           Load info from local compressed files
   
         */
-        await fetch('/data/scorcher/' + Number(userid.substring(userid.length - 3)) + '.json.zst').then(
+        await fetch('/data/scorcher/' + Number(userid.substring(userid.length - 4)) + '.json.zst').then(
           res => {
             if (res.status != 200 && res.status != 404) {
               console.error(res);

@@ -104,7 +104,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
             await historyDB.initializeHistoryDatabase();
 
             if (membershipId != "") {
-                await fetch('/data/scorcher/' + Number(membershipId.substring(membershipId.length - 3)) + '.json.zst').then(
+                await fetch('/data/scorcher/' + Number(membershipId.substring(membershipId.length - 4)) + '.json.zst').then(
                     res => {
                         if (res.status == 200) {
                             return res.arrayBuffer()
@@ -178,7 +178,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                     // Get Players
                     //await response.entries.forEach(async entry => {
-                    await Promise.all(response.entries.map((entry, i) => fetch('/data/scorcher/' + Number(entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 3)) + '.json.zst').then(async res => {
+                    await Promise.all(response.entries.map((entry, i) => fetch('/data/scorcher/' + Number(entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 4)) + '.json.zst').then(async res => {
                         let entry = response.entries[i];
                         let elo = 1000;
                         let matchup = 0;
@@ -302,8 +302,21 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                     newRenderInfo = update(newRenderInfo, { date: { $set: new Date(response.period).toString() } })
 
+                    newRenderInfo.team1.sort(function (a, b) {
+                        if (Number(a.opponentsDefeated) < Number(b.opponentsDefeated))
+                            return 1;
+                        if (Number(a.opponentsDefeated) > Number(b.opponentsDefeated))
+                            return -1;
+                        return 0;
+                    });
 
-
+                    newRenderInfo.team2.sort(function (a, b) {
+                        if (Number(a.opponentsDefeated) < Number(b.opponentsDefeated))
+                            return 1;
+                        if (Number(a.opponentsDefeated) > Number(b.opponentsDefeated))
+                            return -1;
+                        return 0;
+                    });
 
                     setRenderInfo(newRenderInfo)
                     triggerRender(true)
