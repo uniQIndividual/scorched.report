@@ -46,6 +46,18 @@ export class DatabaseMiddleware {
         );
     }
 
+    // Clear all entries in the object store
+    private async clearDatabase(): Promise<void> {
+        const db = await this.openDatabase();
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(this.config.storeName, "readwrite");
+            const store = transaction.objectStore(this.config.storeName);
+            const clearRequest = store.clear();
+
+            clearRequest.onsuccess = () => resolve();
+            clearRequest.onerror = () => reject(clearRequest.error);
+        });
+    }
     // Update the latest update timestamp
     private async updateTimestamp(): Promise<void> {
         const db = await this.openDatabase();
@@ -198,6 +210,8 @@ export class DatabaseMiddleware {
         const databaseValid = await this.databaseExistsAndValid();
 
         if (!databaseValid) {
+            console.log("Clearing old History database...");
+            await this.clearDatabase();
             console.log("Creating empty History database...");
             await this.saveKeyValuePairs({}); // Create an empty store
         }

@@ -222,7 +222,7 @@ const ReportLookup = () => {
       const historyDB = new DatabaseMiddleware({
         databaseName: "PGCRHistory",
         storeName: "Entries",
-        version: 1,
+        version: 2,
       });
 
       (async () => { // A lot of async stuff from here on that we need to enforce
@@ -233,7 +233,7 @@ const ReportLookup = () => {
         setDestinyActivityDefinition(await definitionsDB.getValue("DestinyActivityDefinition"));
 
         newStats = update(newStats, { // Update with info from the local database
-           id: {
+          id: {
             $set: userid
           },
           platform: {
@@ -322,17 +322,17 @@ const ReportLookup = () => {
           Load info from indexedDB
   
         */
-          const indexedMatchHistory = await historyDB.getValue(userid);
-          if (indexedMatchHistory != null) {
-            console.log("Fetching matches from local indexedDB");
-            // Update performance stats and history
-            newStats = update(newStats, {
-              matchHistory: {
-                $set: indexedMatchHistory
-              },
-            })
-            setStats(newStats);
-          }
+        const indexedMatchHistory = await historyDB.getValue(userid);
+        if (indexedMatchHistory != null) {
+          console.log("Fetching matches from local indexedDB");
+          // Update performance stats and history
+          newStats = update(newStats, {
+            matchHistory: {
+              $set: indexedMatchHistory
+            },
+          })
+          setStats(newStats);
+        }
 
         /*
   
@@ -422,7 +422,7 @@ const ReportLookup = () => {
                         },
                         "team": match?.team,
                         "map": match?.map,
-                        "won":  match.won,
+                        "won": match.won,
                         "win_chance": match.win_chance,
                         "kd": 0,
                         "kpm": 0,
@@ -980,9 +980,9 @@ const ReportLookup = () => {
                               response = response.activities;
                               response.map((match: any) => { // For each match found
 
-                                if (!newStats.matchHistory.hasOwnProperty(match.activityDetails.instanceId)) {
-                                  addedEntries++; // Count new entries to keep track of entries per character
-                                }
+                                // if (!newStats.matchHistory.hasOwnProperty(match.activityDetails.instanceId)) { // would skip ones in the website db
+                                addedEntries++; // Count new entries to keep track of entries per character
+                                //}
 
                                 newStats = update(newStats, {
                                   matchHistory: {
@@ -1020,8 +1020,10 @@ const ReportLookup = () => {
                               throttleAmount = Math.max(timestampLastCall - Date.now() - 100, 0) + (response?.ThrottleSeconds * 1.2); // wait a min of 100ms between calls
                               timestampLastCall = Date.now();
 
-
                               matchesInIndexedDB[characterName] += addedEntries;
+                              if (matchesInIndexedDB[characterName] > character.activitiesEntered) {
+                                matchesInIndexedDB[characterName] = character.activitiesEntered;
+                              }
 
                               historyDB.setHistoryValue(userid, newStats.matchHistory);
                               historyDB.setMeta(userid + "_matches", matchesInIndexedDB)
@@ -1130,8 +1132,8 @@ const ReportLookup = () => {
               activitiesEntered: {
                 $set: Object.keys(newStats.matchHistory).length
               },
-              fireTeamActivities:  {
-                $set: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + (current.team ? 1 :0), 0))
+              fireTeamActivities: {
+                $set: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + (current.team ? 1 : 0), 0))
               }
             },
             performance: {

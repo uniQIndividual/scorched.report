@@ -98,7 +98,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
             const historyDB = new DatabaseMiddleware({
                 databaseName: "PGCRHistory",
                 storeName: "Entries",
-                version: 1,
+                version: 2,
             });
             await definitionsDB.initializeDefinitionsDatabase();
             await historyDB.initializeHistoryDatabase();

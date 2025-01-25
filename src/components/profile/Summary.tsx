@@ -213,7 +213,7 @@ export const Radar = (stats: Scorcher) => {
                 width={500}
                 series={[].concat(Object.keys(stats.bungieHistoricStats).map((charater, i) => {
                     return {
-                        name: characterClassToString(stats.characters[charater].classType),
+                        name: characterClassToString(stats.characters[charater]?.classType || ""),
                         data: calculateNormalizedStats({
                             trueSkill: stats.bungieHistoricStats[charater]?.combatRating || 100,
                             kills: stats.bungieHistoricStats[charater]?.kills || 0,
