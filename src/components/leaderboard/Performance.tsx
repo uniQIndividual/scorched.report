@@ -1,10 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import React from "react";
 import * as fzstd from 'fzstd';
 import { MantineProvider } from "@mantine/core";
 import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef } from "mantine-react-table";
-import { DatabaseMiddleware } from "../../lib/IndexedDB";
-import LoadingAnimation from "../../components/LoadingAnimation";
+import { LoadingAnimationWithTitle } from "../../components/LoadingAnimation";
 
 export const LeaderboardPerformance = () => {
 
@@ -182,7 +181,7 @@ export const LeaderboardPerformance = () => {
       });
 
       setData(newData);
-      triggerRender(true);
+      //triggerRender(true);
     })()
 
   }, []);
@@ -312,7 +311,7 @@ export const LeaderboardPerformance = () => {
       </MantineProvider>
     </div>
   </div>) :
-    <div className="flex h-72 justify-center pr-24">
-      <LoadingAnimation />
+    <div className="flex mt-10 mb-28 justify-center">
+      <LoadingAnimationWithTitle title="Loading Leaderboard..." />
     </div>;
 }

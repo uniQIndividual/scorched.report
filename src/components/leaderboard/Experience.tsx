@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import React from "react";
 import * as fzstd from 'fzstd';
 import { MantineProvider } from "@mantine/core";
 import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef } from "mantine-react-table";
-import { DatabaseMiddleware } from "../../lib/IndexedDB";
+import { LoadingAnimationWithTitle } from "../LoadingAnimation";
 
 export const LeaderboardExperience = () => {
 
@@ -275,5 +275,8 @@ export const LeaderboardExperience = () => {
         <MantineReactTable table={table} />
       </MantineProvider>
     </div>
-  </div>) : "";
+  </div>) :
+    <div className="flex mt-10 mb-28 justify-center">
+      <LoadingAnimationWithTitle title="Loading Leaderboard..." />
+    </div>;
 }

@@ -1208,7 +1208,7 @@ const ReportLookup = () => {
       <Wrapper item={
         <div className="">
           <div className="text-5xl text-gray-100 my-5 flex justify-center font-semibold">Characters</div>
-          <div className="flex flex-wrap justify-evenly">
+          <div className="flex flex-wrap justify-center space-x-7">
             {Object.keys(stats.characters).length == 0 ? <div className="text-3xl text-gray-100 flex justify-center mt-16">No character stats could be loaded</div> : Object.keys(stats.characters).map((character) => {
               return <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
             })} </div> </div>} />
@@ -1223,7 +1223,7 @@ const ReportLookup = () => {
     {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
   </div>)
 
-  return (<div className="flex h-72 justify-center pr-24">
+  return (<div className="flex h-72 justify-center">
     <LoadingAnimation />
   </div>)
 }

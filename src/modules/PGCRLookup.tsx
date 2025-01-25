@@ -4,7 +4,7 @@ import ErrorNotFound from "./ErrorNotFound";
 import API from "../lib/api";
 import * as fzstd from 'fzstd';
 import update from 'immutability-helper';
-import LoadingAnimation from "../components/LoadingAnimation";
+import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 
 const Wrapper = ({ item }) => {
@@ -64,6 +64,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
     const [crash, triggerCrash] = React.useState({ title: "", text: "" });
     const [render, triggerRender] = React.useState(false);
     const [started, triggerStarted] = React.useState(false);
+    const [loadingTitle, setLoadingTitle] = React.useState("Loading PGCR...");
 
     const getRenderInfo = async () => {
         // Verify parameters
@@ -176,6 +177,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
                         bg_image: { $set: image != undefined && image != "" ? "https://www.bungie.net" + image : "" }
                     });
 
+                    setLoadingTitle("Loading match histories...")
+
                     // Get Players
                     //await response.entries.forEach(async entry => {
                     await Promise.all(response.entries.map((entry, i) => fetch('/data/scorcher/' + Number(entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 4)) + '.json.zst').then(async res => {
@@ -185,6 +188,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
                         let matchupWins = 0;
                         let previousElo = "";
                         let compressedBuf = await res.arrayBuffer();
+
+                        setLoadingTitle("Calculating...")
 
                         try {
                             let matchHistory = [];
@@ -478,8 +483,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
     return crash.title != "" ? (<div className="mt-10"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>) :
         (!render ? (
-            <div className="flex h-72 justify-center pr-24">
-                <LoadingAnimation /> <button id={matchid} onClick={() => startRender()}></button>
+            <div className="flex h-72 justify-center">
+                <LoadingAnimationWithTitle title={loadingTitle} /> <button id={matchid} onClick={() => startRender()}></button>
             </div>
         ) : (
             <div className="pb-[65.25%] min-w-[1400px] max-w-[1800px] w-[100%] relative" /* Wrapper to keep the aspect ratio*/>
