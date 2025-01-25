@@ -181,7 +181,7 @@ export const LeaderboardPerformance = () => {
       });
 
       setData(newData);
-      //triggerRender(true);
+      triggerRender(true);
     })()
 
   }, []);

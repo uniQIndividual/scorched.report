@@ -536,7 +536,10 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                         <tbody>
                                             <tr className="">
                                                 <td className="!border-0 leading-7 w-max align-bottom min-w-[220px]">
-                                                    {renderInfo.team1Score} Points {renderInfo.team1WinChance == 0 ? "" : <span className="text-lg font-thin">{(renderInfo.team1WinChance * 100).toPrecision(2) + "% Win Chance"}</span>}
+                                                    {renderInfo.team1Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{(renderInfo.team1WinChance * 100).toLocaleString(undefined, {
+                                                        minimumFractionDigits: 0,
+                                                        maximumFractionDigits: 5,
+                                                    }) + "% Win Chance"}</span>}
                                                 </td>
                                                 <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
                                                     {renderInfo.anonym ? "" : "Matchup"}
@@ -604,7 +607,10 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                             </tr>
                                             <tr>
                                                 <td className="!border-0 w-max align-bottom min-w-[220px]">
-                                                    {renderInfo.team2Score} Points {renderInfo.team1WinChance == 0 ? "" : <span className="text-lg font-thin">{((1 - renderInfo.team1WinChance) * 100).toPrecision(2) + "% Win Chance"}</span>}
+                                                    {renderInfo.team2Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{((1 - renderInfo.team1WinChance) * 100).toLocaleString(undefined, {
+                                                        minimumFractionDigits: 0,
+                                                        maximumFractionDigits: 5,
+                                                    }) + "% Win Chance"}</span>}
                                                 </td>
                                                 <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
                                                 </td>

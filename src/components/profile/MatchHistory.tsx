@@ -119,7 +119,10 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         filterVariant: 'range',
         size: 50,
         Cell: ({ cell }) => {
-          return cell.row.original.win_chance != undefined && cell.row.original.win_chance != -1 ? (cell.row.original.win_chance * 100).toPrecision(2) + "%" : <i>not rated yet</i>
+          return cell.row.original.win_chance != undefined && cell.row.original.win_chance != -1 ? (cell.row.original.win_chance * 100).toLocaleString(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 5,
+        })+ "%" : <i>not rated yet</i>
         }
       },
       {
@@ -232,7 +235,9 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
     },
     //enableColumnResizing: true,
     enableExpandAll: false, // this could easily get you rate limited I'd assume
+    enableDensityToggle: false,
     enableFullScreenToggle: false, // ik I'm incredibly sad as well, but it breaks too many things
+    columnFilterDisplayMode: "popover",
     initialState: { density: 'xs',
       columnVisibility: {
         'win_chance': false,
@@ -242,7 +247,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
 
   return <div className=''>
     <div className="text-5xl text-gray-100 flex justify-center mt-2 font-semibold mb-10">Match History</div>
-    <div className="text-gray-100 justify-center flex max-w-[calc(100vw-50px)] lg:max-w-[calc(100vw-400px)] mt-2 mb-5">
+    <div className="text-gray-100 justify-center flex max-w-[calc(100vw-50px)] lg:max-w-[calc(100vw-440px)] mt-2 mb-5">
       <MantineProvider
         theme={{
           colorScheme: 'dark',
