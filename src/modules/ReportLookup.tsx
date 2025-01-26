@@ -26,7 +26,7 @@ import { Maps } from "../components/profile/Maps";
 const Wrapper = ({ item }) => {
 
   return (
-    <div className="bg-[#111]/70 dark:bg-[#111]/50 p-5 z-0 flex justify-center">
+    <div className="bg-[#111]/70 dark:bg-[#111]/50 p-5 z-0 flex justify-center max-w-[calc(100vw-50px)] lg:max-w-[calc(100vw-480px)] mt-2 mb-5">
       {item}
     </div>
   );
@@ -1186,7 +1186,8 @@ const ReportLookup = () => {
     .catch(e => console.error(e));*/
   if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)
 
-  if (render) return (<div>
+  if (render) return (<div className="flex justify-center mx-[2%]">
+    <div className="max-w-[calc(100vw-50px)] lg:max-w-[95%]">
     <div className="justify-center flex mt-12">
       <div
         className="mt-2 grid grid-cols-1 gap-6 2xl:grid-cols-2 w-max"
@@ -1195,7 +1196,7 @@ const ReportLookup = () => {
         <Wrapper item={<Radar {...stats} />} />
       </div>
     </div>
-    <div className="mt-16 w-full flex justify-center">
+    <div className="mt-16 w-full flex justify-center z-50">
       <Wrapper item={<Activity {...stats} />} />
     </div>
     <div className="mt-16 w-full flex justify-center">
@@ -1204,12 +1205,12 @@ const ReportLookup = () => {
     <div className="mt-16 w-full flex justify-center">
       <Wrapper item={<Maps stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} />
     </div>
-    <div className=" mt-32">
+    <div className="mt-16 w-full flex justify-center">
       <Wrapper item={
         <div className="">
           <div className="text-5xl text-gray-100 my-5 flex justify-center font-semibold">Characters</div>
           <div className="flex flex-wrap justify-center space-x-7">
-            {Object.keys(stats.characters).length == 0 ? <div className="text-3xl text-gray-100 flex justify-center mt-16">No character stats could be loaded</div> : Object.keys(stats.characters).map((character) => {
+            {Object.keys(stats.characters).length == 0 ? <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> : Object.keys(stats.characters).map((character) => {
               return <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
             })} </div> </div>} />
 
@@ -1218,9 +1219,10 @@ const ReportLookup = () => {
       <Wrapper item={<CannonCollection {...stats} />} />
     </div>
     <div className="mt-10 flex justify-center">
-      <Wrapper item={<MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} />
+      <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
     </div>
     {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
+    </div>
   </div>)
 
   return (<div className="flex h-72 justify-center">

@@ -22,7 +22,7 @@ export const CannonCollection = (props: Scorcher) => {
                 <div className="text-5xl text-gray-100 flex justify-center mt-2 font-semibold">Scorched Cannon Progress</div>
                 {seasons.map(season => {
                     return <div className="mt-10" key={season + "_profile_showcase"}>
-                        <div className="text-3xl w-full text-gray-200 mb-4 ml-[5%]">{SCORCHED_CANNONS[season]?.name}
+                        <div className="text-3xl w-full text-gray-200 mb-8 ml-[5%]">{SCORCHED_CANNONS[season]?.name}
                             <span className="text-gray-200 text-2xl ml-5">{props.minigame.ownedCannons.hasOwnProperty(season) && props.minigame.ownedCannons[season] != null ? props.minigame.ownedCannons[season].length : 0}/<span className="text-gray-100">{SCORCHED_CANNONS[season]?.cannons.length}</span>
                             </span>
                         </div>

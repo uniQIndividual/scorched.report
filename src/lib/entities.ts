@@ -130,7 +130,7 @@ export type historicStatsPerCharacter = {
 	},
 }
 
-export const medalsBungie = {
+export const medalsBungie: { [index: string]: { "description": string, "text": string, "src": string} } = {
 	"iMadeThisForYou": {
 		"text": "I Made This for You",
 		"description": "In a single life, defeat 50 opposing Guardians.",
@@ -173,7 +173,7 @@ export const medalsBungie = {
 	},
 }
 
-export const awards = {
+export const awards: { [index: string]: { "description": string, "text": string, "src": string, "glow": string } } = {
 	"contributor": {
 		"description": "Awarded for great contributions to Scorched Report",
 		"text": "Scorched Report contributor",

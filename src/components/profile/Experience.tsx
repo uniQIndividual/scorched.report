@@ -102,8 +102,8 @@ export const Activity = (stats: Scorcher) => {
     return (
         <div className="w-[80vw] lg:w-[calc(90vw-350px)]">
             <div className="text-4xl text-gray-100 flex justify-center mt-2 font-semibold">Experience</div>
-            <div className="grid grid-cols-3 justify-evenly mt-12">
-                <div>
+            <div className="flex flex-wrap justify-center space-x-4">
+                <div className="mt-10">
                     <ApexChart
                         className="sparkline-chart"
                         type={"pie"}
@@ -168,78 +168,82 @@ export const Activity = (stats: Scorcher) => {
                     />
                     <span className="flex justify-center mt-2  text-gray-300">Matches per game mode</span>
                 </div>
-                <div>
-                    <ApexChart
-                        className="sparkline-chart"
-                        type={"pie"}
-                        height={200}
-                        series={Object.keys(stats.bungieHistoricStats).map(character => {
-                            return stats.bungieHistoricStats[character]?.activitiesEntered
-                        })}
-                        options={{
-                            colors: Object.keys(stats.bungieHistoricStats).map(character => {
-                                return characterClassToColor(stats.characters[character]?.classType)
-                            }),
-                            chart: {
-                                dropShadow: {
-                                    enabled: true,
-                                    blur: 1,
-                                    left: 1,
-                                    top: 1
-                                }
-                            },
-                            labels: Object.keys(stats.bungieHistoricStats).map(character => {
-                                return characterClassToString(stats.characters[character]?.classType)
-                            }),
-                            fill: {
-                                opacity: 1,
-                            },
-                            stroke: {
-                                show: true,
-                                width: 0.4,
-                                colors: [],
-                                dashArray: 0
-                            },
-                            yaxis: {
-                                show: true,
-                            },
-                            xaxis: {
-                                labels: {
+                {Object.keys(stats.bungieHistoricStats).length > 0 ? <>
+                    <div className="mt-10">
+                        <ApexChart
+                            className="sparkline-chart"
+                            type={"pie"}
+                            height={200}
+                            series={Object.keys(stats.bungieHistoricStats).map(character => {
+                                return stats.bungieHistoricStats[character]?.activitiesEntered
+                            })}
+                            options={{
+                                colors: Object.keys(stats.bungieHistoricStats).map(character => {
+                                    return characterClassToColor(stats.characters[character]?.classType)
+                                }),
+                                chart: {
+                                    dropShadow: {
+                                        enabled: true,
+                                        blur: 1,
+                                        left: 1,
+                                        top: 1
+                                    }
+                                },
+                                labels: Object.keys(stats.bungieHistoricStats).map(character => {
+                                    return characterClassToString(stats.characters[character]?.classType)
+                                }),
+                                fill: {
+                                    opacity: 1,
+                                },
+                                stroke: {
                                     show: true,
-                                }
-                            },
-                            dataLabels: {
-                                enabled: true,
-                                formatter: function (value, { seriesIndex, dataPointIndex, w }) {
-                                    return w.config.series[seriesIndex] + " (" + value.toLocaleString(undefined, {
-                                        minimumFractionDigits: 0,
-                                        maximumFractionDigits: 1,
-                                    }) + "%)"
+                                    width: 0.4,
+                                    colors: [],
+                                    dashArray: 0
                                 },
-                                style: {
-                                    fontSize: '14px',
-                                    fontWeight: 'bold',
-                                    colors: ['#333']
+                                yaxis: {
+                                    show: true,
                                 },
-                                background: {
+                                xaxis: {
+                                    labels: {
+                                        show: true,
+                                    }
+                                },
+                                dataLabels: {
                                     enabled: true,
-                                    foreColor: '#fff',
-                                    padding: 10,
+                                    formatter: function (value, { seriesIndex, dataPointIndex, w }) {
+                                        return w.config.series[seriesIndex] + " (" + value.toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 1,
+                                        }) + "%)"
+                                    },
+                                    style: {
+                                        fontSize: '14px',
+                                        fontWeight: 'bold',
+                                        colors: ['#333']
+                                    },
+                                    background: {
+                                        enabled: true,
+                                        foreColor: '#fff',
+                                        padding: 10,
+                                    },
                                 },
-                            },
-                            legend: {
-                                show: true,
-                                position: 'bottom',
-                                labels: {
-                                    colors: "#e8e8e8",
-                                    useSeriesColors: false
-                                },
-                            }
-                        }}
-                    />
-                    <span className="flex justify-center mt-2  text-gray-300">Matches per character</span>
-                </div>
-                <div>
+                                legend: {
+                                    show: true,
+                                    position: 'bottom',
+                                    labels: {
+                                        colors: "#e8e8e8",
+                                        useSeriesColors: false
+                                    },
+                                }
+                            }}
+                        />
+                        <span className="flex justify-center mt-2  text-gray-300">Matches per character</span>
+                    </div>
+                </> :
+                    <></>
+                }
+                <div className="mt-10">
                     <ApexChart
                         className="sparkline-chart"
                         type={"pie"}
@@ -504,7 +508,7 @@ export const Activity = (stats: Scorcher) => {
                     </div>
                 </div>
                 <div className="mt-14 2xl:mt-14">
-                    <span className=" flex justify-center text-gray-200 text-3xl 2xl:text-2xl font-semibold">Team Scorched Achievements</span>
+                    <div className="text-center text-gray-200 text-3xl 2xl:text-2xl font-semibold">Team Scorched Achievements</div>
                     <div className="flex flex-wrap justify-evenly space-y-2 mt-5">
                         {awardKeys.map((award) => {
                             return stats.awards[award] ? (

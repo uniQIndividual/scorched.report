@@ -207,145 +207,149 @@ export const Radar = (stats: Scorcher) => {
                 }}
                 type={"radar"}
             />
-            <span className="w-full flex justify-center h-8"></span>
-            <ApexChart
-                height={350}
-                width={500}
-                series={[].concat(Object.keys(stats.bungieHistoricStats).map((charater, i) => {
-                    return {
-                        name: characterClassToString(stats.characters[charater]?.classType || ""),
-                        data: calculateNormalizedStats({
-                            trueSkill: stats.bungieHistoricStats[charater]?.combatRating || 100,
-                            kills: stats.bungieHistoricStats[charater]?.kills || 0,
-                            totalGold: stats.bungieHistoricAccountStats.medals.totalGold,
-                            matches: stats.bungieHistoricStats[charater]?.activitiesEntered || 0,
-                            wins: stats.bungieHistoricStats[charater]?.activitiesWon || 0,
-                            deaths: stats.bungieHistoricStats[charater]?.deaths || 0,
-                            timeSpent: stats.bungieHistoricStats[charater]?.secondsPlayed || 0,
-                            useCombatRating: true
-                        }),
-                        color: characterClassToColor(stats.characters[charater].classType),
-                    }
-                }))
-                }
-                options={{
-                    chart: {
-                        type: 'radar',
-                        dropShadow: {
-                            enabled: true,
-                            blur: 1,
-                            left: 1,
-                            top: 1
-                        },
-                        toolbar: {
-                            show: true,
-                            tools: {
-                                download: true,
-                                zoom: true,
-                                zoomin: true,
-                                zoomout: true,
-                                pan: true,
-                                reset: true,
-                            },
+            {Object.keys(stats.bungieHistoricStats).length > 0 ? <>
+                <span className="w-full flex justify-center h-8"></span>
+                <ApexChart
+                    height={350}
+                    width={500}
+                    series={[].concat(Object.keys(stats.bungieHistoricStats).map((charater, i) => {
+                        return {
+                            name: characterClassToString(stats.characters[charater]?.classType || ""),
+                            data: calculateNormalizedStats({
+                                trueSkill: stats.bungieHistoricStats[charater]?.combatRating || 100,
+                                kills: stats.bungieHistoricStats[charater]?.kills || 0,
+                                totalGold: stats.bungieHistoricAccountStats.medals.totalGold,
+                                matches: stats.bungieHistoricStats[charater]?.activitiesEntered || 0,
+                                wins: stats.bungieHistoricStats[charater]?.activitiesWon || 0,
+                                deaths: stats.bungieHistoricStats[charater]?.deaths || 0,
+                                timeSpent: stats.bungieHistoricStats[charater]?.secondsPlayed || 0,
+                                useCombatRating: true
+                            }),
+                            color: characterClassToColor(stats.characters[charater].classType),
                         }
-                    },
-                    plotOptions: {
-                        radar: {
-                            size: '130',
+                    }))
+                    }
+                    options={{
+                        chart: {
+                            type: 'radar',
+                            dropShadow: {
+                                enabled: true,
+                                blur: 1,
+                                left: 1,
+                                top: 1
+                            },
+                            toolbar: {
+                                show: true,
+                                tools: {
+                                    download: true,
+                                    zoom: true,
+                                    zoomin: true,
+                                    zoomout: true,
+                                    pan: true,
+                                    reset: true,
+                                },
+                            }
+                        },
+                        plotOptions: {
+                            radar: {
+                                size: '130',
+                                offsetX: 0,
+                                offsetY: 20,
+                                polygons: {
+                                    strokeColors: '#a8a8a8',
+                                    strokeWidth: 1,
+                                    connectorColors: 'rgba(0,0,0,0)',
+                                }
+                            }
+                        },
+                        labels: ["Bungie's Combat Rating", 'Experience', 'Win Ratio', 'Performance', 'Aggressiveness'],
+                        fill: {
+                            colors: ["#fff"],
+                            opacity: 0.5,
+                        },
+                        stroke: {
+                            show: true,
+                            width: 1,
+                            colors: ["#e8e8e8"],
+                            dashArray: 0
+                        },
+                        markers: {
+                            size: 3,
+                            colors: ['#e8e8e8'],
+                            hover: {
+                                size: 8
+                            }
+                        },
+                        yaxis: {
+                            show: false,
+                            min: 0,
+                            max: 100,
+                            tickAmount: 4,
+                            labels: {
+                                show: true,
+                                minWidth: 0,
+                                maxWidth: 160,
+                                style: {
+                                    colors: "#a8a8a8",
+                                    fontSize: '12px',
+                                    fontFamily: 'Helvetica, Arial, sans-serif',
+                                    fontWeight: 400,
+                                    cssClass: 'apexcharts-yaxis-label',
+                                },
+                            },
+
+                        },
+                        xaxis: {
+                            labels: {
+                                show: true,
+                                offsetY: 2,
+                                style: {
+                                    colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
+                                    fontSize: "14px",
+                                    fontFamily: 'Arial'
+                                }
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false,
+                            style: {
+                            },
+                            background: {
+                                enabled: true,
+                                foreColor: '#fff',
+                            },
+                        },
+                        legend: {
+                            show: true,
+                            labels: {
+                                colors: textColor,
+                                useSeriesColors: false
+                            },
+                            itemMargin: {
+                                horizontal: 5,
+                                vertical: 0
+                            },
+                        },
+                        subtitle: {
+                            text: "Characters",
+                            align: 'center',
+                            margin: 0,
                             offsetX: 0,
-                            offsetY: 20,
-                            polygons: {
-                                strokeColors: '#a8a8a8',
-                                strokeWidth: 1,
-                                connectorColors: 'rgba(0,0,0,0)',
-                            }
-                        }
-                    },
-                    labels: ["Bungie's Combat Rating", 'Experience', 'Win Ratio', 'Performance', 'Aggressiveness'],
-                    fill: {
-                        colors: ["#fff"],
-                        opacity: 0.5,
-                    },
-                    stroke: {
-                        show: true,
-                        width: 1,
-                        colors: ["#e8e8e8"],
-                        dashArray: 0
-                    },
-                    markers: {
-                        size: 3,
-                        colors: ['#e8e8e8'],
-                        hover: {
-                            size: 8
-                        }
-                    },
-                    yaxis: {
-                        show: false,
-                        min: 0,
-                        max: 100,
-                        tickAmount: 4,
-                        labels: {
-                            show: true,
-                            minWidth: 0,
-                            maxWidth: 160,
+                            offsetY: 0,
+                            floating: false,
                             style: {
-                                colors: "#a8a8a8",
-                                fontSize: '12px',
-                                fontFamily: 'Helvetica, Arial, sans-serif',
-                                fontWeight: 400,
-                                cssClass: 'apexcharts-yaxis-label',
+                                fontSize: '26px',
+                                fontWeight: 'normal',
+                                color: '#f4f5f7'
                             },
-                        },
-
-                    },
-                    xaxis: {
-                        labels: {
-                            show: true,
-                            offsetY: 2,
-                            style: {
-                                colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                fontSize: "14px",
-                                fontFamily: 'Arial'
-                            }
                         }
-                    },
-                    dataLabels: {
-                        enabled: false,
-                        style: {
-                        },
-                        background: {
-                            enabled: true,
-                            foreColor: '#fff',
-                        },
-                    },
-                    legend: {
-                        show: true,
-                        labels: {
-                            colors: textColor,
-                            useSeriesColors: false
-                        },
-                        itemMargin: {
-                            horizontal: 5,
-                            vertical: 0
-                        },
-                    },
-                    subtitle: {
-                        text: "Characters",
-                        align: 'center',
-                        margin: 0,
-                        offsetX: 0,
-                        offsetY: 0,
-                        floating: false,
-                        style: {
-                            fontSize: '26px',
-                            fontWeight: 'normal',
-                            color: '#f4f5f7'
-                        },
-                    }
 
-                }}
-                type={"radar"}
-            />
+                    }}
+                    type={"radar"}
+                />
+            </>
+                : <></>
+            }
         </div>
     )
 }

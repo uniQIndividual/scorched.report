@@ -94,8 +94,8 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
 
     return (
         <div className="block mt-4 mb-10 h-max">
-            <div className="bg-no-repeat w-[474px] h-[96px]" style={{ backgroundImage: (props.characters[characterId].emblemBackgroundPath != undefined && props.characters[characterId].emblemBackgroundPath != "" ? "url(https://www.bungie.net" + props.characters[characterId].emblemBackgroundPath + ")" : ""), backgroundColor: "#000" }}>
-                <table className=" ml-[86px] w-[388px]">
+            <div className="bg-no-repeat max-w-[474px] h-[96px]" style={{ backgroundImage: (props.characters[characterId].emblemBackgroundPath != undefined && props.characters[characterId].emblemBackgroundPath != "" ? "url(https://www.bungie.net" + props.characters[characterId].emblemBackgroundPath + ")" : ""), backgroundColor: "#000" }}>
+                <table className=" ml-[86px] max-w-[388px]">
                     <tbody>
                         <tr className="mt-1">
                             <td className="m-0 p-0">
