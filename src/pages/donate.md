@@ -1,6 +1,6 @@
 ---
 title: 'Donate'
-description: "Scorched Report is specifically designed in a way so it does not create any noteworthy ongoing expenses for me."
+description: "TL;DR: I'm happy about support, but please send donations to other projects instead."
 layout: '../app/MarkdownStandalone.astro'
 ---
 
@@ -13,6 +13,7 @@ Scorched Report is specifically designed in a way so it does not create any note
 
 If you want to donate your resources to scorched.report, I'd be very grateful for one of the following:
 
+- design input (as you can tell that is not my strength)
 - bungo-pgcr-15b
 - a way to supply me with PGCRs in somewhat regular intervals without me having to build my own crawlers
 - suggestions
