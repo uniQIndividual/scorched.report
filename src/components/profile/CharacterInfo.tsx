@@ -102,7 +102,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 <table className="mr-2 h-12">
                                     <tbody>
                                         <tr>
-                                            <td className=" text-white text-3xl font-bungo leading-none m-0 p-0  w-[388px]">
+                                            <td className=" text-white text-3xl font-bungo leading-none m-0 p-0  max-w-[388px]">
                                                 <span className="max-w-[268px] block truncate ...">
                                                     {props.characters[characterId].deleted ? "Deleted" : props.profile.profileName}
                                                 </span>
@@ -125,12 +125,12 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 <table className="mr-2 h-12">
                                     <tbody>
                                         <tr>
-                                            <td className=" text-white opacity-40 font-bungo text-[22px] leading-none m-0 p-0 w-[218px] h-[48px] ">
-                                                <span className="w-[218px]  pt-2 block truncate ...">
+                                            <td className=" text-white opacity-40 font-bungo text-[22px] leading-none m-0 p-0 max-w-[218px] h-[48px] ">
+                                                <span className="max-w-[218px]  pt-2 block truncate ...">
                                                     {props.profile.clanName}
                                                 </span>
                                             </td>
-                                            <td className={"w-[170px] max-h-12 h-[" + { iconSize } + "] leading-none m-0 p-0 left-0 text-right"}>
+                                            <td className={"max-w-[170px] max-h-12 h-[" + { iconSize } + "] leading-none m-0 p-0 left-0 text-right"}>
                                                 {awardKeys.map((award) => {
                                                     return props.awards[award] ? (
                                                         <div key={"div_" + award}>
@@ -155,8 +155,8 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                     </tbody>
                 </table>
             </div>
-            <div className="w-[470px] px-2 mt-8 mx-2 my-2 ">
-                <div className="absolute w-[470px] justify-center flex">
+            <div className="max-w-[470px] px-2 mt-8 mx-2 my-2 ">
+                <div className="absolute max-w-[470px] justify-center flex">
                     <img className="opacity-10" src={"/images/icons/" + classType + "_icon.png"} />
                 </div>
                 {(characterStats?.activitiesEntered || 0) <= 0 ? <span className="w-full flex justify-center text-gray-400 font-light">

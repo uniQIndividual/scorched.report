@@ -154,7 +154,7 @@ const activities = [
 							{activity.image === "" ? (
 								""
 							) : (
-								<img src={`/images/news/${activity.image}`} />
+								<img alt={activity.name} src={`/images/news/${activity.image}`} loading="lazy" />
 							)}
 							{activity.link === "" ? (
 								""
