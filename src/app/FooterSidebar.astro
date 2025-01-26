@@ -93,9 +93,11 @@ const { Content } = await render(entry);
 		</button>
 		<TooltipSimple id="tooltip-discord" title="Discord" />
 		<PopUp id="popup_discord" timer={1} description={"Discord Invite"}>
-			<MarkdownWrapper>
-				<Content />
-			</MarkdownWrapper>
+			<div class="-mt-10">
+				<MarkdownWrapper>
+					<Content />
+				</MarkdownWrapper>
+			</div>
 		</PopUp>
 		<!--
 		<a
