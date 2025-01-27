@@ -22,7 +22,7 @@ export const MapDistribution = () => {
         }
       ).then(async (compressedBuf) => {
         try {
-          if (compressedBuf.byteLength != 0) { // No local DB, skip forward
+          if (compressedBuf.byteLength != 0) {
             const compressed = new Uint8Array(compressedBuf)
             const out = new TextDecoder().decode(fzstd.decompress(compressed));
 
@@ -53,13 +53,22 @@ export const MapDistribution = () => {
                 }
               })
 
+            mapsNamesArray = mapsNamesArray.sort(function (a, b) {
+              var nameA = a.toLowerCase(), nameB = b.toLowerCase();
+              if (nameA < nameB) //sort string ascending
+                return -1;
+              if (nameA > nameB)
+                return 1;
+              return 0; //default return value (no sorting)
+            });
+
             let seasonBarOffset = [];
             Object.keys(seasons).map(i => seasonBarOffset.push(0))
 
-            
+
             mapsNamesArray.map((map, i) => {
               Object.values(seasons).map((season, season_index) => {
-                if (season_index > 0) {
+                if (season_index > -1) {
                   let buffer = 0;
                   let total_matches_per_season = 0;
                   Object.keys(old_json).map(day => {
@@ -78,14 +87,12 @@ export const MapDistribution = () => {
                   if (total_matches_per_season == 0) {
                     total_matches_per_season++;
                   }
-//if (buffer > 0) {
-  let newOffset = seasonBarOffset[season_index] + buffer * 100 / total_matches_per_season;
-  seriesHash[map.toString()].data.push({
-    x: season.name,
-    y: buffer == 0 ? [null, null] : [seasonBarOffset[season_index], newOffset],
-  });
-  seasonBarOffset[season_index] = newOffset;
-//}
+                  let newOffset = seasonBarOffset[season_index] + buffer * 100 / total_matches_per_season;
+                  seriesHash[map.toString()].data.push({
+                    x: season.name,
+                    y: buffer == 0 ? [null, null] : [seasonBarOffset[season_index], newOffset],
+                  });
+                  seasonBarOffset[season_index] = newOffset;
                 }
               })
             })
@@ -96,14 +103,14 @@ export const MapDistribution = () => {
 
             setState({
 
-              series: Object.values(seriesHash).sort(function(a, b){
+              series: Object.values(seriesHash).sort(function (a, b) {
                 var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
                 if (nameA < nameB) //sort string ascending
-                 return -1;
+                  return -1;
                 if (nameA > nameB)
-                 return 1;
+                  return 1;
                 return 0; //default return value (no sorting)
-               }),
+              }),
               options: {
                 chart: {
                   type: 'rangeBar',
@@ -118,7 +125,7 @@ export const MapDistribution = () => {
                 plotOptions: {
                   bar: {
                     barHeight: '100%',
-                    borderRadius: 2,
+                    borderRadius: 0,
                     rangeBarGroupRows: true,
                     horizontal: true,
                   },
@@ -127,19 +134,19 @@ export const MapDistribution = () => {
                   theme: "dark",
                   followCursor: true,
                   intersect: false,
-                  custom: function(opts) {
-                    const fromYear = opts.y2 - opts.y1;                    
-                
+                  custom: function (opts) {
+                    const fromYear = opts.y2 - opts.y1;
+
                     const w = opts.ctx.w
                     let ylabel = ""
-                    if(w.config.series[opts.seriesIndex].data && w.config.series[opts.seriesIndex].data[opts.dataPointIndex]) {
+                    if (w.config.series[opts.seriesIndex].data && w.config.series[opts.seriesIndex].data[opts.dataPointIndex]) {
                       ylabel = w.config.series[opts.seriesIndex].data[opts.dataPointIndex].x;
                     }
                     let seriesName = w.config.series[opts.seriesIndex].name
                       ? w.config.series[opts.seriesIndex].name
                       : ''
                     const color = w.globals.colors[opts.seriesIndex]
-                
+
                     return (
                       '<div class="apexcharts-tooltip-rangebar !bg-gray-920">' +
                       '<div> <span class="series-name" style="color: ' +
@@ -149,7 +156,7 @@ export const MapDistribution = () => {
                       '</span></div>' +
                       '<div> <span class="category">' +
                       ylabel +
-                      ' </span> <span class="text-gray-100">' +
+                      ': </span> <span class="text-gray-100">' +
                       fromYear +
                       '%</span></div>' +
                       '</div>'
@@ -169,7 +176,7 @@ export const MapDistribution = () => {
                   show: true,
                   labels: {
                     style: {
-                      colors: Object.keys(seasons).map(i=>'#7a7f96'),
+                      colors: Object.keys(seasons).map(i => '#7a7f96'),
                     },
                   },
                 },
@@ -190,12 +197,12 @@ export const MapDistribution = () => {
                   position: 'top',
                   horizontalAlign: 'left',
                   labels: {
-                      colors: '#7a7f96',
+                    colors: '#7a7f96',
                   },
                 },
                 theme: {
-                  palette: 'palette2',
-              }
+                  palette: 'palette1',
+                }
               },
 
 
