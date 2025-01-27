@@ -220,7 +220,7 @@ export const MapDistribution = () => {
 
 
   return render ? (<div className=''>
-    <div className="text-gray-100 mb-10 mt-24 lg:mr-4">
+    <div className=" mb-10 mt-6 lg:mr-4">
       <ReactApexChart options={state.options} series={state.series} type="rangeBar" height={"2000px"} width={"100%"} />
     </div>
   </div>) :
