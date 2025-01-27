@@ -1,37 +1,13 @@
-import { useMemo } from "react";
 import React from "react";
 import * as fzstd from 'fzstd';
-import { MantineProvider } from "@mantine/core";
-import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef } from "mantine-react-table";
-import { LoadingAnimationWithTitle } from "../../components/LoadingAnimation";
+import { LoadingAnimationWithTitle } from "../LoadingAnimation";
 import { seasons } from "../../lib/seasons";
 import ReactApexChart from "react-apexcharts";
 
 export const Science_Activity = () => {
 
-  type tableEntry = {
-    [day: number]: number
-  }
-
-  const [data, setData] = React.useState({});
   const [render, triggerRender] = React.useState(false);
-
-  function formatSeconds(duration: number) {
-    var date = new Date(duration * 1000);
-    var hh = Math.floor(duration / 3600);
-    var mm = date.getUTCMinutes();
-    var ss = date.getSeconds();
-    return (hh == 0 ? "" : hh + "h ") + (mm == 0 ? "" : mm + "m ") + ss + "s";
-  }
-
-  let rollingElo = 1000;
-  let lastElo = 1000;
-  let lastEloSolo = 1000;
-  let rollingEloSolo = 1000;
-
-  const [state, setState] = React.useState({
-
-  });
+  const [state, setState] = React.useState({});
 
   React.useEffect(() => {
     (async () => {
@@ -50,14 +26,11 @@ export const Science_Activity = () => {
             const out = new TextDecoder().decode(fzstd.decompress(compressed));
 
             let json = JSON.parse(out);
-            console.log(json);
-
-            setData(json);
 
             setState({
               series: [
                 {
-                  name: 'Daily Active Players',
+                  name: 'Daily Matches',
                   data: Object.keys(json).map((day, i) => {
                     return [Number(day) * 1000, json[day]]
                   }).sort((a, b) => a[0] - b[0]),
@@ -125,7 +98,7 @@ export const Science_Activity = () => {
                     }
                   },
                   title: {
-                    text: "Daily active players in Team Scorched",
+                    text: "Daily matches Team Scorched",
                     style: {
                       color: "#7a7f96",
                       fontSize: '18px',
