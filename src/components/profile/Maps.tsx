@@ -282,7 +282,7 @@ export const Maps = (props: MatchHistoryInterface) => {
                 <div id="html-dist"></div>
             </div>
 
-            <div className="flex justify-center mt-6 mb-10">
+            <div className="flex justify-center text-center mt-6 mb-10">
                 <span className="text-gray-400 text-xl"><span className="text-gray-100 text-3xl  font-black">{mostPlayed.name}</span> was played <span className="text-gray-100 text-3xl font-black">
                     {mostPlayed.matches}</span> times with <span className="text-gray-100 text-3xl  font-black">{mostPlayed.kills}</span> kills</span>
             </div>

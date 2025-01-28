@@ -309,14 +309,14 @@ export const Activity = (stats: Scorcher) => {
                     <span className="flex justify-center mt-2  text-gray-300">Matches per fireteam</span>
                 </div>
             </div>
-            <div className="flex justify-center mt-16">
+            <div className="flex justify-center mt-16 text-center">
                 <span className="text-gray-400 text-xl"><span className="text-gray-100 text-4xl  font-black">{(stats.performance.kills).toLocaleString()}</span> Kills / <span className="text-gray-100 text-4xl font-black">
                     {(stats.performance.matches).toLocaleString()}</span> Matches</span>
             </div>
             <div className="">
                 <div className="">
                     <div className=" text-gray-300 text-xl flex flex-wrap space-x-10 justify-evenly">
-                        <table className="flex w-[400px] mt-14">
+                        <table className="flex max-w-[400px] mt-14">
                             <tbody>
                                 <tr>
                                     <td className="text-right pr-2">
@@ -364,7 +364,7 @@ export const Activity = (stats: Scorcher) => {
                                 </tr>
                             </tbody>
                         </table>
-                        <table className="flex align-top w-[400px] mt-14">
+                        <table className="flex align-top max-w-[400px] mt-14">
                             <tbody>
                                 <tr>
                                     <td className="text-right pr-2">
@@ -466,7 +466,7 @@ export const Activity = (stats: Scorcher) => {
                                     </tr>}
                             </tbody>
                         </table>
-                        <table className="flex w-[400px] mt-14">
+                        <table className="flex max-w-[400px] mt-14">
                             <tbody>
                                 <tr>
                                     <td className="text-right pr-2">
