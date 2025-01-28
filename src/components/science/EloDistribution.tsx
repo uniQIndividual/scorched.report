@@ -116,7 +116,7 @@ export const EloDistribution = () => {
                     },
                     show: false,
                     formatter: function (val) {
-                      return val + " Scorchers (" + (val * 100 / total_entries).toFixed(2) + "%)";
+                      return val + " Scorchers (" + (val * 100 / total_entries).toFixed(3) + "%)";
                     }
                   }
 
