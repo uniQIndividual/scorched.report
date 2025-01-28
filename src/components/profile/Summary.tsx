@@ -59,7 +59,6 @@ export const Radar = (stats: Scorcher) => {
         <div>
             <ApexChart
                 height={350}
-                width={500}
                 series={[{
                     name: "Overall Performance",
                     data: calculateNormalizedStats({
@@ -211,7 +210,6 @@ export const Radar = (stats: Scorcher) => {
                 <span className="w-full flex justify-center h-8"></span>
                 <ApexChart
                     height={350}
-                    width={500}
                     series={[].concat(Object.keys(stats.bungieHistoricStats).map((charater, i) => {
                         return {
                             name: characterClassToString(stats.characters[charater]?.classType || ""),
