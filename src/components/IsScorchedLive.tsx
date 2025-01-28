@@ -11,7 +11,7 @@ export const IsScorchedLive = () => {
                 try {
                     response = JSON.parse(response);
                     response = response.Response;
-                    if (response.hasOwnProperty("1049998276") && response["1049998276"].activities.some(e => e.activityHash == 17175025396)) {
+                    if (response.hasOwnProperty("1049998276") && response["1049998276"].activities.some(e => e.activityHash == 17175025396 || e.activityHash == 3787302650)) {
                         setData(true)
                     } else {
                         setData(false)
