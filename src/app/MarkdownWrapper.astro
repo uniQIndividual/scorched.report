@@ -19,7 +19,7 @@ if (frontmatter && frontmatter.title) {
         <span class="font-extralight italic">{frontmatter.author}</span> : 
         ""}
         <TableOfContents headings={headings} />
-        <div
+        <article
 	    class="leading-7 2xl:mt-10 prose text-gray-800 dark:text-gray-200
         dark:prose-invert prose-h1:mb-4 prose-h1:mt-14 prose-h2:mb-4 prose-h2:mt-10
         prose-h1:text-gray-900 prose-h1:dark:text-gray-50 prose-h1:font-bold prose-h1:text-xxl
@@ -28,6 +28,6 @@ if (frontmatter && frontmatter.title) {
         prose-blockquote:pt-1 prose-blockquote:rounded-lg prose-blockquote:not-italic prose-blockquote:dark:text-gray-300 prose-blockquote:text-gray-700 prose-blockquote:bg-[rgba(0,0,0,0.2)]"
         >
 		    <slot />
-	    </div>
+	    </article>
     </div>
 </div>

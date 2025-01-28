@@ -1,6 +1,7 @@
 ---
 import { IsScorchedLive } from "../components/IsScorchedLive";
 import Search from "../components/UserSearch";
+import metadata from "../assets/metadata.json";
 
 const activities = [
 	{
@@ -94,7 +95,8 @@ const activities = [
 ];
 ---
 
-<div class="m-4">
+<header class="m-4">
+	<!--
 	<div class="flex justify-center">
 		<svg
 			width="80%"
@@ -112,25 +114,76 @@ const activities = [
 			>
 		</svg>
 	</div>
-	<!--
 	<h1
 		class="text-3xl text-center sm:text-5xl 2xl:text-8xl bg-clip-text bg-center font-bungo font-black text-gray-50 dark:brightness-200 bg-cover"
 	>
 		SCORCHED.REPORT
 	</h1> -->
-	<div
-		class="text-3xl text-center mt-8 dark:text-gray-200 text-gray-600 font-extralight leading-tight"
-	>
-		The home of everything Team Scorched
-	</div>
-	<div class="object-center">
+	<div class="object-center min-h-[32px]">
 		<IsScorchedLive client:only="react" />
 	</div>
-	<header class="p-8 flex items-center flex-wrap flex-col w-full mt-10">
-		<div class="my-10">
-			<Search client:only="react" />
+	<h1
+		class="text-5xl text-center mt-8 dark:text-gray-50 text-gray-900 font-extralight leading-tight"
+	>
+		The Home of <span class="inline-block">Team Scorched</span>
+	</h1>
+	<div
+		class="text-lg my-10 flex justify-center text-gray-900 dark:text-gray-200 font-light leading-relaxed"
+	>
+		<div class="max-w-[1000px] text-center">
+			Scorched Report provides you with all the details about Destiny 2's best
+			game mode: <span class="inline-block">Team Scorched</span>.
+			<br />
+			Look up your own starts, see how you compare to other scorchers, or unlock
+			all the custom Scorched Cannons.
 		</div>
+	</div>
+	<h2 class="hidden min-h-[58px]">Search for a scorcher:</h2>
+	<div class="my-10">
+		<Search client:only="react" />
+	</div>
 
+	<div
+		class="text-lg my-20 flex justify-center text-gray-900 dark:text-gray-200 font-light leading-relaxed"
+	>
+		<div class="max-w-[500px]">
+			<h2 class="text-xl text-gray-100 font-normal">
+				Currently in the Scorched Report database
+			</h2>
+			<div class="columns-1 space-y-3 mt-4">
+				<div>
+					<span class="inline-block">
+						<span class="text-primary-600 text-xl font-semibold mr-2">
+							{Number(metadata.matches_tracked).toLocaleString()}
+						</span> Team Scorched matches
+					</span>
+				</div>
+				<div>
+					<span class="inline-block">
+						<span class="text-primary-600 text-xl font-semibold mr-2">
+							{Number(metadata.accounts_tracked).toLocaleString()}
+						</span> Destiny 2 accounts
+					</span>
+				</div>
+				<div>
+					<span class="inline-block">
+						<span class="text-primary-600 text-xl font-semibold mr-2">
+							{
+								(metadata.db_size / 1024 / 1024 / 1024).toLocaleString(
+									undefined,
+									{
+										minimumFractionDigits: 0,
+										maximumFractionDigits: 0,
+									}
+								)
+							} GB
+						</span> of match data
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="p-8 flex items-center flex-wrap flex-col w-full -mt-10">
 		<div class="p-4 mb-4 rounded-lg shadow-sm sm:p-6 xl:mb-0">
 			<div class="flex items-center justify-between mb-4">
 				<h2 class="text-lg font-semibold text-gray-900 dark:text-white">
@@ -154,7 +207,11 @@ const activities = [
 							{activity.image === "" ? (
 								""
 							) : (
-								<img alt={activity.name} src={`/images/news/${activity.image}`} loading="lazy" />
+								<img
+									alt={activity.name}
+									src={`/images/news/${activity.image}`}
+									loading="lazy"
+								/>
 							)}
 							{activity.link === "" ? (
 								""
@@ -188,7 +245,7 @@ const activities = [
 				class="h-64 w-64 mask-radial mask-from-100 mask-via-[0.75] mask-to-0"
 			/>
 		</div>
-	</header>
+	</div>
 	<div class="dark:text-gray-300 text-2xl font-thin justify-center flex">from https://dev.to/cruip_com/create-an-infinite-horizontal-scroll-animation-with-tailwind-css-2ck 
 		<div
 			class="w-[70%] inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]"
@@ -304,5 +361,5 @@ const activities = [
 				}
 			}
 		</style>
-	</header>
-</div>
+	</div>
+</header>

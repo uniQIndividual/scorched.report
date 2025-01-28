@@ -37,7 +37,7 @@ If there is a weighting towards maps that work in 6v6 game modes I can not see i
 
 Tracking the weighting of newly released maps is more tricky since they are not necessarily released with a new season. Additionally Bungie might choose to dial the weighting back down within the same season. Nevertheless, newly released maps are generally weighted higher and [Bungie has publicly stated to do so](https://destiny.bungie.org/bwu/430). One particular strong example from the dataset is The Citadel.
 
-## Source
+## Sources
 
 - The [Destiny 2 Post Game Carnage Report Dataset](https://d2.asun.co/pgcr.html) by Andrew Sun, released under the Open Database License (ODbL)
 - The filtered and aggregated data is available on [GitHub](https://github.com/uniQIndividual/scorched.report/tree/main/public/data/science)
