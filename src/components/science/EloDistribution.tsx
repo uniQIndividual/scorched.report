@@ -68,7 +68,7 @@ export const EloDistribution = () => {
                 },
 
                 xaxis: {
-                  categories: Object.keys(old_json).map(rank => rank + "+"),
+                  categories: Object.keys(old_json).map(rank => rank + " - " + (Number(rank) + 100 )),
                   position: 'top',
                   axisBorder: {
                     show: false

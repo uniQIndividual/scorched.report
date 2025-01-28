@@ -3,6 +3,7 @@ import LayoutSidebar from "../../app/LayoutSidebar.astro";
 import { MapDistribution } from "../../components/science/MapDistribution.tsx";
 import MapDistributionMd from "../../components/science/MapDistribution.md";
 import MarkdownWrapper from "../../app/MarkdownWrapper.astro";
+import metadata from "../../assets/metadata.json";
 ---
 
 <LayoutSidebar
@@ -20,6 +21,15 @@ import MarkdownWrapper from "../../app/MarkdownWrapper.astro";
 		<h2 class="text-gray-900 dark:text-gray-100 text-xl mb-2 mt-2 flex justify-center">
 			The map draw chances per season
 		</h2>
+		<span class="text-gray-700 dark:text-gray-300 mb-2 flex justify-center"
+			> (as of {
+				new Date(metadata.last_entry_date * 1000).toLocaleString(undefined, {
+					year: "numeric",
+					month: "long",
+					day: "numeric",
+				})
+			})
+		</span>
 		<MapDistribution client:only />
 	</div>
 </LayoutSidebar>
