@@ -57,7 +57,7 @@ export const Maps = (props: MatchHistoryInterface) => {
         }],
         options: {
             chart: {
-                type: 'line',
+                type: 'bar',
                 stacked: false,
                 toolbar: {
                   show: true,
@@ -254,11 +254,43 @@ export const Maps = (props: MatchHistoryInterface) => {
                     offsetX: 60
                 },
             },
+            responsive: [
+                {
+                  breakpoint: 500,
+                  options: {
+                    chart: {
+                      height: 1050,
+                    },
+                    plotOptions: {
+                        bar: {
+                        horizontal: false
+                      }
+                    },
+                    legend: {
+                      position: "bottom"
+                    },
+                    xaxis: {
+                      show: false,
+                      labels: {
+                        style: {
+                          colors: '#7a7f96',
+                        },
+                        show: false,
+                      }
+                    },
+                    yaxis: {
+                      show: true,
+                      labels: {
+                        style: {
+                          colors: '#7a7f96',
+                        },
+                      }
+                    },
+                  }
+                }
+              ]
         },
-
-
         selection: 'all',
-
     };
 
 
@@ -278,7 +310,7 @@ export const Maps = (props: MatchHistoryInterface) => {
 
             <div>
 
-                <ReactApexChart options={state.options} series={state.series} type="line" height={700} width={"100%"} />
+                <ReactApexChart options={state.options} series={state.series} type="bar" height={700} width={"100%"} />
                 <div id="html-dist"></div>
             </div>
 

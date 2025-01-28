@@ -240,7 +240,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
     columnFilterDisplayMode: "popover",
     initialState: { density: 'xs',
       columnVisibility: {
-        'win_chance': false,
+        'win_chance': true,
       },
      }
   });

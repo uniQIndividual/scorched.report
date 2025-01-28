@@ -12,7 +12,7 @@ This page outlines the process and challenges behind creating an Elo system for 
 
 ## Motivation
 
-While you could entirely legitimately argue it's only a silly number for a silly game mode, I believe it's both fascinating and important to look more closely at how to implement such a rating system. Some other fan sites assign largely opaque ratings without providing more details on what they are based on. Perhaps the reasoning is to obscure the influencing factors to prevent abuse or perhaps they ran into other challenges that Scorched Report doesn't want to or need to mitigate. Since Scorched Report exists purely for the fun of it, we try to communicate how our rating system works as best as possible.
+While you could entirely legitimately argue it's only a silly number for a silly game mode, I believe it's both fascinating and important to look more closely at how to implement such a rating system. Some games and fan sites fan sites assign largely opaque ratings without providing more details on what they are based on. Perhaps the reasoning is to obscure the influencing factors to prevent abuse or perhaps they ran into other challenges that Scorched Report doesn't want to or need to mitigate. Since Scorched Report exists purely for the fun of it, we try to communicate how our rating system works as best as possible.
 
 ### How other sites do it
 
