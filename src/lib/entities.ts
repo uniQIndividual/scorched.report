@@ -230,7 +230,7 @@ export const awards: { [index: string]: { "description": string, "text": string,
 	},
 	"kills30": {
 		"description": "Awarded for reaching 30 kills in a single match",
-		"text": "",
+		"text": "Getting the hang of it",
 		"src": "/images/icons/awards/30.webp",
 		"glow": ""
 	},
@@ -254,25 +254,25 @@ export const awards: { [index: string]: { "description": string, "text": string,
 	},
 	"total25k": {
 		"description": "Awarded for reaching 25000 kills in Team Scorched",
-		"text": "Just Getting Started",
+		"text": "Shaxx new favorite Scorcher",
 		"src": "/images/icons/awards/25k.webp",
 		"glow": ""
 	},
 	"total10k": {
 		"description": "Awarded for reaching 10000 kills in Team Scorched",
-		"text": "",
+		"text": "On a flaming path",
 		"src": "/images/icons/awards/10k.webp",
 		"glow": ""
 	},
 	"total5k": {
 		"description": "Awarded for reaching 5000 kills in Team Scorched",
-		"text": "",
+		"text": "Just Getting Started",
 		"src": "/images/icons/awards/5k.webp",
 		"glow": ""
 	},
 	"total1k": {
 		"description": "Awarded for reaching 1000 kills in Team Scorched",
-		"text": "",
+		"text": "First rocket-boosted steps",
 		"src": "/images/icons/awards/1k.webp",
 		"glow": ""
 	},
