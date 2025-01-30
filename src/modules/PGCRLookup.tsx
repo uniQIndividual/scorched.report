@@ -52,7 +52,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
         date: "",
         duration: 0,
         teamPreference: 0, // Which team is the user on? by default the first
-        team1WinChance: 0,
+        team1WinChance: -1,
         team1Score: -1,
         team2Score: -1,
         team1: [], // There can be more than 2 teams, but we're gonna ignore that here e.g. pgcr 13801004315
@@ -233,7 +233,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                             matchup = matchup_result.matchup;
                             matchupWins = matchup_result.matchWins;
 
-                            var index = matchHistory.map(function (e) { return String(e.id); }).indexOf(String(matchid));
+                            var index = matchHistory.map(function (e) { return String(e.id); }).indexOf(String(matchid)); // Find match in database
 
                             if (index >= 0 && matchHistory[index].elo != 0) {
 
