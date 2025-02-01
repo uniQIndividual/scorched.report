@@ -28,7 +28,15 @@ fun fact: zstd-jsonl-filter turned out to be so fast that if you had the compres
 
 ## Why is this data different?
 
-Just a couple notes for now
+Please keep in mind that Scorched Report is a static site, i.e. it does not have a "real" database or active components. It's just a bunch of files. This allows
+
+- the website to hopefully work indefinitely
+- me to walk away whenever without stuff breaking
+- you to easily adapt it and make changes
+
+However that also means that the leaderboard and elo won't update unless I manually do so. Given that Team Scorched currently only comes around every two months, it shouldn't matter much.
+
+Sometimes the matches returned by Bungie are missing data or completely broken. Just a couple examples for now:
 
 - Everything that happens after the "Victory" message appears will be missing in the API. You getting a seventh column, a we ran, your 50 kills streak... I can't see it.
 - Some PGCRs are simply missing data such as medals. Some of that is on Bungie some, may have happened when the data was collected

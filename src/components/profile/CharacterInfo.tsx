@@ -157,7 +157,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
             </div>
             <div className="max-w-[470px] px-2 mt-8 mx-2 my-2 ">
                 <div className="absolute max-w-[470px] justify-center flex">
-                    <img className="opacity-10" src={"/images/icons/" + classType + "_icon.png"} />
+                    {classType != "" ? <img className="opacity-10" src={"/images/icons/" + classType + "_icon.png"} /> : ""}
                 </div>
                 {(characterStats?.activitiesEntered || 0) <= 0 ? <span className="w-full flex justify-center text-gray-400 font-light">
                     Time to play more Team Scorched

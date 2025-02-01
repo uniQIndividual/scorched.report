@@ -11,6 +11,7 @@ import API from "../lib/api";
 import * as fzstd from 'fzstd';
 import update from 'immutability-helper';
 import LoadingAnimation from "../components/LoadingAnimation";
+import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { type historicStatsPerCharacter, type pgcrCutDown, type Scorcher } from "../lib/entities";
 import { Profile } from "../components/profile/Profile";
 import { Radar } from "../components/profile/Summary";
@@ -191,7 +192,7 @@ const ReportLookup = () => {
   const [crash, triggerCrash] = React.useState({ title: "", text: "" }); // Display a crash message, recoverable but some stats might be missing
   const [hardCrash, triggerHardCrash] = React.useState(false); // Will prevent visual output
   const [render, triggerRender] = React.useState(false);
-  const [progress, setProgress] = React.useState({ title: "Getting data", text: "" });
+  const [loadingTitle, setLoadingTitle] = React.useState("Loading PGCR...");
 
   React.useEffect(() => {
     // Verify parameters
@@ -227,6 +228,7 @@ const ReportLookup = () => {
 
       (async () => { // A lot of async stuff from here on that we need to enforce
         // Initialize databases
+        setLoadingTitle("Initializing database...");
         let newStats = stats;
         await definitionsDB.initializeDefinitionsDatabase();
         await historyDB.initializeHistoryDatabase();
@@ -246,6 +248,7 @@ const ReportLookup = () => {
           Load Scorched Cannon data
  
         */
+        setLoadingTitle("Loading Scorched Cannons...");
 
         try {
           fetch('https://scorched.nblock.dev/api/users/' + userid,
@@ -304,7 +307,6 @@ const ReportLookup = () => {
 
             }).catch(err => {
 
-              triggerRender(true)
               console.error(err)
             });
 
@@ -313,7 +315,6 @@ const ReportLookup = () => {
             title: 'Error when loading Scorched Cannon data',
             text: error!.toString()
           });
-          triggerRender(true)
           return;
         }
 
@@ -324,6 +325,7 @@ const ReportLookup = () => {
         */
         const indexedMatchHistory = await historyDB.getValue(userid);
         if (indexedMatchHistory != null) {
+          setLoadingTitle("Loading Scorched Cannons...");
           console.log("Fetching matches from local indexedDB");
           // Update performance stats and history
           newStats = update(newStats, {
@@ -339,6 +341,7 @@ const ReportLookup = () => {
           Load info from local compressed files
   
         */
+          setLoadingTitle("Loading Profile Stats...");
         await fetch('/data/scorcher/' + Number(userid.substring(userid.length - 4)) + '.json.zst').then(
           res => {
             if (res.status != 200 && res.status != 404) {
@@ -453,9 +456,9 @@ const ReportLookup = () => {
           Load info from Bungie
   
         */
+          setLoadingTitle("Loading Characters...");
         await API.requests.User.GetBungieProfieData(userid, platform.toString()).catch((err => {
           try {
-            triggerRender(true)
             const bungieResponse = JSON.parse(err.response);
             triggerCrash({
               title: bungieResponse?.ErrorStatus,
@@ -516,6 +519,7 @@ const ReportLookup = () => {
             */
 
             // Add deleted characters
+          setLoadingTitle("Loading Bungie Stats...");
             response = await API.requests.User.GetHistoricAccountStats(userid, platform.toString())
             if (response != undefined && response != "") {
               response = JSON.parse(response)
@@ -552,6 +556,7 @@ const ReportLookup = () => {
             // Get Team Scorched specific historic stats
             // While there is Destiny2.GetHistoricalStatsForAccount as far as I can tell it does not allow you to specify a mode
             // ~3 more requests for each character it is then 
+          setLoadingTitle("Loading Character Stats...");
             Promise.all(Object.keys(newStats.characters).map((character) => API.requests.User.GetHistoricCharacterStats(userid, platform.toString(), newStats.characters[character].characterId))).catch((error) => {
               triggerCrash({
                 title: "Couldn't load historic stats",
@@ -890,7 +895,6 @@ const ReportLookup = () => {
                     },
                   }
                 });
-                triggerRender(true);
 
 
                 /*
@@ -935,7 +939,7 @@ const ReportLookup = () => {
 
                           let response;
                           try {
-
+                            setLoadingTitle("Loading Match History " + page + "/" + endPage + "...");
                             response = await API.requests.PGCR.GetCharacterPGCRHistory(userid, platform.toString(), characterName, page, matchesPerPage)
 
                           } catch (error) {
@@ -1050,13 +1054,10 @@ const ReportLookup = () => {
                   console.log(error);
                 }
 
-
-                triggerRender(true)
                 setStats(newStats);
 
               }
               catch (error) {
-                triggerRender(true)
                 triggerCrash({
                   title: "Error when parsing character stats",
                   text: error?.description?.toString()
@@ -1066,11 +1067,8 @@ const ReportLookup = () => {
             })
           } else {
             // We assume Bungie is down and roll with fallback information
-
-            triggerRender(true)
           }
-        }
-        )
+        })
 
 
         /*
@@ -1158,9 +1156,8 @@ const ReportLookup = () => {
           });
         }
 
-
+        // Finished
         setStats(newStats)
-
         triggerRender(true);
 
       })()
@@ -1188,45 +1185,45 @@ const ReportLookup = () => {
 
   if (render) return (<div className="flex justify-center mx-[2%]">
     <div className="max-w-[calc(100vw-50px)] lg:max-w-[95%]">
-    <div className="justify-center flex mt-12">
-      <div
-        className="mt-2 grid grid-cols-1 gap-6 2xl:grid-cols-2 w-max"
-      >
-        <Wrapper item={<Profile {...stats} />} />
-        <Wrapper item={<Radar {...stats} />} />
+      <div className="justify-center flex mt-12">
+        <div
+          className="mt-2 grid grid-cols-1 gap-6 2xl:grid-cols-2 w-max"
+        >
+          <Wrapper item={<Profile {...stats} />} />
+          <Wrapper item={<Radar {...stats} />} />
+        </div>
       </div>
-    </div>
-    <div className="mt-16 w-full flex justify-center z-50">
-      <Wrapper item={<Activity {...stats} />} />
-    </div>
-    <div className="mt-16 w-full flex justify-center">
-      <Wrapper item={<Performance {...stats} />} />
-    </div>
-    <div className="mt-16 w-full flex justify-center">
-      <Wrapper item={<Maps stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} />
-    </div>
-    <div className="mt-16 w-full flex justify-center">
-      <Wrapper item={
-        <div className="">
-          <div className="text-5xl text-gray-100 my-5 flex justify-center font-semibold">Characters</div>
-          <div className="flex flex-wrap justify-center space-x-7">
-            {Object.keys(stats.characters).length == 0 ? <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> : Object.keys(stats.characters).map((character) => {
-              return !stats.characters.hasOwnProperty(character) || !stats.bungieHistoricStats.hasOwnProperty(character) ? <></> : <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
-            })} </div> </div>} />
+      <div className="mt-16 w-full flex justify-center z-50">
+        <Wrapper item={<Activity {...stats} />} />
+      </div>
+      <div className="mt-16 w-full flex justify-center">
+        <Wrapper item={<Performance {...stats} />} />
+      </div>
+      <div className="mt-16 w-full flex justify-center">
+        <Wrapper item={<Maps stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} />
+      </div>
+      <div className="mt-16 w-full flex justify-center">
+        <Wrapper item={
+          <div className="">
+            <div className="text-5xl text-gray-100 my-5 flex justify-center font-semibold">Characters</div>
+            <div className="flex flex-wrap justify-center space-x-7">
+              {Object.keys(stats.characters).length == 0 ? <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> : Object.keys(stats.characters).map((character) => {
+                return !stats.characters.hasOwnProperty(character) || !stats.bungieHistoricStats.hasOwnProperty(character) ? <></> : <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
+              })} </div> </div>} />
 
-    </div>
-    <div className="mt-10 flex justify-center">
-      <Wrapper item={<CannonCollection {...stats} />} />
-    </div>
-    <div className="mt-10 flex justify-center">
-      <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
-    </div>
-    {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
+      </div>
+      <div className="mt-10 flex justify-center">
+        <Wrapper item={<CannonCollection {...stats} />} />
+      </div>
+      <div className="mt-10 flex justify-center">
+        <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
+      </div>
+      {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
     </div>
   </div>)
 
   return (<div className="flex h-72 justify-center">
-    <LoadingAnimation />
+    <LoadingAnimationWithTitle title={loadingTitle} />
   </div>)
 }
 export default ReportLookup
