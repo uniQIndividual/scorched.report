@@ -66,7 +66,7 @@ export const Profile = (stats: Scorcher) => {
                                 <table className="mr-2 h-12">
                                     <tbody>
                                         <tr>
-                                            <td className=" text-white text-3xl font-bungo leading-none m-0 p-0  w-[388px]">
+                                            <td className=" text-white text-2xl sm:text-3xl font-bungo leading-none m-0 p-0 w-[388px]">
                                                 <span className="max-w-[268px] block truncate ...">
                                                     {stats.profile.profileName}
                                                 </span>
@@ -75,7 +75,7 @@ export const Profile = (stats: Scorcher) => {
                                                         <text x="-48" y="20" textAnchor="">{"12345678901234567890"}</text>
                                                     </svg></div>*/}
                                             </td>
-                                            <td className="font-bungo font-[500] text-[#D3BF4A] text-[42px] pr-3 leading-none m-0 p-0 left-0 text-right flex">
+                                            <td className="font-bungo font-[500] text-[#D3BF4A] text-[30px] sm:text-[42px] pr-3 leading-none m-0 p-4 sm:p-0 left-0 text-right flex">
                                                 <img src="/images/icons/ll.png" className="w-[14px] h-[14px] float-right object-scale-down mt-2" />
                                                 {stats.profile.lightLevel}
                                             </td>
@@ -131,13 +131,13 @@ export const Profile = (stats: Scorcher) => {
                     <tbody className="">
                         <tr className="text-gray-200 text-3xl">
                             <td className="m-0 p-0 float-left">
-                                {stats.performance.trueSkill}
+                                {stats.performance.trueSkill || "..."}
                             </td>
                             <td className="m-0 p-0 float-right">
-                                {(stats.performance.kills / stats.performance.deaths).toLocaleString(undefined, {
+                                {stats.performance.deaths ? (stats.performance.kills / stats.performance.deaths).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
-                                })}
+                                }) : "..."}
                             </td>
                         </tr>
                         <tr className="mt-0 text-gray-400 text-lg">
@@ -150,16 +150,16 @@ export const Profile = (stats: Scorcher) => {
                         </tr>
                         <tr className="text-gray-200 text-3xl">
                             <td className="m-0 p-0 float-left pt-3">
-                                {(stats.performance.kills).toLocaleString(undefined, {
+                                {stats.performance.kills ? (stats.performance.kills).toLocaleString(undefined, {
                                     minimumFractionDigits: 0,
                                     maximumFractionDigits: 0,
-                                })}
+                                }) : "..."}
                             </td>
                             <td className="m-0 p-0 float-right pt-3">
-                                {(stats.performance.kills / (stats.performance.timeSpent / 60)).toLocaleString(undefined, {
+                                {stats.performance.kills ? (stats.performance.kills / (stats.performance.timeSpent / 60)).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
-                                })}
+                                }) : "..."}
                             </td>
                         </tr>
                         <tr className="mt-0 text-gray-400 text-lg">

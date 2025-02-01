@@ -39,11 +39,15 @@ export class DatabaseMiddleware {
 
     // Check if database exists
     private async databaseExistsAndValid(): Promise<boolean> {
-        const databases = await window.indexedDB.databases();
-        return databases.some(
-            (db) =>
-                db.name === this.config.databaseName && db.version === this.config.version
-        );
+        if (window.indexedDB.databases) {
+            const databases = await window.indexedDB.databases();
+            return databases.some(
+                (db) =>
+                    db.name === this.config.databaseName && db.version === this.config.version
+            );
+        } else {
+            return false
+        }
     }
 
     // Clear all entries in the object store
@@ -177,7 +181,7 @@ export class DatabaseMiddleware {
 
                     } else {
                         console.log("Activity Definitions are still up-to-date");
-                        
+
                     }
                 }
 
