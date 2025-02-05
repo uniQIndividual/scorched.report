@@ -38,15 +38,21 @@ However that also means that the leaderboard and elo won't update unless I manua
 
 Sometimes the matches returned by Bungie are missing data or completely broken. Just a couple examples for now:
 
-- Everything that happens after the "Victory" message appears will be missing in the API. You getting a seventh column, a we ran, your 50 kills streak... I can't see it.
-- Some PGCRs are simply missing data such as medals. Some of that is on Bungie some, may have happened when the data was collected
-- Obviously cheated entries are excluded from leaderboards and ratings
-- Some PGCRs are simply gone, i.e. Bungie does not show them anywhere. These matches essentially don't exist anymore. Nothing I can do.
-- Bungie does not report the "the crown is mine medal" i.e. I have no idea how many you received. Or maybe I can't find it.
-- Bungie seems to have an issue with disconnecting players and notes impossibly low playtimes. This seems to mainly affect matches around April 14, 2023.
+- Some PGCRs are simply missing data such as medals.
+- Bungie does not report the "the crown is mine" medal i.e. I have no idea how many you received. Or maybe I can't find it, though seemingly neither can any other fan site.
+- Bungie seems to have an issue with disconnected players and notes impossibly low playtimes. This seems to mainly affect matches around April 14, 2023.
 - PGCR data is inconsistent in many unexpected ways, e.g. what do you do with matches where Team 1 with a single player won against Team 2 with 0 players? This answer likely differs between your favorite websites.
 - Sometimes players had not been assigned to a team yet. Scorched Report will list those matches, but no assigned a rating.
 - Some PGCRs are just broken in a way that messes with calculations, e.g. 4817214499, 4817311121, 4817752159, 4817909354, 4818017690, 4818075093, 4818102193, 4819219037, 4819294202, 4819416171, 4819512047, 4819797530, 4819995377
+
+## Missing Data
+
+I'm aware that some data is missing. This includes:
+
+- Everything that happens after the "Victory" message will be missing in the API. You getting a seventh column, a we ran, a 50 kill-streak... I can't see it.
+- If the PGCR entry is missing player names and medals then they will be missing in places such as the leaderboards.
+- Certain cheated entries are excluded from leaderboards and ratings.
+- Some PGCRs are simply gone, i.e. Bungie does not show them anywhere. These matches essentially don't exist anymore or maybe never did in the first place. Nothing I can do.
 
 ## How is Elo calculated?
 

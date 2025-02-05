@@ -1,0 +1,41 @@
+---
+import metadata from "../../assets/metadata.json";
+---
+
+<div class="text-gray-400 text-center mx-6 mt-2 mb-20 font-light">
+	<span
+		>Please play Team Scorched because it's fun, not because a number on some
+		random website tells you to.</span
+	>
+	<br />
+	<br />
+	<span>Last matches:</span>
+	<span class="whitespace-nowrap">
+		{
+			new Date(metadata.last_entry_date * 1000).toLocaleString(undefined, {
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			})
+		}
+	</span>
+	<br />
+	<span>Last updated:</span>
+	<span class="whitespace-nowrap">
+		{
+			new Date(metadata.creation_date * 1000).toLocaleString(undefined, {
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			})
+		}
+	</span>
+	<br />
+	<span
+		>There are some <a
+			href="/faq#missing-data"
+			class="underline underline-offset-2 hover:no-underline text-gray-700 dark:text-gray-200"
+			>limitations</a
+		>.</span
+	>
+</div>

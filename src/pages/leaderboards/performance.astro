@@ -1,5 +1,6 @@
 ---
 import LayoutSidebar from "../../app/LayoutSidebar.astro";
+import FooterNote from "../../components/leaderboard/FooterNote.astro";
 import { LeaderboardPerformance } from "../../components/leaderboard/Performance";
 ---
 
@@ -10,8 +11,5 @@ import { LeaderboardPerformance } from "../../components/leaderboard/Performance
 	og_description="View the best Team Scorched players"
 >
 	<LeaderboardPerformance client:only="react" />
-	<div class="text-lg text-gray-400 text-center mx-6 mt-2 mb-20 font-light">
-		Please play Team Scorched because it's fun, not because a number on some
-		random website tells you to.
-	</div>
+	<FooterNote />
 </LayoutSidebar>
