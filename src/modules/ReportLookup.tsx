@@ -27,7 +27,7 @@ import { Maps } from "../components/profile/Maps";
 const Wrapper = ({ item }) => {
 
   return (
-    <div className="bg-[#111]/70 dark:bg-[#111]/50 p-5 z-0 flex justify-center max-w-[calc(100vw-50px)] lg:max-w-[calc(100vw-480px)] mt-2 mb-5">
+    <div className="bg-[#111]/70 dark:bg-[#111]/50 p-5 sm:p-5 z-0 flex justify-center mt-2 mb-5">
       {item}
     </div>
   );
@@ -341,7 +341,7 @@ const ReportLookup = () => {
           Load info from local compressed files
   
         */
-          setLoadingTitle("Loading Profile Stats...");
+        setLoadingTitle("Loading Profile Stats...");
         await fetch('/data/scorcher/' + Number(userid.substring(userid.length - 4)) + '.json.zst').then(
           res => {
             if (res.status != 200 && res.status != 404) {
@@ -456,7 +456,7 @@ const ReportLookup = () => {
           Load info from Bungie
   
         */
-          setLoadingTitle("Loading Characters...");
+        setLoadingTitle("Loading Characters...");
         await API.requests.User.GetBungieProfieData(userid, platform.toString()).catch((err => {
           try {
             const bungieResponse = JSON.parse(err.response);
@@ -519,7 +519,7 @@ const ReportLookup = () => {
             */
 
             // Add deleted characters
-          setLoadingTitle("Loading Bungie Stats...");
+            setLoadingTitle("Loading Bungie Stats...");
             response = await API.requests.User.GetHistoricAccountStats(userid, platform.toString())
             if (response != undefined && response != "") {
               response = JSON.parse(response)
@@ -542,21 +542,32 @@ const ReportLookup = () => {
               })
               // Store combined overall crucible stats
 
-              newStats = update(newStats, {
-                crucible: {
-                  $set: {
-                    "kills": response.mergedAllCharacters.results.allPvP.allTime.kills.basic.value,
-                    "matches": response.mergedAllCharacters.results.allPvP.allTime.activitiesEntered.basic.value,
+              if (Object.keys(response.mergedAllCharacters.results.allPvP).length > 0) {
+                newStats = update(newStats, {
+                  crucible: {
+                    $set: {
+                      "kills": response.mergedAllCharacters.results.allPvP.allTime.kills.basic.value,
+                      "matches": response.mergedAllCharacters.results.allPvP.allTime.activitiesEntered.basic.value,
+                    }
                   }
-                }
-              });
+                });
+              } else {
+                newStats = update(newStats, {
+                  crucible: {
+                    $set: {
+                      "kills": 0,
+                      "matches": 0,
+                    }
+                  }
+                });
+              }
             }
 
 
             // Get Team Scorched specific historic stats
             // While there is Destiny2.GetHistoricalStatsForAccount as far as I can tell it does not allow you to specify a mode
             // ~3 more requests for each character it is then 
-          setLoadingTitle("Loading Character Stats...");
+            setLoadingTitle("Loading Character Stats...");
             Promise.all(Object.keys(newStats.characters).map((character) => API.requests.User.GetHistoricCharacterStats(userid, platform.toString(), newStats.characters[character].characterId))).catch((error) => {
               triggerCrash({
                 title: "Couldn't load historic stats",
@@ -1184,7 +1195,7 @@ const ReportLookup = () => {
   if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)
 
   if (render) return (<div className="flex justify-center mx-[2%]">
-    <div className="max-w-[calc(100vw-50px)] lg:max-w-[95%]">
+    <div className="max-w-[100%] lg:max-w-[95%]">
       <div className="justify-center flex mt-12">
         <div
           className="mt-2 grid grid-cols-1 gap-6 2xl:grid-cols-2 w-max"
@@ -1206,7 +1217,7 @@ const ReportLookup = () => {
         <Wrapper item={
           <div className="">
             <div className="text-5xl text-gray-100 my-5 flex justify-center font-semibold">Characters</div>
-            <div className="flex flex-wrap justify-center space-x-7">
+            <div className="flex flex-wrap justify-center lg:mx-7">
               {Object.keys(stats.characters).length == 0 ? <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> : Object.keys(stats.characters).map((character) => {
                 return !stats.characters.hasOwnProperty(character) || !stats.bungieHistoricStats.hasOwnProperty(character) ? <></> : <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
               })} </div> </div>} />

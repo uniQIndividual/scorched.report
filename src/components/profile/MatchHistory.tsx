@@ -86,6 +86,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         accessorFn(originalRow) {
           return new Date(originalRow.date)
         },
+        size: 50,
         filterVariant: 'date-range' as const,
         Cell: ({ cell }) => cell.getValue<Date>().toLocaleString(undefined, {
           year: "numeric",
@@ -106,7 +107,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       },
       {
         accessorKey: 'eloDiff',
-        header: '',
+        header: 'Elo +/-',
         filterVariant: 'range',
         size: 50,
         Cell: ({ cell }) => {
@@ -127,13 +128,13 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       },
       {
         accessorKey: 'kills',
-        header: 'Kills',
+        header: 'K',
         filterVariant: 'range',
         size: 50
       },
       {
         accessorKey: 'deaths',
-        header: 'Deaths',
+        header: 'D',
         filterVariant: 'range',
         size: 50
       },
@@ -148,9 +149,9 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       },
       {
         accessorKey: 'kpm',
-        header: 'Kills/min',
+        header: 'K/min',
         filterVariant: 'range',
-        size: 100,
+        size: 50,
         accessorFn(originalRow) {
           return (originalRow.kpm).toFixed(2)
         }
@@ -158,8 +159,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       {
         accessorKey: 'medals',
         header: 'Medals',
-        maxSize: 220,
-        minSize: 20,
+        size: 50,
         accessorFn(originalRow) { // this is so funny but it works lmao
           return Object.keys(originalRow.medals).map((medal) => originalRow.medals[medal] ? medalsBungie[medal].text : "")
         }, // essentially we're storing only the achived medals as a string which can be filtered
@@ -194,6 +194,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       {
         accessorKey: 'map',
         header: 'Map',
+        size: 50,
         accessorFn(originalRow) {
           return DestinyActivityDefinition.hasOwnProperty(originalRow.map) ? DestinyActivityDefinition[originalRow.map]?.name : ""
         },

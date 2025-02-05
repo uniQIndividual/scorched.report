@@ -47,7 +47,7 @@ export const Performance = (stats: Scorcher) => {
                 }
             },
             annotations: {
-                xaxis: [{
+                xaxis: [/*{
                     x: new Date('14 Nov 2024').getTime(),
                     borderColor: '#999',
                     yAxisIndex: 0,
@@ -61,7 +61,7 @@ export const Performance = (stats: Scorcher) => {
                         }
                     }
                 }
-                ].concat(seasons.map((season, index) => {
+                */].concat(seasons.map((season, index) => {
                     return {
                         x: new Date(season.start).getTime(),
                         x2: new Date(season.end).getTime(),

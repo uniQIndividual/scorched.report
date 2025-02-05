@@ -4,6 +4,7 @@ import { awards, medalsBungie } from "../../lib/entities";
 import { Tooltip } from 'react-tooltip'
 import SCORCHED_CANNONS from "../../lib/cannons";
 import { Award } from "../Award";
+import { CharacterBanner } from "../Character_Banner";
 
 
 export const Profile = (stats: Scorcher) => {
@@ -58,54 +59,8 @@ export const Profile = (stats: Scorcher) => {
 
     return (
         <div className="block mt-4 h-max max-w-[474px] ">
-            <div className="bg-no-repeat max-w-[474px] h-[96px]" style={{ backgroundImage: (stats.profile.bannerUrl != "" ? "url(https://www.bungie.net" + stats.profile.bannerUrl + ")" : "") }}>
-                <table className=" ml-[86px] max-w-[388px]">
-                    <tbody>
-                        <tr className="mt-1">
-                            <td className="m-0 p-0">
-                                <table className="mr-2 h-12">
-                                    <tbody>
-                                        <tr>
-                                            <td className=" text-white text-2xl sm:text-3xl font-bungo leading-none m-0 p-0 w-[388px]">
-                                                <span className="max-w-[268px] block truncate ...">
-                                                    {stats.profile.profileName}
-                                                </span>
-                                                {/*<div className="w-[268px] h-[48px]">
-                                                    <svg viewBox="0 0 48 26" width={"100%"} height={"100%"}>
-                                                        <text x="-48" y="20" textAnchor="">{"12345678901234567890"}</text>
-                                                    </svg></div>*/}
-                                            </td>
-                                            <td className="font-bungo font-[500] text-[#D3BF4A] text-[30px] sm:text-[42px] pr-3 leading-none m-0 p-4 sm:p-0 left-0 text-right flex">
-                                                <img src="/images/icons/ll.png" className="w-[14px] h-[14px] float-right object-scale-down mt-2" />
-                                                {stats.profile.lightLevel}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table className="mr-2 h-12">
-                                    <tbody>
-                                        <tr>
-                                            <td className=" text-white opacity-40 font-bungo text-[22px] leading-none m-0 p-0 w-[218px] h-[48px] ">
-                                                <span className="w-[218px]  pt-2 block truncate ...">
-                                                    {stats.profile.clanName}
-                                                </span>
-                                            </td>
-                                            <td className={"w-[170px] max-h-12 h-[" + { iconSize } + "] leading-none m-0 p-0 left-0 text-right"}>
-                                                {awardKeys.map((award) =>
-                                                    <Award award={award} size={wrapEmblems ? "small" : "large"} key={crypto.randomUUID()} />
-                                                )}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div className="flex justify-center">
+                <CharacterBanner awardKeys={awardKeys} bannerUrl={stats.profile.bannerUrl} profileName={stats.profile.profileName} lightLevel={stats.profile.lightLevel} clanName={stats.profile.clanName} size={wrapEmblems ? "small" : "large"} />
             </div>
             <div className="grid grid-cols-8 max-w-[470px] px-2 mt-8 mx-2 my-2 ">
                 {Object.keys(stats.bungieHistoricAccountStats.medals).map((medal) => {
