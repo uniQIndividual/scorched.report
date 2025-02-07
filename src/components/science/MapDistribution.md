@@ -17,7 +17,7 @@ This project aims to provide some empirical data into map weighting in Destiny 2
 
 ## Background
 
-Destiny 2 does not give all Crucible maps the same draw chances. Although newly released maps have long been weighted higher, starting with Season of the Seraph [Bungie announced a more direct curation of the map pool](https://destiny.bungie.org/bwu/430). This has lead to some frustrating in the wider Crucible community [[1](https://www.reddit.com/r/DestinyTheGame/comments/x3f4bj/can_bungie_get_rid_of_map_weighting_in_pvp/), [2](https://www.reddit.com/r/DestinyTheGame/comments/vo6rer/3_out_of_23_crucible_maps_are_heavily_weighted_in/), [3](https://www.bungie.net/en/Forums/Post/263607264)].
+Destiny 2 does not give all Crucible maps the same draw chances. Although newly released maps have long been weighted higher, starting with Season of the Seraph [Bungie announced a more direct curation of the map pool](https://destiny.bungie.org/bwu/430). This has lead to some frustration in the wider Crucible community [[1](https://www.reddit.com/r/DestinyTheGame/comments/x3f4bj/can_bungie_get_rid_of_map_weighting_in_pvp/), [2](https://www.reddit.com/r/DestinyTheGame/comments/vo6rer/3_out_of_23_crucible_maps_are_heavily_weighted_in/), [3](https://www.bungie.net/en/Forums/Post/263607264)].
 
 ## Findings
 
