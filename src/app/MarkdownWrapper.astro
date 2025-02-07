@@ -15,6 +15,13 @@ if (frontmatter && frontmatter.title) {
 		{frontmatter && frontmatter.title ? 
         <h1 class={(headings && headings.length < 2 ? "mb-8" : "mb-0") + " text-gray-900 dark:text-gray-50 font-bold text-4xl"} id={newSlug}>{frontmatter.title}</h1>  : 
         ""}
+        {frontmatter && frontmatter.date ? <span class="font-extralight italic">Posted </span> 
+        <span class="font-extralight italic">{(new Date(frontmatter.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                  month: "long",
+                    day: "numeric",
+                }))}</span> : 
+        ""}
         {frontmatter && frontmatter.author ? <span class="font-extralight italic">by</span> 
         <span class="font-extralight italic">{frontmatter.author}</span> : 
         ""}

@@ -8,6 +8,8 @@ const { frontmatter, headings } = Astro.props;
 	title={frontmatter && frontmatter.title ? frontmatter.title : undefined}
 	og_title={frontmatter && frontmatter.title ? frontmatter.title : undefined}
 	og_description={frontmatter && frontmatter.description ? frontmatter.description : undefined}
+	date={frontmatter && frontmatter.date ? frontmatter.date : undefined}
+	tags={frontmatter && frontmatter.tags ? frontmatter.tags : undefined}
 >
 	<MarkdownWrapper frontmatter={frontmatter} headings={headings}>
 		<slot />
