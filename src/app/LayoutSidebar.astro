@@ -10,7 +10,7 @@ import SideBar from "./SideBar.astro";
 const {
 	og_title = "Scorched Report",
 	og_description = "The home of everything Team Scorched",
-	og_image = "/images/logo2.png",
+	og_image = "https://scorched.report/images/logo2.png",
 	title,
 	make_title,
 	date,
@@ -24,6 +24,35 @@ if (title) {
 		.toLowerCase()
 		.replaceAll(" ", "-")
 		.replaceAll(/[^\w-_]/gm, "");
+}
+
+// Build JSON-LD
+
+let searchJsonLd: { [key: string]: string | number | Object } = {
+	"@context": "https://schema.org",
+	name: og_title,
+	description: og_description,
+};
+
+if (date === undefined) {
+	// just website
+	searchJsonLd["@type"] = "WebSite";
+	searchJsonLd["url"] = "https://scorched.report/";
+	searchJsonLd["sameAs"] = [
+		"https://scorched-report.pages.dev/",
+		"https://github.com/uniQIndividual/scorched.report",
+	];
+	searchJsonLd["image"] = [og_image];
+} else {
+	// article
+	searchJsonLd["@type"] = "NewsArticle";
+	searchJsonLd["headline"] = title;
+	searchJsonLd["datePublished"] = new Date(date).toISOString();
+	searchJsonLd["image"] = [og_image];
+	//searchJsonLd["image"] = ["https://example.com/photos/1x1/photo.jpg"];
+}
+if (author != undefined) {
+	searchJsonLd["author"] = [{ "@type": "Person", name: author }];
 }
 ---
 
@@ -73,6 +102,12 @@ if (title) {
 		}
 		{tags.map((tag: string) => <meta property="article:tag" content={tag} />)}
 		<meta property="og:url" content="https://scorched.report/" />
+
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(searchJsonLd)}
+		/>
+
 		<script is:inline>
 			if (
 				localStorage.getItem("color-theme") === "dark" ||

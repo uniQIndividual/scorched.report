@@ -10,6 +10,7 @@ const { frontmatter, headings } = Astro.props;
 	og_description={frontmatter && frontmatter.description ? frontmatter.description : undefined}
 	date={frontmatter && frontmatter.date ? frontmatter.date : undefined}
 	tags={frontmatter && frontmatter.tags ? frontmatter.tags : undefined}
+	author={frontmatter && frontmatter.author ? frontmatter.author : undefined}
 >
 	<MarkdownWrapper frontmatter={frontmatter} headings={headings}>
 		<slot />
