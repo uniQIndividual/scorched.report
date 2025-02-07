@@ -128,6 +128,8 @@ module.exports = {
 			boxShadow: {
 				'awardGlow': '0px 0px 14px 8px rgba(240,217,170,0.8)',
 				'awardGlowRed': '0px 0px 14px 8px rgba(212,47,47,0.8)',
+				'highlight': '0px 0px 10px 4px rgba(200,200,200,0.8)',
+				'highlight_darken': '0px 0px 10px 4px rgba(10,10,10,0.8)',
 			},
 		},
 		screens: {

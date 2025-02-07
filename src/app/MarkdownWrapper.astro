@@ -1,4 +1,5 @@
 ---
+import PopUp from "../components/PopUp.astro";
 import TableOfContents from "../components/TableOfContents.astro";
 
 const { frontmatter, headings } = Astro.props;
@@ -8,6 +9,7 @@ if (frontmatter && frontmatter.title) {
     newSlug = frontmatter.title.toLowerCase().replaceAll(" ","-").replaceAll(/[^\w-_]/gm,"");
     headings.unshift({depth: 1, slug: newSlug, text: frontmatter.title})
 }
+const uuid = crypto.randomUUID();
 ---
 
 <div class={"flex justify-center " + (Object.keys(headings || {}).length > 2 ? " 2xl:mr-[350px]" : "")}>
@@ -27,7 +29,8 @@ if (frontmatter && frontmatter.title) {
         ""}
         <TableOfContents headings={headings} />
         <article
-	    class="leading-7 2xl:mt-10 prose text-gray-800 dark:text-gray-200
+        id=`article_${uuid}`
+        class="markdown-article leading-7 2xl:mt-10 prose text-gray-800 dark:text-gray-200
         dark:prose-invert prose-h1:mb-4 prose-h1:mt-14 prose-h2:mb-4 prose-h2:mt-10
         prose-h1:text-gray-900 prose-h1:dark:text-gray-50 prose-h1:font-bold prose-h1:text-xxl
         prose-strong:dark:text-gray-200
@@ -35,6 +38,34 @@ if (frontmatter && frontmatter.title) {
         prose-blockquote:pt-1 prose-blockquote:rounded-lg prose-blockquote:not-italic prose-blockquote:dark:text-gray-300 prose-blockquote:text-gray-700 prose-blockquote:bg-[rgba(0,0,0,0.2)]"
         >
 		    <slot />
+        <script define:vars={{ uuid }}> // Add a popup image viewer to all embedded images
+          let images = document.getElementById(`article_${uuid}`)?.getElementsByTagName("img");
+          Object.values(images).map(image => {
+            if (image.naturalHeight > 64 && image.naturalWidth > 64) {
+              image.classList.add("cursor-pointer", "hover:brightness-110", "hover:dark:shadow-highlight", "hover:shadow-highlight_darken");
+              image.addEventListener("click", () => {
+                const popup_image = document.getElementById(`popup_image_${uuid}`);
+                popup_image.setAttribute("src", image.src);
+                document.getElementById(`popup_${uuid}`).openPop();
+              })
+          }
+        })
+        </script>
 	    </article>
     </div>
+    <PopUp
+      id=`popup_${uuid}`
+      timer={1}
+      description=`Fullscreen viewer for embedded images`
+      fullscreen="true"
+    >
+      <div class="m-1">
+        <img
+          src=""
+          data-url={""}
+          id=`popup_image_${uuid}`
+          class="object-scale-down w-screen h-screen"
+        />
+      </div>
+    </PopUp>
 </div>
