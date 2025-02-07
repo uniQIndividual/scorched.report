@@ -192,6 +192,7 @@ export const MapDistribution = () => {
                     },
                   },
                 },
+                colors: ['#b7a726', '#9d44c8', '#4b78f9', '#e4fc96', '#f37562', '#603e12', '#8ecccb', '#57120f', '#ca98aa', '#6b7c12', '#a76828', '#851112', '#52a1c9', '#f95a3e', '#cc6fcf', '#96ac84', '#70f7ba', '#3b5e34', '#6912fc'],
                 legend: {
                   show: true,
                   position: 'top',
@@ -200,9 +201,6 @@ export const MapDistribution = () => {
                     colors: '#7a7f96',
                   },
                 },
-                theme: {
-                  palette: 'palette1',
-                }
               },
 
 
