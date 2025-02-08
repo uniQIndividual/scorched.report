@@ -4,26 +4,35 @@ import { EloDistribution } from "../../components/science/EloDistribution.tsx";
 import EloDistributionMd from "../../components/science/EloDistribution.md";
 import MarkdownWrapper from "../../app/MarkdownWrapper.astro";
 import metadata from "../../assets/metadata.json";
+
+const make_title = "Team Scorched Elo Distribution";
+const og_title = "Team Scorched Elo Distribution";
+const og_description =
+	"Looking at how Scorched Report calculates your Elo score.";
+const date = "2025-02-05";
+const author = "uniQ";
+const tags = [
+	"elo",
+	"elo distribution",
+	"team scorched",
+	"destiny 2",
+	"crucible",
+	"openskill",
+];
+const title = "Elo Distribution";
 ---
 
 <LayoutSidebar
-	title="Elo Distribution"
-	make_title="Team Scorched Elo Distribution"
-	og_title="Team Scorched Elo Distribution"
-	og_description="Looking at how Scorched Report calculates your Elo score."
-	date="2025-02-05"
-	author="uniQ"
-	tags={[
-		"elo",
-		"elo distribution",
-		"team scorched",
-		"destiny 2",
-		"crucible",
-		"openskill",
-	]}
+	title={title}
+	make_title={make_title}
+	og_title={og_title}
+	og_description={og_description}
+	date={date}
+	author={author}
+	tags={tags}
 >
 	<div class="-mt-10">
-		<MarkdownWrapper>
+		<MarkdownWrapper frontmatter={{ author: author, date: date }}>
 			<EloDistributionMd />
 		</MarkdownWrapper>
 	</div>
@@ -33,8 +42,8 @@ import metadata from "../../assets/metadata.json";
 		>
 			The Scorched Report Elo Distribution
 		</h2>
-		<span class="text-gray-700 dark:text-gray-300 mb-2 flex justify-center"
-			> (as of {
+		<span class="text-gray-700 dark:text-gray-300 mb-2 flex justify-center">
+			(as of {
 				new Date(metadata.last_entry_date * 1000).toLocaleString(undefined, {
 					year: "numeric",
 					month: "long",

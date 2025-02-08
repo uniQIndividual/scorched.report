@@ -4,34 +4,45 @@ import { MapDistribution } from "../../components/science/MapDistribution.tsx";
 import MapDistributionMd from "../../components/science/MapDistribution.md";
 import MarkdownWrapper from "../../app/MarkdownWrapper.astro";
 import metadata from "../../assets/metadata.json";
+
+const title = "Map Weighting";
+const make_title = "Team Scorched Map Weighting";
+const og_title = "Team Scorched Map Weighting";
+const og_description =
+	"This project aims to provide some empirical data into map weighting in Team Scorched.";
+const date = "2025-01-29";
+const author = "uniQ";
+const tags = [
+	"map weighting",
+	"crucible maps",
+	"team scorched",
+	"destiny 2",
+	"crucible",
+];
 ---
 
 <LayoutSidebar
-	title="Map Weighting"
-	make_title="Team Scorched Map Weighting"
-	og_title="Team Scorched Map Weighting"
-	og_description="This project aims to provide some empirical data into map weighting in Team Scorched."
-	date="2025-01-29"
-	author="uniQ"
-	tags={[
-		"map weighting",
-		"crucible maps",
-		"team scorched",
-		"destiny 2",
-		"crucible",
-	]}
+	title={title}
+	make_title={make_title}
+	og_title={og_title}
+	og_description={og_description}
+	date={date}
+	author={author}
+	tags={tags}
 >
 	<div class="-mt-10">
-		<MarkdownWrapper>
+		<MarkdownWrapper frontmatter={{ author: author, date: date }}>
 			<MapDistributionMd />
 		</MarkdownWrapper>
 	</div>
 	<div id="science-graph-1">
-		<h2 class="text-gray-900 dark:text-gray-100 text-xl mb-2 mt-2 flex justify-center">
+		<h2
+			class="text-gray-900 dark:text-gray-100 text-xl mb-2 mt-2 flex justify-center"
+		>
 			The map draw chances per season
 		</h2>
-		<span class="text-gray-700 dark:text-gray-300 mb-2 flex justify-center"
-			> (as of {
+		<span class="text-gray-700 dark:text-gray-300 mb-2 flex justify-center">
+			(as of {
 				new Date(metadata.last_entry_date * 1000).toLocaleString(undefined, {
 					year: "numeric",
 					month: "long",

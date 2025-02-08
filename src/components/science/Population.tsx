@@ -156,7 +156,7 @@ export const Science_Activity = () => {
 
 
   return render ? (<div className=''>
-    <div className="text-gray-100 mb-10 mt-24 lg:mr-4">
+    <div className="text-gray-100 mb-10 mt-10 lg:mr-4">
       <ReactApexChart options={state.options} series={state.series} type="area" height={"500px"} width={"100%"} />
     </div>
   </div>) :
