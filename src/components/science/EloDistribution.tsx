@@ -25,7 +25,6 @@ export const EloDistribution = () => {
             const out = new TextDecoder().decode(fzstd.decompress(compressed));
 
             let old_json = JSON.parse(out);
-            console.log(old_json);
 
             let total_entries = Object.values(old_json).reduce((sum, current) => sum + current, 0)
 

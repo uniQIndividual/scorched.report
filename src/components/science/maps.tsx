@@ -79,24 +79,11 @@ export const MapScience = () => {
         })
     });
 
-
-    console.log(newMapRankings);
-    console.log(Object.keys(newMapRankings).map(map => {
-        return ({
-            x: map,
-            y: newMapRankings[map].rankings
-        })
-    }
-    ));
     
 
     const series = [
         {
             data: Object.keys(newMapRankings).map(map => {
-                console.log({
-                    x: map,
-                    y: newMapRankings[map].rankings
-                });
                 return ({
                     x: map,
                     y: newMapRankings[map].rankings
@@ -137,8 +124,6 @@ export const MapScience = () => {
                     fontSize: '26px',
                 },
                 formatter: (value: number) => {
-                    console.log(value);
-                    
                     return numberToTier(value)
                 },
                 offsetY: 10,
