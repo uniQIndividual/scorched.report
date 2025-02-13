@@ -56,9 +56,9 @@ export const Radar = (stats: Scorcher) => {
         }
     }
     return (
-        <div>
+        <div className="block flex-none w-[100%]">
             <ApexChart
-                height={350}
+            height={350}
                 series={[{
                     name: "Overall Performance",
                     data: calculateNormalizedStats({
@@ -89,6 +89,29 @@ export const Radar = (stats: Scorcher) => {
                     color: "#FF9800",
                 }]}
                 options={{
+                    responsive: [
+                      {
+                        breakpoint: 1000,
+                        options: {
+                            plotOptions: {
+                                radar: {
+                                    size: '50',
+                                    offsetX: 0,
+                                }
+                            },
+                            xaxis: {
+                                labels: {
+                                    show: true,
+                                    offsetY: 0,
+                                    style: {
+                                        colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
+                                        fontSize: "10px",
+                                        fontFamily: 'Arial'
+                                    }
+                                }
+                            },
+                        }
+                      }],
                     chart: {
                         type: 'radar',
                         dropShadow: {
@@ -112,7 +135,7 @@ export const Radar = (stats: Scorcher) => {
                     plotOptions: {
                         radar: {
                             size: '130',
-                            offsetX: 0,
+                            offsetX: 30,
                             offsetY: 20,
                             polygons: {
                                 strokeColors: '#a8a8a8',
@@ -141,27 +164,11 @@ export const Radar = (stats: Scorcher) => {
                     },
                     yaxis: {
                         show: false,
-                        min: 0,
-                        max: 100,
-                        tickAmount: 4,
-                        labels: {
-                            show: true,
-                            minWidth: 0,
-                            maxWidth: 160,
-                            style: {
-                                colors: "#a8a8a8",
-                                fontSize: '12px',
-                                fontFamily: 'Helvetica, Arial, sans-serif',
-                                fontWeight: 400,
-                                cssClass: 'apexcharts-yaxis-label',
-                            },
-                        },
-
                     },
                     xaxis: {
                         labels: {
                             show: true,
-                            offsetY: 2,
+                            offsetY: 0,
                             style: {
                                 colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
                                 fontSize: "14px",
@@ -228,6 +235,29 @@ export const Radar = (stats: Scorcher) => {
                     }))
                     }
                     options={{
+                        responsive: [
+                          {
+                            breakpoint: 1000,
+                            options: {
+                                plotOptions: {
+                                    radar: {
+                                        size: '50',
+                                        offsetX: 0,
+                                    }
+                                },
+                                xaxis: {
+                                    labels: {
+                                        show: true,
+                                        offsetY: 0,
+                                        style: {
+                                            colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
+                                            fontSize: "10px",
+                                            fontFamily: 'Arial'
+                                        }
+                                    }
+                                },
+                            }
+                          }],
                         chart: {
                             type: 'radar',
                             dropShadow: {
@@ -251,7 +281,7 @@ export const Radar = (stats: Scorcher) => {
                         plotOptions: {
                             radar: {
                                 size: '130',
-                                offsetX: 0,
+                                offsetX: 30,
                                 offsetY: 20,
                                 polygons: {
                                     strokeColors: '#a8a8a8',

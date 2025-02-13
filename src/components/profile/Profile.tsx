@@ -58,28 +58,30 @@ export const Profile = (stats: Scorcher) => {
 
 
     return (
-        <div className="block mt-4 h-max max-w-[474px] ">
+        <div className="mt-4 h-max">
             <div className="flex justify-center">
                 <CharacterBanner awardKeys={awardKeys} bannerUrl={stats.profile.bannerUrl} profileName={stats.profile.profileName} lightLevel={stats.profile.lightLevel} clanName={stats.profile.clanName} size={wrapEmblems ? "small" : "large"} />
             </div>
-            <div className="grid grid-cols-8 max-w-[470px] px-2 mt-8 mx-2 my-2 ">
-                {Object.keys(stats.bungieHistoricAccountStats.medals).map((medal) => {
-                    return medalsBungie[medal] ? <div className="flex justify-center mb-4" key={"medal_highlight_div_" + medal}> <div>
-                        <div className={"flex justify-center" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>
-                            <a
-                                data-tooltip-id={medal + "_tooltip"}
-                                data-tooltip-html={hoverTextMedals(medal)}
-                                className={"w-[" + iconSize + "] h-[" + iconSize + "]"}
-                            >
-                                <img className="w-8" src={medalsBungie[medal].src} />
-                            </a>
+            <div className="flex justify-center">
+                <div className="grid grid-cols-8 max-w-[470px] sm:w-[470px] px-2 mt-8 mx-2 my-2 ">
+                    {Object.keys(stats.bungieHistoricAccountStats.medals).map((medal) => {
+                        return medalsBungie[medal] ? <div className="flex justify-center mb-4" key={"medal_highlight_div_" + medal}> <div>
+                            <div className={"flex justify-center" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>
+                                <a
+                                    data-tooltip-id={medal + "_tooltip"}
+                                    data-tooltip-html={hoverTextMedals(medal)}
+                                    className={"w-[" + iconSize + "] h-[" + iconSize + "]"}
+                                >
+                                    <img className="w-8" src={medalsBungie[medal].src} />
+                                </a>
+                            </div>
+                            <span className={"flex justify-center mt-2 text-gray-100 text-base sm:text-xl font-medium" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>{stats.bungieHistoricAccountStats.medals[medal]}</span>
+                            <Tooltip id={medal + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
                         </div>
-                        <span className={"flex justify-center mt-2 text-gray-100 text-xl font-medium" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>{stats.bungieHistoricAccountStats.medals[medal]}</span>
-                        <Tooltip id={medal + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
-                    </div>
-                    </div> : ""
-                })
-                }
+                        </div> : ""
+                    })
+                    }
+                </div>
             </div>
             <div className="flex justify-center px-2 mt-6 mx-2 my-2 ">
                 <table className="w-full">

@@ -168,20 +168,20 @@ export const Performance = (stats: Scorcher) => {
             </div>
 
             <div className="flex justify-center mt-6 mb-10">
-                <span className="text-gray-400 text-xl"><span className="text-gray-100 text-4xl  font-black">{stats.performance.trueSkill}</span> Rating / <span className="text-gray-100 text-4xl font-black">
+                <span className="text-gray-400 text-lg sm:text-xl"><span className="text-gray-100 text-2xl sm:text-4xl font-black">{stats.performance.trueSkill}</span> Rating / <span className="text-gray-100 text-2xl sm:text-4xl font-black">
                     {(stats.performance.kills * 60 / Math.max(stats.performance.timeSpent || 1, 1)).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                     })}</span> KPM</span>
             </div>
-            <div className="mt-4 text-gray-300 text-xl flex flex-wrap justify-evenly">
+            <div className="mt-4 text-gray-300 text-lg sm:text-xl flex flex-wrap justify-evenly">
                 <table className="flex w-[300px] justify-center">
                     <tbody>
                         <tr>
                             <td className="text-right pr-2">
                                 K/D:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(stats.performance.kills / Math.max(stats.performance.deaths || 1, 1)).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -192,7 +192,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Efficiency:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {((stats.performance.kills + stats.performance.assists) / Math.max(stats.performance.deaths || 0, 1)).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -203,7 +203,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 KPM:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(stats.performance.kills * 60 / Math.max(stats.performance.timeSpent, 1)).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -214,7 +214,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Combat Rating:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.combatRating.toLocaleString(undefined, {
                                     minimumFractionDigits: 0,
                                     maximumFractionDigits: 2,
@@ -240,7 +240,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Win Ratio
                             </td>
-                            <td className="text-gray-200 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {((stats.performance.wins * 100) / stats.performance.matches).toFixed(0)} %
                             </td>
                         </tr>
@@ -248,7 +248,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Average kill distance:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {((stats.bungieHistoricAccountStats.totalKillDistance || 0) / Math.max(stats.bungieHistoricAccountStats.kills || 1, 1)).toLocaleString(undefined, {
                                     minimumFractionDigits: 0,
                                     maximumFractionDigits: 1,
@@ -259,7 +259,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Average Match Duration:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {formatSeconds(stats.performance.timeSpent / Math.max(stats.performance.matches, 1))}
                             </td>
                         </tr>
@@ -267,7 +267,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Average Lifespan:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {formatSeconds(stats.bungieHistoricAccountStats.averageLifespan || 0)}
                             </td>
                         </tr>
@@ -275,7 +275,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Average Team Score:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {((stats.bungieHistoricAccountStats.teamScore || 0) / (stats.bungieHistoricAccountStats.activitiesEntered || 0)).toLocaleString(undefined, {
                                     minimumFractionDigits: 0,
                                     maximumFractionDigits: 1,
@@ -286,7 +286,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Avg Match Completion:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(100 - ((stats.bungieHistoricAccountStats.remainingTimeAfterQuitSeconds || 0) * 100 / (stats.bungieHistoricAccountStats.totalActivityDurationSeconds || 1))).toLocaleString(undefined, {
                                     minimumFractionDigits: 0,
                                     maximumFractionDigits: 1,
@@ -302,7 +302,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Highest Kill Streak:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.longestKillSpree}
                             </td>
                         </tr>
@@ -310,7 +310,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Highest Score:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.bestSingleGameScore}
                             </td>
                         </tr>
@@ -318,7 +318,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Highest Kill count:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.bestSingleGameKills}
                             </td>
                         </tr>
@@ -326,7 +326,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Fastest Match:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {formatSeconds((stats.bungieHistoricAccountStats?.fastestCompletionMs || 0) / 1000)}
                             </td>
                         </tr>
@@ -334,7 +334,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Longest Kill Distance:
                             </td>
-                            <td className="text-gray-100 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(stats.bungieHistoricAccountStats?.longestKillDistance || 0).toLocaleString(undefined, {
                                     minimumFractionDigits: 0,
                                     maximumFractionDigits: 1,

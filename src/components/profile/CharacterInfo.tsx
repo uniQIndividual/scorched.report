@@ -105,7 +105,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                 {(characterStats?.activitiesEntered || 0) <= 0 ? <span className="w-full flex justify-center text-gray-400 font-light">
                     Time to play more Team Scorched
                 </span> :
-                    <div className="mt-4 text-gray-300 text-xl">
+                    <div className="mt-4 text-gray-300 text-lg sm:text-xl">
                         <table>
                             <tbody>
                                 <tr>

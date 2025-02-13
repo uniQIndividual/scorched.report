@@ -315,14 +315,14 @@ export const Activity = (stats: Scorcher) => {
             </div>
             <div className="">
                 <div className="">
-                    <div className=" text-gray-300 text-xl flex flex-wrap space-x-10 justify-evenly">
+                    <div className=" text-gray-300 text-lg sm:text-xl flex flex-wrap lg:space-x-10 justify-evenly">
                         <table className="flex max-w-[400px] mt-14">
                             <tbody>
                                 <tr>
                                     <td className="text-right pr-2">
                                         Playtime
                                     </td>
-                                    <td className="text-gray-200 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {formatSeconds(stats.performance.timeSpent)}
                                     </td>
                                 </tr>
@@ -330,7 +330,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         First played
                                     </td>
-                                    <td className="text-gray-200 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {new Date(Object.values(stats.matchHistory).reduce((a, b) => {
                                             if (a.date < b.date && a.date != 0) {
                                                 return a
@@ -348,7 +348,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Last played
                                     </td>
-                                    <td className="text-gray-200 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {new Date(Object.values(stats.matchHistory).reduce((a, b) => {
                                             if (a.date > b.date) {
                                                 return a
@@ -370,7 +370,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Opponents defeated:
                                     </td>
-                                    <td className="text-gray-100 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {(stats.performance.kills + stats.performance.assists).toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
@@ -387,7 +387,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Kills:
                                     </td>
-                                    <td className="text-gray-100 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.performance.kills.toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
@@ -404,7 +404,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Deaths:
                                     </td>
-                                    <td className="text-gray-100 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.performance.deaths.toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
@@ -421,7 +421,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Assists:
                                     </td>
-                                    <td className="text-gray-100 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.performance.assists.toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
@@ -437,7 +437,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Physics Kills:
                                     </td>
-                                    <td className="text-gray-100 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {((stats.bungieHistoricAccountStats.kills || 0) - ((stats.bungieHistoricAccountStats.weaponKills.weaponKillsRelic || 0) + truelyStrangeKills)).toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
@@ -448,7 +448,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Misadventures:
                                     </td>
-                                    <td className="text-gray-100 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.bungieHistoricAccountStats.suicides}
                                     </td>
                                 </tr>
@@ -457,7 +457,7 @@ export const Activity = (stats: Scorcher) => {
                                         <td className="text-right pr-2">
                                             Unconventional Kills:
                                         </td>
-                                        <td className="text-gray-100 text-2xl">
+                                        <td className="text-gray-100 text-lg sm:text-2xl">
                                             {(truelyStrangeKills).toLocaleString(undefined, {
                                                 minimumFractionDigits: 0,
                                                 maximumFractionDigits: 0,
@@ -472,7 +472,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Gold Medals
                                     </td>
-                                    <td className="text-gray-200 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.bungieHistoricAccountStats.medals.totalGold.toLocaleString()}
                                     </td>
                                 </tr>
@@ -480,7 +480,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Medals
                                     </td>
-                                    <td className="text-gray-200 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.bungieHistoricAccountStats.medals.total.toLocaleString()}
                                     </td>
                                 </tr>
@@ -491,7 +491,7 @@ export const Activity = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Orbs generated:
                                     </td>
-                                    <td className="text-gray-100 text-2xl">
+                                    <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.bungieHistoricAccountStats.orbsDropped.toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
@@ -526,7 +526,7 @@ export const Activity = (stats: Scorcher) => {
                                         <img src={awards[award].src} key={"img_" + award} width={"58px"} height={"58px"} className="flex-none" />
                                     </a>
                                     <Tooltip id={award + "_tooltip2"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
-                                    <div className="pl-3 text-gray-100 text-xl font-light flex">
+                                    <div className="pl-3 text-gray-100 text-lg sm:text-xl font-light flex">
                                         {awards[award].text}
                                     </div>
                                 </div>
