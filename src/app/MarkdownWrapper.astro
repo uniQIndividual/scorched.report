@@ -39,7 +39,7 @@ const uuid = crypto.randomUUID();
         >
 		    <slot />
         <script define:vars={{ uuid }}> // Add a popup image viewer to all embedded images
-        document.addEventListener("DOMContentLoaded", function(event) {
+        window.addEventListener("load", function(event) {
           let images = document.getElementById(`article_${uuid}`)?.getElementsByTagName("img");
           Object.values(images).map(image => {
             if (image.naturalHeight > 64 && image.naturalWidth > 64) {
