@@ -147,7 +147,7 @@ const activities = [
 		class="text-lg my-20 flex justify-center text-gray-900 dark:text-gray-200 font-light leading-relaxed"
 	>
 		<div class="max-w-[500px]">
-			<h2 class="text-xl text-gray-100 font-normal">
+			<h2 class="text-xl text-gray-900 dark:text-gray-100 font-normal">
 				Currently in the Scorched Report database
 			</h2>
 			<div class="columns-1 space-y-3 mt-4">
@@ -195,13 +195,13 @@ const activities = [
 					activities.map((activity) => (
 						<li class="mb-10 ml-4  max-w-[500px]">
 							<div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700" />
-							<time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+							<time class="mb-1 text-sm font-normal leading-none text-gray-500 dark:text-gray-500">
 								{activity.date}
 							</time>
 							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
 								{activity.name}
 							</h3>
-							<p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+							<p class="mb-4 text-base font-normal text-gray-600 dark:text-gray-400">
 								{activity.text}
 							</p>
 							{activity.image === "" ? (
