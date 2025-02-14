@@ -3,6 +3,8 @@ import LayoutSidebar from "../app/LayoutSidebar.astro";
 import SCORCHED_CANNONS from "../lib/cannons";
 import SeasonSection from "../components/SeasonSection.astro";
 import TableOfContents from "../components/TableOfContents.astro";
+import MarkdownWrapper from "../app/MarkdownWrapper.astro";
+import CannonShowcaseMd from "../components/CannonShowcase.md";
 
 const headings: {
 	depth: number;
@@ -47,6 +49,9 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
     dark:text-gray-300 mt-4 mb-4"
 		>
 			<TableOfContents headings={headings} />
+			<MarkdownWrapper>
+				<CannonShowcaseMd />
+			</MarkdownWrapper>
 			<div class="">
 				{
 					Object.keys(SCORCHED_CANNONS).map((key) => (
