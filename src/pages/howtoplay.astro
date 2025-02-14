@@ -1,7 +1,67 @@
 ---
-import LayoutSidebar from '../app/LayoutSidebar.astro';
+import LayoutSidebar from "../app/LayoutSidebar.astro";
+
+const title = "How to play Team Scorched";
+const make_title = "Team Scorched Tips and Tricks";
+const og_title = "How to play Team Scorched";
+const og_description =
+	"The Team Scorched Document - All Tips and Tricks for Team Scorched";
+const date = "2024-09-18";
+const author = "uniQ, WeTheEast";
+const tags = [
+	"how to play team scorched",
+	"team scorched tips",
+	"team scorched",
+	"destiny 2",
+	"crucible",
+];
 ---
 
-<LayoutSidebar>
-	<iframe src="https://docs.google.com/document/d/1064ABA7NWypUyMI50-fxj2dT97gUU-Lvvdj5cwIrP0Q/edit?embedded=true" width="100%" height="1000px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<LayoutSidebar
+	title={title}
+	make_title={make_title}
+	og_title={og_title}
+	og_description={og_description}
+	date={date}
+	author={author}
+	tags={tags}
+>
+	<div id="how-to-play-div">
+		<div class="flex justify-center text-center">
+			<span class="m-6">
+				This is a large document hosted on <a
+					href="https://policies.google.com/privacy?hl=en&usp=docs_web"
+					class="underline">Google Docs</a
+				>. Do you want to open the document in a new tab or embed it?
+			</span>
+		</div>
+		<div class="flex justify-center flex-wrap">
+			<a
+				href="https://docs.google.com/document/d/1064ABA7NWypUyMI50-fxj2dT97gUU-Lvvdj5cwIrP0Q/"
+				class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center m-6 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+				target="_blank"
+			>
+				New Tab
+			</a>
+			<button
+				id="how-to-play-button-embed"
+				class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center m-6 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+			>
+				Embed
+			</button>
+		</div>
+	</div>
+	<script>
+		const div_container = document.getElementById("how-to-play-button-embed");
+		div_container.addEventListener("click", () => {
+			document.getElementById("how-to-play-div").innerHTML = `<iframe
+		src="https://docs.google.com/document/d/1064ABA7NWypUyMI50-fxj2dT97gUU-Lvvdj5cwIrP0Q/edit?embedded=true"
+		width="100%"
+		height="1000px"
+		frameborder="0"
+		marginheight="0"
+		marginwidth="0">Loading…</iframe
+	>`;
+		});
+	</script>
 </LayoutSidebar>
