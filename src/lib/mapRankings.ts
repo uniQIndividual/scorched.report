@@ -17,7 +17,7 @@ export const mapRankings = {
     },
     "Cathedral of Dusk": {
         image: "/img/destiny_content/pgcr/crucible_cathedral_of_dusk.jpg",
-        rankings: ["D", "D", "D", "D", "D", "C", "F", "C", "C", "B", "B", "B", "C", "B", "F", "F", "B", "A", "B", "D", "", "C"]
+        rankings: ["D", "D", "D", "D", "D", "C", "F", "C", "C", "B", "B", "B", "C", "B", "F", "F", "B", "A", "B", "D", "C"]
     },
     "Cauldron": {
         image: "/img/destiny_content/pgcr/crucible_cauldron.jpg",
@@ -25,7 +25,7 @@ export const mapRankings = {
     },
     "Cirrus Plaza": {
         image: "/img/destiny_content/pgcr/crucible_mall.jpg",
-        rankings: ["C", "A", "D", "F", "F", "F", "F", "C", "B", "D", "F", "B", "D", "B", "F", "F", "C", "C", "C", "B", "", "D"]
+        rankings: ["C", "A", "D", "F", "F", "F", "F", "C", "B", "D", "F", "B", "D", "B", "F", "F", "C", "C", "C", "B", "D"]
     },
     "Convergence": {
         image: "/img/destiny_content/pgcr/pvp_longshot_2.jpg",
@@ -37,11 +37,11 @@ export const mapRankings = {
     },
     "Disjunction": {
         image: "/img/destiny_content/pgcr/crucible_disjunction.jpg",
-        rankings: ["S", "A", "A", "A", "A", "A", "S", "C", "B", "C", "S", "A", "S", "C", "S", "S", "B", "B", "S", "S", "", "A"]
+        rankings: ["S", "A", "A", "A", "A", "A", "S", "C", "B", "C", "S", "A", "S", "C", "S", "S", "B", "B", "S", "S", "A"]
     },
     "Dissonance": {
         image: "/img/destiny_content/pgcr/crucible_root.jpg",
-        rankings: ["F", "S", "B", "C", "D", "B", "B", "F", "B", "F", "B", "C", "C", "C", "B", "D", "C", "A", "B", "B", "", "A"]
+        rankings: ["F", "S", "B", "C", "D", "B", "B", "F", "B", "F", "B", "C", "C", "C", "B", "D", "C", "A", "B", "B", "A"]
     },
     "Distant Shore": {
         image: "/img/destiny_content/pgcr/crucible_distant_shore.jpg",
@@ -57,7 +57,7 @@ export const mapRankings = {
     },
     "Eventide Labs": {
         image: "/img/destiny_content/pgcr/crucible_ice.jpg",
-        rankings: ["F", "D", "F", "C", "F", "A", "C", "F", "D", "D", "F", "D", "F", "D", "F", "F", "D", "C", "C", "D", "", "F"]
+        rankings: ["F", "D", "F", "C", "F", "A", "C", "F", "D", "D", "F", "D", "F", "D", "F", "F", "D", "C", "C", "D", "F"]
     },
     "Exodus Blue": {
         image: "/img/destiny_content/pgcr/crucible_exodus_blue.jpg",
@@ -77,7 +77,7 @@ export const mapRankings = {
     },
     "Meltdown": {
         image: "/img/destiny_content/pgcr/crucible_meltdown.jpg",
-        rankings: ["D", "D", "D", "C", "B", "F", "F", "D", "F", "A", "F", "F", "D", "D", "D", "D", "D", "D", "C", "C", "", "F"]
+        rankings: ["D", "D", "D", "C", "B", "F", "F", "D", "F", "A", "F", "F", "D", "D", "D", "D", "D", "D", "C", "C", "F"]
     },
     "Midtown": {
         image: "/img/destiny_content/pgcr/crucible_midtown.jpg",
@@ -85,7 +85,7 @@ export const mapRankings = {
     },
     "Multiplex": {
         image: "/img/destiny_content/pgcr/crucible_multiplex.jpg",
-        rankings: ["B", "C", "C", "S", "F", "B", "C", "D", "F", "F", "A", "F", "B", "C", "F", "D", "C", "D", "B", "B", "", "C"]
+        rankings: ["B", "C", "C", "S", "F", "B", "C", "D", "F", "F", "A", "F", "B", "C", "F", "D", "C", "D", "B", "B", "C"]
     },
     "Radiant Cliffs": {
         image: "/img/destiny_content/pgcr/pvp_radiant_cliffs.jpg",
@@ -97,11 +97,11 @@ export const mapRankings = {
     },
     "Solitude": {
         image: "/img/destiny_content/pgcr/crucible_solitude.jpg",
-        rankings: ["F", "F", "C", "", "F", "F", "D", "", "", "A", "A", "", "D", "D", "", "F", "C", "C", "F", "F", "", "B"]
+        rankings: ["F", "F", "C", "F", "F", "D", "A", "A", "D", "D", "F", "C", "C", "F", "F", "B"]
     },
     "Vostok": {
         image: "/img/destiny_content/pgcr/crucible_observatory.jpg",
-        rankings: ["A", "A", "A", "A", "B", "A", "A", "S", "S", "A", "A", "A", "B", "S", "A", "A", "A", "S", "S", "S", "", "S"]
+        rankings: ["A", "A", "A", "A", "B", "A", "A", "S", "S", "A", "A", "A", "B", "S", "A", "A", "A", "S", "S", "S", "S"]
     },
     "Widow's Court": {
         image: "/img/destiny_content/pgcr/crucible_widows_court.jpg",

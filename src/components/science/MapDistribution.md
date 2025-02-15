@@ -11,7 +11,7 @@ This project aims to provide some empirical data into map weighting in Destiny 2
   - Newly released maps (chance boosted by ~50%)
   - Regular chance
   - Diminished chance (chance decreased by ~75%)
-- [Bungie should weight Widow's Court a lot more favorably](/science/map_ranking)
+- [Bungie should weight Widow's Court a lot more favorably](/science/map_rankings)
 - New maps are boosted in their first season to increase their visibility e.g. cidadel
 - As of Episode 2: Revenant there's no evidence to suggest map weighing with regards to the 6v6 nature of Team Scorched
 
