@@ -110,7 +110,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                             <tbody>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Playtime:
+                                        Playtime
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {formatSeconds(characterStats?.secondsPlayed || 0)}
@@ -118,7 +118,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Usage:
+                                        Usage
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {((characterStats?.activitiesEntered || 0) * 100 / (props.bungieHistoricAccountStats.activitiesEntered || 1)).toLocaleString(undefined, {
@@ -129,7 +129,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Matches:
+                                        Matches
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.activitiesEntered}
@@ -137,7 +137,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Wins:
+                                        Wins
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {(characterStats?.activitiesWon || 0)}
@@ -150,7 +150,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Team matches:
+                                        Team matches
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.fireTeamActivities}
@@ -166,7 +166,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Opponents defeated:
+                                        Opponents defeated
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.opponentsDefeated.toLocaleString(undefined, {
@@ -183,7 +183,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Kills:
+                                        Kills
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.kills.toLocaleString(undefined, {
@@ -200,7 +200,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Deaths:
+                                        Deaths
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.deaths.toLocaleString(undefined, {
@@ -217,7 +217,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Assists:
+                                        Assists
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.assists.toLocaleString(undefined, {
@@ -233,7 +233,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Physics Kills:
+                                        Physics Kills
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {((characterStats?.kills || 0) - ((characterStats?.weaponKills.weaponKillsRelic || 0) + truelyStrangeKills)).toLocaleString(undefined, {
@@ -245,7 +245,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 {truelyStrangeKills == 0 ? "" :
                                     <tr>
                                         <td className="text-right pr-2">
-                                            Unconventional Kills:
+                                            Unconventional Kills
                                         </td>
                                         <td className="text-gray-100 lg:text-2xl">
                                             {(truelyStrangeKills).toLocaleString(undefined, {
@@ -256,7 +256,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                     </tr>}
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Misadventures:
+                                        Misadventures
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.suicides}
@@ -272,7 +272,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        K/D:
+                                        K/D
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {((characterStats?.kills || 0) / Math.max(characterStats?.deaths || 1, 1)).toLocaleString(undefined, {
@@ -283,7 +283,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Efficiency:
+                                        Efficiency
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {(((characterStats?.kills || 0) + (characterStats?.assists || 1)) / Math.max(characterStats?.deaths || 0, 1)).toLocaleString(undefined, {
@@ -294,7 +294,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        KPM:
+                                        KPM
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {((characterStats?.kills || 0) * 60 / Math.max(characterStats?.secondsPlayed || 1, 1)).toLocaleString(undefined, {
@@ -305,7 +305,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Combat Rating:
+                                        Combat Rating
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.combatRating.toLocaleString(undefined, {
@@ -319,7 +319,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Highest Kill Streak:
+                                        Highest Kill Streak
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         <a className="hover:text-white underline underline-offset-4 decoration-[1px]" href={"/pgcr?id=" + characterStats?.longestKillSpreeMatch}>
@@ -329,7 +329,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Highest Score:
+                                        Highest Score
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.bestSingleGameScore}
@@ -337,7 +337,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Highest Kill count:
+                                        Highest Kill count
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.bestSingleGameKills}
@@ -345,7 +345,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Fastest Match:
+                                        Fastest Match
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {formatSeconds((characterStats?.fastestCompletionMs || 0) / 1000)}
@@ -353,7 +353,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Longest Kill Distance:
+                                        Longest Kill Distance
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {(characterStats?.longestKillDistance || 0).toLocaleString(undefined, {
@@ -367,7 +367,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Orbs generated:
+                                        Orbs generated
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {characterStats?.orbsDropped.toLocaleString(undefined, {
@@ -383,7 +383,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Average kill distance:
+                                        Average kill distance
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {((characterStats?.totalKillDistance || 0) / Math.max(characterStats?.kills || 1, 1)).toLocaleString(undefined, {
@@ -394,7 +394,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Average Match Duration:
+                                        Average Match Duration
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {formatSeconds((characterStats?.totalActivityDurationSeconds || 0) / Math.max(characterStats?.activitiesEntered || 1, 1))}
@@ -402,7 +402,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Average Lifespan:
+                                        Average Lifespan
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {formatSeconds(characterStats?.averageLifespan || 0)}
@@ -410,7 +410,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Average Team Score:
+                                        Average Team Score
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {((characterStats?.teamScore || 0) / (characterStats?.activitiesEntered || 0)).toLocaleString(undefined, {
@@ -421,7 +421,7 @@ export const CharacterInfo: React.FC<LayoutProps> = ({ props, characterId }) => 
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Avg Match Completion:
+                                        Avg Match Completion
                                     </td>
                                     <td className="text-gray-100 lg:text-2xl">
                                         {(100 - ((characterStats?.remainingTimeAfterQuitSeconds || 0) * 100 / (characterStats?.totalActivityDurationSeconds || 1))).toLocaleString(undefined, {

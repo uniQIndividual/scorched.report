@@ -368,7 +368,7 @@ export const Activity = (stats: Scorcher) => {
                             <tbody>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Opponents defeated:
+                                        Opponents defeated
                                     </td>
                                     <td className="text-gray-100 text-lg sm:text-2xl">
                                         {(stats.performance.kills + stats.performance.assists).toLocaleString(undefined, {
@@ -385,7 +385,7 @@ export const Activity = (stats: Scorcher) => {
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Kills:
+                                        Kills
                                     </td>
                                     <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.performance.kills.toLocaleString(undefined, {
@@ -402,7 +402,7 @@ export const Activity = (stats: Scorcher) => {
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Deaths:
+                                        Deaths
                                     </td>
                                     <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.performance.deaths.toLocaleString(undefined, {
@@ -419,7 +419,7 @@ export const Activity = (stats: Scorcher) => {
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Assists:
+                                        Assists
                                     </td>
                                     <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.performance.assists.toLocaleString(undefined, {
@@ -435,7 +435,7 @@ export const Activity = (stats: Scorcher) => {
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Physics Kills:
+                                        Physics Kills
                                     </td>
                                     <td className="text-gray-100 text-lg sm:text-2xl">
                                         {((stats.bungieHistoricAccountStats.kills || 0) - ((stats.bungieHistoricAccountStats.weaponKills.weaponKillsRelic || 0) + truelyStrangeKills)).toLocaleString(undefined, {
@@ -446,7 +446,7 @@ export const Activity = (stats: Scorcher) => {
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Misadventures:
+                                        Misadventures
                                     </td>
                                     <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.bungieHistoricAccountStats.suicides}
@@ -455,7 +455,7 @@ export const Activity = (stats: Scorcher) => {
                                 {truelyStrangeKills == 0 ? "" :
                                     <tr>
                                         <td className="text-right pr-2">
-                                            Unconventional Kills:
+                                            Unconventional Kills
                                         </td>
                                         <td className="text-gray-100 text-lg sm:text-2xl">
                                             {(truelyStrangeKills).toLocaleString(undefined, {
@@ -489,7 +489,7 @@ export const Activity = (stats: Scorcher) => {
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Orbs generated:
+                                        Orbs generated
                                     </td>
                                     <td className="text-gray-100 text-lg sm:text-2xl">
                                         {stats.bungieHistoricAccountStats.orbsDropped.toLocaleString(undefined, {

@@ -40,7 +40,7 @@ export const Performance = (stats: Scorcher) => {
                 toolbar: {
                     show: true,
                     offsetX: 0,
-                    offsetY: -50,
+                    offsetY: -10,
                 },
                 zoom: {
                     autoScaleYaxis: true
@@ -179,7 +179,7 @@ export const Performance = (stats: Scorcher) => {
                     <tbody>
                         <tr>
                             <td className="text-right pr-2">
-                                K/D:
+                                K/D
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(stats.performance.kills / Math.max(stats.performance.deaths || 1, 1)).toLocaleString(undefined, {
@@ -190,7 +190,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Efficiency:
+                                Efficiency
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {((stats.performance.kills + stats.performance.assists) / Math.max(stats.performance.deaths || 0, 1)).toLocaleString(undefined, {
@@ -201,7 +201,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                KPM:
+                                KPM
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(stats.performance.kills * 60 / Math.max(stats.performance.timeSpent, 1)).toLocaleString(undefined, {
@@ -212,7 +212,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Combat Rating:
+                                Combat Rating
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.combatRating.toLocaleString(undefined, {
@@ -225,7 +225,7 @@ export const Performance = (stats: Scorcher) => {
                             <td className="text-right pr-2">
                                 Peak Rating
                             </td>
-                            <td className="text-gray-200 text-2xl">
+                            <td className="text-gray-100 text-lg sm:text-2xl">
                                 {Object.values(stats.matchHistory).reduce((highest, current) => highest > current.elo ? highest : current.elo, 0)}
                             </td>
                         </tr>
@@ -246,7 +246,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Average kill distance:
+                                Average kill distance
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {((stats.bungieHistoricAccountStats.totalKillDistance || 0) / Math.max(stats.bungieHistoricAccountStats.kills || 1, 1)).toLocaleString(undefined, {
@@ -257,7 +257,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Average Match Duration:
+                                Average Match Duration
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {formatSeconds(stats.performance.timeSpent / Math.max(stats.performance.matches, 1))}
@@ -265,7 +265,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Average Lifespan:
+                                Average Lifespan
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {formatSeconds(stats.bungieHistoricAccountStats.averageLifespan || 0)}
@@ -273,7 +273,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Average Team Score:
+                                Average Team Score
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {((stats.bungieHistoricAccountStats.teamScore || 0) / (stats.bungieHistoricAccountStats.activitiesEntered || 0)).toLocaleString(undefined, {
@@ -284,7 +284,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Avg Match Completion:
+                                Avg Match Completion
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(100 - ((stats.bungieHistoricAccountStats.remainingTimeAfterQuitSeconds || 0) * 100 / (stats.bungieHistoricAccountStats.totalActivityDurationSeconds || 1))).toLocaleString(undefined, {
@@ -300,7 +300,7 @@ export const Performance = (stats: Scorcher) => {
 
                         <tr>
                             <td className="text-right pr-2">
-                                Highest Kill Streak:
+                                Highest Kill Streak
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.longestKillSpree}
@@ -308,7 +308,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Highest Score:
+                                Highest Score
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.bestSingleGameScore}
@@ -316,7 +316,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Highest Kill count:
+                                Highest Kill count
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {stats.bungieHistoricAccountStats?.bestSingleGameKills}
@@ -324,7 +324,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Fastest Match:
+                                Fastest Match
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {formatSeconds((stats.bungieHistoricAccountStats?.fastestCompletionMs || 0) / 1000)}
@@ -332,7 +332,7 @@ export const Performance = (stats: Scorcher) => {
                         </tr>
                         <tr>
                             <td className="text-right pr-2">
-                                Longest Kill Distance:
+                                Longest Kill Distance
                             </td>
                             <td className="text-gray-100 text-lg sm:text-2xl">
                                 {(stats.bungieHistoricAccountStats?.longestKillDistance || 0).toLocaleString(undefined, {

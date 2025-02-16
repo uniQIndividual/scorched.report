@@ -247,7 +247,6 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
   });
 
   return <div className=''>
-    <div className="text-5xl text-gray-100 flex justify-center mt-2 font-semibold mb-10">Match History</div>
     <div className="text-gray-100 justify-center flex max-w-[calc(100vw-50px)] lg:max-w-[calc(100vw-440px)] mt-2 mb-5">
       <MantineProvider
         theme={{

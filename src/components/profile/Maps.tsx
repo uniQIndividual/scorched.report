@@ -62,7 +62,7 @@ export const Maps = (props: MatchHistoryInterface) => {
                 toolbar: {
                   show: true,
                   offsetX: 0,
-                  offsetY: -50,
+                  offsetY: -10,
                 }
             },
             dataLabels: {

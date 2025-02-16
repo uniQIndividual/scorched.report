@@ -4,7 +4,7 @@
 // It's actually not as bad, though I should probably have simply used awaits
 // Ah well, it does the job and it does so in a precise order...
 //
-import React from "react";
+import React, { type ReactNode } from "react";
 import ErrorDynamic from "./ErrorDynamic";
 import ErrorNotFound from "./ErrorNotFound";
 import API from "../lib/api";
@@ -24,11 +24,30 @@ import { CharacterInfo } from "../components/profile/CharacterInfo";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Maps } from "../components/profile/Maps";
 
-const Wrapper = ({ item }) => {
+const Wrapper = ({ item, id }: { item: ReactNode, id: string }) => {
 
   return (
-    <div className="bg-[#111]/70 dark:bg-[#111]/50 p-5 sm:p-5 z-0 flex justify-center mt-2 mb-5">
-      {item}
+    <div
+      className="bg-[#111]/70 dark:bg-[#111]/50 p-5 sm:p-5 z-0 mt-2 mb-5 relative"
+      id={id}
+    >
+      <button
+        onClick={() => {
+          //const url = location.origin + location.pathname + location.search;
+          const anchor = location.origin + location.pathname + location.search + "#" + id;
+          navigator.clipboard.writeText(anchor);
+          location.href = anchor;
+          //history.replaceState(null, "", url);
+        }}
+        className="absolute top-2 right-2 float-right z-10 opacity-80 font-extralight hover:opacity-100"
+      >
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961" />
+        </svg>
+      </button>
+      <div className="flex justify-center mt-2">
+        {item}
+      </div>
     </div>
   );
 }
@@ -1200,32 +1219,40 @@ const ReportLookup = () => {
         <div
           className="mt-2 grid grid-cols-1 gap-6 2xl:grid-cols-2 w-max"
         >
-          <Wrapper item={<Profile {...stats} />} />
-          <Wrapper item={<Radar {...stats} />} />
+          <Wrapper item={<Profile {...stats} />} id="profile" />
+          <Wrapper item={<Radar {...stats} />} id="radar" />
         </div>
       </div>
       <div className="mt-16 w-full flex justify-center z-50">
-        <Wrapper item={<Activity {...stats} />} />
+        <Wrapper item={<Activity {...stats} />} id="experience" />
       </div>
       <div className="mt-16 w-full flex justify-center">
-        <Wrapper item={<Performance {...stats} />} />
+        <Wrapper item={<Performance {...stats} />} id="performance" />
       </div>
       <div className="mt-16 w-full flex justify-center">
-        <Wrapper item={<Maps stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} />
+        <Wrapper item={<Maps stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} id="maps" />
       </div>
       <div className="mt-16 w-full flex justify-center">
         <Wrapper item={
           <div className="">
             <div className="text-5xl text-gray-100 my-5 flex justify-center font-semibold">Characters</div>
             <div className="flex flex-wrap justify-center lg:mx-7">
-              {Object.keys(stats.characters).length == 0 ? <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> : Object.keys(stats.characters).map((character) => {
-                return !stats.characters.hasOwnProperty(character) || !stats.bungieHistoricStats.hasOwnProperty(character) ? <></> : <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
-              })} </div> </div>} />
+              {Object.keys(stats.characters).length == 0 ?
+                <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> :
+                Object.keys(stats.characters).map((character) => {
+                  return !stats.characters.hasOwnProperty(character) || !stats.bungieHistoricStats.hasOwnProperty(character) ? <div key={"character_stats_" + character}></div> : <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
+                })}
+            </div>
+          </div>
+        } id="characters" />
 
       </div>
       <div className="mt-10 flex justify-center">
-        <Wrapper item={<CannonCollection {...stats} />} />
+        <Wrapper item={<CannonCollection {...stats} />} id="cannons" />
       </div>
+      <Wrapper
+        item={<div className="text-5xl text-gray-100 flex justify-center text-center mt-2 font-semibold mb-10">Match History</div>}
+        id="match-history" />
       <div className="mt-10 flex justify-center">
         <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
       </div>
