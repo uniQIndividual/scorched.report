@@ -305,7 +305,19 @@ const PGCRLookup = (props: basicMatchInfo) => {
                     }))
                     );
 
-                    newRenderInfo = update(newRenderInfo, { date: { $set: new Date(response.period).toString() } })
+                    newRenderInfo = update(newRenderInfo, {
+                        date: {
+                            $set: new Date(response.period).toLocaleDateString(undefined, {
+                                weekday: "short",
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                timeZoneName: "short",
+                            })
+                        }
+                    })
 
                     newRenderInfo.team1.sort(function (a, b) {
                         if (Number(a.opponentsDefeated) < Number(b.opponentsDefeated))
