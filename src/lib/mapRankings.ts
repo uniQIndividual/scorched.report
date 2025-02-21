@@ -57,7 +57,7 @@ export const mapRankings = {
     },
     "Eventide Labs": {
         image: "/img/destiny_content/pgcr/crucible_ice.jpg",
-        rankings: ["F", "D", "F", "C", "F", "A", "C", "F", "D", "D", "F", "D", "F", "D", "F", "F", "D", "C", "C", "D", "F"]
+        rankings: ["F", "D", "F", "D", "F", "A", "C", "F", "D", "D", "F", "D", "F", "D", "F", "F", "D", "C", "C", "D", "F"]
     },
     "Exodus Blue": {
         image: "/img/destiny_content/pgcr/crucible_exodus_blue.jpg",
