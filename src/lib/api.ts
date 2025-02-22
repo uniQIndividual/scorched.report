@@ -114,7 +114,7 @@ const API = {
 		PGCR: {
 			GetPostGameCarnageReport(id: string) {
 				return API.make_call(
-					`https://stats.bungie.net/Platform/Destiny2/Stats/PostGameCarnageReport/${id}`,
+					`https://stats.bungie.net/Platform/Destiny2/Stats/PostGameCarnageReport/${id}/`,
 				);
 			},
 			InitializeDestinyActivityDefinition(id: string) {

@@ -55,7 +55,7 @@ export const Radar = (stats: Scorcher) => {
                 return "Unknown"
         }
     }
-    return (
+    return <div className="text-gray-300">coming soon</div>/*(
         <div className="block flex-none w-[100%]">
             <ApexChart
             height={350}
@@ -379,5 +379,5 @@ export const Radar = (stats: Scorcher) => {
                 : <></>
             }
         </div>
-    )
+    )*/
 }
