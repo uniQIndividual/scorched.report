@@ -24,14 +24,14 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
   const [data, setData] = React.useState(initialState);
 
   React.useEffect(() => {
-    let tmpMatchHistory = stats.matchHistory != undefined ? Object.values(stats.matchHistory).sort(function(a, b){
+    let tmpMatchHistory = stats.matchHistory != undefined ? Object.values(stats.matchHistory).sort(function (a, b) {
       if (Number(a.id) < Number(b.id))
-       return -1;
+        return -1;
       if (Number(a.id) > Number(b.id))
-       return 1;
+        return 1;
       return 0;
-     }) : [];
-     
+    }) : [];
+
     let newTable = tmpMatchHistory.map((match, index) => {
       let previousElo = index == 0 ? 1000 : (tmpMatchHistory[index - 1]?.elo || 1000);
       return {
@@ -54,28 +54,28 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         "kpm": match.kills / (match.time == 0 ? 1 : (match.time / 60)),
         "efficiency": (match.kills + match.assists) / (match.deaths == 0 ? 1 : match.deaths)
       }
-    }).sort(function(a, b){
+    }).sort(function (a, b) {
       if (Number(a.id) > Number(b.id))
-       return -1;
+        return -1;
       if (Number(a.id) < Number(b.id))
-       return 1;
+        return 1;
       return 0;
-     });
+    });
     setData(newTable)
-    
+
   }, [props]);
 
-   // Map names, filtered duplicates and sorted by name
+  // Map names, filtered duplicates and sorted by name
   const mapNames = data.map(match => {
     return DestinyActivityDefinition.hasOwnProperty(match.map) ? DestinyActivityDefinition[match.map]?.name : ""
-  }).filter((value, index, array) => array.indexOf(value) === index ).sort(function(a, b){
+  }).filter((value, index, array) => array.indexOf(value) === index).sort(function (a, b) {
     var nameA = a.toLowerCase(), nameB = b.toLowerCase();
     if (nameA < nameB) //sort string ascending
-     return -1;
+      return -1;
     if (nameA > nameB)
-     return 1;
+      return 1;
     return 0; //default return value (no sorting)
-   });
+  });
 
 
   const columns = useMemo<MRT_ColumnDef<matchTableEntry>[]>(
@@ -123,7 +123,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
           return cell.row.original.win_chance != undefined && cell.row.original.win_chance != -1 ? (cell.row.original.win_chance * 100).toLocaleString(undefined, {
             minimumFractionDigits: 0,
             maximumFractionDigits: 5,
-        })+ "%" : <i>not rated yet</i>
+          }) + "%" : <i>not rated yet</i>
         }
       },
       {
@@ -224,8 +224,17 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
     ),
     mantineExpandButtonProps: ({ row }) => ({
       onClick: (event) => {
-        // <PGCRLookup matchid={row.original.id} membershipId={stats.id}/>
-        document.getElementById(row.original.id)?.click(); // We need to hijack a hidden button so not all pages are loaded at once
+        // most browsers preload the extended version so we need to induce a click on a hidden button
+        // on e.g. opera gx this element does not exist, thus we need to wait perhaps
+        let loadingButton = document.getElementById(String(row.original.id))
+        if (loadingButton != null) {
+          loadingButton.click(); // We need to hijack a hidden button so not all pages are loaded at once
+        } else {
+          setTimeout(() => {
+            console.log(document.getElementById(String(row.original.id)));
+            document.getElementById(String(row.original.id))?.click()
+          }, 500);
+        }
       },
     }),
     mantineTableHeadCellProps: {
@@ -239,11 +248,12 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
     enableDensityToggle: false,
     enableFullScreenToggle: false, // ik I'm incredibly sad as well, but it breaks too many things
     columnFilterDisplayMode: "popover",
-    initialState: { density: 'xs',
+    initialState: {
+      density: 'xs',
       columnVisibility: {
         'win_chance': true,
       },
-     }
+    }
   });
 
   return <div className=''>

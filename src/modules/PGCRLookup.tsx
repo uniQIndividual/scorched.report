@@ -7,15 +7,6 @@ import update from 'immutability-helper';
 import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 
-const Wrapper = ({ item }) => {
-
-    return (
-        <div className="bg-[#111]/70 dark:bg-[#111]/50 p-5 z-0 flex justify-center">
-            {item}
-        </div>
-    );
-}
-
 type userEntry = {
     membershipId: string,
     membershipType: string,
@@ -64,7 +55,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
     const [crash, triggerCrash] = React.useState({ title: "", text: "" });
     const [render, triggerRender] = React.useState(false);
     const [started, triggerStarted] = React.useState(false);
-    const [loadingTitle, setLoadingTitle] = React.useState("Loading PGCR...");
+    const [loadingTitle, setLoadingTitle] = React.useState("...");
 
     const getRenderInfo = async () => {
         // Verify parameters
@@ -73,7 +64,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                 return;
             }
             triggerStarted(true);
-
+            setLoadingTitle("Loading PGCR...")
 
             let matchid = 0;
             let membershipId = "";
