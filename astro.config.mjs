@@ -18,5 +18,12 @@ export default defineConfig({
   },
   integrations: [
     //
-    sitemap(), tailwind(), react()]
+    sitemap(), tailwind(), react()
+  ],
+  redirects: {
+    '/naze': '/leaderboards/performance/',
+    '/Naze': '/leaderboards/performance/',
+    '/asianketchup': '/leaderboards/playtime/',
+    '/AsianKetchup': '/leaderboards/playtime/',
+  }
 });
