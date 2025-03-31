@@ -1,6 +1,8 @@
 # Scorched Report
 
-Scorched Report was created by uniQ with a lot of help from nblock. The Scorched Cannons were kindly created by GerbSnail and the TWAS entries by our resident lore guardian, Jon. Please keep in mind that Scorched Report is just a fun project some of us wanted to embark on. We might update things or we might not.
+Scorched Report is a community site dedicated to the Team Scorched game mode in Destiny 2. It originated out of the Scorched Enthusiasts community and attempts to capture all the wonderful creations over the years. It allows to look up Team Scorched-specific stats, inspect the custom Scorched Cannons, find out more about the game mode and much more!
+
+Scorched Report was created by uniQ with a lot of help from nblock. The Scorched Cannons were kindly created by GerbSnail and the TWAS entries by our resident lore guardian, Jon. Please keep in mind that Scorched Report is just a fun project we wanted to embark on. We might update things or we might not.
 
 ## Disclaimer
 
