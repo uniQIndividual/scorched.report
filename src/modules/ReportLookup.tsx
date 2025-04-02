@@ -23,34 +23,8 @@ import { CharacterInfo } from "../components/profile/CharacterInfo";
 
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Maps } from "../components/profile/Maps";
+import { Award } from "../components/profile/Award";
 
-const Wrapper = ({ item, id }: { item: ReactNode, id: string }) => {
-
-  return (
-    <div
-      className="bg-[#111]/70 dark:bg-[#111]/50 p-5 sm:p-5 z-0 mt-2 mb-5 relative"
-      id={id}
-    >
-      <button
-        onClick={() => {
-          //const url = location.origin + location.pathname + location.search;
-          const anchor = location.origin + location.pathname + location.search + "#" + id;
-          navigator.clipboard.writeText(anchor);
-          location.href = anchor;
-          //history.replaceState(null, "", url);
-        }}
-        className="absolute top-2 right-2 float-right z-10 opacity-80 font-extralight hover:opacity-100"
-      >
-        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961" />
-        </svg>
-      </button>
-      <div className="flex justify-center mt-2">
-        {item}
-      </div>
-    </div>
-  );
-}
 
 const ReportLookup = () => {
 
@@ -62,6 +36,8 @@ const ReportLookup = () => {
       "profileName": "",
       "clanName": "",
       "bannerUrl": "",
+      "secondarySpecial": "",
+      "secondaryOverlay": "/images/crucible_logo_centered.webp",
       "lightLevel": 0,
       "guardianrank": 0,
       "privacy": 0
@@ -207,6 +183,7 @@ const ReportLookup = () => {
     "matchHistory": {}
   }
   const [stats, setStats] = React.useState(initialStats);
+  const [activeSection, setActiveSection] = React.useState("summary");
   const [destinyActivityDefinition, setDestinyActivityDefinition] = React.useState({});
   const [crash, triggerCrash] = React.useState({ title: "", text: "" }); // Display a crash message, recoverable but some stats might be missing
   const [hardCrash, triggerHardCrash] = React.useState(false); // Will prevent visual output
@@ -524,6 +501,32 @@ const ReportLookup = () => {
               });
 
               setStats(newStats);
+
+              // Update the default banner with the most recent character's wide banner from the given hash
+
+              try {
+                API.requests.Destiny2.BannerFromEmblemHash(mostRecentCharacter.emblemHash).then((response => {
+                  response = JSON.parse(response)
+                  response = response.Response;
+
+                  newStats = update(newStats, {
+                    profile: {
+                      secondarySpecial: { $set: "https://www.bungie.net" + response.secondarySpecial },
+                      secondaryOverlay: { $set: "https://www.bungie.net" + response.secondaryOverlay }
+                    }
+                  });
+
+                }),
+                  (error => {
+                    console.log("Unable to load character banner");
+                    console.log(error);
+
+
+                  }))
+              } catch (error) {
+                // don't care tbh, we just use the default one
+              }
+
 
             } catch (error) {
               console.error("Something, something, bungie character api");
@@ -1211,54 +1214,130 @@ const ReportLookup = () => {
 
     })
     .catch(e => console.error(e));*/
-  if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)
 
-  if (render) return (<div className="flex justify-center mx-[2%]">
-    <div className="max-w-[100%] lg:max-w-[95%]">
-      <div className="justify-center flex mt-12">
-        <div
-          className="mt-2 grid grid-cols-1 gap-6 2xl:grid-cols-2 w-max"
-        >
-          <Wrapper item={<Profile {...stats} />} id="profile" />
-          <Wrapper item={<Radar {...stats} />} id="radar" />
+  const profile_sections = [
+    {
+      "title": "Summary",
+      "id": "summary",
+      "body": <Profile {...stats} />
+    },
+    {
+      "title": "XP",
+      "id": "experience",
+      "body": <Activity {...stats} />
+    },
+    {
+      "title": "Performance",
+      "id": "performance",
+      "body": <Performance {...stats} />
+    },
+    {
+      "title": "Characters",
+      "id": "characters",
+      "body": <div className="mt-16 w-full flex justify-center">
+        <div className="">
+          <div className="flex flex-wrap justify-center lg:mx-7">
+            {Object.keys(stats.characters).length == 0 ?
+              <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> :
+              Object.keys(stats.characters).map((character) => {
+                return !stats.characters.hasOwnProperty(character) || !stats.bungieHistoricStats.hasOwnProperty(character) ? <div key={"character_stats_" + character}></div> : <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
+              })}
+          </div>
         </div>
       </div>
-      <div className="mt-16 w-full flex justify-center z-50">
-        <Wrapper item={<Activity {...stats} />} id="experience" />
-      </div>
-      <div className="mt-16 w-full flex justify-center">
-        <Wrapper item={<Performance {...stats} />} id="performance" />
-      </div>
-      <div className="mt-16 w-full flex justify-center">
-        <Wrapper item={<Maps stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />} id="maps" />
-      </div>
-      <div className="mt-16 w-full flex justify-center">
-        <Wrapper item={
-          <div className="">
-            <div className="text-5xl text-gray-100 my-5 flex justify-center font-semibold">Characters</div>
-            <div className="flex flex-wrap justify-center lg:mx-7">
-              {Object.keys(stats.characters).length == 0 ?
-                <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> :
-                Object.keys(stats.characters).map((character) => {
-                  return !stats.characters.hasOwnProperty(character) || !stats.bungieHistoricStats.hasOwnProperty(character) ? <div key={"character_stats_" + character}></div> : <div key={"character_stats_" + character}><CharacterInfo props={{ ...stats }} characterId={character} /></div>
-                })}
+    },
+    {
+      "title": "Scorched Cannons",
+      "id": "cannons",
+      "body": <CannonCollection {...stats} />
+    },
+    {
+      "title": "Maps",
+      "id": "map",
+      "body": <Maps stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
+    },
+    {
+      "title": "Match History",
+      "id": "matches",
+      "body": <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
+    },
+  ]
+
+
+  if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)
+
+  if (render) return (
+    <div className={/*bg-gray-50 dark:bg-gray-920*/"pb-2"}>
+      <div
+        className={`h-[146px]`}
+      >
+        {stats.profile.secondarySpecial != "" ? <img className="absolute object-cover object-center w-full h-[136px]" src={stats.profile.secondarySpecial} /> : <div className="absolute w-full h-[136px] bg-primary-900"></div>}
+        <div className="absolute h-[136px] w-full table px-2">
+          <div className="table-row-group">
+            <div className="table-row h-[20px]">
+            </div>
+            <div className="table-row h-[96px]">
+              <div className="table-cell">
+                <div className="pl-4 font-bungo flex overflow-x-scroll">
+                  <img className="h-[96px]" src={stats.profile.secondaryOverlay} />
+                  <div className="ml-2">
+                    {stats.profile.profileName == "" ?
+                      <div className="text-white italic text-3xl pt-1">
+                        empty name
+                      </div> :
+                      <div className={"text-white font-bold pt-1 flex grow-0 truncate " + (stats.profile.profileName.length < 10 ? "text-2xl xl:text-4xl" : "text-xl xl:text-4xl")}>
+                        {stats.profile.profileName}
+                      </div>}
+                    <div className="flex">
+                      {Object.keys(stats.awards).filter((award) => stats.awards[award]).map((award) =>
+                        <Award award={award} size={40} key={crypto.randomUUID()} />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Subsection Selection */}
+            <div className="table-row">
             </div>
           </div>
-        } id="characters" />
-
+        </div>
+        <div className="absolute w-full mt-[100px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-scroll">
+          <div className="table w-full float-right px-8">
+            <div className="table-row h-[20px]">
+              <div className="table-cell w-full">
+              </div>
+              {Object.values(profile_sections).map(section => {
+                return <div className="h-7 px-2 xl:px-4 table-cell text-nowrap align-bottom lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
+                  <button className={"w-full hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
+                    setActiveSection(section.id)
+                  }}>
+                    {section.title}
+                  </button>
+                </div>
+              })}
+            </div>
+            <div className="table-row h-[8px]">
+              <div className="table-cell w-full">
+              </div>
+            </div>
+            <div className="table-row h-[4px]">
+              <div className="table-cell w-full">
+              </div>
+              {Object.values(profile_sections).map(section => {
+                return <div className={"table-cell " + (activeSection == section.id ? "bg-gray-800 dark:bg-white" : "")} key={"profile_section_bar_" + section.id}>
+                </div>
+              })}
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="mt-10 flex justify-center">
-        <Wrapper item={<CannonCollection {...stats} />} id="cannons" />
-      </div>
-      <Wrapper
-        item={<div className="text-5xl text-gray-100 flex justify-center text-center mt-2 font-semibold mb-10">Match History</div>}
-        id="match-history" />
-      <div className="mt-10 flex justify-center">
-        <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
+      {/* profile sections */}
+      <div className="overflow-x-auto">
+        {Object.values(profile_sections).filter(section => section.id == activeSection).map(section => section.body)}
       </div>
       {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
-    </div>
-  </div>)
+    </div>)
 
   return (<div className="flex h-72 justify-center">
     <LoadingAnimationWithTitle title={loadingTitle} />

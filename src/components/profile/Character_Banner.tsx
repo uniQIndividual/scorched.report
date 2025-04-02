@@ -1,52 +1,11 @@
-import { Tooltip } from "react-tooltip";
-import { awards } from "../lib/entities";
-import { Award } from "./Award";
-
-
 interface Props {
     profileName :string,
     lightLevel :number,
     clanName :string,
     bannerUrl :string,
-    awardKeys :Array<string>,
-    size: ("small" | "large"),
 }
 
-const hoverText = (award: string) => {
-    return `<div style="padding: 12px; z-index: 11000; max-width: 240px; ">
-            <table >
-            <tbody>
-                <tr>
-                <td style="justify-content: center; display: flex; padding: 12px;">
-                    <div style=" position: absolute; transform: rotate(45deg);` +
-        (awards[award].glow == "shadow-awardGlow" ? "box-shadow: 44px 44px 50px 30px rgba(240,217,170,0.8)" : "") +
-        (awards[award].glow == "shadow-awardGlowRed" ? "box-shadow: 44px 44px 50px 30px rgba(212,47,47,0.9)" : "") +
-        `"></div>
-                    <img style="" src=` + awards[award].src + ` />
-                    </td>
-                </tr>
-                <tr >
-                <td style="padding-bottom: 6px;">
-                    <div style="text-align: center; line-height: 1.5rem; font-size: 1.5rem; color: rgb(255 255 255); z-index: 110;">
-                        ` + awards[award].text + `
-                    </div>
-                    </td>
-                </tr>
-                <tr >
-                <td style="padding-bottom: 12px;">
-                    <div style="text-align: center; line-height: 1.5rem; font-size: 1.125rem; color: rgb(255 255 255); z-index: 110;">
-                        ` + awards[award].description + `
-                    </div>
-                    </td>
-                </tr>
-               </tbody>
-            </table>
-        </div>`};
-
-export const CharacterBanner = ({profileName, lightLevel, clanName, bannerUrl, awardKeys, size }: Props) => {
-
-    const iconSize = size == "small" ? "22px" : "26px";
-    const glowOffset = size == "small" ? "11px" : "13px";
+export const CharacterBanner = ({profileName, lightLevel, clanName, bannerUrl }: Props) => {
 
     return <div className="bg-no-repeat w-[300px] sm:w-[474px] sm:h-[96px]" style={{ backgroundImage: (bannerUrl != "" ? "url(https://www.bungie.net" + bannerUrl + ")" : "") }}>
                     <table className=" ml-[86px] max-w-[388px]">
@@ -57,7 +16,7 @@ export const CharacterBanner = ({profileName, lightLevel, clanName, bannerUrl, a
                                         <tbody>
                                             <tr>
                                                 <td className=" text-white text-2xl sm:text-3xl font-bungo leading-none m-0 p-0 ">
-                                                    <span className="w-[110px] sm:w-[268px] block truncate ...">
+                                                    <span className="w-[110px] sm:w-[268px] block truncate">
                                                         {profileName}
                                                     </span>
                                                     {/*<div className="w-[268px] h-[48px]">
@@ -84,10 +43,7 @@ export const CharacterBanner = ({profileName, lightLevel, clanName, bannerUrl, a
                                                         {clanName}
                                                     </span>
                                                 </td>
-                                                <td className={"w-[170px] max-h-12 h-[" + { iconSize } + "] leading-none m-0 p-0 left-0 text-right"}>
-                                                    {awardKeys.map((award) =>
-                                                        <Award award={award} size={size} key={crypto.randomUUID()} />
-                                                    )}
+                                                <td className={"w-[170px] max-h-12 leading-none m-0 p-0 left-0 text-right"}>
                                                 </td>
                                             </tr>
                                         </tbody>

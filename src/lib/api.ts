@@ -1,6 +1,7 @@
 // Courtesy of https://member.report/
 
 import type { manifest } from "astro:ssr-manifest";
+import { url } from "./data";
 
 const API_KEY = (() => {
 	// get the correct public api key
@@ -89,6 +90,11 @@ const API = {
 					`https://www.bungie.net/Platform/Destiny2/Milestones/`,
 				);
 			},
+			BannerFromEmblemHash(hash: string) {
+				return API.make_call(
+					`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${hash}/`
+				)
+			}
 		},
 
 		GroupV2: {

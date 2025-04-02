@@ -309,6 +309,8 @@ export type Scorcher = {
 		"profileName": string,
 		"clanName": string,
 		"bannerUrl": string,
+		"secondarySpecial": string,
+		"secondaryOverlay": string,
 		"lightLevel": number,
 		"guardianrank": number, // lol
 		"privacy": number

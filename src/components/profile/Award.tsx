@@ -1,10 +1,10 @@
 import { Tooltip } from "react-tooltip";
-import { awards } from "../lib/entities";
+import { awards } from "../../lib/entities";
 
 
 interface Props {
     award: string,
-    size: ("small" | "large")
+    size: number
 }
 
 const hoverText = (award: string) => {
@@ -40,18 +40,18 @@ const hoverText = (award: string) => {
 
 export const Award = ({ award, size }: Props) => {
 
-    const iconSize = size == "small" ? "22px" : "26px";
-    const glowOffset = size == "small" ? "11px" : "13px";
+    const iconSize = size + "px";
+    const glowOffset = Math.floor(size / 2) + "px";
 
     if (awards.hasOwnProperty(award)) {
-        return <div key={"div_" + award}>
+        return <div key={"div_" + award} className={"w-[" + iconSize + "] h-[" + iconSize + "]"}>
             <a
                 data-tooltip-id={award + "_tooltip"}
                 data-tooltip-html={hoverText(award)}
-                className={"w-[" + iconSize + "px] h-[" + iconSize + "px] float-right ml-1"}
+                className={"w-[" + iconSize + "] h-[" + iconSize + "]"}
             >
                 <div style={{ marginTop: glowOffset, marginLeft: glowOffset }} className={awards[award].glow + " absolute rotate-45"}></div>
-                <img src={awards[award].src} key={"img_" + award} width={iconSize} height={iconSize} className="float-right " />
+                <img src={awards[award].src} key={"img_" + award} width={iconSize} height={iconSize} className="" />
             </a>
             <Tooltip id={award + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
         </div>

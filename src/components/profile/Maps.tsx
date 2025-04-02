@@ -304,7 +304,7 @@ export const Maps = (props: MatchHistoryInterface) => {
         return (hh == 0 ? "" : hh + "h ") + (mm == 0 ? "" : mm + "m ") + ss + "s";
     }
     return (
-        <div className="w-[80vw] lg:w-[calc(90vw-350px)]">
+        <div className="">
             <div className="text-4xl text-gray-100 flex justify-center mt-2 font-semibold">Maps</div>
 
 
