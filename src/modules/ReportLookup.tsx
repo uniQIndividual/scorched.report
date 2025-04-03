@@ -1309,13 +1309,13 @@ const ReportLookup = () => {
             </div>
           </div>
         </div>
-        <div className="absolute w-full mt-[100px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-scroll">
+        <div className="absolute w-full mt-[92px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-scroll">
           <div className="table w-full float-right px-8">
-            <div className="table-row h-[20px]">
+            <div className="table-row h-[44px]">
               <div className="table-cell w-full">
               </div>
               {Object.values(profile_sections).map(section => {
-                return <div className="h-7 table-cell text-nowrap align-bottom lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
+                return <div className="h-7 py-2 table-cell text-nowrap align-bottom lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
                   <button className={"w-full px-2 xl:px-4 hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
                     location.hash = section.id; // don't push since we don't handle those
                     setActiveSection(section.id);
@@ -1324,10 +1324,6 @@ const ReportLookup = () => {
                   </button>
                 </div>
               })}
-            </div>
-            <div className="table-row h-[8px]">
-              <div className="table-cell w-full">
-              </div>
             </div>
             <div className="table-row h-[4px]">
               <div className="table-cell w-full">
