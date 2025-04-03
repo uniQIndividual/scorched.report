@@ -175,7 +175,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                     //await response.entries.forEach(async entry => {
                     await Promise.all(response.entries.map((entry: string, i: number) => {
                         let vault_id = entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 4);
-                        fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(async res => {
+                        return fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(async res => {
                             let entry = response.entries[i];
                             let elo = 1000;
                             let matchup = 0;

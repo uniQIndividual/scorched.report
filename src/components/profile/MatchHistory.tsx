@@ -231,7 +231,6 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
           loadingButton.click(); // We need to hijack a hidden button so not all pages are loaded at once
         } else {
           setTimeout(() => {
-            console.log(document.getElementById(String(row.original.id)));
             document.getElementById(String(row.original.id))?.click()
           }, 500);
         }
