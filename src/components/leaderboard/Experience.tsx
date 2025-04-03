@@ -4,6 +4,7 @@ import * as fzstd from 'fzstd';
 import { MantineProvider } from "@mantine/core";
 import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef } from "mantine-react-table";
 import { LoadingAnimationWithTitle } from "../LoadingAnimation";
+import { url_data } from "../../lib/api";
 
 export const LeaderboardExperience = () => {
 
@@ -49,7 +50,7 @@ export const LeaderboardExperience = () => {
       let oldData: sourceEntry[] = [
       ]
 
-      await fetch('/data/leaderboards/experience.json.zst').then(
+      await fetch(url_data + '/leaderboards/experience.json.zst').then(
         res => {
           if (res.status == 200) {
             return res.arrayBuffer()
