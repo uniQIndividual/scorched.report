@@ -789,10 +789,8 @@ const ReportLookup = () => {
                   bungieHistoricAccountStats: {
                     averageLifespan: {
                       $set: Object.keys(newStats.bungieHistoricStats).map((x) => {
-
                         return (newStats.bungieHistoricStats[x]?.averageLifespan || 0) * (newStats.bungieHistoricStats[x]?.activitiesEntered || 0) / newStats.bungieHistoricAccountStats.activitiesEntered
-
-                      }).reduce((x, y) => x + y)
+                      }).reduce((x, y) => x + y, 1)
                     }
                   }
                 });
@@ -800,10 +798,8 @@ const ReportLookup = () => {
                   bungieHistoricAccountStats: {
                     combatRating: {
                       $set: Object.keys(newStats.bungieHistoricStats).map((x) => {
-
                         return (newStats.bungieHistoricStats[x]?.combatRating || 0) * (newStats.bungieHistoricStats[x]?.activitiesEntered || 0) / newStats.bungieHistoricAccountStats.activitiesEntered
-
-                      }).reduce((x, y) => x + y)
+                      }).reduce((x, y) => x + y, 0)
                     }
                   }
                 });
@@ -1319,8 +1315,8 @@ const ReportLookup = () => {
               <div className="table-cell w-full">
               </div>
               {Object.values(profile_sections).map(section => {
-                return <div className="h-7 px-2 xl:px-4 table-cell text-nowrap align-bottom lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
-                  <button className={"w-full hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
+                return <div className="h-7 table-cell text-nowrap align-bottom lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
+                  <button className={"w-full px-2 xl:px-4 hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
                     location.hash = section.id; // don't push since we don't handle those
                     setActiveSection(section.id);
                   }}>

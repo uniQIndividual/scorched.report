@@ -329,7 +329,7 @@ export const Activity = (stats: Scorcher) => {
                                     First played
                                 </td>
                                 <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                    {new Date(Object.values(stats.matchHistory).reduce((a, b) => {
+                                    {Object.keys(stats.matchHistory).length > 0 ? new Date(Object.values(stats.matchHistory).reduce((a, b) => {
                                         if (a.date < b.date && a.date != 0) {
                                             return a
                                         } else {
@@ -339,7 +339,7 @@ export const Activity = (stats: Scorcher) => {
                                         year: "numeric",
                                         month: "short",
                                         day: "numeric",
-                                    })}
+                                    }) : "never"}
                                 </td>
                             </tr>
                             <tr>
@@ -347,7 +347,7 @@ export const Activity = (stats: Scorcher) => {
                                     Last played
                                 </td>
                                 <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                    {new Date(Object.values(stats.matchHistory).reduce((a, b) => {
+                                    {Object.keys(stats.matchHistory).length > 0 ? new Date(Object.values(stats.matchHistory).reduce((a, b) => {
                                         if (a.date > b.date) {
                                             return a
                                         } else {
@@ -357,7 +357,7 @@ export const Activity = (stats: Scorcher) => {
                                         year: "numeric",
                                         month: "short",
                                         day: "numeric",
-                                    })}
+                                    }) : "never"}
                                 </td>
                             </tr>
                         </tbody>
