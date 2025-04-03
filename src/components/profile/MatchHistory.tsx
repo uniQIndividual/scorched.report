@@ -22,6 +22,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
   const initialState: matchTableEntry[] = [];
   const { stats, DestinyActivityDefinition } = props;
   const [data, setData] = React.useState(initialState);
+  const [mapNames, setMapNames] = React.useState([""]);
 
   React.useEffect(() => {
     let tmpMatchHistory = stats.matchHistory != undefined ? Object.values(stats.matchHistory).sort(function (a, b) {
@@ -61,21 +62,25 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         return 1;
       return 0;
     });
+
+    // Map names, filtered duplicates and sorted by name
+
+    const newMapNames = newTable.map(match => {
+      return DestinyActivityDefinition && DestinyActivityDefinition.hasOwnProperty(match.map) ? DestinyActivityDefinition[match.map]!.name : ""
+    }).filter((value, index, array) => array.indexOf(value) === index).sort(function (a, b) {
+      var nameA = a.toLowerCase(), nameB = b.toLowerCase();
+      if (nameA < nameB) //sort string ascending
+        return -1;
+      if (nameA > nameB)
+        return 1;
+      return 0; //default return value (no sorting)
+    });
+    setMapNames(newMapNames)
+
     setData(newTable)
 
   }, [props]);
 
-  // Map names, filtered duplicates and sorted by name
-  const mapNames = data.map(match => {
-    return DestinyActivityDefinition && DestinyActivityDefinition.hasOwnProperty(match.map) ? DestinyActivityDefinition[match.map]?.name : ""
-  }).filter((value, index, array) => array.indexOf(value) === index).sort(function (a, b) {
-    var nameA = a.toLowerCase(), nameB = b.toLowerCase();
-    if (nameA < nameB) //sort string ascending
-      return -1;
-    if (nameA > nameB)
-      return 1;
-    return 0; //default return value (no sorting)
-  });
 
 
   const columns = useMemo<MRT_ColumnDef<matchTableEntry>[]>(
@@ -204,7 +209,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         },
       },
     ],
-    [stats],
+    [data, mapNames],
   );
 
   const table = useMantineReactTable({

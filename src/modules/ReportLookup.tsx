@@ -212,7 +212,6 @@ const ReportLookup = () => {
       // set active section if it was e.g. linked
       profile_sections.map(section => {
         if (location.hash == `#${section.id}`) {
-          console.log(section.id);
           setActiveSection(section.id)
         }
       })
