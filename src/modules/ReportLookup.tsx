@@ -20,6 +20,7 @@ import { Performance } from "../components/profile/Performance";
 import MatchHistory from "../components/profile/MatchHistory";
 import { CannonCollection } from "../components/profile/CannonCollection";
 import { CharacterInfo } from "../components/profile/CharacterInfo";
+import { url_data } from "../lib/api";
 
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Maps } from "../components/profile/Maps";
@@ -338,7 +339,9 @@ const ReportLookup = () => {
   
         */
         setLoadingTitle("Loading Profile Stats...");
-        await fetch('/data/scorcher/' + Number(userid.substring(userid.length - 4)) + '.json.zst').then(
+        // yes this is indeed nothing you should copy
+        const vault_id = userid.substring(userid.length - 4);
+        await fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(
           res => {
             if (res.status != 200 && res.status != 404) {
               console.error(res);

@@ -136,8 +136,9 @@ export class DatabaseMiddleware {
         const databaseValid = await this.databaseExistsAndValid();
 
         if (databaseValid) {
+            
             const lastUpdated = await this.getMeta("lastUpdated");
-            if ((lastUpdated - Date.now()) < (24 * 60 * 60 * 1000)) { // Wait 24h between updates                
+            if (lastUpdated && (lastUpdated - Date.now()) < (24 * 60 * 60 * 1000)) { // Wait 24h between updates                
                 await this.updateTimestamp();
                 return;
             }

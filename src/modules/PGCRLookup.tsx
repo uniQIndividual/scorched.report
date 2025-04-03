@@ -1,7 +1,7 @@
 import React from "react";
 import ErrorDynamic from "./ErrorDynamic";
 import ErrorNotFound from "./ErrorNotFound";
-import API from "../lib/api";
+import API, { url_data } from "../lib/api";
 import * as fzstd from 'fzstd';
 import update from 'immutability-helper';
 import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
@@ -96,7 +96,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
             await historyDB.initializeHistoryDatabase();
 
             if (membershipId != "") {
-                await fetch('/data/scorcher/' + Number(membershipId.substring(membershipId.length - 4)) + '.json.zst').then(
+                const vault_id = membershipId.substring(membershipId.length - 4);
+                await fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(
                     res => {
                         if (res.status == 200) {
                             return res.arrayBuffer()
@@ -172,128 +173,131 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                     // Get Players
                     //await response.entries.forEach(async entry => {
-                    await Promise.all(response.entries.map((entry, i) => fetch('/data/scorcher/' + Number(entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 4)) + '.json.zst').then(async res => {
-                        let entry = response.entries[i];
-                        let elo = 1000;
-                        let matchup = 0;
-                        let matchupWins = 0;
-                        let previousElo = "";
-                        let compressedBuf = await res.arrayBuffer();
+                    await Promise.all(response.entries.map((entry: string, i: number) => {
+                        let vault_id = entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 4);
+                        fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(async res => {
+                            let entry = response.entries[i];
+                            let elo = 1000;
+                            let matchup = 0;
+                            let matchupWins = 0;
+                            let previousElo = "";
+                            let compressedBuf = await res.arrayBuffer();
 
-                        setLoadingTitle("Calculating...")
+                            setLoadingTitle("Calculating...")
 
-                        try {
-                            let matchHistory = [];
+                            try {
+                                let matchHistory = [];
 
-                            if (compressedBuf.byteLength != 0) { // No local DB, skip forward
-                                const compressed = new Uint8Array(compressedBuf)
-                                const out = new TextDecoder().decode(fzstd.decompress(compressed));
+                                if (compressedBuf.byteLength != 0) { // No local DB, skip forward
+                                    const compressed = new Uint8Array(compressedBuf)
+                                    const out = new TextDecoder().decode(fzstd.decompress(compressed));
 
-                                let json = JSON.parse(out);
+                                    let json = JSON.parse(out);
 
-                                if (json.hasOwnProperty(entry.player.destinyUserInfo.membershipId)) { // User is the local database
-                                    matchHistory = json[entry.player.destinyUserInfo.membershipId].matchHistory;
-                                    let sameMatch = matchHistory.find(e => e.id == matchid);
-                                    if (sameMatch != undefined) {
-                                        elo = sameMatch.elo;
-                                    } else {
-                                        // We assume we're missing only recent entries
-                                        // thus we use the most recent entry
-                                        // We also assume acceding order
-                                        elo = matchHistory[matchHistory.length - 1].elo;
+                                    if (json.hasOwnProperty(entry.player.destinyUserInfo.membershipId)) { // User is the local database
+                                        matchHistory = json[entry.player.destinyUserInfo.membershipId].matchHistory;
+                                        let sameMatch = matchHistory.find(e => e.id == matchid);
+                                        if (sameMatch != undefined) {
+                                            elo = sameMatch.elo;
+                                        } else {
+                                            // We assume we're missing only recent entries
+                                            // thus we use the most recent entry
+                                            // We also assume acceding order
+                                            elo = matchHistory[matchHistory.length - 1].elo;
+                                        }
+
+                                    }
+                                }
+
+                                let indexedMatchHistory = await historyDB.getValue(entry.player.destinyUserInfo.membershipId);
+                                if (indexedMatchHistory != null) {
+                                    matchHistory = Object.values(indexedMatchHistory);;
+                                }
+
+                                matchHistory = matchHistory.sort(function (a, b) {
+                                    if (Number(a.id) < Number(b.id))
+                                        return -1;
+                                    if (Number(a.id) > Number(b.id))
+                                        return 1;
+                                    return 0;
+                                });
+
+                                let matchup_result = getMatchup(matchHistoryMain, Object.values(matchHistory));
+
+                                matchup = matchup_result.matchup;
+                                matchupWins = matchup_result.matchWins;
+
+                                var index = matchHistory.map(function (e) { return String(e.id); }).indexOf(String(matchid)); // Find match in database
+
+                                if (index >= 0 && matchHistory[index].elo != 0) {
+
+                                    if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value % 2 == 0) {
+                                        newRenderInfo = update(newRenderInfo, { team1WinChance: { $set: matchHistory[index].win_chance } })
                                     }
 
-                                }
-                            }
-
-                            let indexedMatchHistory = await historyDB.getValue(entry.player.destinyUserInfo.membershipId);
-                            if (indexedMatchHistory != null) {
-                                matchHistory = Object.values(indexedMatchHistory);;
-                            }
-
-                            matchHistory = matchHistory.sort(function (a, b) {
-                                if (Number(a.id) < Number(b.id))
-                                    return -1;
-                                if (Number(a.id) > Number(b.id))
-                                    return 1;
-                                return 0;
-                            });
-
-                            let matchup_result = getMatchup(matchHistoryMain, Object.values(matchHistory));
-
-                            matchup = matchup_result.matchup;
-                            matchupWins = matchup_result.matchWins;
-
-                            var index = matchHistory.map(function (e) { return String(e.id); }).indexOf(String(matchid)); // Find match in database
-
-                            if (index >= 0 && matchHistory[index].elo != 0) {
-
-                                if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value % 2 == 0) {
-                                    newRenderInfo = update(newRenderInfo, { team1WinChance: { $set: matchHistory[index].win_chance } })
-                                }
-
-                                if (index > 0) {
-                                    previousElo = (elo - matchHistory[index - 1].elo) > 0 ? "+" + (elo - matchHistory[index - 1].elo) : String(elo - matchHistory[index - 1].elo);
+                                    if (index > 0) {
+                                        previousElo = (elo - matchHistory[index - 1].elo) > 0 ? "+" + (elo - matchHistory[index - 1].elo) : String(elo - matchHistory[index - 1].elo);
+                                    } else {
+                                        let newElo = elo - 1000
+                                        previousElo = previousElo == "" ? (newElo) > 0 ? "+" + (newElo) : String(newElo) : previousElo;
+                                    }
                                 } else {
-                                    let newElo = elo - 1000
-                                    previousElo = previousElo == "" ? (newElo) > 0 ? "+" + (newElo) : String(newElo) : previousElo;
+
+                                }
+
+                            } catch (error) {
+                                console.log(error);
+                            }
+
+                            const newEntry: userEntry = {
+                                membershipId: entry.player.destinyUserInfo.membershipId,
+                                membershipType: entry.player.destinyUserInfo.membershipType,
+                                name: entry.player.destinyUserInfo.bungieGlobalDisplayName != "" ? entry.player.destinyUserInfo.bungieGlobalDisplayName : entry.player.destinyUserInfo.displayName,
+                                icon: entry.player.destinyUserInfo.iconPath,
+                                elo: elo,
+                                previousElo: previousElo,
+                                matchup: matchup,
+                                matchWins: matchupWins,
+                                opponentsDefeated: entry.values.opponentsDefeated.basic.value,
+                                kills: entry.values.kills.basic.value,
+                                deaths: entry.values.deaths.basic.value,
+                                quit: entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value,
+                                playtime: entry.values.timePlayedSeconds.basic.value
+                            }
+
+                            if (Number(entry.values.team.basic.value) % 2 == 0) { // Team 1
+                                if (newEntry.quit) {
+                                    newRenderInfo.team_left_1.push(newEntry);
+                                } else {
+                                    newRenderInfo.team1.push(newEntry);
+                                    newRenderInfo = update(newRenderInfo, { team1Score: { $set: entry.values.teamScore.basic.value } });
                                 }
                             } else {
-
+                                if (Number(entry.values.team.basic.value) % 2 == 1) { // Team2
+                                    newRenderInfo.team2.push(newEntry);
+                                    newRenderInfo = update(newRenderInfo, { team2Score: { $set: entry.values.teamScore.basic.value } });
+                                } else {
+                                    // Congrats to team 3 and thanks bungie
+                                    newRenderInfo.team3.push(newEntry);
+                                }
                             }
 
-                        } catch (error) {
-                            console.log(error);
-                        }
-
-                        const newEntry: userEntry = {
-                            membershipId: entry.player.destinyUserInfo.membershipId,
-                            membershipType: entry.player.destinyUserInfo.membershipType,
-                            name: entry.player.destinyUserInfo.bungieGlobalDisplayName != "" ? entry.player.destinyUserInfo.bungieGlobalDisplayName : entry.player.destinyUserInfo.displayName,
-                            icon: entry.player.destinyUserInfo.iconPath,
-                            elo: elo,
-                            previousElo: previousElo,
-                            matchup: matchup,
-                            matchWins: matchupWins,
-                            opponentsDefeated: entry.values.opponentsDefeated.basic.value,
-                            kills: entry.values.kills.basic.value,
-                            deaths: entry.values.deaths.basic.value,
-                            quit: entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value,
-                            playtime: entry.values.timePlayedSeconds.basic.value
-                        }
-
-                        if (Number(entry.values.team.basic.value) % 2 == 0) { // Team 1
-                            if (newEntry.quit) {
-                                newRenderInfo.team_left_1.push(newEntry);
-                            } else {
-                                newRenderInfo.team1.push(newEntry);
-                                newRenderInfo = update(newRenderInfo, { team1Score: { $set: entry.values.teamScore.basic.value } });
+                            // Did they quit?
+                            if (entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value) {
+                                newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
                             }
-                        } else {
-                            if (Number(entry.values.team.basic.value) % 2 == 1) { // Team2
-                                newRenderInfo.team2.push(newEntry);
-                                newRenderInfo = update(newRenderInfo, { team2Score: { $set: entry.values.teamScore.basic.value } });
-                            } else {
-                                // Congrats to team 3 and thanks bungie
-                                newRenderInfo.team3.push(newEntry);
-                            }
-                        }
 
-                        // Did they quit?
-                        if (entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value) {
+                            // Update if we want a specific person's stats                        
+                            if (!newRenderInfo.anonym && entry.player.destinyUserInfo.membershipId == membershipId) {
+                                newRenderInfo = update(newRenderInfo, { teamPreference: { $set: entry.values.team.basic.value % 2 == 0 ? 0 : 1 } });
+                                newRenderInfo = update(newRenderInfo, { heading: { $set: entry.values.standing.basic.displayValue } })
+                            }
+
+                            // it doesn't seem to matter which person we choose?
                             newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
-                        }
-
-                        // Update if we want a specific person's stats                        
-                        if (!newRenderInfo.anonym && entry.player.destinyUserInfo.membershipId == membershipId) {
-                            newRenderInfo = update(newRenderInfo, { teamPreference: { $set: entry.values.team.basic.value % 2 == 0 ? 0 : 1 } });
-                            newRenderInfo = update(newRenderInfo, { heading: { $set: entry.values.standing.basic.displayValue } })
-                        }
-
-                        // it doesn't seem to matter which person we choose?
-                        newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
-                        setRenderInfo(newRenderInfo)
-                    }))
+                            setRenderInfo(newRenderInfo)
+                        })
+                    })
                     );
 
                     newRenderInfo = update(newRenderInfo, {

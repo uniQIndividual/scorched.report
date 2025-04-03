@@ -1,7 +1,6 @@
 // Courtesy of https://member.report/
 
-import type { manifest } from "astro:ssr-manifest";
-import { url } from "./data";
+export const url_data = 'https://data.scorched.report';
 
 const API_KEY = (() => {
 	// get the correct public api key
@@ -29,16 +28,16 @@ const API = {
 						resolve(this.response);
 					} else {
 						console.error("Request to " + url + " failed");
-						reject({"title": "Bungie rejected the request for the following reason", "description": this.status + ": " + this.response, "response": this.response});
+						reject({ "title": "Bungie rejected the request for the following reason", "description": this.status + ": " + this.response, "response": this.response });
 					}
 				};
 				request.onerror = function (e) {
 					console.error("Request to " + url + " failed");
-					reject({"title": "API Request failed", "description": "Unable to contact Bungie's API", "response": this.response});
+					reject({ "title": "API Request failed", "description": "Unable to contact Bungie's API", "response": this.response });
 				};
 				request.open(method, url);
 				request.setRequestHeader("X-API-Key", API_KEY);
-				if(binary){
+				if (binary) {
 					request.overrideMimeType("text/plain; charset=x-user-defined"); // in case the server does not already set the correct type
 				}
 				// request.setRequestHeader("Accept", "application/json");

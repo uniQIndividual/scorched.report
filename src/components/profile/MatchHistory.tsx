@@ -67,7 +67,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
 
   // Map names, filtered duplicates and sorted by name
   const mapNames = data.map(match => {
-    return DestinyActivityDefinition.hasOwnProperty(match.map) ? DestinyActivityDefinition[match.map]?.name : ""
+    return DestinyActivityDefinition && DestinyActivityDefinition.hasOwnProperty(match.map) ? DestinyActivityDefinition[match.map]?.name : ""
   }).filter((value, index, array) => array.indexOf(value) === index).sort(function (a, b) {
     var nameA = a.toLowerCase(), nameB = b.toLowerCase();
     if (nameA < nameB) //sort string ascending
@@ -196,7 +196,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         header: 'Map',
         size: 50,
         accessorFn(originalRow) {
-          return DestinyActivityDefinition.hasOwnProperty(originalRow.map) ? DestinyActivityDefinition[originalRow.map]?.name : ""
+          return DestinyActivityDefinition && DestinyActivityDefinition.hasOwnProperty(originalRow.map) ? DestinyActivityDefinition[originalRow.map]?.name : ""
         },
         filterVariant: 'select' as const,
         mantineFilterMultiSelectProps: {

@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"@astrojs/react": "^4.1.4",
-		"@astrojs/sitemap": "^3.2.1",
+		"@astrojs/sitemap": "^3.3.0",
 		"@astrojs/tailwind": "^5.1.4",
 		"@emotion/react": "^11.13.5",
 		"@faker-js/faker": "^9.4.0",

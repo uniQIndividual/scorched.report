@@ -9,3 +9,7 @@ interface ImportMetaEnv {
 interface ImportMeta {
 	readonly env: ImportMetaEnv;
 }
+
+export function url(path = '') {
+	return `${import.meta.env.SITE}${import.meta.env.BASE_URL}${path}`;
+}
