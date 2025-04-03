@@ -209,6 +209,14 @@ const ReportLookup = () => {
         throw new Error("Platform information is impossible");
       }
 
+      // set active section if it was e.g. linked
+      profile_sections.map(section => {
+        if (location.hash == `#${section.id}`) {
+          console.log(section.id);
+          setActiveSection(section.id)
+        }
+      })
+
       let flag = true;
 
       const definitionsDB = new DatabaseMiddleware({
@@ -1313,7 +1321,8 @@ const ReportLookup = () => {
               {Object.values(profile_sections).map(section => {
                 return <div className="h-7 px-2 xl:px-4 table-cell text-nowrap align-bottom lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
                   <button className={"w-full hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
-                    setActiveSection(section.id)
+                    location.hash = section.id; // don't push since we don't handle those
+                    setActiveSection(section.id);
                   }}>
                     {section.title}
                   </button>
