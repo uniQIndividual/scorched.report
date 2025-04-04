@@ -51,7 +51,8 @@ Sometimes the matches returned by Bungie are missing data or completely broken. 
 
 I'm aware that some data is missing. This includes:
 
-- Everything that happens after the "Victory" message will be missing in the API. You getting a seventh column, a we ran, a 50 kill-streak... I can't see it.
+- Everything that happens after the "Victory" message will be missing from PGCR data. You getting a seventh column, a we ran, a 50 kill-streak... I can't see it.
+- The "The Crown Is Mine" is missing from PGCR related endpoints, i.e. it is impossible to tell where or when you received them. [Let me know](https://discord.com/channels/296008008956248066/1357764866185887815) if you find them.
 - If the PGCR entry is missing player names and medals then they will be missing in places such as the leaderboards.
 - Some PGCRs are simply gone, i.e. Bungie does not show them anywhere (see e.g. [TWAB 06/02/2017](https://www.bungie.net/7/en/News/article/45930/7_This-Week-At-Bungie---06022017)). These matches essentially don't exist anymore or maybe never did in the first place. Nothing I can do.
 

@@ -1,29 +1,18 @@
-import React from "react";
 import { type Scorcher } from "../../lib/entities";
 import SCORCHED_CANNONS from "../../lib/cannons";
 import { D2Box } from "./D2Box";
 
 
 export const CannonCollection = (props: Scorcher) => {
-
-    React.useEffect(() => {
-        try {
-            // Load Scorched Cannon progress
-
-        } catch (error) {
-
-        }
-    }, []);
-
     const seasons = Object.keys(SCORCHED_CANNONS)
-
     try {
         return (
-            <div className="">
+            <div className="flex flex-wrap justify-center">
                 <D2Box title={"Info"} body={
-                    <div className="p-4">
-                        Sign up with the Scorched Bot to earn Scorched Coins. <br />
-                        Once you have enough scoins you can purchase cannons with <span className="font-bold">/shop</span>
+                    <div className="p-4 w-full block">
+                        <div className="w-full">
+                            Sign up with the Scorched Bot to earn Scorched Coins. <br />
+                            Once you have enough scoins you can purchase cannons with <span className="font-bold">/shop</span></div>
                     </div>
                 } />
                 {seasons.map(season => {
@@ -45,6 +34,6 @@ export const CannonCollection = (props: Scorcher) => {
         )
     } catch (error) {
         console.log(error);
-
+        return <div>An error occurred</div>
     }
 }

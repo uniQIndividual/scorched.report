@@ -25,6 +25,9 @@ import { url_data } from "../lib/api";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Maps } from "../components/profile/Maps";
 import { Award } from "../components/profile/Award";
+import { Medals } from "../components/profile/Medals";
+import { D2Box } from "../components/profile/D2Box";
+import HistoricalStatsDefinitionSmaller from "../data/fallback/HistoricalStatsDefinitionSmaller.json"
 
 
 const ReportLookup = () => {
@@ -180,6 +183,7 @@ const ReportLookup = () => {
         "mostDamage": 0,
       },
     },
+    "bungieHistoricMedals": {},
     "bungieHistoricStats": {},
     "matchHistory": {}
   }
@@ -190,6 +194,8 @@ const ReportLookup = () => {
   const [hardCrash, triggerHardCrash] = React.useState(false); // Will prevent visual output
   const [render, triggerRender] = React.useState(false);
   const [loadingTitle, setLoadingTitle] = React.useState("Loading PGCR...");
+
+  const historicalStatsDefinition: { [index: string]: { "category": number, "statName": string, "statDescription": string, "iconImage"?: string, "medalTierIdentifier": string, "contentIconOverrideId": string, "medalTierHash": number} } = HistoricalStatsDefinitionSmaller;
 
   React.useEffect(() => {
     // Verify parameters
@@ -775,7 +781,27 @@ const ReportLookup = () => {
                       }
                     });
 
-
+                    // Get all medals
+                    Object.keys(responseSingle).map(key => {
+                      if (historicalStatsDefinition.hasOwnProperty(key) && responseSingle[key].basic.value > 0) {
+                        newStats = update(newStats, { // Add medal
+                          bungieHistoricMedals: {
+                            $merge: {
+                              [key]:  {
+                                value: (newStats.bungieHistoricMedals[key]?.value || 0) + responseSingle[key].basic.value,
+                                iconImage: historicalStatsDefinition[key]?.iconImage || "/img/misc/missing_icon_d2.png",
+                                medalTierHash: historicalStatsDefinition[key]?.medalTierHash,
+                                medalTierIdentifier: historicalStatsDefinition[key]?.medalTierIdentifier,
+                                statDescription: historicalStatsDefinition[key]?.statDescription,
+                                statName: historicalStatsDefinition[key]?.statName
+                              }
+                            }
+                          }
+                        });
+                      }
+                    })
+                    console.log(newStats.bungieHistoricMedals);
+                    
                   }
 
                 })
@@ -1256,6 +1282,11 @@ const ReportLookup = () => {
       "title": "Scorched Cannons",
       "id": "cannons",
       "body": <CannonCollection {...stats} />
+    },
+    {
+      "title": "Medals",
+      "id": "medals",
+      "body": <Medals {...stats} />
     },
     {
       "title": "Maps",

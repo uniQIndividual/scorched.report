@@ -130,6 +130,15 @@ export type historicStatsPerCharacter = {
 	},
 }
 
+export type historicMedal = {
+	"value": number,
+	"statName": string,
+	"statDescription": string,
+	"iconImage": string,
+	"medalTierIdentifier": string,
+	"medalTierHash": number
+}
+
 export const medalsBungie: { [index: string]: { "description": string, "text": string, "src": string} } = {
 	"iMadeThisForYou": {
 		"text": "I Made This for You",
@@ -382,6 +391,7 @@ export type Scorcher = {
 	},
 	"bungieHistoricAccountStats": historicStatsPerCharacter, // Holds the data we can only get from Bungie's api
 	"bungieHistoricStats": { [key: string]: historicStatsPerCharacter },
+	"bungieHistoricMedals": { [key: string]: historicMedal }, // matched with the HistoricalStatsDefinition endpoint
 	"matchHistory": {
 		[key: string]: pgcrCutDown
 	}
