@@ -30,6 +30,12 @@ export const Medals = (props: Scorcher) => {
                                                 <span className="font-semibold text-gray-950 dark:text-white">{props.bungieHistoricMedals[medal]!.value + "x "}</span> {props.bungieHistoricMedals[medal]!.statName}
                                             </div>
                                             <Tooltip id={medal + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
+                                            <div className="text-center align-middle text-sm text-gray-600 dark:text-gray-400">
+                                                {(props.bungieHistoricMedals[medal]!.value / Math.max(props.bungieHistoricAccountStats.activitiesEntered, 1)).toLocaleString(undefined, {
+                                                    minimumFractionDigits: 0,
+                                                    maximumFractionDigits: 2,
+                                                }) + " pga"}
+                                            </div>
                                         </div>
                                         : <></>
                                 }).filter(a => a != <></>)}
