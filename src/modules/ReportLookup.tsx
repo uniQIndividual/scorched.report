@@ -194,7 +194,7 @@ const ReportLookup = () => {
   const [render, triggerRender] = React.useState(false);
   const [loadingTitle, setLoadingTitle] = React.useState("Loading PGCR...");
 
-  const historicalStatsDefinition: { [index: string]: { "category": number, "statName": string, "statDescription": string, "iconImage"?: string, "medalTierIdentifier": string, "contentIconOverrideId": string, "medalTierHash": number} } = HistoricalStatsDefinitionSmaller;
+  const historicalStatsDefinition: { [index: string]: { "category": number, "statName": string, "statDescription": string, "iconImage"?: string, "medalTierIdentifier": string, "contentIconOverrideId": string, "medalTierHash": number } } = HistoricalStatsDefinitionSmaller;
 
   React.useEffect(() => {
     // Verify parameters
@@ -521,24 +521,24 @@ const ReportLookup = () => {
 
               try {
                 if (mostRecentCharacter.emblemHash != undefined) {
-                API.requests.Destiny2.BannerFromEmblemHash(mostRecentCharacter.emblemHash).then((response => {
-                  response = JSON.parse(response)
-                  response = response.Response;
+                  API.requests.Destiny2.BannerFromEmblemHash(mostRecentCharacter.emblemHash).then((response => {
+                    response = JSON.parse(response)
+                    response = response.Response;
 
-                  newStats = update(newStats, {
-                    profile: {
-                      secondarySpecial: { $set: "https://www.bungie.net" + response.secondarySpecial },
-                      secondaryOverlay: { $set: "https://www.bungie.net" + response.secondaryOverlay }
-                    }
-                  });
+                    newStats = update(newStats, {
+                      profile: {
+                        secondarySpecial: { $set: "https://www.bungie.net" + response.secondarySpecial },
+                        secondaryOverlay: { $set: "https://www.bungie.net" + response.secondaryOverlay }
+                      }
+                    });
 
-                }),
-                  (error => {
-                    console.log("Unable to load character banner");
-                    console.log(error);
+                  }),
+                    (error => {
+                      console.log("Unable to load character banner");
+                      console.log(error);
 
 
-                  }))
+                    }))
                 }
               } catch (error) {
                 // don't care tbh, we just use the default one
@@ -788,7 +788,7 @@ const ReportLookup = () => {
                         newStats = update(newStats, { // Add medal
                           bungieHistoricMedals: {
                             $merge: {
-                              [key]:  {
+                              [key]: {
                                 value: (newStats.bungieHistoricMedals[key]?.value || 0) + responseSingle[key].basic.value,
                                 iconImage: historicalStatsDefinition[key]?.iconImage || "/img/misc/missing_icon_d2.png",
                                 medalTierHash: historicalStatsDefinition[key]?.medalTierHash,
@@ -801,10 +801,7 @@ const ReportLookup = () => {
                         });
                       }
                     })
-                    console.log(newStats.bungieHistoricMedals);
-                    
                   }
-
                 })
 
 

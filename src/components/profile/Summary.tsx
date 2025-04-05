@@ -1,11 +1,14 @@
-import React from "react";
 import { type Scorcher } from "../../lib/entities";
 import ApexChart from "react-apexcharts";
 
 const textColor = '#e3e4ea';
 
+interface RadarInterface {
+    stats: Scorcher,
+    context: ("total" | "character")
+}
 
-export const Radar = (stats: Scorcher) => {
+export const Radar = (props: RadarInterface) => {
     type calculateNormalizedStatsType = {
         trueSkill: number,
         kills: number,
@@ -16,6 +19,9 @@ export const Radar = (stats: Scorcher) => {
         timeSpent: number,
         useCombatRating: boolean
     }
+
+    const stats = props.stats;
+    const context = props.context;
 
     // A method to turn arbitrary stats into other arbitrary stats but they're normalized
     function calculateNormalizedStats({ trueSkill, kills, totalGold, matches, wins, deaths, timeSpent, useCombatRating }: calculateNormalizedStatsType) {
@@ -55,10 +61,13 @@ export const Radar = (stats: Scorcher) => {
                 return "Unknown"
         }
     }
-    return <div className="text-gray-300">coming soon</div>/*(
-        <div className="block flex-none w-[100%]">
+    if (stats.bungieHistoricAccountStats.activitiesEntered < 10) {
+        return <div>Not enough matches</div>
+    }
+    return context == "total" ? (
+        <div className="sm:w-[500px]">
             <ApexChart
-            height={350}
+                width={"100%"}
                 series={[{
                     name: "Overall Performance",
                     data: calculateNormalizedStats({
@@ -72,7 +81,7 @@ export const Radar = (stats: Scorcher) => {
                         useCombatRating: false
                     }),
                     color: "rgba(250,50,40,0.3)",
-                },
+                } /*,
                 {
                     name: "Solo Performance",
                     hidden: true,
@@ -87,31 +96,31 @@ export const Radar = (stats: Scorcher) => {
                         useCombatRating: false
                     }) || [0, 0, 0, 0, 0],
                     color: "#FF9800",
-                }]}
+                }*/]}
                 options={{
                     responsive: [
-                      {
-                        breakpoint: 1000,
-                        options: {
-                            plotOptions: {
-                                radar: {
-                                    size: '50',
-                                    offsetX: 0,
-                                }
-                            },
-                            xaxis: {
-                                labels: {
-                                    show: true,
-                                    offsetY: 0,
-                                    style: {
-                                        colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                        fontSize: "10px",
-                                        fontFamily: 'Arial'
+                        {
+                            breakpoint: 1000,
+                            options: {
+                                plotOptions: {
+                                    radar: {
+                                        size: '50',
+                                        offsetX: 0,
                                     }
-                                }
-                            },
-                        }
-                      }],
+                                },
+                                xaxis: {
+                                    labels: {
+                                        show: true,
+                                        offsetY: 0,
+                                        style: {
+                                            colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
+                                            fontSize: "12px",
+                                            fontFamily: 'Arial'
+                                        }
+                                    }
+                                },
+                            }
+                        }],
                     chart: {
                         type: 'radar',
                         dropShadow: {
@@ -134,9 +143,9 @@ export const Radar = (stats: Scorcher) => {
                     },
                     plotOptions: {
                         radar: {
-                            size: '130',
-                            offsetX: 30,
-                            offsetY: 20,
+                            size: '120',
+                            offsetX: 0,
+                            offsetY: 0,
                             polygons: {
                                 strokeColors: '#a8a8a8',
                                 strokeWidth: 1,
@@ -171,7 +180,7 @@ export const Radar = (stats: Scorcher) => {
                             offsetY: 0,
                             style: {
                                 colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                fontSize: "14px",
+                                fontSize: "16px",
                                 fontFamily: 'Arial'
                             }
                         }
@@ -196,25 +205,14 @@ export const Radar = (stats: Scorcher) => {
                             vertical: 0
                         },
                     },
-                    subtitle: {
-                        text: "Overall",
-                        align: 'center',
-                        margin: 0,
-                        offsetX: 0,
-                        offsetY: 0,
-                        floating: false,
-                        style: {
-                            fontSize: '26px',
-                            fontWeight: 'normal',
-                            color: '#f4f5f7'
-                        },
-                    }
 
                 }}
                 type={"radar"}
             />
+        </div>
+    ) : (
+        <div className="block flex-none w-[100%]">
             {Object.keys(stats.bungieHistoricStats).length > 0 ? <>
-                <span className="w-full flex justify-center h-8"></span>
                 <ApexChart
                     height={350}
                     series={[].concat(Object.keys(stats.bungieHistoricStats).map((charater, i) => {
@@ -236,28 +234,28 @@ export const Radar = (stats: Scorcher) => {
                     }
                     options={{
                         responsive: [
-                          {
-                            breakpoint: 1000,
-                            options: {
-                                plotOptions: {
-                                    radar: {
-                                        size: '50',
-                                        offsetX: 0,
-                                    }
-                                },
-                                xaxis: {
-                                    labels: {
-                                        show: true,
-                                        offsetY: 0,
-                                        style: {
-                                            colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                            fontSize: "10px",
-                                            fontFamily: 'Arial'
+                            {
+                                breakpoint: 1000,
+                                options: {
+                                    plotOptions: {
+                                        radar: {
+                                            size: '50',
+                                            offsetX: 0,
                                         }
-                                    }
-                                },
-                            }
-                          }],
+                                    },
+                                    xaxis: {
+                                        labels: {
+                                            show: true,
+                                            offsetY: 0,
+                                            style: {
+                                                colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
+                                                fontSize: "10px",
+                                                fontFamily: 'Arial'
+                                            }
+                                        }
+                                    },
+                                }
+                            }],
                         chart: {
                             type: 'radar',
                             dropShadow: {
@@ -379,5 +377,5 @@ export const Radar = (stats: Scorcher) => {
                 : <></>
             }
         </div>
-    )*/
+    )
 }

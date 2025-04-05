@@ -1,9 +1,9 @@
 import { type Scorcher } from "../../lib/entities";
-import { awards, medalsBungie } from "../../lib/entities";
+import { medalsBungie } from "../../lib/entities";
 import { Tooltip } from 'react-tooltip'
 import SCORCHED_CANNONS from "../../lib/cannons";
-import { CharacterBanner } from "./Character_Banner";
 import { D2Box } from "./D2Box";
+import { Radar } from "./Summary";
 
 
 export const Profile = (stats: Scorcher) => {
@@ -58,7 +58,7 @@ export const Profile = (stats: Scorcher) => {
 
     return (
         <div className="mt-4 h-max">
-            <div className="flex flex-wrap w-full justify-evenly space-y-10 sm:space-y-0">
+            <div className="flex flex-wrap justify-center space-y-10 sm:space-y-0">
                 <D2Box title="Stats" body={
                     <div className="w-full my-6 mx-6">
                         <table className="w-full">
@@ -137,7 +137,7 @@ export const Profile = (stats: Scorcher) => {
                     </div>
                 } />
                 <D2Box title="Equipped Cannon" body={
-                    <div className="max-w-[500px] px-2 sm:px-6 py-4 sm:py-8">
+                    <div className="max-w-[500px] px-4 sm:px-6 py-4 sm:py-8">
                         <div className="flex justify-center">
                             <img className="" src={SCORCHED_CANNONS[equippedSeason]?.cannons[equippedCannon]?.image} />
                         </div>
@@ -161,6 +161,14 @@ export const Profile = (stats: Scorcher) => {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                } />
+                <D2Box title={"Radar chart"} body={
+                    <Radar stats={stats} context="total" />
+                } />
+                <D2Box title={"Last Matches"} body={
+                    <div>
+                        coming soon
                     </div>
                 } />
             </div>

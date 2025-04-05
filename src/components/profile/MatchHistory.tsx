@@ -4,12 +4,11 @@ import {
   useMantineReactTable,
   type MRT_ColumnDef,
 } from 'mantine-react-table';
-import { createStyles, MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import { type DestinyActivityDefinitionType, type Scorcher } from '../../lib/entities';
 import { type matchTableEntry, medalsBungie } from '../../lib/entities';
 import PGCRLookup from '../../modules/PGCRLookup';
 import React from 'react';
-import update from 'immutability-helper';
 
 interface MatchHistoryInterface {
   stats: Scorcher,
@@ -125,6 +124,9 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         filterVariant: 'range',
         size: 50,
         Cell: ({ cell }) => {
+          if (cell.row.original.win_chance == -2) {
+            return <i>not rated</i>
+          }
           return cell.row.original.win_chance != undefined && cell.row.original.win_chance != -1 ? (cell.row.original.win_chance * 100).toLocaleString(undefined, {
             minimumFractionDigits: 0,
             maximumFractionDigits: 5,
