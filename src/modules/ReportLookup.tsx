@@ -14,7 +14,6 @@ import LoadingAnimation from "../components/LoadingAnimation";
 import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { type historicStatsPerCharacter, type pgcrCutDown, type Scorcher } from "../lib/entities";
 import { Profile } from "../components/profile/Profile";
-import { Radar } from "../components/profile/Summary";
 import { Activity } from "../components/profile/Experience";
 import { Performance } from "../components/profile/Performance";
 import MatchHistory from "../components/profile/MatchHistory";
@@ -521,6 +520,7 @@ const ReportLookup = () => {
               // Update the default banner with the most recent character's wide banner from the given hash
 
               try {
+                if (mostRecentCharacter.emblemHash != undefined) {
                 API.requests.Destiny2.BannerFromEmblemHash(mostRecentCharacter.emblemHash).then((response => {
                   response = JSON.parse(response)
                   response = response.Response;
@@ -539,6 +539,7 @@ const ReportLookup = () => {
 
 
                   }))
+                }
               } catch (error) {
                 // don't care tbh, we just use the default one
               }
@@ -1315,7 +1316,7 @@ const ReportLookup = () => {
             </div>
             <div className="table-row h-[96px]">
               <div className="table-cell">
-                <div className="pl-4 font-bungo flex overflow-x-scroll">
+                <div className="pl-4 font-bungo flex overflow-x-auto">
                   <img className="h-[96px]" src={stats.profile.secondaryOverlay} />
                   <div className="ml-2">
                     {stats.profile.profileName == "" ?
@@ -1339,7 +1340,7 @@ const ReportLookup = () => {
             </div>
           </div>
         </div>
-        <div className="absolute w-full mt-[92px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-scroll">
+        <div className="absolute w-full mt-[92px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-auto">
           <div className="table w-full float-right px-8">
             <div className="table-row h-[44px]">
               <div className="table-cell w-full">
