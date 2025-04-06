@@ -1,7 +1,7 @@
 ---
 ---
 
-There have been many ways to get kills without a Scorched Cannon in Team Scorched.
+There have been many ways to get deal damage without a Scorched Cannon in Team Scorched.
 If you are listed here, you had a lot of luck or incredible dedication. Congrats!
 
 Some publicly known sources are:
