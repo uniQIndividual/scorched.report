@@ -304,9 +304,9 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"glow": ""
 	},
 	"specialKills": {
-		"description": "Wait, that's illegal!",
-		"text": "Awarded for getting a kill with something that isn't a Scorched Cannon",
-		"src": "/images/icons/awards/test1_1.png",
+		"description": "Awarded for getting a kill with something that isn't a Scorched Cannon",
+		"text": "Wait, that's illegal!",
+		"src": "/images/icons/awards/Telesto.webp",
 		"glow": ""
 	},
 }
@@ -346,6 +346,7 @@ export type Scorcher = {
 		"medalSeventh": boolean,
 		"armyOfOne": boolean,
 		"carryPartner": boolean,
+		"specialKills": boolean
 	},
 	"performance": { // These are redundant when Bungie's api is up, otherwise is calculated from backups
 		"trueSkill": number,

@@ -834,7 +834,12 @@ const ReportLookup = () => {
                 */
 
                 if (flag) {
-
+                  let truelyStrangeKills = 0;
+                  Object.keys(newStats.bungieHistoricAccountStats.weaponKills).map((category) => {
+                      if (category != "weaponKillsRelic") truelyStrangeKills += (newStats.bungieHistoricAccountStats.weaponKills[category] || 0);
+                  })
+                  console.log(truelyStrangeKills);
+                  
                   newStats = update(newStats, {
                     awards: {
                       total100k: {
@@ -898,9 +903,13 @@ const ReportLookup = () => {
                           return v || (newStats.bungieHistoricAccountStats.bestSingleGameKills >= 30 && newStats.bungieHistoricAccountStats.bestSingleGameKills < 40)
                         },
                       },
+                      specialKills: {
+                        $apply(v) {
+                          return v || (truelyStrangeKills > 0)
+                        },
+                      }
                     }
                   });
-
                 }
 
 
