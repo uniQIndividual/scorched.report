@@ -1,9 +1,20 @@
 ---
-import LayoutSidebar from '../../app/LayoutSidebar.astro';
-import MarkdownWrapper from '../../app/MarkdownWrapper.astro';
+import LayoutSidebar from "../../app/LayoutSidebar.astro";
+import MarkdownWrapper from "../../app/MarkdownWrapper.astro";
+import FooterNote from "../../components/leaderboard/FooterNote.astro";
+import { SpecialKills } from "../../components/leaderboard/SpecialKills";
+import SpecialKillsMd from "../../components/leaderboard/SpecialKillsMd.md";
 ---
 
-
-<LayoutSidebar>
-	<MarkdownWrapper>Coming soon!</MarkdownWrapper>
+<LayoutSidebar
+	title="Special Kills Leaderboard"
+	make_title="Special Kills Leaderboard"
+	og_title="Team Scorched Special Kills Leaderboard"
+	og_description="Who has gotten the most Team Scorched Kills without a Scorched Cannon? Find out here!"
+>
+	<MarkdownWrapper>
+		<SpecialKillsMd />
+	</MarkdownWrapper>
+	<SpecialKills client:only="react" />
+	<FooterNote />
 </LayoutSidebar>
