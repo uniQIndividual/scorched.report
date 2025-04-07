@@ -838,7 +838,6 @@ const ReportLookup = () => {
                   Object.keys(newStats.bungieHistoricAccountStats.weaponKills).map((category) => {
                       if (category != "weaponKillsRelic") truelyStrangeKills += (newStats.bungieHistoricAccountStats.weaponKills[category] || 0);
                   })
-                  console.log(truelyStrangeKills);
                   
                   newStats = update(newStats, {
                     awards: {
