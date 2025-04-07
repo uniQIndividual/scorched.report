@@ -46,6 +46,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
         team1WinChance: -1,
         team1Score: -1,
         team2Score: -1,
+        team3Score: -1,
         team1: [], // There can be more than 2 teams, but we're gonna ignore that here e.g. pgcr 13801004315
         team2: [], // Team 1 = even numbers, Team 2 = odd
         team_left_1: [],
@@ -265,7 +266,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 playtime: entry.values.timePlayedSeconds.basic.value
                             }
 
-                            if (Number(entry.values.team.basic.value) % 2 == 0) { // Team 1
+                            if (Number(entry.values.team.basic.value) % 2 == 0 && Number(entry.values.team.basic.value) != 0) { // Team 1
                                 if (newEntry.quit) {
                                     newRenderInfo.team_left_1.push(newEntry);
                                 } else {
@@ -279,6 +280,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 } else {
                                     // Congrats to team 3 and thanks bungie
                                     newRenderInfo.team3.push(newEntry);
+                                    newRenderInfo = update(newRenderInfo, { team3Score: { $set: entry.values.teamScore.basic.value } });
                                 }
                             }
 
@@ -478,7 +480,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
         membershipId = props.membershipId || "";
     }
 
-    const startRender = () => { // Render only once and when an invisible button was pressed for it
+    const startRender = () => { // Render only once and when an invisible button was pressed for it, so 100 pgcr don't try to render when loading them in a table
         if (!render) {
             getRenderInfo()
         }
@@ -494,7 +496,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                 <LoadingAnimationWithTitle title={loadingTitle} /> <button id={matchid} onClick={() => startRender()}></button>
             </div>
         ) : (
-            <div className="pb-[65.25%] min-w-[1400px] max-w-[1800px] w-[100%] relative" /* Wrapper to keep the aspect ratio*/>
+            <div className="min-h-[930px] w-[1400px] relative bg-black"/*  /* Wrapper to keep the aspect ratio*/>
                 <div className="mt-7 dark:text-gray-200 w-[100%] h-[100%] ">
                     <div
                         className="h-[114px] bg-[#471E1C]"//bg-[url('/images/pgcr/crucible_logo.png')]
@@ -533,7 +535,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                     </div>
                     <img className="absolute w-[100%] opacity-100 object-cover brightness-[0.2]" src={renderInfo.bg_image} />
 
-                    <table className="text-white absolute mt-4 w-full font-bungo text-4xl font-bold justify-center flex px-5">
+                    <table className="text-white mt-4 w-full font-bungo text-4xl font-bold justify-center flex px-5 opacity-95">
                         <tbody className="">
                             <tr>
                                 <td className="!border-0 pr-3">
@@ -607,8 +609,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                                 </td>
                                             </tr>
                                             {renderTeamList(renderInfo.team1)}
-                                            {renderInfo.team1.length + renderInfo.team_left_1.length <= 6 ? renderTeamList(renderInfo.team_left_1) : ""}
-                                            <tr className="h-4"> {/* empty space*/}
+                                            {renderTeamList(renderInfo.team_left_1)}
+                                            <tr className="h-4">
                                                 <td className="!border-0">
                                                 </td>
                                             </tr>
@@ -671,7 +673,73 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                                 </td>
                                             </tr>
                                             {renderTeamList(renderInfo.team2)}
-                                            {renderInfo.team2.length + renderInfo.team_left_2.length <= 6 ? renderTeamList(renderInfo.team_left_2) : ""}
+                                            {renderTeamList(renderInfo.team_left_2)}
+                                            {renderInfo.team3.length > 0 ? (<>
+                                                <tr className="h-4">
+                                                    <td className="!border-0">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="!border-0 w-max align-bottom min-w-[220px]">
+                                                        {renderInfo.team3Score} Points
+                                                    </td>
+                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
+                                                    </td>
+                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
+                                                    </td>
+                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
+                                                    </td>
+                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
+                                                    </td>
+                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
+                                                    </td>
+                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
+                                                    </td>
+                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
+                                                    </td>
+                                                </tr>
+                                                <tr className="w-[100%]">
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                    </td>
+                                                </tr>
+                                                <tr className="w-[100%]">
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                    <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                                    </td>
+                                                </tr>
+                                                {renderTeamList(renderInfo.team3)}
+                                                <tr className="h-4">
+                                                    <td className="!border-0">
+                                                    </td>
+                                                </tr>
+                                            </>) : <></>}
                                         </tbody>
                                     </table>
                                     <table className="w-full">
@@ -687,128 +755,6 @@ const PGCRLookup = (props: basicMatchInfo) => {
                         </tbody>
                     </table>
                 </div>
-                {/*renderInfo.team3.length == 0 && renderInfo.team_left_1.length == 0 && renderInfo.team_left_2.length == 0 ? "" :
-                    <div className={"text-gray-100" + props.forceRender ? " pt-[55.25%]" : ""}>
-                        <table className="text-white absolute mt-4 w-full font-bungo text-4xl font-bold justify-center flex pt-4 pb-5 px-5 bg-[rgba(0,0,0,0.5)]">
-                            <tbody className="">
-                                <tr>
-                                    <td className="!border-0 pr-3">
-                                    </td>
-                                    <td className="!border-0  w-[1500px]">
-                                        {renderInfo.team3.length == 0 ? "" :
-                                            <table className="w-full">
-                                                <tbody>
-                                                    <tr className="">
-                                                        <td className="!border-0 leading-7 w-max align-bottom min-w-[220px]">
-                                                            Team 1 Quitters
-                                                        </td>
-                                                        <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                            {renderInfo.anonym ? "" : "Matchup"}
-                                                        </td>
-                                                        <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                            Elo
-                                                        </td>
-                                                        <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                            Opponents<br />defeated
-                                                        </td>
-                                                        <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                            Kills
-                                                        </td>
-                                                        <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                            Deaths
-                                                        </td>
-                                                        <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                            Combat<br />Efficiency
-                                                        </td>
-                                                        <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                            Kills per<br />minute
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="w-[100%]">
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="w-[100%] !border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                        </td>
-                                                    </tr>{renderInfo.team3.map((entry: userEntry) => {
-                                                        return <React.Fragment key={entry.membershipId + "_tr"}>
-                                                            <tr className={"bg-[rgba(255,255,255,0.1)] text-2xl font-medium w-[100%] " + (entry.quit ? "opacity-30" : "")}>
-                                                                <td className="!border-0 p-0 min-w-[38px] flex">
-                                                                    <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
-                                                                    <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
-                                                                        <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200"> {entry.name} </a>
-                                                                    </div>
-                                                                </td>
-                                                                <td className="!border-0 text-center px-2">
-                                                                    {renderInfo.anonym ? "" : <> <span className="opacity-70 mr-1">{entry.matchWins}</span><span className="font-black">/</span><span className="opacity-70 ml-1">{entry.matchup}</span> </>}
-
-                                                                </td>
-                                                                <td className="!border-0 text-center px-2 ">
-                                                                    {entry.elo}
-                                                                </td>
-                                                                <td className="!border-0 text-center px-2">
-                                                                    {entry.opponentsDefeated}
-                                                                </td>
-                                                                <td className="!border-0 text-center px-2 ">
-                                                                    {entry.kills}
-                                                                </td>
-                                                                <td className="!border-0 text-center px-2 ">
-                                                                    {entry.deaths}
-                                                                </td>
-                                                                <td className="!border-0 text-center px-2 ">
-                                                                    {(entry.opponentsDefeated / Math.max(1, entry.deaths)).toFixed(2)}
-                                                                </td>
-                                                                <td className="!border-0 text-center px-2 ">
-                                                                    {(entry.opponentsDefeated / (Math.max(60, entry.playtime) / 60)).toFixed(2)}
-                                                                </td>
-                                                            </tr>
-                                                            <tr className="h-2">
-                                                                <td className="!border-0">
-                                                                </td>
-                                                            </tr>
-                                                        </React.Fragment>
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="!border-0">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>*/}
             </div>
         )
         )
