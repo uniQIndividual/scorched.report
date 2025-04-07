@@ -1168,7 +1168,7 @@ const ReportLookup = () => {
                 "seEnemy": newStats.awards.seEnemy,
                 "streak50": Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.iMadeThisForYou, false),
                 "streak2x20": newStats.awards.streak2x20,
-                "streak20": false,//TODO: Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.weRan, false),
+                "streak20": false, //TODO: Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.weRan, false),
                 "kills50": newStats.awards.kills50,
                 "kills40": newStats.awards.kills40,
                 "kills30": newStats.awards.kills30,
@@ -1179,9 +1179,10 @@ const ReportLookup = () => {
                 "total10k": totalKills >= 10000 && totalKills < 25000,
                 "total5k": totalKills >= 5000 && totalKills < 10000,
                 "total1k": totalKills >= 1000 && totalKills < 5000,
-                "medalSeventh": false,//TODO: Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.seventhColumn, false),
+                "medalSeventh": false, //TODO: Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.seventhColumn, false),
                 "armyOfOne": newStats.awards.armyOfOne,
                 "carryPartner": newStats.awards.carryPartner,
+                "specialKills": newStats.awards.specialKills
               }
             },
             bungieHistoricAccountStats: {

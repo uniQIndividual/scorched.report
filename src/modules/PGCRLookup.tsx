@@ -24,9 +24,9 @@ type userEntry = {
 }
 
 type basicMatchInfo = {
-    matchid: number,
-    membershipId: string,
-    forceRender: boolean,
+    matchid?: number,
+    membershipId?: string,
+    forceRender?: boolean,
 }
 
 const PGCRLookup = (props: basicMatchInfo) => {
@@ -496,8 +496,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
                 <LoadingAnimationWithTitle title={loadingTitle} /> <button id={matchid} onClick={() => startRender()}></button>
             </div>
         ) : (
-            <div className="min-h-[930px] w-[1400px] relative bg-black"/*  /* Wrapper to keep the aspect ratio*/>
-                <div className="mt-7 dark:text-gray-200 w-[100%] h-[100%] ">
+            <div className="min-h-[900px] w-[1400px] relative bg-black"/*  /* Wrapper to keep the aspect ratio*/>
+                <div className="dark:text-gray-200 w-[100%] h-[100%] ">
                     <div
                         className="h-[114px] bg-[#471E1C]"//bg-[url('/images/pgcr/crucible_logo.png')]
                     >
