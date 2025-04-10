@@ -98,10 +98,6 @@ module.exports = {
 			minWidth: {
 				kanban: '28rem',
 			},
-			cursor: {
-				'pointer': 'url(/images/icons/cursor_pointer.png), pointer',
-				'default': 'url(/images/icons/cursor_default.png), default',
-			},
 			animation: {
 				bungie_loading_inner: 'bungie_loading_inner_frames 1.5s linear infinite',
 				bungie_loading_outer: 'bungie_loading_outer_frames 3s linear infinite',
@@ -174,6 +170,6 @@ module.exports = {
 		require('flowbite-typography'),
 		require('@tailwindcss/typography'),
 		require('@pyncz/tailwind-mask-image'),
-		require('tailwind-scrollbar')({ nocompatible: true }),
+		//require('tailwind-scrollbar')({ nocompatible: true }),
 	],
 };

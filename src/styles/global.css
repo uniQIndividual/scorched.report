@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
+
+@theme {
+    --cursor-default: url('/images/icons/cursor_default.png'), default;
+    --cursor-pointer: url('/images/icons/cursor_pointer.png'), pointer;
+}
+
+
+@layer base {
+
+    a,
+    a::before,
+    a::after,
+    .apexcharts-legend-text,
+    .apexcharts-menu-icon,
+    .apexcharts-zoomin-icon,
+    .apexcharts-zoomout-icon,
+    .apexcharts-zoom-icon,
+    .apexcharts-pan-icon,
+    .apexcharts-reset-icon,
+    .apexcharts-menu-item,
+    .apexcharts-toolbar,
+    button,
+    button::before,
+    button::after {
+        @apply !cursor-pointer;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        scroll-margin-top: 84px;
+    }
+
+    div {
+        cursor: var(--cursor-default);
+    }
+
+    img {
+        cursor: var(--cursor-default);
+    }
+
+    .apexcharts-legend-text,
+    .apexcharts-xaxis-label {
+        @apply !text-gray-900 dark:!text-white;
+    }
+
+    .apexcharts-tooltip {
+        @apply !bg-white dark:!bg-gray-700 !text-gray-500 dark:!text-gray-300 !border-0 !rounded-lg !shadow-lg;
+    }
+
+    .apexcharts-tooltip .apexcharts-tooltip-title {
+        @apply !py-2 !px-4 !bg-gray-100 dark:!bg-gray-600 !border-b !border-gray-200 dark:!border-gray-500;
+    }
+
+    .apexcharts-xaxistooltip,
+    .apexcharts-yaxistooltip {
+        @apply !text-gray-500 !border-0 !bg-white dark:!bg-gray-700 dark:!text-gray-200 !rounded-lg !shadow-lg;
+    }
+
+    .apexcharts-tooltip,
+    .apexcharts-tooltip-text-y-value,
+    .apexcharts-tooltip-text-x-value {
+        @apply dark:!text-white;
+    }
+
+    .apexcharts-xaxistooltip-text {
+        @apply !font-medium text-sm;
+    }
+
+    .apexcharts-xaxistooltip:before,
+    .apexcharts-xaxistooltip:after {
+        @apply !border-0;
+    }
+}

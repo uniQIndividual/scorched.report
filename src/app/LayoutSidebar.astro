@@ -6,6 +6,7 @@ const { class: clazz } = Astro.props;
 import FooterSidebar from "./FooterSidebar.astro";
 import NavBarSidebar from "./NavBarSidebar.astro";
 import SideBar from "./SideBar.astro";
+import './src/styles/global.css' 
 
 const {
 	og_title = "Scorched Report",
@@ -136,7 +137,7 @@ if (author != undefined) {
 
 		<SideBar />
 		<div>
-			<div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+			<div class=" flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
 				<div
 					id="main-content"
 					class="relative w-full h-full overflow-y-hidden bg-gray-50 mx-2 lg:ml-[400px] lg:mr-4 lg:mt-2 dark:bg-gray-900 min-h-screen text-gray-500 dark:text-gray-400"
@@ -165,36 +166,7 @@ if (author != undefined) {
 	</script>
 
 	<style is:global>
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			scroll-margin-top: 84px;
-		}
-		div {
-			@apply cursor-default;
-		}
-		img {
-			@apply cursor-default;
-		}
-		a,
-		a::before,
-		a::after,
-		.apexcharts-legend-text,
-		.apexcharts-menu-icon,
-		.apexcharts-zoomin-icon,
-		.apexcharts-zoomout-icon,
-		.apexcharts-zoom-icon,
-		.apexcharts-pan-icon,
-		.apexcharts-reset-icon,
-		.apexcharts-menu-item,
-		button,
-		button::before,
-		button::after {
-			@apply !cursor-pointer;
-		}
+
 		.apexcharts-menu {
 			border: 0px !important;
 		}
