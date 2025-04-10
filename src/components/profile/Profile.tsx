@@ -64,10 +64,10 @@ export const Profile = (stats: Scorcher) => {
                         <table className="w-full">
                             <tbody className="">
                                 <tr className="text-gray-800 dark:text-gray-200 text-3xl">
-                                    <td className="m-0 p-0 float-left">
+                                    <td className="m-0 p-0 float-left pr-2">
                                         {stats.performance.trueSkill || "..."}
                                     </td>
-                                    <td className="m-0 p-0 float-right">
+                                    <td className="m-0 p-0 float-right pl-2">
                                         {stats.performance.deaths ? (stats.performance.kills / stats.performance.deaths).toLocaleString(undefined, {
                                             minimumFractionDigits: 2,
                                             maximumFractionDigits: 2,
@@ -83,13 +83,13 @@ export const Profile = (stats: Scorcher) => {
                                     </td>
                                 </tr>
                                 <tr className="text-gray-800 dark:text-gray-200 text-3xl space-x-20">
-                                    <td className="m-0 p-0 float-left pt-3">
+                                    <td className="m-0 p-0 float-left pt-3 pr-2">
                                         {stats.performance.kills ? (stats.performance.kills).toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
                                         }) : "..."}
                                     </td>
-                                    <td className="m-0 p-0 float-right pt-3">
+                                    <td className="m-0 p-0 float-right pt-3 pl-2">
                                         {stats.performance.kills ? (stats.performance.kills / (stats.performance.timeSpent / 60)).toLocaleString(undefined, {
                                             minimumFractionDigits: 2,
                                             maximumFractionDigits: 2,
