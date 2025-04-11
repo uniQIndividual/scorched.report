@@ -432,7 +432,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                         </td>
                         <td className="!border-0 text-center px-2 ">
-                            {entry.elo} <span className={" " + (entry.previousElo.includes("+") ? "text-green-600" : (entry.previousElo.includes("-") ? "text-red-600" : ""))}>{entry.previousElo == 0 ? "±" + entry.previousElo : entry.previousElo}</span>
+                            {entry.elo} <span className={" " + (entry.previousElo.includes("+") ? "text-green-600" : (entry.previousElo.includes("-") ? "text-red-600" : ""))}>{entry.previousElo == "0" ? "±" + entry.previousElo : entry.previousElo}</span>
                         </td>
                         <td className="!border-0 text-center px-2">
                             {entry.opponentsDefeated}
@@ -496,10 +496,11 @@ const PGCRLookup = (props: basicMatchInfo) => {
                 <LoadingAnimationWithTitle title={loadingTitle} /> <button id={matchid} onClick={() => startRender()}></button>
             </div>
         ) : (
+            <div className="overflow-x-auto overflow-y-hidden">
             <div className="min-h-[900px] w-[1400px] relative bg-black"/*  /* Wrapper to keep the aspect ratio*/>
                 <div className="dark:text-gray-200 w-[100%] h-[100%] ">
                     <div
-                        className="h-[114px] bg-[#471E1C]"//bg-[url('/images/pgcr/crucible_logo.png')]
+                        className="h-[114px] bg-[#471E1C]"
                     >
                         <div className="absolute h-[96px] w-[900px] flex ml-[calc(min(5%,96px))]">
                             <img className="h-[96px] mt-[10px]" src="/images/pgcr/crucible_logo.png" />
@@ -512,7 +513,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 </div>
                             </div>
                         </div>
-                        <img className="absolute opacity-5 right-[0px] mask-linear mask-from-80 mask-dir-to-t" src="/images/pgcr/crucible_top_banner.png" />
+                        <img className="absolute opacity-5 right-[0px] mask-t-from-5% mask-t-to-90%" src="/images/pgcr/crucible_top_banner.png" />
                         <div className="absolute pt-4 text-xl pr-12 right-0 text-white opacity-80">
                             <span className="float-right">
                                 {timeDisplay}
@@ -533,7 +534,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                     </div>
                     <div className="">
                     </div>
-                    <img className="absolute w-[100%] opacity-100 object-cover brightness-[0.2]" src={renderInfo.bg_image} />
+                    <img className="absolute w-[100%] opacity-100 object-cover brightness-[0.3] mask-y-from-90% mask-y-to-100% mask-x-from-90% mask-x-to-100%" src={renderInfo.bg_image} />
 
                     <table className="text-white mt-4 w-full font-bungo text-4xl font-bold justify-center flex px-5 opacity-95">
                         <tbody className="">
@@ -755,6 +756,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         )
         )
