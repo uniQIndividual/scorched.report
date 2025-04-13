@@ -130,10 +130,10 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
           }
 
           switch (Math.floor(cell.row.original.win_chance)) {
-            case -3:
+            case -4:
               return <i>invalid team</i>;
-              case -3:
-                return <i>missing data</i>;
+            case -3:
+              return <i>missing data</i>;
             case -2:
               return <i>not rated</i>;
             case -1:
@@ -207,10 +207,39 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         size: 50,
         filterVariant: 'select' as const,
         mantineFilterMultiSelectProps: {
-          data: ["true", "false"],
+          data: ["Victory", "Defeat", "Tie(broken rn)", "Unknown"],
         },
+        accessorFn(originalRow) { // this is so funny but it works lmao
+          switch (Math.floor(originalRow.win_chance)) {
+            case -4:
+              return "unknown";
+            case -3:
+              return "unknown";
+            case -2:
+              return "Unknown";
+          }
+          switch (originalRow.won) {
+            case true:
+              return "Victory";
+            case false:
+              return "Defeat";
+          }
+        }, // essentially we're storing only the achived medals as a string which can be filtered
         Cell: ({ cell }) => {
-          return cell.row.original.won ? <span className="text-green-600">Victory</span> : <span className="text-red-600">Defeat</span>
+          switch (Math.floor(cell.row.original.win_chance)) {
+            case -4:
+              return <i>-</i>;
+            case -3:
+              return <i>-</i>;
+            case -2:
+              return <i>-</i>;
+          }
+          switch (cell.row.original.won) {
+            case true:
+              return <span className="text-green-600">Victory</span>;
+            case false:
+              return <span className="text-red-600">Defeat</span>;
+          }
         }
       },
       {
