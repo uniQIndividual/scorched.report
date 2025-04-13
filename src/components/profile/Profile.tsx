@@ -57,7 +57,7 @@ export const Profile = (stats: Scorcher) => {
 
 
     return (
-        <div className="mt-4 h-max">
+        <div className="">
             <div className="flex flex-wrap justify-center space-y-10 sm:space-y-0">
                 <D2Box title="Stats" body={
                     <div className="w-full my-6 mx-6">

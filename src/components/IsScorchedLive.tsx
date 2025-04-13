@@ -2,8 +2,8 @@ import React from "react";
 import API from "../lib/api";
 
 export const IsScorchedLive = () => {
-    const initialState: boolean = undefined;
-    const [data, setData] = React.useState(initialState);
+    const initialState: number = -1;
+    const [scorchedStatus, setScorchedStatus] = React.useState(initialState);
     const [render, setRender] = React.useState(false);
     React.useEffect(() => {
         API.requests.Destiny2.Milestones().catch((err => "")).then(response => {
@@ -11,10 +11,10 @@ export const IsScorchedLive = () => {
                 try {
                     response = JSON.parse(response);
                     response = response.Response;
-                    if (response.hasOwnProperty("1049998276") && response["1049998276"].activities.some(e => e.activityHash == 3787302650)) {
-                        setData(true)
+                    if (response.hasOwnProperty("1049998276") && response["1049998276"].activities.some((e: { activityHash: number; }) => e.activityHash == 3787302650)) {
+                        setScorchedStatus(1) // Team Scorched is live
                     } else {
-                        setData(false)
+                        setScorchedStatus(0) // the wait continues
                     }
                 } catch (error) {
                     console.log(error);
@@ -26,10 +26,10 @@ export const IsScorchedLive = () => {
     if (!render) {
         return "";
     }
-    return data == undefined ?
+    return scorchedStatus == -1 ?
         <div className="text-2xl font-bold text-gray-300 text-center mt-10">
             Destiny 2 seems to be down
-        </div> : data == true ?
+        </div> : scorchedStatus == 1 ?
             (/*<div className="text-5xl font-bold text-red-600 text-center">
             Team Scorched is live!
         </div>*/

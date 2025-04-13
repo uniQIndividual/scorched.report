@@ -491,7 +491,7 @@ const ReportLookup = () => {
 
               newStats = update(newStats, { characters: { $set: response.characters.data } });
               newStats = update(newStats, { profile: { privacy: { $set: response.characters.privacy } } });
-              newStats = update(newStats, { profile: { profileName: { $set: response.profile.data.userInfo.bungieGlobalDisplayName } } });
+              newStats = update(newStats, { profile: { profileName: { $set: response.profile.data.userInfo.bungieGlobalDisplayName != "" ? response.profile.data.userInfo.bungieGlobalDisplayName : response.profile.data.userInfo.displayName	} } });
               newStats = update(newStats, { profile: { guardianrank: { $set: response.profile.data.currentGuardianRank } } });
 
               // set info based on the most recently used character
