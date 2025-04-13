@@ -415,8 +415,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
         }
     }
 
-    function renderTeamList(teamList) {
-        return (renderInfo.team1.length == 0 ?
+    function renderTeamList(teamList: userEntry[]) {
+        return (teamList.length == 0 ?
             <td className="!border-0">
             </td> : teamList.map((entry: userEntry) => {
                 return <React.Fragment key={entry.membershipId + "_tr"}>

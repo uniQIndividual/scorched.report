@@ -124,13 +124,28 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         filterVariant: 'range',
         size: 50,
         Cell: ({ cell }) => {
-          if (cell.row.original.win_chance == -2) {
-            return <i>not rated</i>
+
+          if (cell.row.original.win_chance == undefined) {
+            return <i>missing</i>
           }
-          return cell.row.original.win_chance != undefined && cell.row.original.win_chance != -1 ? (cell.row.original.win_chance * 100).toLocaleString(undefined, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 5,
-          }) + "%" : <i>not rated yet</i>
+
+          switch (Math.floor(cell.row.original.win_chance)) {
+            case -3:
+              return <i>invalid team</i>;
+              case -3:
+                return <i>missing data</i>;
+            case -2:
+              return <i>not rated</i>;
+            case -1:
+              return <i>not rated yet</i>;
+            case 0:
+              return (cell.row.original.win_chance * 100).toLocaleString(undefined, {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 5,
+              }) + "%"
+            default:
+              return <i>missing</i>
+          }
         }
       },
       {

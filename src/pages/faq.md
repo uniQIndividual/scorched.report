@@ -45,7 +45,7 @@ Sometimes the matches returned by Bungie are missing data or completely broken. 
 - Bungie seems to have an issue with disconnected players and notes impossibly low playtimes. This seems to mainly affect matches around April 14, 2023.
 - PGCR data is inconsistent in many unexpected ways, e.g. what do you do with matches where Team 1 with a single player won against Team 2 with 0 players? This answer likely differs between your favorite websites.
 - Sometimes players had not been assigned to a team yet. Scorched Report will list those matches, but no assigned a rating.
-- Some PGCRs are just broken in a way that messes with calculations, e.g. 4817214499, 4817311121, 4817752159, 4817909354, 4818017690, 4818075093, 4818102193, 4819219037, 4819294202, 4819416171, 4819512047, 4819797530, 4819995377
+- Some PGCRs are just broken in a way that messes with calculations, e.g. [15753260785](/pgcr/?id=15753260785)
 
 ## Missing Data
 
