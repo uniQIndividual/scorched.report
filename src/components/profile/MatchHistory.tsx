@@ -274,6 +274,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
 
     ),
     mantineExpandButtonProps: ({ row }) => ({
+      className: "!text-gray-900 dark:!text-gray-50",
       onClick: (event) => {
         // most browsers preload the extended version so we need to induce a click on a hidden button
         // on e.g. opera gx this element does not exist, thus we need to wait perhaps
@@ -287,12 +288,6 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         }
       },
     }),
-    mantineTableHeadCellProps: {
-      className: ""
-    },
-    mantineTableContainerProps: {
-      className: ""
-    },
     //enableColumnResizing: true,
     enableExpandAll: false, // this could easily get you rate limited I'd assume
     enableDensityToggle: false,
@@ -303,7 +298,33 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       columnVisibility: {
         'win_chance': true,
       },
-    }
+    },
+    mantineTableHeadCellProps: {
+      className: "!bg-primary-900 !text-gray-100"
+    },
+    mantineTopToolbarProps: {
+      className: "!bg-primary-900"
+    },
+    mantineTableContainerProps: {
+    },
+    mantineTableBodyRowProps: { //table bg / between cells
+      className: "!bg-primary-900"
+    },
+    mantineTableBodyCellProps: {
+      className: "!bg-gray-50 dark:!bg-gray-900 !text-gray-900 dark:!text-gray-300"
+    },
+    mantineBottomToolbarProps: {
+      className: "!bg-primary-900 "
+    },
+    mantinePaperProps: { //empty results page
+      className: "!bg-gray-50 dark:!bg-gray-900"
+    },
+    mantineDetailPanelProps: {
+      className: "!bg-gray-50 dark:!bg-gray-900"
+    },
+    /*mantineExpandButtonProps: {
+      className: "!text-gray-900 dark:!text-gray-50",
+    },*/
   });
 
   return <div className=''>
@@ -311,6 +332,8 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       <MantineProvider
         theme={{
           colorScheme: 'dark',
+          primaryColor: "red",
+          primaryShade: 9,
         }}
       >
         <MantineReactTable table={table} />

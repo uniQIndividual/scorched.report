@@ -116,7 +116,7 @@ export const SpecialKills = () => {
         header: 'Name',
         size: 100,
         Cell: ({ cell }) => {
-          return <a href={`/report?id=${cell.row.original.membershipID}&platform=${cell.row.original.platform}`} className="hover:text-white underline underline-offset-4 decoration-[1px]">{cell.getValue<string>()}</a>
+          return <a href={`/report?id=${cell.row.original.membershipID}&platform=${cell.row.original.platform}`} className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">{cell.getValue<string>()}</a>
         }
       },
       {
@@ -182,18 +182,6 @@ export const SpecialKills = () => {
   const table = useMantineReactTable({
     columns,
     data,
-    mantineSearchTextInputProps: {
-      className: "bg-primary-900 text-primary-900",
-    },
-    mantineTableProps: {
-      //className: "z-50"
-    },
-    mantineTableHeadCellProps: {
-      className: ""
-    },
-    mantineTableContainerProps: {
-      className: ""
-    },
     enableRowNumbers: true,
     rowNumberMode: 'original',
     //enableColumnResizing: true,
@@ -208,7 +196,33 @@ export const SpecialKills = () => {
           desc: true
         }
       ]
-    }
+    },
+    mantineTableHeadCellProps: {
+      className: "!bg-primary-900 !text-gray-100"
+    },
+    mantineTopToolbarProps: {
+      className: "!bg-primary-900"
+    },
+    mantineTableContainerProps: {
+    },
+    mantineTableBodyRowProps: { //table bg / between cells
+      className: "!bg-primary-900"
+    },
+    mantineTableBodyCellProps: {
+      className: "!bg-gray-50 dark:!bg-gray-900 !text-gray-900 dark:!text-gray-300"
+    },
+    mantineBottomToolbarProps: {
+      className: "!bg-primary-900 "
+    },
+    mantinePaperProps: { //empty results page
+      className: "!bg-gray-50 dark:!bg-gray-900"
+    },
+    mantineDetailPanelProps: {
+      className: "!bg-gray-50 dark:!bg-gray-900"
+    },
+    mantineExpandButtonProps: {
+      className: "!text-gray-900 dark:!text-gray-50",
+    },
   });
 
   return render ? (<div className=''>
@@ -216,6 +230,8 @@ export const SpecialKills = () => {
       <MantineProvider
         theme={{
           colorScheme: 'dark',
+          primaryColor: "red",
+          primaryShade: 9,
         }}
       >
         <MantineReactTable table={table} />
