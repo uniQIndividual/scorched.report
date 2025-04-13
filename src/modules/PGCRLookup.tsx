@@ -450,7 +450,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                             {(entry.opponentsDefeated / Math.max(1, entry.deaths)).toFixed(2)}
                         </td>
                         <td className="!border-0 text-center px-2 ">
-                            {(entry.opponentsDefeated / (Math.max(60, entry.playtime) / 60)).toFixed(2)}
+                            {(entry.kills / (Math.max(60, entry.playtime) / 60)).toFixed(2)}
                         </td>
                     </tr>
                     <tr className="h-2">
