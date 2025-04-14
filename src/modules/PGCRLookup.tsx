@@ -253,7 +253,11 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                             const newEntry: userEntry = {
                                 membershipId: entry.player.destinyUserInfo.membershipId,
-                                membershipType: entry.player.destinyUserInfo.membershipType,
+                                membershipType: entry.player.destinyUserInfo.membershipType != 0 ? entry.player.destinyUserInfo.membershipType : 3, // why 3 you might ask? funny bungie sometimes returns a membershiptype of 0 in pgcrs which can never succeed
+                                // we thus simple hedge our bets an point to a membershiptype 3 for steam
+                                // this is not relevant for scorched report but might cause incorrect api calls to bungie
+                                // ah well, at least we tried
+                                // if you read this you probably want to use User/GetMembershipDataById instead
                                 name: entry.player.destinyUserInfo.bungieGlobalDisplayName != "" ? entry.player.destinyUserInfo.bungieGlobalDisplayName : entry.player.destinyUserInfo.displayName,
                                 icon: entry.player.destinyUserInfo.iconPath,
                                 elo: elo,
@@ -427,7 +431,9 @@ const PGCRLookup = (props: basicMatchInfo) => {
                         <td className="!border-0 p-0 min-w-[38px] flex">
                             <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
                             <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
-                                <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200"> {entry.name} </a>
+                                <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200">
+                                {entry.name != undefined ? entry.name : <i>Bungie didn't include a name 🤷</i>}
+                                </a>
                             </div>
                         </td>
                         <td className="!border-0 text-center px-2">

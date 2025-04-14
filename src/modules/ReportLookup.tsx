@@ -204,14 +204,14 @@ const ReportLookup = () => {
         throw new Error("Membership id is missing");
       }
       if (urlParams.get('platform') == null) {
-        throw new Error("Platform information is missing");
+        throw new Error("Platform id is missing");
       }
       const userid = urlParams.get('id') || "";
 
       const platform = Number(urlParams.get('platform'));
 
       if (platform <= 0 || platform >= 256) {
-        throw new Error("Platform information is impossible");
+        throw new Error("Platform id is impossible");
       }
 
       // set active section if it was e.g. linked
@@ -1234,10 +1234,12 @@ const ReportLookup = () => {
 
       })()
     } catch (error) {
+      console.log("Incorrect URL Parameters");
       triggerCrash({
         title: 'Incorrect URL Parameters',
         text: error!.toString()
       });
+      triggerHardCrash(true);
       return;
     }
   }, []);
