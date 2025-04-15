@@ -535,6 +535,9 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 <button onClick={() => {
                                     navigator.clipboard.writeText(location.origin + "/pgcr?id=" + renderInfo.matchid + (renderInfo.anonym ? "" : "&membershipid=" + renderInfo.membershipId));
                                     document.getElementById(renderInfo.matchid + "_url_copy_button")!.dataset["tooltipHtml"] = "<div>Link Copied!</div>";
+                                    setTimeout(() => {
+                                        document.getElementById(renderInfo.matchid + "_url_copy_button")!.dataset["tooltipHtml"] = "<div>Copy link</div>";
+                                    }, 1000);
                                 }}
                                     className="float-right z-10 opacity-80 font-extralight hover:opacity-100"
                                     data-tooltip-id={matchid + "_url_copy_tooltip"}

@@ -45,6 +45,7 @@
     }
 
     .apexcharts-legend-text,
+    .apexcharts-text,
     .apexcharts-xaxis-label {
         @apply !text-gray-900 dark:!text-white;
     }
@@ -53,19 +54,20 @@
         @apply !bg-white dark:!bg-gray-700 !text-gray-500 dark:!text-gray-300 !border-0 !rounded-lg !shadow-lg;
     }
 
-    .apexcharts-tooltip .apexcharts-tooltip-title {
-        @apply !py-2 !px-4 !bg-gray-100 dark:!bg-gray-600 !border-b !border-gray-200 dark:!border-gray-500;
+    .apexcharts-tooltip,
+    .apexcharts-tooltip-title {
+        @apply  !border-b !border-gray-200 dark:!border-gray-500 !bg-gray-50 dark:!bg-gray-950;
     }
 
     .apexcharts-xaxistooltip,
     .apexcharts-yaxistooltip {
-        @apply !text-gray-500 !border-0 !bg-white dark:!bg-gray-700 dark:!text-gray-200 !rounded-lg !shadow-lg;
+        @apply !text-gray-400 dark:!text-gray-200 !border-0 !bg-white dark:!bg-gray-800 !rounded-lg !shadow-lg;
     }
 
     .apexcharts-tooltip,
     .apexcharts-tooltip-text-y-value,
     .apexcharts-tooltip-text-x-value {
-        @apply dark:!text-white;
+        @apply !text-black dark:!text-white;
     }
 
     .apexcharts-xaxistooltip-text {
@@ -75,5 +77,9 @@
     .apexcharts-xaxistooltip:before,
     .apexcharts-xaxistooltip:after {
         @apply !border-0;
+    }
+
+    .react-tooltip {
+        z-index: 50;
     }
 }

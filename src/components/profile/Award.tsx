@@ -8,7 +8,7 @@ interface Props {
 }
 
 const hoverText = (award: string) => {
-    return `<div style="padding: 12px; z-index: 11000; max-width: 240px; ">
+    return `<div style="padding: 12px; z-index: 50 !important; max-width: 240px; ">
             <table >
             <tbody>
                 <tr>

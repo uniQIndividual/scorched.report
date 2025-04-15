@@ -187,7 +187,7 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"description": "Awarded for great contributions to Scorched Report",
 		"text": "Scorched Report contributor",
 		"src": "/images/icons/awards/Crossed_Cannons_smaller.webp",
-		"glow": "shadow-awardGlow"
+		"glow": "shadow-award-glow"
 	},
 	"seMember": {
 		"description": "Awarded for being a Scorched Enthusiasts",
@@ -205,19 +205,19 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"description": "Awarded to special enemies of SE (This a satirical award not to be taken seriously)",
 		"text": "Enemy of SE",
 		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
-		"glow": "shadow-awardGlowRed"
+		"glow": "shadow-award-glowRed"
 	},
 	"streak50": {
 		"description": "Awarded for getting an \"I made this for you\" medal by reaching a 50 streak",
 		"text": "I also made this for you",
 		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
-		"glow": "shadow-awardGlow"
+		"glow": "shadow-award-glow"
 	},
 	"streak2x20": {
 		"description": "Awarded for getting two \"We ran out of medals\" within a single match",
 		"text": "Streaks on streaks",
 		"src": "/images/icons/awards/test1_1.png",
-		"glow": "shadow-awardGlow"
+		"glow": "shadow-award-glow"
 	},
 	"streak20": {
 		"description": "Awarded for getting a \"We ran out of medals\" medal by reaching a 20 streak",
@@ -229,7 +229,7 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"description": "Awarded for reaching 50 kills in a single match",
 		"text": "The reason the queue is currently empty",
 		"src": "/images/icons/awards/50.webp",
-		"glow": "shadow-awardGlow"
+		"glow": "shadow-award-glow"
 	},
 	"kills40": {
 		"description": "Awarded for reaching 40 kills in a single match",
@@ -247,7 +247,7 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"description": "Awarded for reaching 100000 kills in Team Scorched",
 		"text": "Scorched Earth",
 		"src": "/images/icons/awards/100k.webp",
-		"glow": "shadow-awardGlow"
+		"glow": "shadow-award-glow"
 	},
 	"total75k": {
 		"description": "Awarded for reaching 75000 kills in Team Scorched",
@@ -263,7 +263,7 @@ export const awards: { [index: string]: { "description": string, "text": string,
 	},
 	"total25k": {
 		"description": "Awarded for reaching 25000 kills in Team Scorched",
-		"text": "Shaxx new favorite Scorcher",
+		"text": "Shaxx's new favorite Scorcher",
 		"src": "/images/icons/awards/25k.webp",
 		"glow": ""
 	},
@@ -295,7 +295,7 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"description": "Awarded for getting more kills than all teammates and enemies combined",
 		"text": "",
 		"src": "/images/icons/awards/test1_1.png",
-		"glow": "shadow-awardGlow"
+		"glow": "shadow-award-glow"
 	},
 	"carryPartner": {
 		"description": "",
