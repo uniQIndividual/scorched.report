@@ -14,8 +14,8 @@ const hoverText = (award: string) => {
                 <tr>
                 <td style="justify-content: center; display: flex; padding: 12px;">
                     <div style=" position: absolute; transform: rotate(45deg);` +
-        (awards[award].glow == "shadow-awardGlow" ? "box-shadow: 44px 44px 50px 30px rgba(240,217,170,0.8)" : "") +
-        (awards[award].glow == "shadow-awardGlowRed" ? "box-shadow: 44px 44px 50px 30px rgba(212,47,47,0.9)" : "") +
+        (awards[award].glow == "shadow-award-glow" ? "box-shadow: 44px 44px 50px 30px rgba(240,217,170,0.8)" : "") +
+        (awards[award].glow == "shadow-award-glowRed" ? "box-shadow: 44px 44px 50px 30px rgba(212,47,47,0.9)" : "") +
         `"></div>
                     <img style="" src=` + awards[award].src + ` />
                     </td>
