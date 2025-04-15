@@ -194,7 +194,7 @@ export const LeaderboardPerformance = () => {
         header: 'Name',
         size: 100,
         Cell: ({ cell }) => {
-          return <a href={`/report?id=${cell.row.original.membershipID}&platform=${cell.row.original.platform}`} className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">{cell.getValue<string>()}</a>
+          return <a href={`/report?id=${cell.row.original.membershipID}&platform=${cell.row.original.platform}`} className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">{cell.getValue<string>() != "#0000" ? cell.getValue<string>() : <i className="text-gray-500">{"unknown"}</i>}</a>
         }
       },
       {
