@@ -8,7 +8,7 @@ interface Props {
 }
 
 const hoverText = (award: string) => {
-    return `<div style="padding: 12px; z-index: 50 !important; max-width: 240px; ">
+    return `<div style="padding: 12px; max-width: 240px; ">
             <table >
             <tbody>
                 <tr>
@@ -22,14 +22,14 @@ const hoverText = (award: string) => {
                 </tr>
                 <tr >
                 <td style="padding-bottom: 6px;">
-                    <div style="text-align: center; line-height: 1.5rem; font-size: 1.5rem; color: rgb(255 255 255); z-index: 110;">
+                    <div style="text-align: center; line-height: 1.5rem; font-size: 1.5rem; color: rgb(255 255 255);">
                         ` + awards[award].text + `
                     </div>
                     </td>
                 </tr>
                 <tr >
                 <td style="padding-bottom: 12px;">
-                    <div style="text-align: center; line-height: 1.5rem; font-size: 1.125rem; color: rgb(255 255 255); z-index: 110;">
+                    <div style="text-align: center; line-height: 1.5rem; font-size: 1.125rem; color: rgb(255 255 255);">
                         ` + awards[award].description + `
                     </div>
                     </td>
@@ -53,7 +53,7 @@ export const Award = ({ award, size }: Props) => {
                 <div style={{ marginTop: glowOffset, marginLeft: glowOffset }} className={awards[award].glow + " absolute rotate-45"}></div>
                 <img src={awards[award].src} key={"img_" + award} width={iconSize} height={iconSize} className="" />
             </a>
-            <Tooltip id={award + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
+            <Tooltip id={award + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(8,9,10,0.9)" }} />
         </div>
     }
     return <></>
