@@ -67,6 +67,7 @@ const ReportLookup = () => {
       "medalSeventh": false,
       "armyOfOne": false,
       "carryPartner": false,
+      "specialKills": false,
     },
     "performance": {
       "trueSkill": 1000,
@@ -521,7 +522,7 @@ const ReportLookup = () => {
 
               try {
                 if (mostRecentCharacter.emblemHash != undefined) {
-                  API.requests.Destiny2.BannerFromEmblemHash(mostRecentCharacter.emblemHash).then((response => {
+                  await API.requests.Destiny2.BannerFromEmblemHash(mostRecentCharacter.emblemHash).then((response => {
                     response = JSON.parse(response)
                     response = response.Response;
 
@@ -1377,7 +1378,7 @@ const ReportLookup = () => {
       </div>
       {/* profile sections */}
       <div className="overflow-x-auto">
-        {Object.values(profile_sections).filter(section => section.id == activeSection).map(section => section.body)}
+        {Object.values(profile_sections).filter(section => section.id == activeSection).map(section => <div key={"profile_section_body_" + section.id}>{section.body}</div>)}
       </div>
       {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
     </div>)

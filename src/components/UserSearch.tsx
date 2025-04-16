@@ -13,6 +13,7 @@ interface UserSearchState {
 	error: { title: string, text: string },
 }
 
+
 export default class UserSearch extends React.Component<{}, UserSearchState> {
 	constructor(props: any) {
 		super(props);
@@ -30,7 +31,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 	}
 
 
-	addClanToPlayers(players_list: Array<Player>, is_bungie_player: boolean) {
+	async addClanToPlayers(players_list: Array<Player>, is_bungie_player: boolean) {
 		for (let player_position = 0; player_position < players_list.length; player_position++) {
 			let player = players_list[player_position];
 
@@ -55,8 +56,10 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 
 					if (data.Response.totalResults === 0) {
 						players_list[player_position].data.clan = "";
+						players_list[player_position].data.lastOnline = 0;
 					} else {
 						players_list[player_position].data.clan = {};
+						players_list[player_position].data.lastOnline = Number(data.Response.results[0].member.lastOnlineStatusChange) * 1000;
 						players_list[player_position].data.clan.id = data.Response.results[0].group.groupId;
 						players_list[player_position].data.clan.name = data.Response.results[0].group.name;
 					}
@@ -66,6 +69,10 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 					} else {
 						this.setState((_prevState) => ({ players: players_list }));
 					}
+
+					players_list = players_list.sort((a, b) => { // sort by most recent
+						return (b.data.lastOnline || 0) - (a.data.lastOnline || 0)
+					})
 				})
 				.catch();
 		}
@@ -172,6 +179,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 								username={player.data.bungieGlobalDisplayName + "#" + player.data.bungieGlobalDisplayNameCode}
 								subtitle={player.data?.clan.name || ""}
 								iconPath={player.data.destinyMemberships[0].iconPath}
+								lastOnline={player.data.lastOnline}
 								to={`/report?id=${player.data.destinyMemberships[0].membershipId}&platform=${player.data.destinyMemberships[0].membershipType}`} />
 						})}
 						{this.state.bungiePlayers.map(player => {
@@ -184,6 +192,7 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 								username={player.data.bungieGlobalDisplayName + "#" + player.data.bungieGlobalDisplayNameCode}
 								subtitle={player.data?.clan.name || ""}
 								iconPath={player.data.iconPath}
+								lastOnline={player.data.lastOnline}
 								to={`/report?id=${player.data.membershipId}&platform=${player.data.membershipType}`} />
 						})}
 					</div>
