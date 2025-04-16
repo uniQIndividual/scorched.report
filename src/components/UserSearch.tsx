@@ -2,7 +2,6 @@
 
 import React from "react";
 import API from "../lib/api";
-import Player from "../classes/Player";
 import ErrorDynamic from "../modules/ErrorDynamic";
 import DropdownElement from "./DropdownElement";
 
@@ -12,140 +11,151 @@ interface UserSearchState {
 	bungiePlayers: Array<Player>;
 	error: { title: string, text: string },
 }
+interface Player {
+	membershipId: string;
+	membershipType: string,
+	displayName: string,
+	nameCode: string,
+	subtitle: any;
+	active: boolean;
+	lastOnline: number;
+	iconPath: string,
+	to: string,
+}
 
+export const Search = () => {
+	const defaultPlayerList: Player[] = [];
+	const [playerList, setPlayerList] = React.useState(defaultPlayerList);
+	const [error, setError] = React.useState({
+		title: "",
+		text: "",
+	},);
+	/*
+		constructor(props: any) {
+			super(props);
+			this.searchFormEventHandler = this.searchFormEventHandler.bind(this);
+			this.searchPlayers = this.searchPlayers.bind(this);
+			this.interpretBungieResponse = this.interpretBungieResponse.bind(this);
+			this.addClanToPlayers = this.addClanToPlayers.bind(this);
+			this.state = {
+				players: [],
+				bungiePlayers: [],
+				error: {
+					title: "",
+					text: "",
+				},
+			};
+		}*/
 
-export default class UserSearch extends React.Component<{}, UserSearchState> {
-	constructor(props: any) {
-		super(props);
-		this.searchFormEventHandler = this.searchFormEventHandler.bind(this);
-		this.searchPlayers = this.searchPlayers.bind(this);
-		this.addClanToPlayers = this.addClanToPlayers.bind(this);
-		this.state = {
-			players: [],
-			bungiePlayers: [],
-			error: {
-				title: "",
-				text: "",
-			},
-		};
-	}
-
-
-	async addClanToPlayers(players_list: Array<Player>, is_bungie_player: boolean) {
-		for (let player_position = 0; player_position < players_list.length; player_position++) {
-			let player = players_list[player_position];
-
-
-			if (!is_bungie_player && player.data.destinyMemberships.length === 0) {
-				// TODO: What do we do with people who just... don't play Destiny?
-				players_list[player_position].data.clan = null;
-				this.setState({ players: players_list });
-				continue;
+	const interpretBungieResponse = (result, isBungieAccount: boolean) => { // a person can have 0,1,or n memberships, we need to do some cleanup
+		let newPlayerList: Player[] = [];
+		if (isBungieAccount) {
+			if (result.crossSaveOverride == result.membershipType) {
+				newPlayerList.push({
+					displayName: result.bungieGlobalDisplayName,
+					nameCode: result.bungieGlobalDisplayNameCode,
+					active: true,
+					iconPath: result.iconPath,
+					lastOnline: 0,
+					subtitle: "",
+					to: "",
+					membershipId: result.membershipId,
+					membershipType: result.membershipType
+				})
 			}
-
-			let membershipId = is_bungie_player
-				? player.data.membershipId
-				: player.data.destinyMemberships[0].membershipId;
-			let membershipType = is_bungie_player
-				? player.data.membershipType
-				: player.data.destinyMemberships[0].membershipType;
-
-			API.requests.GroupV2.GetGroupsForMember(membershipId, membershipType)
-				.then((data) => {
-					data = JSON.parse(data);
-
-					if (data.Response.totalResults === 0) {
-						players_list[player_position].data.clan = "";
-						players_list[player_position].data.lastOnline = 0;
-					} else {
-						players_list[player_position].data.clan = {};
-						players_list[player_position].data.lastOnline = Number(data.Response.results[0].member.lastOnlineStatusChange) * 1000;
-						players_list[player_position].data.clan.id = data.Response.results[0].group.groupId;
-						players_list[player_position].data.clan.name = data.Response.results[0].group.name;
-					}
-
-					if (is_bungie_player) {
-						this.setState((_prevState) => ({ bungiePlayers: players_list }));
-					} else {
-						this.setState((_prevState) => ({ players: players_list }));
-					}
-
-					players_list = players_list.sort((a, b) => { // sort by most recent
-						return (b.data.lastOnline || 0) - (a.data.lastOnline || 0)
-					})
-				})
-				.catch();
-		}
-	}
-
-	searchPlayers(event: any) {
-		event.preventDefault();
-		this.setState((_prevState) => ({ error: { title: "", text: "" } }));
-		let query = event.target.scorcher_search.value;
-
-		API.requests.User.SearchByGlobalNamePost(query)
-			.then(data => {
-
-				let players: Player[] = [];
-				for (const result of JSON.parse(data).Response.searchResults) {
-					players.push(new Player(result));
+		} else {
+			for (let i = 0; i < result.destinyMemberships.length; i++) { // any addition memberships when crossplay is disabled
+				let newPlayer: Player = {
+					displayName: result.bungieGlobalDisplayName,
+					nameCode: result.bungieGlobalDisplayNameCode,
+					active: true,
+					iconPath: result.destinyMemberships[i].iconPath,
+					lastOnline: 0,
+					subtitle: "",
+					to: "",
+					membershipId: result.destinyMemberships[i].membershipId,
+					membershipType: result.destinyMemberships[i].membershipType
 				}
-				this.setState((prevState) => ({ players: prevState.players }),
-					() => {
-						this.addClanToPlayers(players, false);
-					},
-				);
+				if (result.destinyMemberships[i].crossSaveOverride == 0 || result.destinyMemberships[i].crossSaveOverride == result.destinyMemberships[i].membershipType) {
+					newPlayerList.push(newPlayer) // Push only if not overwritten by crosssave
+				}
+			}
+		}
+		return newPlayerList;
+	}
+
+	const addClanToPlayers = async (players: Player[]) => {
+		let newPlayerList = players;
+		await Promise.all(players.map((player) => API.requests.GroupV2.GetGroupsForMember(player.membershipId, player.membershipType))).then(responses => {
+			responses.forEach((data, player_position) => {
+				data = JSON.parse(data);
+				if (data.Response.totalResults > 0) {
+					newPlayerList[player_position].subtitle = data.Response.results[0].group.name;
+					newPlayerList[player_position].lastOnline = Number(data.Response.results[0].member.lastOnlineStatusChange) * 1000;
+
+					newPlayerList = newPlayerList.sort((a, b) => { // sort by most recent
+						return (b.lastOnline || 0) - (a.lastOnline || 0)
+					})
+				}
 			})
-			.catch(
-				e => {
-					this.setState((_prevState) => ({ error: { title: "A Network Error occurred", text: "Unable to access Bungie's API" } }));
-					console.error(e)
-				});
+		})
+			.catch();
+		return newPlayerList
 
-		if (query.includes("#")) {
-			let name = query.split("#")[0];
-			let denominator = query.split("#")[1];
+	}
 
-			API.requests.Destiny2.SearchDestinyPlayerByBungieName(name, denominator)
-				.then((data) => {
-					let players: Player[] = [];
-					for (const result of JSON.parse(data).Response) {
-						players.push(new Player(result));
+	const searchFormEventHandler = async (query: string) => {
+		if (query !== "") {
+			setError({ title: "", text: "" }); // reset error message
+
+			let players: Player[] = [];
+
+			await API.requests.User.SearchByGlobalNamePost(query)
+				.then(data => {
+					for (const result of JSON.parse(data).Response.searchResults) {
+						players = players.concat(interpretBungieResponse(result, false));
 					}
-					this.setState((prevState) => ({ bungiePlayers: prevState.bungiePlayers }),
-						() => {
-							this.addClanToPlayers(players, true);
-						},
-					);
 				})
-				.catch(e => console.error(e)); // TODO: Add viewable error output
+				.catch(
+					e => {
+						setError({ title: "A Network Error occurred", text: "Unable to access Bungie's API" });
+						console.error(e)
+					});
+
+			if (query.includes("#")) {
+				let name = query.split("#")[0];
+				let denominator = query.split("#")[1];
+
+				await API.requests.Destiny2.SearchDestinyPlayerByBungieName(name || "", denominator || "0")
+					.then((data) => {
+						for (const result of JSON.parse(data).Response) {
+							players = players.concat(interpretBungieResponse(result, true))
+						}
+					})
+					.catch(e => console.error(e)); // TODO: Add viewable error output
+			}
+			players = await addClanToPlayers(players);
+			setPlayerList([]);
+			setPlayerList(players)
 		}
 	}
 
-	searchFormEventHandler(event: any) {
-		event.preventDefault();
-
-		this.setState({
-			players: [],
-			bungiePlayers: [],
-		});
-
-		if (event.target.scorcher_search.value !== "") {
-			this.searchPlayers(event);
-		}
-	}
-
-	override render() {
-		return (
-			<div className="mt-4 flex justify-center" onClick={(e) => {
-				e.stopPropagation();
-			}}>
-				<form className="flex flex-wrap justify-center" onSubmit={this.searchFormEventHandler}>
+	return (
+		<div className="mt-4" onClick={(e) => {
+			e.stopPropagation();
+		}}>
+			<div className="flex justify-center">
+				<form className="" onSubmit={(e) => {
+					e.preventDefault();
+					const formData = new FormData(e.target);
+					const formProps = Object.fromEntries(formData);
+					searchFormEventHandler(String(formProps.scorcher_search))
+				}}>
 					<div className="relative mt-1 backdrop-blur-sm max-w-[242px]">
 						<div className="w-[242px]">
 							<input
 								type="text"
-								id="scorcher_search" name="scorcher_search"
+								name="scorcher_search"
 								className=" bg-[rgba(0,0,0,0.3)] dark:bg-[rgba(0,0,0,0.2)] focus:bg-[rgba(0,0,0,0.5)] text-white dark:text-white sm:text-sm rounded-lg block w-full pl-10 p-4 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] border border-gray-300 dark:border-gray-300 placeholder-gray-100 dark:placeholder-gray-300 lg:dark:placeholder-gray-200 "
 								placeholder="Find scorchers..."
 							/>
@@ -166,42 +176,25 @@ export default class UserSearch extends React.Component<{}, UserSearchState> {
 							</div>
 						</div>
 					</div>
-					{/*<input type="search" id="q" name="q" className="bg-gray-100 w-96 flex justify-center"
-					       placeholder={"Find scorchers..."} />*/}
 					<button type="submit" className="hidden w-0 h-0 text-gray-900 dark:text-gray-100"> </button>
-					<div className="pt-2 flex flex-wrap justify-center">
-						{this.state.players.map(player => {
-							if (player.data.clan == null || player.data.destinyMemberships.length == 0) {
-								return
-							}
-							return <DropdownElement key={player.data.membershipId}
-								active={false}
-								username={player.data.bungieGlobalDisplayName + "#" + player.data.bungieGlobalDisplayNameCode}
-								subtitle={player.data?.clan.name || ""}
-								iconPath={player.data.destinyMemberships[0].iconPath}
-								lastOnline={player.data.lastOnline}
-								to={`/report?id=${player.data.destinyMemberships[0].membershipId}&platform=${player.data.destinyMemberships[0].membershipType}`} />
-						})}
-						{this.state.bungiePlayers.map(player => {
-
-							if (player.data.clan == null) {
-								return
-							}
-							return <DropdownElement key={player.data.membershipId}
-								active={false}
-								username={player.data.bungieGlobalDisplayName + "#" + player.data.bungieGlobalDisplayNameCode}
-								subtitle={player.data?.clan.name || ""}
-								iconPath={player.data.iconPath}
-								lastOnline={player.data.lastOnline}
-								to={`/report?id=${player.data.membershipId}&platform=${player.data.membershipType}`} />
-						})}
-					</div>
 				</form>
-				{
-					this.state.error.title != "" ?
-						<ErrorDynamic title={this.state.error.title} text={this.state.error.text} /> : ""
-				}
 			</div>
-		);
-	}
+			<div className="pt-2 flex flex-wrap justify-center">
+				{playerList.map(player => {
+					return <DropdownElement key={player.membershipId}
+						active={false}
+						username={player.displayName + "#" + player.nameCode}
+						subtitle={player.subtitle}
+						iconPath={player.iconPath}
+						lastOnline={player.lastOnline}
+						to={`/report?id=${player.membershipId}&platform=${player.membershipType}`} />
+				})}
+			</div>
+			{
+				error.title != "" ?
+					<ErrorDynamic title={error.title} text={error.text} /> : ""
+			}
+		</div>
+	);
 }
+export default Search

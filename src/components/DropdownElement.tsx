@@ -43,8 +43,8 @@ function timeSince(date: number) {
 export default class DropdownElement extends React.Component<DropdownElementProps> {
     override render() {
         return (
-            <a className="m-4 " href={this.props.to}>
-                <div className={"w-[276px] rounded-lg bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.9)] !cursor-pointer flex backdrop-blur-[8px] text-white p-4 text-base"}>
+            <a className="my-4 mx-2" href={this.props.to}>
+                <div className={"w-[260px] rounded-lg bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.9)] !cursor-pointer flex backdrop-blur-[8px] text-white p-4 text-base"}>
                     <img src={"https://www.bungie.net/" + this.props.iconPath} className="!cursor-pointer h-8 w-8 mr-4" />
                     <div className="table flex-grow-0 max-w-52 text-wrap !cursor-pointer">
                         <div className="table-row-group max-w-52 text-wrap !cursor-pointer">
