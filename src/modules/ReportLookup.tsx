@@ -560,7 +560,7 @@ const ReportLookup = () => {
 
             // Add deleted characters
             setLoadingTitle("Loading Bungie Stats...");
-            response = await API.requests.User.GetHistoricAccountStats(userid, platform.toString())
+            response = await API.requests.User.GetHistoricAccountStats(userid, platform.toString()).catch(e=>console.log())
             if (response != undefined && response != "") {
               response = JSON.parse(response)
 
