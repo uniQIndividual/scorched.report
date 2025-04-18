@@ -179,6 +179,15 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         }
       },
       {
+        accessorKey: 'time',
+        header: 'Duration',
+        filterVariant: 'range',
+        size: 50,
+        Cell: ({ cell }) => {
+          return cell.row.original.time + "s"
+        },
+      },
+      {
         accessorKey: 'medals',
         header: 'Medals',
         size: 50,
@@ -297,6 +306,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       density: 'xs',
       columnVisibility: {
         'win_chance': true,
+        'time': false,
       },
     },
     mantineTableHeadCellProps: {

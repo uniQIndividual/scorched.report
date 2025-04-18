@@ -192,7 +192,7 @@ export const SpecialKills = () => {
 
       sorting: [
         {
-          id: 'matches',
+          id: 'total_kills',
           desc: true
         }
       ]
