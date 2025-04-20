@@ -1075,7 +1075,7 @@ const ReportLookup = () => {
                                         "deaths": match.values.deaths.basic.value,
                                         "assists": match.values.assists.basic.value,
                                         "medals": {
-                                          "iMadeThisForYou": oldHistory[match.activityDetails.instanceId]?.medals.iMadeThisForYou || false,
+                                          "iMadeThisForYou": match.activityDetails.instanceId == "13923339040" ? true : (oldHistory[match.activityDetails.instanceId]?.medals.iMadeThisForYou || false), //Naze
                                           "weRan": oldHistory[match.activityDetails.instanceId]?.medals.weRan || false,
                                           "crownTaker": oldHistory[match.activityDetails.instanceId]?.medals.crownTaker || false,
                                           "seventhColumn": oldHistory[match.activityDetails.instanceId]?.medals.seventhColumn || false,
@@ -1140,6 +1140,7 @@ const ReportLookup = () => {
                 console.error(error);
               }
             })
+
           } else {
             // We assume Bungie is down and roll with fallback information
           }
@@ -1230,6 +1231,34 @@ const ReportLookup = () => {
               }
             },
           });
+        }
+        
+        if (userid === "4611686018485301927") { // fix an injustice
+          newStats = update(newStats, {
+            bungieHistoricMedals: {
+
+              $apply(v) {
+                v.iMadeThisForYou = {
+                  "value": v.iMadeThisForYou == undefined ? 1 : v.iMadeThisForYou.value + 1,
+                  "iconImage": "/common/destiny2_content/icons/5cb550443f952bbc1be64fc6fc2792e5.png",
+                  "medalTierHash": 380324143,
+                  "medalTierIdentifier": "PVP_TIER_3",
+                  "statDescription": "Shaxx made this for you. Awarded upon earning \"[Insert Medal Here].\"",
+                  "statName": "I Made This for You"
+                }
+                return v
+              },
+            },
+            bungieHistoricAccountStats: {
+              medals: {
+                iMadeThisForYou: {
+                  $apply(v) {
+                    return v + 1
+                  },
+                }
+              }
+            }
+          })
         }
 
         // Finished

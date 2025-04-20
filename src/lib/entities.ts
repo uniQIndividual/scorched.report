@@ -116,7 +116,7 @@ export type historicStatsPerCharacter = {
 		"weaponKillsSuper": number,
 		"weaponKillsMelee": number,
 	},
-	"medals": {
+	"medals": { // TODO: remove
 		"total": number,
 		"totalGold": number,
 		"iMadeThisForYou": number,

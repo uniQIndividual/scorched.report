@@ -9,7 +9,7 @@ export const Medals = (props: Scorcher) => {
         return (
             <div className="flex flex-wrap justify-center">
                 {[3, 2, 1].map(tier => // create a box for each tier
-                    <D2Box title={"Tier " + tier} body={
+                    <D2Box key={"profile_medal_section_tier" + tier} title={"Tier " + tier} body={
                         <div className="" key={"_profile_showcase"}>
                             <div className="flex flex-wrap justify-center">
                                 {Object.keys(props.bungieHistoricMedals).map(medal => {
