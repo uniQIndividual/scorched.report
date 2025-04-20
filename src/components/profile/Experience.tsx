@@ -714,7 +714,7 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                     })}
                 </div>
             } />
-            <D2Box title="Categories" body={
+            <D2Box title="Weapon Categories" body={
                 <div>
                 <div className="flex justify-center p-2">
                     <a href="/leaderboards/special" className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">Yes, it is possible</a>

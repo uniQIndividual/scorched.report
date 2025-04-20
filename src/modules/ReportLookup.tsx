@@ -193,6 +193,7 @@ const ReportLookup = () => {
   const [crash, triggerCrash] = React.useState({ title: "", text: "" }); // Display a crash message, recoverable but some stats might be missing
   const [hardCrash, triggerHardCrash] = React.useState(false); // Will prevent visual output
   const [render, triggerRender] = React.useState(false);
+  const [devMode, setDevMode] = React.useState(false);
   const [loadingTitle, setLoadingTitle] = React.useState("Loading PGCR...");
 
   const historicalStatsDefinition: { [index: string]: { "category": number, "statName": string, "statDescription": string, "iconImage"?: string, "medalTierIdentifier": string, "contentIconOverrideId": string, "medalTierHash": number } } = HistoricalStatsDefinitionSmaller;
@@ -200,7 +201,9 @@ const ReportLookup = () => {
   React.useEffect(() => {
     // Verify parameters
     try {
-
+      if (urlParams.get('dev') != null && urlParams.get('dev') == "1") { // you are daring, hm
+        setDevMode(true);
+      }
       if (urlParams.get('id') == null || urlParams.get('id') == "") {
         throw new Error("Membership id is missing");
       }
@@ -492,7 +495,7 @@ const ReportLookup = () => {
 
               newStats = update(newStats, { characters: { $set: response.characters.data } });
               newStats = update(newStats, { profile: { privacy: { $set: response.characters.privacy } } });
-              newStats = update(newStats, { profile: { profileName: { $set: response.profile.data.userInfo.bungieGlobalDisplayName != "" ? response.profile.data.userInfo.bungieGlobalDisplayName : response.profile.data.userInfo.displayName	} } });
+              newStats = update(newStats, { profile: { profileName: { $set: response.profile.data.userInfo.bungieGlobalDisplayName != "" ? response.profile.data.userInfo.bungieGlobalDisplayName : response.profile.data.userInfo.displayName } } });
               newStats = update(newStats, { profile: { guardianrank: { $set: response.profile.data.currentGuardianRank } } });
 
               // set info based on the most recently used character
@@ -560,7 +563,7 @@ const ReportLookup = () => {
 
             // Add deleted characters
             setLoadingTitle("Loading Bungie Stats...");
-            response = await API.requests.User.GetHistoricAccountStats(userid, platform.toString()).catch(e=>console.log())
+            response = await API.requests.User.GetHistoricAccountStats(userid, platform.toString()).catch(e => console.log())
             if (response != undefined && response != "") {
               response = JSON.parse(response)
 
@@ -837,9 +840,9 @@ const ReportLookup = () => {
                 if (flag) {
                   let truelyStrangeKills = 0;
                   Object.keys(newStats.bungieHistoricAccountStats.weaponKills).map((category) => {
-                      if (category != "weaponKillsRelic") truelyStrangeKills += (newStats.bungieHistoricAccountStats.weaponKills[category] || 0);
+                    if (category != "weaponKillsRelic") truelyStrangeKills += (newStats.bungieHistoricAccountStats.weaponKills[category] || 0);
                   })
-                  
+
                   newStats = update(newStats, {
                     awards: {
                       total100k: {
@@ -1308,6 +1311,11 @@ const ReportLookup = () => {
       "id": "matches",
       "body": <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
     },
+    (devMode ? {
+      "title": "Everything",
+      "id": "everything",
+      "body": <span className="whitespace-pre-line block"><pre>{JSON.stringify(stats, null, 4)}</pre></span>
+    } : {})
   ]
 
 
