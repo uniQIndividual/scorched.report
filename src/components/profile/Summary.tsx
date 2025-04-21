@@ -62,7 +62,7 @@ export const Radar = (props: RadarInterface) => {
         }
     }
     if (stats.bungieHistoricAccountStats.activitiesEntered < 10) {
-        return <div>Not enough matches</div>
+        return <div className="p-4">Not enough matches</div>
     }
     return context == "total" ? (
         <div className="sm:w-[500px]">

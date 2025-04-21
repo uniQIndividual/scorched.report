@@ -54,6 +54,36 @@ export const Profile = (stats: Scorcher) => {
         if (item.hash === stats.minigame.equippedCannons[equippedSeason].base_cannon_hash) return i;
     }).filter((i) => i != undefined); // 1 == ScornchedCannon
 
+    let last_matches = Object.keys(stats.matchHistory);
+    last_matches = last_matches.sort((a,b) => Number(b) - Number(a));
+    let last_matches_box = "";
+    let number_of_matches = last_matches.length;
+    let last_matches_stats = {
+        kills: 0,
+        deaths: 0,
+        time: 0,
+    }
+    if (number_of_matches > 1) {
+        last_matches_box = last_matches.map((match, i) => {
+            if (i > 4 || stats.matchHistory[match] == undefined) {
+                return <></>
+            }
+            last_matches_stats.kills += stats.matchHistory[match].kills;
+            last_matches_stats.deaths += stats.matchHistory[match].deaths;
+            last_matches_stats.time += stats.matchHistory[match].time;
+            return <div className="p-3" key={"last_matches_box_" + stats.matchHistory[match].id}>
+                <div className="flex justify-center mb-1">{
+                    stats.matchHistory[match].won ?
+                        <img className="h-8 w-8" src="/images/icons/outcome_win.webp" />
+                        :
+                        <img className="h-8 w-8" src="/images/icons/outcome_loss.webp" />
+                }</div>
+                <div className="text-center">{stats.matchHistory[match].kills + ":" + stats.matchHistory[match]?.deaths}</div>
+            </div>
+        })
+    } else {
+        last_matches_box = <div>there are no matches</div>
+    }
 
 
     return (
@@ -167,8 +197,32 @@ export const Profile = (stats: Scorcher) => {
                     <Radar stats={stats} context="total" />
                 } />
                 <D2Box title={"Last Matches"} body={
-                    <div>
-                        coming soon
+                    <div className="p-2">
+                    <div className="p-3 flex flex-wrap">
+                    <table className="w-full">
+                        <tbody className="">
+                            <tr className="text-gray-800 dark:text-gray-200 text-3xl">
+                                <td className="m-0 p-0 float-left pr-2">
+                                    {last_matches_stats.deaths != 0 ? (last_matches_stats.kills / last_matches_stats.deaths).toPrecision(2)  : "..."}
+                                </td>
+                                <td className="m-0 p-0 float-right pl-2">
+                                    {last_matches_stats.deaths != 0 ? (last_matches_stats.kills * 60 / last_matches_stats.time).toPrecision(2)  : "..."}
+                                </td>
+                            </tr>
+                            <tr className="mt-0 text-gray-400 text-lg">
+                                <td className="m-0 p-0 float-left">
+                                K/D
+                                </td>
+                                <td className="m-0 p-0 float-right">
+                                    KPM
+                                </td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            <div className="flex flex-wrap justify-center">
+                        {last_matches_box}
+                    </div>
                     </div>
                 } />
             </div>
