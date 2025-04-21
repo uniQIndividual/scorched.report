@@ -83,3 +83,9 @@
         z-index: 50;
     }
 }
+
+@layer components {
+    .stylized-link {
+      @apply hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]
+    }
+  }

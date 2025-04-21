@@ -377,7 +377,7 @@ export type Scorcher = {
 	},
 	"minigame": {
 		"completedTutorial": boolean,
-		"scoins": number,
+		"scoins": object,
 		"selectedSeason": string,
 		"equippedCannons": object,
 		"ownedCannons": object,
