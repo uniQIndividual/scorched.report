@@ -1,5 +1,7 @@
 ---
 import LayoutSidebar from "../app/LayoutSidebar.astro";
+import Content from "../content/pages/guide.html";
+import MarkdownWrapper from "../app/MarkdownWrapper.astro";
 
 const title = "How to play Team Scorched";
 const make_title = "Team Scorched Tips and Tricks";
@@ -19,7 +21,6 @@ const tags = [
 
 <LayoutSidebar
 	title={title}
-	make_title={make_title}
 	og_title={og_title}
 	og_description={og_description}
 	date={date}
@@ -29,10 +30,11 @@ const tags = [
 	<div id="guide-div">
 		<div class="flex justify-center text-center">
 			<span class="m-6">
-				This is a large document hosted on <a
+				The original document hosted on <a
 					href="https://policies.google.com/privacy?hl=en&usp=docs_web"
 					class="underline">Google Docs</a
-				>. Do you want to open the document in a new tab or embed it?
+				>.<br />
+				This is a local mirror but you can also open it in a new tab or embed the original instead:
 			</span>
 		</div>
 		<div class="flex justify-center flex-wrap">
@@ -47,8 +49,11 @@ const tags = [
 				id="guide-button-embed"
 				class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center m-6 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
 			>
-				Embed
+				Embed Original
 			</button>
+		</div>
+		<div id="guide-content" class="bg-[rgb(70,19,19)] overflow-x-clip mt-6">
+			<MarkdownWrapper> <Content /> </MarkdownWrapper>
 		</div>
 	</div>
 	<script>

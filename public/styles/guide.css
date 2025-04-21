@@ -1,0 +1,147 @@
+@font-face {
+  font-family: 'Alex Brush';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/resources/fonts/Alex_Brush.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/resources/fonts/Cinzel.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200;
+  src: url(/resources/fonts/Manrope_200.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 300;
+  src: url(/resources/fonts/Manrope_300.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/resources/fonts/Manrope_400.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/resources/fonts/Manrope_500.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  src: url(/resources/fonts/Manrope_600.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/resources/fonts/Manrope_700.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/resources/fonts/Plus_Jakarta_Sans.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 300;
+  src: url(/resources/fonts/Quicksand_300.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/resources/fonts/Quicksand_500.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 300;
+  src: url(/resources/fonts/Roboto_Mono.ttf) format('truetype');
+}
+
+#guide-content td {
+  @media (width <=640px) {
+    max-width: 300px;
+    object-fit: scale-down;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+#guide-content img:not(.popup-image) {
+  width:  auto !important;
+  height: auto !important;
+  @media (width <=640px) {
+    max-width: 300px;
+    max-height: 200px;
+    height: auto !important;
+    object-fit: scale-down;
+    display: flex;
+    margin-left: 0px !important;
+    margin-bottom: 3px;
+  }
+}
+
+#guide-content :not(button) > span {
+  width:  auto !important;
+  height: auto !important;
+  @media (width <=640px) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+#guide-content p {
+  width:  auto !important;
+  height: auto !important;
+  padding: 4px;
+  @media (width <=640px) {
+    justify-content: center;
+    margin: 0px;
+  }
+}
+
+#guide-content table {
+  width:  auto !important;
+  height: auto !important;
+  padding: 4px;
+  @media (width <=640px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0px;
+  }
+}
+
+#guide-content h1,
+#guide-content h2,
+#guide-content h3 {
+  @media (width <=640px) {
+    margin-top: 6px !important;
+    padding-top: 6px !important;
+    display: flex;
+  }
+}
