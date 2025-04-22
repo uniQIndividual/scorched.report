@@ -432,7 +432,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                             <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
                             <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
                                 <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200">
-                                {entry.name != undefined ? entry.name : <i>Bungie didn't include a name 🤷</i>}
+                                {entry.name != undefined ? entry.name : (entry.membershipId == 0 ? <i>banned by Bungie</i> : <i>Bungie didn't include a name 🤷</i>)}
                                 </a>
                             </div>
                         </td>
