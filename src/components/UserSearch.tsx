@@ -4,7 +4,7 @@ import React from "react";
 import API from "../lib/api";
 import ErrorDynamic from "../modules/ErrorDynamic";
 import DropdownElement from "./DropdownElement";
-
+import LoadingAnimation from "./LoadingAnimation";
 
 interface UserSearchState {
 	players: Array<Player>;
@@ -26,6 +26,7 @@ interface Player {
 export const Search = () => {
 	const defaultPlayerList: Player[] = [];
 	const [playerList, setPlayerList] = React.useState(defaultPlayerList);
+	const [note, setNote] = React.useState(<></>);
 	const [error, setError] = React.useState({
 		title: "",
 		text: "",
@@ -50,7 +51,7 @@ export const Search = () => {
 	const interpretBungieResponse = (result, isBungieAccount: boolean) => { // a person can have 0,1,or n memberships, we need to do some cleanup
 		let newPlayerList: Player[] = [];
 		if (isBungieAccount) {
-			if (result.crossSaveOverride == result.membershipType) {
+			if (result.crossSaveOverride == 0 || result.crossSaveOverride == result.membershipType) {
 				newPlayerList.push({
 					displayName: result.bungieGlobalDisplayName,
 					nameCode: result.bungieGlobalDisplayNameCode,
@@ -107,6 +108,7 @@ export const Search = () => {
 	const searchFormEventHandler = async (query: string) => {
 		if (query !== "") {
 			setError({ title: "", text: "" }); // reset error message
+			setNote(<div className="mt-4 w-[260px] flex-wrap justify-center rounded-lg bg-[rgba(0,0,0,0.5)] flex backdrop-blur-[8px] p-8"><LoadingAnimation /></div>);
 
 			let players: Player[] = [];
 
@@ -135,6 +137,11 @@ export const Search = () => {
 					.catch(e => console.error(e)); // TODO: Add viewable error output
 			}
 			players = await addClanToPlayers(players);
+			if (players.length == 0) {
+				setNote(<div className="mt-4 w-[260px] flex-wrap justify-center rounded-lg bg-[rgba(0,0,0,0.5)] flex backdrop-blur-[8px] text-white p-4 text-base">No Player was found</div>);
+			} else {
+				setNote(<></>);
+			}
 			setPlayerList([]);
 			setPlayerList(players)
 		}
@@ -179,6 +186,10 @@ export const Search = () => {
 					<button type="submit" className="hidden w-0 h-0 text-gray-900 dark:text-gray-100"> </button>
 				</form>
 			</div>
+			{React.Children.count(note.props.children) > 0 ?
+			<div className="flex justify-center">
+			{note}
+				</div> : <></>}
 			<div className="pt-2 flex flex-wrap justify-center">
 				{playerList.map(player => {
 					return <DropdownElement key={player.membershipId}
