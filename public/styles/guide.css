@@ -92,13 +92,13 @@
 }
 
 #guide-content img:not(.popup-image) {
-  width:  auto !important;
+  object-fit: scale-down !important;
   height: auto !important;
+  margin-left: 0px !important;
+  margin-bottom: 0px !important;
   @media (width <=640px) {
     max-width: 300px;
     max-height: 200px;
-    height: auto !important;
-    object-fit: scale-down;
     display: flex;
     margin-left: 0px !important;
     margin-bottom: 3px;
@@ -127,6 +127,7 @@
 #guide-content table {
   width:  auto !important;
   height: auto !important;
+  margin-left: 0px !important;
   padding: 4px;
   @media (width <=640px) {
     display: flex;
@@ -139,9 +140,14 @@
 #guide-content h1,
 #guide-content h2,
 #guide-content h3 {
+  margin-top: 6px !important;
+  padding-top: 6px !important;
   @media (width <=640px) {
-    margin-top: 6px !important;
-    padding-top: 6px !important;
     display: flex;
   }
+}
+
+#guide-content .subtitle,
+#guide-content .title {
+  text-align: center;
 }

@@ -29,11 +29,12 @@ const tags = [
 	<div id="guide-div">
 		<div class="flex justify-center text-center">
 			<span class="m-6">
-				The original document hosted on <a
+				The original document is hosted on <a
 					href="https://policies.google.com/privacy?hl=en&usp=docs_web"
 					class="underline">Google Docs</a
 				>.<br />
-				This is a local mirror but you can also open it in a new tab or embed the original instead:
+				This is a local mirror but you can also open it in a new tab or embed the
+				original instead:
 			</span>
 		</div>
 		<div class="flex justify-center flex-wrap">
@@ -51,10 +52,16 @@ const tags = [
 				Embed Original
 			</button>
 		</div>
-		<div id="guide-content" class="bg-[rgb(70,19,19)] overflow-x-clip mt-6">
+		<div 
+		style="all: initial; all: unset;">
+		<div
+			id="guide-content"
+			class="bg-[rgb(70,19,19)] overflow-x-clip mt-6"
+		>
 			<MarkdownWrapper> <Content /> </MarkdownWrapper>
 		</div>
 	</div>
+</div>
 	<script>
 		const div_container = document.getElementById("guide-button-embed");
 		div_container.addEventListener("click", () => {
