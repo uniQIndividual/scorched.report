@@ -333,6 +333,7 @@ export const Performance = (stats: Scorcher) => {
             });
         statsOutputKD
             .group(groupKD)
+            .formatNumber(d3.format(".1f"))
             .valueAccessor(function (d) { return d.kills / d.deaths; })
             .html({
                 one: '%number',
@@ -341,6 +342,7 @@ export const Performance = (stats: Scorcher) => {
             });
             statsOutputEfficiency
                 .group(groupKD)
+                .formatNumber(d3.format(".1f"))
                 .valueAccessor(function (d) { return (d.kills + d.assists) / d.deaths; })
                 .html({
                     one: '%number',
@@ -349,6 +351,7 @@ export const Performance = (stats: Scorcher) => {
                 });
                 statsOutputKPM
                     .group(groupKD)
+                    .formatNumber(d3.format(".1f"))
                     .valueAccessor(function (d) { return d.kills * 60 / d.time; })
                     .html({
                         one: '%number',
