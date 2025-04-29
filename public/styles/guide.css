@@ -94,8 +94,7 @@
 #guide-content img:not(.popup-image) {
   object-fit: scale-down !important;
   height: auto !important;
-  margin-left: 0px !important;
-  margin-bottom: 0px !important;
+  margin: 0px !important;
   @media (width <=640px) {
     max-width: 300px;
     max-height: 200px;

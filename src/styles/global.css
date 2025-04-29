@@ -88,4 +88,13 @@
     .stylized-link {
       @apply hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]
     }
+    .dc-js-chart {
+        @apply p-2
+    }
+    .dc-js-chart-full {
+        @apply lg:w-[calc(100lvw-460px)] max-w-[1000px]
+    }
+    .dc-table-column, .dc-table-head {
+        @apply px-1
+    }
   }
