@@ -280,7 +280,6 @@ export const Performance = (stats: Scorcher) => {
         chartWinChances.xAxis().tickFormat(
             v => `${v}%`);
         chartWinChances.yAxis().ticks(5);
-        console.log(dateFirst);
 
         chartElo
             .renderArea(true)

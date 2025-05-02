@@ -1343,7 +1343,7 @@ const ReportLookup = () => {
     (devMode ? {
       "title": "Everything",
       "id": "everything",
-      "body": <span className="whitespace-pre-line block"><pre>{JSON.stringify(stats, null, 4)}</pre></span>
+      "body": <span className="whitespace-pre-line block p-8"><pre>{JSON.stringify(stats, null, 4)}</pre></span>
     } : {})
   ]
 
@@ -1381,7 +1381,7 @@ const ReportLookup = () => {
                 </div>
               </div>
             </div>
-            {/* Subsection Selection */}
+            {/* Subsection Selection Header */}
             <div className="table-row">
             </div>
           </div>
@@ -1392,8 +1392,11 @@ const ReportLookup = () => {
               <div className="table-cell w-full">
               </div>
               {Object.values(profile_sections).map(section => {
-                return <div className="h-7 py-2 table-cell text-nowrap align-bottom lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
-                  <button className={"w-full px-2 xl:px-4 hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
+                if (section == undefined) {
+                  return <></>
+                }
+                return <div className="h-7 table-cell text-nowrap align-middle lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
+                  <button className={"w-full py-2 px-2 xl:px-4 hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
                     location.hash = section.id; // don't push since we don't handle those
                     setActiveSection(section.id);
                   }}>
