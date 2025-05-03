@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, type ReactElement } from "react";
 import ErrorDynamic from "./ErrorDynamic";
 import ErrorNotFound from "./ErrorNotFound";
 import API, { url_data } from "../lib/api";
@@ -7,8 +7,14 @@ import update from 'immutability-helper';
 import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Tooltip } from "react-tooltip";
+import { secondsToDisplayTime } from "../lib/fun";
+import { PGCR_Sections_Links } from "../components/pgcr_sections/links";
+import { PGCR_Sections_Summary } from "../components/pgcr_sections/summary";
+import { PGCR_Sections_Medals } from "../components/pgcr_sections/medals";
+import HistoricalStatsDefinitionSmaller from '../data/fallback/HistoricalStatsDefinitionSmaller.json'
+import { PGCR_Sections_Time } from "../components/pgcr_sections/time";
 
-type userEntry = {
+export type userEntry = {
     membershipId: string,
     membershipType: string,
     name: string,
@@ -21,7 +27,18 @@ type userEntry = {
     kills: number,
     deaths: number,
     quit: boolean,
-    playtime: number
+    playtime: number,
+    startSeconds: number,
+    timePlayedSeconds: number,
+    medals: {
+        [key: string]: {
+            value: number,
+            name: string,
+            description: string,
+            icon: string,
+            tier: string
+        }
+    }
 }
 
 type basicMatchInfo = {
@@ -30,34 +47,271 @@ type basicMatchInfo = {
     forceRender?: boolean,
 }
 
+export type combinedPGCR = {
+    matchid: number,
+    anonym: boolean, // Should we calculate stats for a specific person?
+    membershipId: string,
+    referenceid: string,
+    bg_image: string,
+    heading: string,
+    date: string,
+    duration: number,
+    teamPreference: number, // Which team is the user on? by default the first
+    team1WinChance: number,
+    team1Score: number,
+    team2Score: number,
+    team3Score: number,
+    team1: userEntry[], // There can be more than 2 teams, but we're gonna ignore that here e.g. pgcr 13801004315
+    team2: userEntry[], // Team 1 = even numbers, Team 2 = odd
+    team_left_1: userEntry[],
+    team_left_2: userEntry[],
+    team3: userEntry[],
+    rawPGCR: any,
+}
+
+const MedalDefinitions: {
+    [key: string]: {
+        category: number,
+        statName: string,
+        statDescription: string,
+        iconImage: string,
+        medalTierIdentifier: string,
+        contentIconOverrideId: string,
+        medalTierHash: number
+    }
+} = HistoricalStatsDefinitionSmaller;
+
+export const renderTeamList = (renderInfo: combinedPGCR, tableHeaders: ReactElement[], callback: (arg1: any, arg2: userEntry) => ReactElement) => {
+    try {
+        return (
+            <table className="text-white mt-4 w-full font-bungo text-4xl font-bold justify-center flex px-5">
+                <tbody className="">
+                    <tr>
+                        <td className="!border-0 pr-3">
+                        </td>
+                        <td className="!border-0  w-[1500px]">
+                            <table className="w-full">
+                                <tbody>
+                                    <tr className="">
+                                        <td className="!border-0 leading-7 w-max align-bottom min-w-[220px]">
+                                            {renderInfo.team1Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{(renderInfo.team1WinChance * 100).toLocaleString(undefined, {
+                                                minimumFractionDigits: 0,
+                                                maximumFractionDigits: 5,
+                                            }) + "% Win Chance"}</span>}
+                                        </td>
+                                        {tableHeaders.map((tableHead, index) =>
+                                            <td
+                                                key={"pgcr_table_head_" + index}
+                                                className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
+                                                {tableHead}
+                                            </td>
+                                        )}
+                                    </tr>
+                                    <tr className="w-[100%]">
+                                        <td
+                                            className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                        </td>
+                                        {tableHeaders.map((tableHead, index) =>
+                                            <td
+                                                key={"pgcr_table_team1_white_dash_" + index}
+                                                className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                            </td>
+                                        )}
+                                    </tr>
+                                    <tr className="w-[100%] !border-0 h-[20px] p-0 bg-[#0097E6]">
+                                        <td
+                                            className="!border-0 h-[20px] p-0 bg-[#0097E6]">
+                                        </td>
+                                        {tableHeaders.map((tableHead, index) =>
+                                            <td
+                                                key={"pgcr_table_team1_blue_dash_" + index}
+                                                className="!border-0 h-[20px] p-0 bg-[#0097E6]">
+                                            </td>
+                                        )}
+                                    </tr>
+                                    {renderInfo.team1.map((entry: userEntry) =>
+                                        <React.Fragment key={renderInfo.matchid + "_tr" + entry.membershipId}>
+                                            {callback(renderInfo, entry)}
+                                            <tr className="h-2">
+                                                <td className="!border-0">
+                                                </td>
+                                            </tr>
+                                        </React.Fragment>
+                                    )}
+                                    {renderInfo.team_left_1.map((entry: userEntry) =>
+                                        <React.Fragment key={renderInfo.matchid + "_tr" + entry.membershipId}>
+                                            {callback(renderInfo, entry)}
+                                            <tr className="h-2">
+                                                <td className="!border-0">
+                                                </td>
+                                            </tr>
+                                        </React.Fragment>
+                                    )}
+                                    <tr className="h-4">
+                                        <td className="!border-0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="!border-0 w-max align-bottom min-w-[220px]">
+                                            {renderInfo.team2Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{((1 - renderInfo.team1WinChance) * 100).toLocaleString(undefined, {
+                                                minimumFractionDigits: 0,
+                                                maximumFractionDigits: 5,
+                                            }) + "% Win Chance"}</span>}
+                                        </td>
+                                    </tr>
+                                    <tr className="w-[100%]">
+                                        <td
+                                            className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                        </td>
+                                        {tableHeaders.map((tableHead, index) =>
+                                            <td
+                                                key={"pgcr_table_team2_white_dash_" + index}
+                                                className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                            </td>
+                                        )}
+                                    </tr>
+                                    <tr className="w-[100%]">
+                                        <td
+                                            className="!border-0 h-[20px] p-0 bg-[#BE362A]">
+                                        </td>
+                                        {tableHeaders.map((tableHead, index) =>
+                                            <td
+                                                key={"pgcr_table_team2_red_dash_" + index}
+                                                className="!border-0 h-[20px] p-0 bg-[#BE362A]">
+                                            </td>
+                                        )}
+                                    </tr>
+                                    {renderInfo.team2.map((entry: userEntry) =>
+                                        <React.Fragment key={renderInfo.matchid + "_tr" + entry.membershipId}>
+                                            {callback(renderInfo, entry)}
+                                            <tr className="h-2">
+                                                <td className="!border-0">
+                                                </td>
+                                            </tr>
+                                        </React.Fragment>
+                                    )}
+                                    {renderInfo.team_left_2.map((entry: userEntry) =>
+                                        <React.Fragment key={renderInfo.matchid + "_tr" + entry.membershipId}>
+                                            {callback(renderInfo, entry)}
+                                            <tr className="h-2">
+                                                <td className="!border-0">
+                                                </td>
+                                            </tr>
+                                        </React.Fragment>
+                                    )}
+                                    {renderInfo.team3.length > 0 ? (<>
+                                        <tr className="h-4">
+                                            <td className="!border-0">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="!border-0 w-max align-bottom min-w-[220px]">
+                                                {renderInfo.team3Score} Points
+                                            </td>
+                                        </tr>
+                                        <tr className="w-[100%]">
+                                            <td className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                            </td>
+                                            {tableHeaders.map((tableHead, index) =>
+                                                <td
+                                                    key={"pgcr_table_team3_white_dash_" + index}
+                                                    className="!border-0 h-[4px] p-0 bg-[#fff]">
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr className="w-[100%]">
+                                            <td className="!border-0 h-[20px] p-0 bg-gray-500">
+                                            </td>
+                                            {tableHeaders.map((tableHead, index) =>
+                                                <td
+                                                    key={"pgcr_table_team3_gray_dash_" + index}
+                                                    className="!border-0 h-[4px] p-0 bg-gray-500">
+                                                </td>
+                                            )}
+                                        </tr>
+                                        {renderInfo.team3.map((entry: userEntry) =>
+                                            <React.Fragment key={renderInfo.matchid + "_tr" + entry.membershipId}>
+                                                {callback(renderInfo, entry)}
+                                                <tr className="h-2">
+                                                    <td className="!border-0">
+                                                    </td>
+                                                </tr>
+                                            </React.Fragment>
+                                        )}
+                                        <tr className="h-4">
+                                            <td className="!border-0">
+                                            </td>
+                                        </tr>
+                                    </>) : <></>}
+                                </tbody>
+                            </table>
+                            <table className="w-full">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="!border-0">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        )
+    } catch (error) {
+        console.log(error);
+        return <div>An error occurred</div>
+    }
+}
+
+export const renderPlayerIconAndName = (entry: userEntry) => {
+    return <td className="!border-0 p-0 min-w-[38px] flex">
+        <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
+        <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
+            <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200">
+                {entry.name != undefined ? entry.name : (entry.membershipId == "0" ? <i>banned by Bungie</i> : <i>Bungie didn't include a name 🤷</i>)}
+            </a>
+        </div>
+    </td>
+}
+
 const PGCRLookup = (props: basicMatchInfo) => {
 
     const urlParams = new URLSearchParams(window.location.search);
-
-    const [renderInfo, setRenderInfo] = React.useState({
-        matchid: props?.matchid,
-        anonym: true, // Should we calculate stats for a specific person?
+    const initialState: combinedPGCR = {
+        matchid: props?.matchid || 0,
+        anonym: true,
         membershipId: "",
         referenceid: "",
         bg_image: "",
         heading: "Team Scorched",
         date: "",
         duration: 0,
-        teamPreference: 0, // Which team is the user on? by default the first
+        teamPreference: 0,
         team1WinChance: -1,
         team1Score: -1,
         team2Score: -1,
         team3Score: -1,
-        team1: [], // There can be more than 2 teams, but we're gonna ignore that here e.g. pgcr 13801004315
-        team2: [], // Team 1 = even numbers, Team 2 = odd
+        team1: [],
+        team2: [],
         team_left_1: [],
         team_left_2: [],
         team3: [],
-    });
+        rawPGCR: {}
+    }
+    const [renderInfo, setRenderInfo] = React.useState(initialState);
     const [crash, triggerCrash] = React.useState({ title: "", text: "" });
     const [render, triggerRender] = React.useState(false);
     const [started, triggerStarted] = React.useState(false);
+    const [devMode, setDevMode] = React.useState(false);
     const [loadingTitle, setLoadingTitle] = React.useState("...");
+    const [activeSection, setActiveSection] = React.useState("summary");
+
+    useEffect(() => {
+        if (urlParams.get('dev') != null && urlParams.get('dev') == "1") { // you are daring, hm
+            setDevMode(true);
+        }
+    }, [])
 
     const getRenderInfo = async () => {
         // Verify parameters
@@ -168,7 +422,8 @@ const PGCRLookup = (props: basicMatchInfo) => {
                         matchid: { $set: matchid },
                         membershipId: { $set: membershipId },
                         anonym: { $set: membershipId == "" },
-                        bg_image: { $set: image != undefined && image != "" ? "https://www.bungie.net" + image : "" }
+                        bg_image: { $set: image != undefined && image != "" ? "https://www.bungie.net" + image : "" },
+                        rawPGCR: { $set: response }
                     });
 
                     setLoadingTitle("Loading match histories...")
@@ -268,7 +523,23 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 kills: entry.values.kills.basic.value,
                                 deaths: entry.values.deaths.basic.value,
                                 quit: entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value,
-                                playtime: entry.values.timePlayedSeconds.basic.value
+                                playtime: entry.values.timePlayedSeconds.basic.value,
+                                startSeconds: entry.values.startSeconds.basic.value,
+                                medals: {}
+                            }
+                            // Add medals
+                            if (entry.extended && entry.extended.values) {
+                                Object.entries(entry.extended.values).map((medal) => {
+                                    if (MedalDefinitions[medal[0]]) {
+                                        newEntry.medals[medal[0]] = {
+                                            value: medal[1] && medal[1].basic && medal[1].basic.value || 0,
+                                            description: MedalDefinitions[medal[0]]?.statDescription || "",
+                                            icon: MedalDefinitions[medal[0]]?.iconImage || "",
+                                            name: MedalDefinitions[medal[0]]?.statName || "",
+                                            tier: MedalDefinitions[medal[0]]?.medalTierIdentifier || ""
+                                        }
+                                    }
+                                })
                             }
 
                             if (Number(entry.values.team.basic.value) % 2 == 0 && Number(entry.values.team.basic.value) != 0) { // Team 1
@@ -420,60 +691,47 @@ const PGCRLookup = (props: basicMatchInfo) => {
         }
     }
 
-    function renderTeamList(teamList: userEntry[], key: string) {
-        return (teamList.length == 0 ?
-            <tr key={matchid + "_team_" + key + "_tr_empty"}>
-                <td className="!border-0">
-                </td>
-            </tr> : teamList.map((entry: userEntry) => {
-                return <React.Fragment key={matchid + "_tr" + entry.membershipId}>
-                    <tr className={"bg-[rgba(255,255,255,0.1)] text-2xl font-medium w-[100%] " + (entry.quit ? "opacity-30" : "")}>
-                        <td className="!border-0 p-0 min-w-[38px] flex">
-                            <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
-                            <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
-                                <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200">
-                                {entry.name != undefined ? entry.name : (entry.membershipId == 0 ? <i>banned by Bungie</i> : <i>Bungie didn't include a name 🤷</i>)}
-                                </a>
-                            </div>
-                        </td>
-                        <td className="!border-0 text-center px-2">
-                            {renderInfo.anonym ? "" : <> <span className="opacity-70 mr-1">{entry.matchWins}</span><span className="font-black">/</span><span className="opacity-70 ml-1">{entry.matchup}</span> </>}
 
-                        </td>
-                        <td className="!border-0 text-center px-2 ">
-                            {entry.elo} <span className={" " + (entry.previousElo.includes("+") ? "text-green-600" : (entry.previousElo.includes("-") ? "text-red-600" : ""))}>{entry.previousElo == "0" ? "±" + entry.previousElo : entry.previousElo}</span>
-                        </td>
-                        <td className="!border-0 text-center px-2">
-                            {entry.opponentsDefeated}
-                        </td>
-                        <td className="!border-0 text-center px-2 ">
-                            {entry.kills}
-                        </td>
-                        <td className="!border-0 text-center px-2 ">
-                            {entry.deaths}
-                        </td>
-                        <td className="!border-0 text-center px-2 ">
-                            {(entry.opponentsDefeated / Math.max(1, entry.deaths)).toFixed(2)}
-                        </td>
-                        <td className="!border-0 text-center px-2 ">
-                            {(entry.kills / (Math.max(60, entry.playtime) / 60)).toFixed(2)}
-                        </td>
-                    </tr>
-                    <tr className="h-2">
-                        <td className="!border-0">
-                        </td>
-                    </tr>
-                </React.Fragment>
-            }))
+    let pgcr_sections = [
+        {
+            "title": "Summary",
+            "id": "summary",
+            "body": <PGCR_Sections_Summary {...renderInfo} />
+        },
+        {
+            "title": "Medals",
+            "id": "medals",
+            "body": <PGCR_Sections_Medals {...renderInfo} />
+        },
+        {
+            "title": "Time",
+            "id": "times",
+            "body": <PGCR_Sections_Time {...renderInfo} />
+        },
+        {
+            "title": "Links",
+            "id": "links",
+            "body": <PGCR_Sections_Links {...renderInfo} />
+        },
+    ]
+
+    if (devMode) {
+        pgcr_sections.push(
+            {
+                "title": "PGCR",
+                "id": "pgcr",
+                "body": <span className="whitespace-pre-line block p-8"><pre>{JSON.stringify(renderInfo.rawPGCR, null, 4)}</pre></span>
+            },
+            {
+                "title": "Everything",
+                "id": "everything",
+                "body": <span className="whitespace-pre-line block p-8"><pre>{JSON.stringify(renderInfo, null, 4)}</pre></span>
+            }
+        )
     }
 
-    // Calculating Xm Ys 
-    var date = new Date(renderInfo.duration * 1000);
-    var mm = date.getUTCMinutes();
-    var ss = date.getSeconds();
-    if (mm < 10) { mm = "0" + mm; }
-    if (ss < 10) { ss = "0" + ss; }
-    let timeDisplay = mm + "m " + ss + "s";
+
+    let timeDisplay = secondsToDisplayTime(renderInfo.duration);
 
     // This is needed so the button is accessible
     let matchid = "";
@@ -531,250 +789,48 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 <span className="float-right">
                                     {renderInfo.date}
                                 </span>
-                                <br />
-                                <button onClick={() => {
-                                    navigator.clipboard.writeText(location.origin + "/pgcr?id=" + renderInfo.matchid + (renderInfo.anonym ? "" : "&membershipid=" + renderInfo.membershipId));
-                                    document.getElementById(renderInfo.matchid + "_url_copy_button")!.dataset["tooltipHtml"] = "<div>Link Copied!</div>";
-                                    setTimeout(() => {
-                                        document.getElementById(renderInfo.matchid + "_url_copy_button")!.dataset["tooltipHtml"] = "<div>Copy link</div>";
-                                    }, 1000);
-                                }}
-                                    className="float-right z-10 opacity-80 font-extralight hover:opacity-100"
-                                    data-tooltip-id={matchid + "_url_copy_tooltip"}
-                                    data-tooltip-html={"<div>Copy link</div>"}
-                                    id={matchid + "_url_copy_button"}
-                                >
-                                    {location.origin}/pgcr?id={renderInfo.matchid}{renderInfo.anonym ? "" : "&membershipid=" + renderInfo.membershipId}
-                                </button>
+
                             </div>
 
+                            <div className="absolute w-full mt-[72px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-auto">
+                                <div className="table w-full float-right px-8">
+                                    <div className="table-row h-[44px]">
+                                        <div className="table-cell w-full">
+                                        </div>
+                                        {Object.values(pgcr_sections).map(section => {
+                                            if (section == undefined) {
+                                                return <></>
+                                            }
+                                            return <div className="table-cell h-7 text-nowrap align-middle lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
+                                                <button className={"w-full py-2 px-2 xl:px-4 hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
+                                                    location.hash = section.id; // don't push since we don't handle those
+                                                    setActiveSection(section.id);
+                                                }}>
+                                                    {section.title}
+                                                </button>
+                                            </div>
+                                        })}
+                                    </div>
+                                    <div className="table-row h-[4px]">
+                                        <div className="table-cell w-full">
+                                        </div>
+                                        {Object.values(pgcr_sections).map(section => {
+                                            return <div className={"table-cell " + (activeSection == section.id ? "bg-gray-800 dark:bg-white" : "")} key={"profile_section_bar_" + section.id}>
+                                            </div>
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         {/* Divider */}
                         <div className="h-[2px] bg-[#7E3B39]">
                         </div>
                         <div className="">
                         </div>
-                        <img className="absolute w-[100%] opacity-100 object-cover brightness-[0.3] mask-y-from-90% mask-y-to-100% mask-x-from-90% mask-x-to-100%" src={renderInfo.bg_image} />
-
-                        <table className="text-white mt-4 w-full font-bungo text-4xl font-bold justify-center flex px-5 opacity-95">
-                            <tbody className="">
-                                <tr>
-                                    <td className="!border-0 pr-3">
-                                    </td>
-                                    <td className="!border-0  w-[1500px]">
-                                        <table className="w-full">
-                                            <tbody>
-                                                <tr className="">
-                                                    <td className="!border-0 leading-7 w-max align-bottom min-w-[220px]">
-                                                        {renderInfo.team1Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{(renderInfo.team1WinChance * 100).toLocaleString(undefined, {
-                                                            minimumFractionDigits: 0,
-                                                            maximumFractionDigits: 5,
-                                                        }) + "% Win Chance"}</span>}
-                                                    </td>
-                                                    <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        {renderInfo.anonym ? "" : "Matchup"}
-                                                    </td>
-                                                    <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        Elo
-                                                    </td>
-                                                    <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        Opponents<br />defeated
-                                                    </td>
-                                                    <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        Kills
-                                                    </td>
-                                                    <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        Deaths
-                                                    </td>
-                                                    <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        Combat<br />Efficiency
-                                                    </td>
-                                                    <td className="!border-0 leading-7 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        Kills per<br />minute
-                                                    </td>
-                                                </tr>
-                                                <tr className="w-[100%]">
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                </tr>
-                                                <tr className="w-[100%] !border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#0097E6]">
-                                                    </td>
-                                                </tr>
-                                                {renderTeamList(renderInfo.team1, "team1")}
-                                                {renderTeamList(renderInfo.team_left_1, "teams1left")}
-                                                <tr className="h-4">
-                                                    <td className="!border-0">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="!border-0 w-max align-bottom min-w-[220px]">
-                                                        {renderInfo.team2Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{((1 - renderInfo.team1WinChance) * 100).toLocaleString(undefined, {
-                                                            minimumFractionDigits: 0,
-                                                            maximumFractionDigits: 5,
-                                                        }) + "% Win Chance"}</span>}
-                                                    </td>
-                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                    </td>
-                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                    </td>
-                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                    </td>
-                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                    </td>
-                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                    </td>
-                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                    </td>
-                                                    <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                    </td>
-                                                </tr>
-                                                <tr className="w-[100%]">
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                    <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                    </td>
-                                                </tr>
-                                                <tr className="w-[100%]">
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                    <td className="!border-0 h-[20px] p-0 bg-[#BE362A]">
-                                                    </td>
-                                                </tr>
-                                                {renderTeamList(renderInfo.team2, "team2")}
-                                                {renderTeamList(renderInfo.team_left_2, "team2left")}
-                                                {renderInfo.team3.length > 0 ? (<>
-                                                    <tr className="h-4">
-                                                        <td className="!border-0">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="!border-0 w-max align-bottom min-w-[220px]">
-                                                            {renderInfo.team3Score} Points
-                                                        </td>
-                                                        <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        </td>
-                                                        <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        </td>
-                                                        <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        </td>
-                                                        <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        </td>
-                                                        <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        </td>
-                                                        <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        </td>
-                                                        <td className="!border-0 text-2xl font-medium opacity-70 p-2 text-center">
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="w-[100%]">
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                        <td className="!border-0 h-[4px] p-0 bg-[#fff]">
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="w-[100%]">
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                        <td className="!border-0 h-[20px] p-0 bg-gray-500">
-                                                        </td>
-                                                    </tr>
-                                                    {renderTeamList(renderInfo.team3, "team3")}
-                                                    <tr className="h-4">
-                                                        <td className="!border-0">
-                                                        </td>
-                                                    </tr>
-                                                </>) : <></>}
-                                            </tbody>
-                                        </table>
-                                        <table className="w-full">
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="!border-0">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <img className="absolute w-[100%] object-cover brightness-[0.3] mask-y-from-90% mask-y-to-100% mask-x-from-90% mask-x-to-100%" src={renderInfo.bg_image} />
+                        <div className="relative">
+                            {Object.values(pgcr_sections).filter(section => section.id == activeSection).map(section => <div key={"profile_section_body_" + section.id}>{section.body}</div>)}
+                        </div>
                     </div>
                 </div>
                 <Tooltip id={matchid + "_url_copy_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />

@@ -1232,7 +1232,7 @@ const ReportLookup = () => {
             },
           });
         }
-        
+
         if (userid === "4611686018485301927") { // fix an injustice
           newStats = update(newStats, {
             bungieHistoricMedals: {
@@ -1289,7 +1289,7 @@ const ReportLookup = () => {
     })
     .catch(e => console.error(e));*/
 
-  const profile_sections = [
+  let profile_sections = [
     {
       "title": "Summary",
       "id": "summary",
@@ -1339,13 +1339,16 @@ const ReportLookup = () => {
       "title": "Match History",
       "id": "matches",
       "body": <MatchHistory stats={stats} DestinyActivityDefinition={destinyActivityDefinition} />
-    },
-    (devMode ? {
+    }
+  ]
+
+  if (devMode) {
+    profile_sections.push({
       "title": "Everything",
       "id": "everything",
       "body": <span className="whitespace-pre-line block p-8"><pre>{JSON.stringify(stats, null, 4)}</pre></span>
-    } : {})
-  ]
+    })
+  }
 
 
   if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)

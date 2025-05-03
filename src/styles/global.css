@@ -88,6 +88,9 @@
     .stylized-link {
       @apply hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]
     }
+    .stylized-link-bright {
+        @apply hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]
+      }
     .dc-js-chart {
         @apply p-2
     }
