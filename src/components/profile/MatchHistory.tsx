@@ -22,6 +22,34 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
   const { stats, DestinyActivityDefinition } = props;
   const [data, setData] = React.useState(initialState);
   const [mapNames, setMapNames] = React.useState([""]);
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [pagination]);
+
+  const handleKeyDown = (event) => {
+    const activePage = pagination.pageIndex;
+    const totalPages = Math.ceil(data.length / pagination.pageSize);
+
+    if (event.key === 'ArrowRight' && activePage < totalPages - 1) {
+      setPagination({
+        pageIndex: activePage + 1,
+        pageSize: pagination.pageSize
+      });
+    } else if (event.key === 'ArrowLeft' && activePage >= 1) {
+      setPagination({
+        pageIndex: pagination.pageIndex - 1,
+        pageSize: pagination.pageSize
+      });
+    }
+  };
 
   React.useEffect(() => {
     let tmpMatchHistory = stats.matchHistory != undefined ? Object.values(stats.matchHistory).sort(function (a, b) {
@@ -31,6 +59,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         return 1;
       return 0;
     }) : [];
+
 
     let newTable = tmpMatchHistory.map((match, index) => {
       let previousElo = index == 0 ? 1000 : (tmpMatchHistory[index - 1]?.elo || 1000);
@@ -270,6 +299,8 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
   const table = useMantineReactTable({
     columns,
     data,
+    onPaginationChange: setPagination,
+    state: { pagination },
     mantineSearchTextInputProps: {
       className: "bg-primary-900 text-primary-900",
     },
