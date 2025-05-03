@@ -27,6 +27,8 @@ export default defineConfig({
   redirects: {
     '/naze': '/leaderboards/performance/',
     '/Naze': '/leaderboards/performance/',
+    '/gerbsnail': '/showcase/',
+    '/GerbSnail': '/showcase/',
     '/asianketchup': '/leaderboards/playtime/',
     '/AsianKetchup': '/leaderboards/playtime/',
   },
