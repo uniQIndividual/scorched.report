@@ -308,9 +308,9 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       //className: "z-50"
     },
     renderDetailPanel: ({ row }) => (
-      <div className="flex justify-center p-0 mb-3">
-        <PGCRLookup matchid={row.original.id} membershipId={stats.id} forceRender={false} />
-      </div>
+        <div className="flex justify-center p-0 mb-3 font-body">
+          <PGCRLookup matchid={row.original.id} membershipId={stats.id} forceRender={false} />
+        </div>
 
     ),
     mantineExpandButtonProps: ({ row }) => ({

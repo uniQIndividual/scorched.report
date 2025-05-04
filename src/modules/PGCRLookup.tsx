@@ -793,7 +793,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                             </div>
 
                             <div className="absolute w-full mt-[72px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-auto">
-                                <div className="table w-full float-right px-8">
+                                <div className="table w-full float-right mx-8">
                                     <div className="table-row h-[44px]">
                                         <div className="table-cell w-full">
                                         </div>
