@@ -225,7 +225,7 @@ const ReportLookup = () => {
         }
       })
 
-      let flag = true;
+      let flag = false;
 
       const definitionsDB = new DatabaseMiddleware({
         databaseName: "DestinyActivityDefinition",
@@ -386,8 +386,8 @@ const ReportLookup = () => {
               if (json.hasOwnProperty(userid)) { // User is the local database
                 json = json[userid];
 
-                if (json.flags.includes("untrusted")) {
-                  flag = false;
+                if (!json.flags.includes("untrusted")) {
+                  flag = true;
                 }
 
                 let soloMatches = json.matchHistory.filter(match => !match.team);

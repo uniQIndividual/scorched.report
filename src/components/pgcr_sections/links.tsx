@@ -43,6 +43,11 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
             "icon": "/images/icons/external/destinykd.webp"
         },
         {
+            "name": "Destiny Tracker",
+            "url": `https://destinytracker.com/destiny-2/pgcr/${renderInfo.matchid}`,
+            "icon": "/images/icons/external/destinytracker.webp"
+        },
+        {
             "name": "GM Report",
             "url": `https://gm.report/pgcr/${renderInfo.matchid}`,
             "icon": "/images/icons/external/gmreport.webp"
@@ -53,14 +58,19 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
             "icon": "/images/icons/external/cruciblereport.webp"
         },
         {
-            "name": "Destiny Tracker",
-            "url": `https://destinytracker.com/destiny-2/pgcr/${renderInfo.matchid}`,
-            "icon": "/images/icons/external/destinytracker.webp"
+            "name": "Raid Report",
+            "url": `https://raid.report/pgcr/${renderInfo.matchid}`,
+            "icon": "/images/icons/external/raidreport.webp"
+        },
+        {
+            "name": "Dungeon Report",
+            "url": `https://dungeon.report/${renderInfo.matchid}`,
+            "icon": "/images/icons/external/dungeonreport.webp"
         },
     ]
     try {
         return (
-            <div className="flex flex-wrap justify-center m-12">
+            <div className="flex flex-wrap justify-center m-12 text-base">
                 <div className="flex w-full justify-center text-xl">
                     Copy the link to this match
                 </div>
@@ -93,10 +103,10 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td className="w-10">
+                                            <td className="w-10 !border-0">
                                                 <img src={val.icon} className="cursor-pointer h-8 w-8 mr-2 group-hover:brightness-150" />
                                             </td>
-                                            <td>
+                                            <td className="!border-0">
                                                 <span className="align-middle group-hover:text-white">
                                                     {val.name}
                                                 </span>
