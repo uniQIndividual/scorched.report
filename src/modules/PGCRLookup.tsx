@@ -13,11 +13,17 @@ import { PGCR_Sections_Summary } from "../components/pgcr_sections/summary";
 import { PGCR_Sections_Medals } from "../components/pgcr_sections/medals";
 import HistoricalStatsDefinitionSmaller from '../data/fallback/HistoricalStatsDefinitionSmaller.json'
 import { PGCR_Sections_Time } from "../components/pgcr_sections/time";
+import { PGCR_Sections_Profiles } from "../components/pgcr_sections/profiles";
 
 export type userEntry = {
     membershipId: string,
     membershipType: string,
     name: string,
+    nameCode: string,
+    platformName: string,
+    platforms: number[],
+    characterClassName: string,
+    lightLevel: number,
     icon: string,
     elo: number,
     previousElo: string,
@@ -29,7 +35,6 @@ export type userEntry = {
     quit: boolean,
     playtime: number,
     startSeconds: number,
-    timePlayedSeconds: number,
     medals: {
         [key: string]: {
             value: number,
@@ -514,6 +519,11 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 // ah well, at least we tried
                                 // if you read this you probably want to use User/GetMembershipDataById instead
                                 name: entry.player.destinyUserInfo.bungieGlobalDisplayName != "" ? entry.player.destinyUserInfo.bungieGlobalDisplayName : entry.player.destinyUserInfo.displayName,
+                                nameCode: String(entry.player.destinyUserInfo.bungieGlobalDisplayNameCode || "").padStart(4, '0'),
+                                platformName: entry.player.destinyUserInfo.displayName || "",
+                                platforms: entry.player.destinyUserInfo.applicableMembershipTypes || "",
+                                characterClassName: entry.player.characterClass || "",
+                                lightLevel: entry.player.lightLevel || "",
                                 icon: entry.player.destinyUserInfo.iconPath,
                                 elo: elo,
                                 previousElo: previousElo,
@@ -709,6 +719,11 @@ const PGCRLookup = (props: basicMatchInfo) => {
             "body": <PGCR_Sections_Time {...renderInfo} />
         },
         {
+            "title": "Profiles",
+            "id": "profiles",
+            "body": <PGCR_Sections_Profiles {...renderInfo} />
+        },
+        {
             "title": "Links",
             "id": "links",
             "body": <PGCR_Sections_Links {...renderInfo} />
@@ -720,12 +735,12 @@ const PGCRLookup = (props: basicMatchInfo) => {
             {
                 "title": "PGCR",
                 "id": "pgcr",
-                "body": <span className="whitespace-pre-line block p-8"><pre>{JSON.stringify(renderInfo.rawPGCR, null, 4)}</pre></span>
+                "body": <span className="whitespace-pre-line block p-8 text-gray-100"><pre>{JSON.stringify(renderInfo.rawPGCR, null, 4)}</pre></span>
             },
             {
                 "title": "Everything",
                 "id": "everything",
-                "body": <span className="whitespace-pre-line block p-8"><pre>{JSON.stringify(renderInfo, null, 4)}</pre></span>
+                "body": <span className="whitespace-pre-line block p-8 text-gray-100"><pre>{JSON.stringify(renderInfo, null, 4)}</pre></span>
             }
         )
     }
@@ -815,7 +830,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                         <div className="table-cell w-full">
                                         </div>
                                         {Object.values(pgcr_sections).map(section => {
-                                            return <div className={"table-cell " + (activeSection == section.id ? "bg-gray-800 dark:bg-white" : "")} key={"profile_section_bar_" + section.id}>
+                                            return <div className={"table-cell " + (activeSection == section.id ? "bg-white" : "")} key={"profile_section_bar_" + section.id}>
                                             </div>
                                         })}
                                     </div>

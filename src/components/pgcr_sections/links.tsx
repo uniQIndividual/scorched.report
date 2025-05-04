@@ -70,7 +70,7 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
     ]
     try {
         return (
-            <div className="flex flex-wrap justify-center m-12 text-base">
+            <div className="flex flex-wrap justify-center m-12 text-base text-gray-200">
                 <div className="flex w-full justify-center text-xl">
                     Copy the link to this match
                 </div>
