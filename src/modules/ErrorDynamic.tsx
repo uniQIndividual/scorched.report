@@ -11,12 +11,12 @@ export default class ErrorDynamic extends React.Component<ErrorDynamicProps> {
         return (
             <div className="hide-after-5s flex flex-col fixed justify-center bottom-0 w-screen left-0 z-50 items-center px-6 bg-[#111]/70 dark:bg-[#111]/50 backdrop-blur ">
                 <div className="transition bg-[#91332F] w-screen h-2"></div>
-                <div className="xl:max-w-4xl inline">
+                <div className="xl:w-3/4 inline">
                     <table className="mt-4">
                         <tbody>
                             <tr>
-                                <td className="p-2">
-                                    <img src="/images/icons/error_color.png" />
+                                <td className="p-2 w-20 lg:w-28">
+                                    <img className="w-20 lg:w-28" src="/images/icons/error_color.png" />
                                 </td>
                                 <td className="p-2">
                                     <h1

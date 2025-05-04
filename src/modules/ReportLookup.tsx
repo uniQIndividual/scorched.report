@@ -612,10 +612,18 @@ const ReportLookup = () => {
             // ~3 more requests for each character it is then 
             setLoadingTitle("Loading Character Stats...");
             await Promise.all(Object.keys(newStats.characters).map((character) => API.requests.User.GetHistoricCharacterStats(userid, platform.toString(), newStats.characters[character].characterId))).catch((error) => {
-              triggerCrash({
-                title: "Couldn't load historic stats",
-                text: error?.description?.toString()
-              });
+              try {
+                let json_error = JSON.parse(error.description);
+                triggerCrash({
+                  title: json_error.ErrorStatus,
+                  text: json_error.Message.toString()
+                });
+              } catch (error) {
+                triggerCrash({
+                  title: "Couldn't load historic stats",
+                  text: error?.description?.toString()
+                });
+              }
               console.error(error);
               return []
             }).then(async (response) => {
@@ -1146,7 +1154,6 @@ const ReportLookup = () => {
             // We assume Bungie is down and roll with fallback information
           }
         })
-        console.log(newStats.characters);
         
 
 
