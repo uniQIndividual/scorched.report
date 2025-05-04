@@ -611,7 +611,7 @@ const ReportLookup = () => {
             // While there is Destiny2.GetHistoricalStatsForAccount as far as I can tell it does not allow you to specify a mode
             // ~3 more requests for each character it is then 
             setLoadingTitle("Loading Character Stats...");
-            Promise.all(Object.keys(newStats.characters).map((character) => API.requests.User.GetHistoricCharacterStats(userid, platform.toString(), newStats.characters[character].characterId))).catch((error) => {
+            await Promise.all(Object.keys(newStats.characters).map((character) => API.requests.User.GetHistoricCharacterStats(userid, platform.toString(), newStats.characters[character].characterId))).catch((error) => {
               triggerCrash({
                 title: "Couldn't load historic stats",
                 text: error?.description?.toString()
@@ -1044,6 +1044,7 @@ const ReportLookup = () => {
                                 break;
                               default:
                                 triggerCrash({ title: "Could not load Match History", text: "What happened? idk" })
+                                console.log(error);
                                 throw new Error("Could not load Match History");
                             }
                           }
@@ -1145,6 +1146,8 @@ const ReportLookup = () => {
             // We assume Bungie is down and roll with fallback information
           }
         })
+        console.log(newStats.characters);
+        
 
 
         /*
@@ -1157,7 +1160,7 @@ const ReportLookup = () => {
         */
         let missingCharacterInformation = Object.keys(newStats.characters).length == 0;
 
-        if (missingCharacterInformation) {
+        if (missingCharacterInformation || (newStats.performance.matches == 0 && Object.keys(newStats.matchHistory).length != 0)) {
 
           let totalKills = Object.values(newStats.matchHistory).reduce((sum, current) => sum + current.kills, 0);
           let highestsStreak = Object.values(newStats.matchHistory).reduce((sum, current) => sum + current.kills, 0);

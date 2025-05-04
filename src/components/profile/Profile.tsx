@@ -148,7 +148,8 @@ export const Profile = (stats: Scorcher) => {
                 <D2Box title="Medals" body={
                     <div className="grid grid-cols-8 max-w-[500px] sm:w-[500px] px-4 pt-8 py-2 ">
                         {Object.keys(stats.bungieHistoricAccountStats.medals).map((medal) => {
-                            return medalsBungie[medal] ? <div className="flex justify-center mb-4" key={"medal_highlight_div_" + medal}> <div>
+                            return medalsBungie[medal] ? <div className="flex justify-center mb-4" key={"medal_highlight_div_" + medal}>
+                                <div>
                                 <div className={"flex justify-center" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>
                                     <a
                                         data-tooltip-id={medal + "_tooltip"}
@@ -161,7 +162,7 @@ export const Profile = (stats: Scorcher) => {
                                 <span className={"flex justify-center mt-2 font-bungo text-gray-800 dark:text-gray-100 text-base sm:text-xl font-medium" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>{stats.bungieHistoricAccountStats.medals[medal]}</span>
                                 <Tooltip id={medal + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
                             </div>
-                            </div> : ""
+                            </div> : <></>
                         })
                         }
                     </div>

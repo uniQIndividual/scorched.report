@@ -27,7 +27,7 @@ export const CannonCollection = (props: Scorcher) => {
                     if (SCORCHED_CANNONS[season] == undefined) {
                         return <></>
                     }
-                    return <D2Box title={SCORCHED_CANNONS[season]?.name + " - " + (props.minigame.ownedCannons.hasOwnProperty(season) && props.minigame.ownedCannons[season] != null ? Math.min(props.minigame.ownedCannons[season].length, SCORCHED_CANNONS[season]?.cannons.length) : 0) + "/" + SCORCHED_CANNONS[season]?.cannons.length} body={
+                    return <D2Box key={"profile_section_seasons_" + season} title={SCORCHED_CANNONS[season]?.name + " - " + (props.minigame.ownedCannons.hasOwnProperty(season) && props.minigame.ownedCannons[season] != null ? Math.min(props.minigame.ownedCannons[season].length, SCORCHED_CANNONS[season]?.cannons.length) : 0) + "/" + SCORCHED_CANNONS[season]?.cannons.length} body={
                         <div className="m-4 sm:m-10" key={season + "_profile_showcase"}>
                             <div className="flex flex-wrap justify-center">
                                 {SCORCHED_CANNONS[season].cannons.map(cannon => {
