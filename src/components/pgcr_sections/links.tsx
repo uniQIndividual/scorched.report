@@ -38,6 +38,11 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
             "icon": "/images/icons/external/destinyfocus.webp"
         },
         {
+            "name": "Black Garden",
+            "url": `https://black.garden/pgcr/${renderInfo.matchid}`,
+            "icon": "/images/icons/external/blackgarden.webp"
+        },
+        {
             "name": "DestinyKD",
             "url": `https://www.destinykd.com/game-report/${renderInfo.matchid}`,
             "icon": "/images/icons/external/destinykd.webp"
@@ -71,7 +76,7 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
     try {
         return (
             <div className="flex flex-wrap justify-center m-12 text-base text-gray-200">
-                <div className="flex w-full justify-center text-xl">
+                <div className="flex w-full justify-center text-2xl font-bungo">
                     Copy the link to this match
                 </div>
                 <button onClick={() => {
@@ -88,10 +93,10 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
                 >
                     {location.origin}/pgcr?id={renderInfo.matchid}{renderInfo.anonym ? "" : "&membershipid=" + renderInfo.membershipId}
                 </button>
-                <div className="flex w-full justify-center text-xl mt-20">
+                <div className="flex w-full justify-center text-2xl font-bungo mt-20">
                     View this match on other websites
                 </div>
-                <div className="grid grid-cols-6">
+                <div className="grid grid-cols-5">
                     {links.map((val, index) => {
                         return <a key={"pgcr_section_links_" + index}
                             className="m-4"
@@ -104,9 +109,9 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
                                     <tbody>
                                         <tr>
                                             <td className="w-10 !border-0">
-                                                <img src={val.icon} className="cursor-pointer h-8 w-8 mr-2 group-hover:brightness-150" />
+                                                <img src={val.icon} className="cursor-pointer h-8 w-8 group-hover:brightness-150" />
                                             </td>
-                                            <td className="!border-0">
+                                            <td className="!border-0 pl-3">
                                                 <span className="align-middle group-hover:text-white">
                                                     {val.name}
                                                 </span>
