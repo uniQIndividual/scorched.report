@@ -8,6 +8,7 @@ import sidebarBackgroundLight from "../assets/sidebar/light.webp";
 import sidebarBackgroundLightMobile from "../assets/sidebar/light_mobile.webp";
 import sidebarIconTipsAndTricks from "../assets/icons/sidebar/tips_and_tricks.webp";
 import sidebarIconDonate from "../assets/icons/sidebar/donate.webp";
+import sidebarIconSpeedruns from "../assets/icons/sidebar/speedruns.webp";
 import sidebarIconInfo from "../assets/icons/sidebar/info.webp";
 import sidebarIconAbout from "../assets/icons/sidebar/about.webp";
 import sidebarIconScience from "../assets/icons/sidebar/science.webp";
@@ -209,6 +210,55 @@ const allTWAS = await getCollection("twas");
 									href="/science/map_distribution"
 									class="flex items-center h-10 p-2 group-hover:pl-6 text-gray-100 transition-all duration-300  lg:grayscale lg:hover:grayscale-0 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg group hover:bg-[rgba(0,0,0,0.75)]"
 									>Map Weighting</a
+								>
+							</li>
+						</ul>
+					</li>
+					<li class="">
+						<button
+							type="button"
+							class="flex items-center p-2 text-base transition-all duration-300 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+							aria-controls="dropdown-speedruns"
+							data-collapse-toggle="dropdown-speedruns"
+						>
+						<Image
+							alt="Speedrun Icon"
+							src={sidebarIconSpeedruns}
+							loading="eager"
+							height="36"
+							width="36"
+							class="w-9 h-9 min-w-9"
+						/>
+							<span
+								class="flex-1 ml-3 text-lg lg:text-[0px] group-hover:text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition-all duration-300  lg:grayscale lg:hover:grayscale-0"
+								sidebar-toggle-item>Speedruns</span
+							>
+							<svg
+								sidebar-toggle-item
+								class="w-9 h-9"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+								>
+								</path>
+							</svg>
+						</button>
+						<ul id="dropdown-speedruns" class="hidden py-2 space-y-2 ml-14">
+							<li class="">
+								<a
+									href="/speedruns/rules"
+									class="flex items-center h-10 p-2 group-hover:pl-6 text-gray-100 transition-all duration-300  lg:grayscale lg:hover:grayscale-0 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg group hover:bg-[rgba(0,0,0,0.75)]"
+									>Rules</a
+								>
+							</li>
+							<li class="">
+								<a
+									href="/speedruns/seventh-columns"
+									class="flex items-center h-10 p-2 group-hover:pl-6 text-gray-100 transition-all duration-300  lg:grayscale lg:hover:grayscale-0 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg group hover:bg-[rgba(0,0,0,0.75)]"
+									>Seventh Column</a
 								>
 							</li>
 						</ul>
