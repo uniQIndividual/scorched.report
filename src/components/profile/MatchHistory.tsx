@@ -217,6 +217,11 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         },
       },
       {
+        accessorKey: 'id',
+        header: 'ID',
+        size: 50,
+      },
+      {
         accessorKey: 'medals',
         header: 'Medals',
         size: 50,
@@ -338,6 +343,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       columnVisibility: {
         'win_chance': true,
         'time': false,
+        'id': false,
       },
     },
     mantineTableHeadCellProps: {

@@ -12,6 +12,7 @@ Team Scorched Speedruns are purely for fun and the rules will reflect that. PvP 
 ## Submitting
 
 - The video must not start with or after the first visible frame
+- It should probably be in Team Scorched?
 - Submit the video in the Scorched Realm discord server
 
 ## Timing

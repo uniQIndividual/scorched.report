@@ -1,0 +1,179 @@
+---
+import LayoutSidebar from "../../../app/LayoutSidebar.astro";
+import speedruns from "../../../data/speedruns.json";
+import {
+	flattenSpeedrunsWithCategories,
+	millisecondsToDisplayTime,
+} from "../../../lib/fun";
+
+export async function getStaticPaths() {
+	const flatSpeedruns = flattenSpeedrunsWithCategories(speedruns);
+	const paths = await Promise.all(
+		Object.entries(flatSpeedruns)
+			.flat()
+			.map(async (run) => {
+				const hash = Array.from(
+					new Uint8Array(
+						await crypto.subtle.digest(
+							"SHA-256",
+							new TextEncoder().encode(
+								run.membershipId +
+									"\\" +
+									run.category +
+									"\\" +
+									run.pgcr +
+									"\\" +
+									run.time
+							)
+						)
+					)
+				)
+					.map((b) => b.toString(16).padStart(2, "0"))
+					.join("");
+				console.log(hash);
+				return { params: { runId: hash }, props: { run: run } };
+			})
+	);
+	return paths;
+}
+
+const { runId } = Astro.params;
+const { run } = Astro.props;
+const flatSpeedruns = flattenSpeedrunsWithCategories(speedruns);
+---
+
+<LayoutSidebar
+	title={run.category_name + " by " + run.name}
+	make_title={run.category_name + " by " + run.name}
+	og_title={millisecondsToDisplayTime(run.time) + " by " + run.name}
+	og_description={millisecondsToDisplayTime(run.time) +
+		" " +
+		run.category_name +
+		" by " +
+		run.name}
+	og_image="/images/speedrun_icon.png"
+>
+	<div class="">
+		<div class="flex justify-center">
+			<table class="text-lg lg:text-2xl">
+				<tbody>
+					<tr>
+						<td class="p-2"> Runner </td>
+						<td class="p-2 dark:text-white text-black">
+							<a
+								href={"/report/?id=" +
+									run.membershipId +
+									"&platform=" +
+									run.platform}
+								class="stylized-link overflow-hidden whitespace-nowrap text-ellipsis text-gray-800 dark:text-gray-100"
+							>
+								{run.name}
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="p-2"> Time </td>
+						<td class="p-2 dark:text-white text-black">
+							{millisecondsToDisplayTime(run.time)}
+						</td>
+					</tr>
+					<tr>
+						<td class="p-2"> Rank </td>
+						<td class="p-2 dark:text-white text-black">
+							{
+								flatSpeedruns
+									.filter((entry) => entry.category == run.category)
+									.reduce(
+										(rank, entry) => (entry.time < run.time ? rank + 1 : rank),
+										1
+									)
+							}
+						</td>
+					</tr>
+					<tr>
+						<td class="p-2"> Achieved: </td>
+						<td class="p-2 dark:text-white text-black">
+							<a
+								href={"/pgcr/?id=" +
+									run.pgcr +
+									"&membershipid=" +
+									run.membershipId}
+								class="stylized-link overflow-hidden whitespace-nowrap text-ellipsis text-gray-800 dark:text-gray-100"
+							>
+							{
+								new Date(run.date_achieved).toLocaleString("en-US", {
+									year: "numeric",
+									month: "long",
+									day: "numeric",
+								})
+							}
+              </a>
+						</td>
+					</tr>
+					<tr>
+						<td class="p-2"> Accepted: </td>
+						<td class="p-2 dark:text-white text-black">
+							{" "}
+							{
+								new Date(run.date_added).toLocaleString("en-US", {
+									year: "numeric",
+									month: "long",
+									day: "numeric",
+								})
+							}
+						</td>
+					</tr>
+					<tr>
+						<td class="p-2"> Category </td>
+						<td class="p-2 dark:text-white text-black">
+							{run.category_name}
+						</td>
+					</tr>
+					{
+						run.video != "" ? (
+							<tr>
+								<td class="p-2 "> Video </td>
+								<td class="p-2 stylized-link">
+									<a href={run.video}>{run.video}</a>
+								</td>
+							</tr>
+						) : (
+							""
+						)
+					}
+				</tbody>
+			</table>
+		</div>
+    {
+      run.video != "" ? (
+		<div class="flex justify-center m-10 text-center" id="video-container" data-video={run.video}>
+      <div>
+        External Content is blocked by default but you can choose to embed it
+        <br />
+        <div class="flex justify-center">
+        <button
+          id="video-button-embed"
+          class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center m-6 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        >
+          Embed Video
+        </button>
+      </div>
+      </div>
+		</div>
+		<script>
+			const div_container = document.getElementById("video-button-embed");
+			div_container.addEventListener("click", () => {
+				document.getElementById("video-container").innerHTML = `<iframe
+      src="` + document.getElementById("video-container").dataset.video?.replace("watch?v=", "embed/") + `"
+      width="360"
+      height="202"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      class="max-w-[100%]">Loading…</iframe
+    >`;
+			});
+		</script>
+    ) : ""}
+	</div>
+</LayoutSidebar>
