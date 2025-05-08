@@ -14,25 +14,6 @@ import FooterNote from "../../components/leaderboard/FooterNote.astro";
 const speedrunsSeventhColumns = flattenSpeedrunsWithCategories(speedruns)
 	.filter((run) => run.category == "seventhColumn")
 	.sort((a, b) => a.time - b.time);
-/*[
-	{
-		name: "Ravioluuuu",
-		url: "",
-		icon: "",
-		id: "4611686018459350478",
-		platform: "1",
-		time: 13400,
-		date_achieved: new Date("Oct 28, 2023 UTC"),
-		date_added: new Date("May 7, 2025 UTC"),
-		pgcr: 0,
-		video: "https://www.youtube.com/watch?v=nuQre56s-fM",
-	}, // dyno https://www.youtube.com/watch?v=Yc0kHF-XQG4
-	//naze https://youtu.be/UmRbFxzISTE
-	//ketchup
-	//mangle https://youtu.be/4GhMikkdN3A
-	//nblock 22:000
-	//uniq?
-].sort((a, b) => a.time - b.time);*/
 ---
 
 <LayoutSidebar
@@ -42,103 +23,119 @@ const speedrunsSeventhColumns = flattenSpeedrunsWithCategories(speedruns)
 	og_description="The fastest recorded Seventh Columns in Team Scorched"
 	og_image="/images/speedrun_icon.png"
 >
-<div class="text-center lg:mt-12 lg:mb-6">
-	</div>
-	<div class="flex justify-center flex-wrap">
-		{
-			speedrunsSeventhColumns.map(async (run) => {
-				const hash = Array.from(
-					new Uint8Array(
-						await crypto.subtle.digest(
-							"SHA-256",
-							new TextEncoder().encode(
-								run.membershipId +
-									"\\" +
-									run.category +
-									"\\" +
-									run.pgcr +
-									"\\" +
-									run.time
+	<div class="text-center xl:mt-12 xl:mb-6"></div>
+	<div class="flex justify-center flex-wrap mb-10">
+		<div class="table">
+			{
+				speedrunsSeventhColumns.map(async (run) => {
+					const hash = Array.from(
+						new Uint8Array(
+							await crypto.subtle.digest(
+								"SHA-256",
+								new TextEncoder().encode(
+									run.membershipId +
+										"\\" +
+										run.category +
+										"\\" +
+										run.pgcr +
+										"\\" +
+										run.time
+								)
 							)
 						)
 					)
-				)
-					.map((b) => b.toString(16).padStart(2, "0"))
-					.join("");
-				const rank = speedrunsSeventhColumns.reduce(
-					(rank, entry) => (entry.time < run.time ? rank + 1 : rank),
-					1
-				);
-				let rankIcon = <div class="text-3xl font-black font-bungo text-gray-50 p-2">{rank}</div>;
-				switch (rank) {
-					case 1:
-					rankIcon = <Image
+						.map((b) => b.toString(16).padStart(2, "0"))
+						.join("");
+					const rank = speedrunsSeventhColumns.reduce(
+						(rank, entry) => (entry.time < run.time ? rank + 1 : rank),
+						1
+					);
+					let rankIcon = (
+						<div class="text-xl font-black font-bungo text-gray-50 p-2">
+							{rank}
+						</div>
+					);
+					switch (rank) {
+						case 1:
+							rankIcon = (
+								<Image
 									alt={"First place"}
 									loading={"eager"}
 									src={ImageFirstPlace}
 									class={
-										"w-14 object-scale-down mx-2 object-top cursor-pointer"
+										"w-10 object-scale-down mx-2 object-top cursor-pointer"
 									}
 								/>
-						break;
-					case 2:
-					rankIcon = <Image
+							);
+							break;
+						case 2:
+							rankIcon = (
+								<Image
 									alt={"Second place"}
 									loading={"eager"}
 									src={ImageSecondPlace}
 									class={
-										"w-14 object-scale-down mx-2 object-top cursor-pointer"
+										"w-10 object-scale-down mx-2 object-top cursor-pointer"
 									}
 								/>
-						break;
-					case 3:
-					rankIcon = <Image
+							);
+							break;
+						case 3:
+							rankIcon = (
+								<Image
 									alt={"Third place"}
 									loading={"eager"}
 									src={ImageThirdPlace}
 									class={
-										"w-14 object-scale-down mx-2 object-top cursor-pointer"
+										"w-10 object-scale-down mx-2 object-top cursor-pointer"
 									}
 								/>
-						break;
-					default:
-						break;
-				}
-				return (
-					<a href={"/speedruns/run/" + hash} class="m-3">
-						<div class="bg-gray-200 dark:bg-gray-950 rounded-2xl p-2 max-w-72 dark:brightness-150 hover:bg-gray-100 hover:dark:bg-gray-900 cursor-pointer">
-							<div class="flex cursor-pointer">
-								{rankIcon}
-								<div class="p-4 cursor-pointer wrap-anywhere text-wrap">
-									<div class=" text-gray-800 dark:text-gray-100 text-3xl cursor-pointer">
-										{run.name}
+							);
+							break;
+						default:
+							break;
+					}
+					return (
+						<div class="table-row ">
+							<div class="table-cell xl:inline">
+								<br />
+								<a href={"/speedruns/run/" + hash} class="">
+									<div class="bg-gray-200 dark:bg-gray-950 rounded-2xl p-2  dark:brightness-150 hover:bg-gray-100 hover:dark:bg-gray-900 cursor-pointer">
+										<div class="flex cursor-pointer">
+											{rankIcon}
+											<div class="p-2 cursor-pointer wrap-break-word text-wrap">
+												<div class="xl:table-cell xl:px-2 text-2xl text-gray-700 dark:text-gray-200">
+													{millisecondsToDisplayTime(run.time)}
+												</div>
+												<div class="xl:table-cell xl:px-2 text-gray-800 dark:text-gray-100 text-2xl cursor-pointer">
+													{run.name}
+												</div>
+												<div class="xl:table-cell xl:px-2 cursor-pointer text-sm">
+													Achieved:{" "}
+													{new Date(run.date_achieved).toLocaleString("en-US", {
+														year: "numeric",
+														month: "long",
+														day: "numeric",
+													})}
+												</div>
+												<div class="xl:table-cell xl:px-2 cursor-pointer text-sm">
+													Accepted:{" "}
+													{new Date(run.date_added).toLocaleString("en-US", {
+														year: "numeric",
+														month: "long",
+														day: "numeric",
+													})}
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="text-2xl mt-3 text-gray-700 dark:text-gray-200">
-										{millisecondsToDisplayTime(run.time)}
-									</div>
-									<div class="cursor-pointer text-sm">
-										Achieved:{" "}
-										{new Date(run.date_achieved).toLocaleString("en-US", {
-											year: "numeric",
-											month: "long",
-											day: "numeric",
-										})}
-									</div>
-									<div class="cursor-pointer text-sm">
-										Accepted:{" "}
-										{new Date(run.date_added).toLocaleString("en-US", {
-											year: "numeric",
-											month: "long",
-											day: "numeric",
-										})}
-									</div>
-								</div>
+								</a>
 							</div>
 						</div>
-					</a>
-				);
-			})
-		}
+					);
+				})
+			}
+		</div>
 	</div>
 	<FooterNote />
 </LayoutSidebar>
