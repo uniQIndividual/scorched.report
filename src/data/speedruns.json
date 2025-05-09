@@ -27,6 +27,18 @@
                 "video": ""
             },
             {
+                "name": "B-2, Spirit of Christmas",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018503959988",
+                "platform": "3",
+                "time": 23433,
+                "date_achieved": "2024-01-08T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 14305827678,
+                "video": ""
+            },
+            {
                 "name": "uniQ",
                 "url": "",
                 "icon": "",
@@ -99,6 +111,18 @@
                 "video": ""
             },
             {
+                "name": "TheZombieReborn",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018445052922",
+                "platform": "2",
+                "time": 20300,
+                "date_achieved": "2023-07-04T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 13526102737,
+                "video": ""
+            },
+            {
                 "name": "AsianKetchup",
                 "url": "",
                 "icon": "",
@@ -121,6 +145,90 @@
                 "date_added": "2025-05-08T00:00:00.000Z",
                 "pgcr": 11866910159,
                 "video": "https://www.youtube.com/watch?v=6yaJ7hqMFAI"
+            },
+            {
+                "name": "Smeorge",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018533196723",
+                "platform": "3",
+                "time": 17467,
+                "date_achieved": "2024-01-05T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 14291843178,
+                "video": "https://www.youtube.com/watch?v=4GhMikkdN3A"
+            },
+            {
+                "name": "Ravioluuuu",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018459350478",
+                "platform": "1",
+                "time": 15883,
+                "date_achieved": "2023-07-24T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 13604445396,
+                "video": "https://www.youtube.com/watch?v=nuQre56s-fM"
+            },
+            {
+                "name": "Ravioluuuu",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018459350478",
+                "platform": "1",
+                "time": 15400,
+                "date_achieved": "2022-07-19T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 11322228228,
+                "video": "https://www.youtube.com/watch?v=UcbjGXlBfW0"
+            },
+            {
+                "name": "Ravioluuuu",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018459350478",
+                "platform": "1",
+                "time": 16367,
+                "date_achieved": "2022-06-09T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 10925155677,
+                "video": "https://www.youtube.com/watch?v=Xn6kd75iR6Y"
+            },
+            {
+                "name": "Ravioluuuu",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018459350478",
+                "platform": "1",
+                "time": 17267,
+                "date_achieved": "2022-04-18T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 10626735546,
+                "video": "https://www.youtube.com/watch?v=18eiGqG_pV8"
+            },
+            {
+                "name": "Ravioluuuu",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018459350478",
+                "platform": "1",
+                "time": 19633,
+                "date_achieved": "2021-09-11T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 9185419906,
+                "video": "https://www.youtube.com/watch?v=rjTXCyO5lmk"
+            },
+            {
+                "name": "Ravioluuuu",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018459350478",
+                "platform": "1",
+                "time": 17283,
+                "date_achieved": "2023-07-03T00:00:00.000Z",
+                "date_added": "2025-05-09T00:00:00.000Z",
+                "pgcr": 13522386447,
+                "video": "https://www.youtube.com/watch?v=gzv650ux-KM"
             }
         ]
     }
