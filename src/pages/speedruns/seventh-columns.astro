@@ -100,7 +100,7 @@ const speedrunsSeventhColumns = flattenSpeedrunsWithCategories(speedruns)
 							<div class="table-cell xl:inline">
 								<br />
 								<a href={"/speedruns/run/" + hash} class="">
-									<div class="bg-gray-200 dark:bg-gray-950 rounded-2xl p-2  dark:brightness-150 hover:bg-gray-100 hover:dark:bg-gray-900 cursor-pointer">
+									<div class="bg-gray-200 dark:bg-gray-950 rounded-2xl p-2  dark:brightness-150 hover:bg-gray-100 hover:dark:bg-gray-900 cursor-pointer ">
 										<div class="flex cursor-pointer">
 											{rankIcon}
 											<div class="p-2 cursor-pointer wrap-break-word text-wrap">
@@ -111,18 +111,13 @@ const speedrunsSeventhColumns = flattenSpeedrunsWithCategories(speedruns)
 													{run.name}
 												</div>
 												<div class="xl:table-cell xl:px-2 cursor-pointer text-sm">
+													{run.map}
+												</div>
+												<div class="xl:table-cell xl:px-2 cursor-pointer text-sm">
 													Achieved:{" "}
 													{new Date(run.date_achieved).toLocaleString("en-US", {
 														year: "numeric",
-														month: "long",
-														day: "numeric",
-													})}
-												</div>
-												<div class="xl:table-cell xl:px-2 cursor-pointer text-sm">
-													Accepted:{" "}
-													{new Date(run.date_added).toLocaleString("en-US", {
-														year: "numeric",
-														month: "long",
+														month: "short",
 														day: "numeric",
 													})}
 												</div>

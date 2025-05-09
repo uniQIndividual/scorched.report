@@ -90,6 +90,18 @@ const flatSpeedruns = flattenSpeedrunsWithCategories(speedruns);
 							}
 						</td>
 					</tr>
+					{
+						run.map != "" ? (
+							<tr>
+								<td class="p-2 "> Map </td>
+								<td class="p-2 dark:text-white text-black wrap-break-word text-wrap">
+									{run.map}
+								</td>
+							</tr>
+						) : (
+							""
+						)
+					}
 					<tr>
 						<td class="p-2"> Achieved: </td>
 						<td class="p-2 dark:text-white text-black">
@@ -107,7 +119,7 @@ const flatSpeedruns = flattenSpeedrunsWithCategories(speedruns);
 									day: "numeric",
 								})
 							}
-              </a>
+							</a>
 						</td>
 					</tr>
 					<tr>
