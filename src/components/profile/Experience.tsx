@@ -255,7 +255,7 @@ M1329 524h128v51h-218v-32l2 -1h51z`
             case 2:
                 return "Warlock"
             default:
-                return "Unknown"
+                return "Deleted"
         }
     }
     function characterClassToColor(characterClass: number) {
@@ -267,7 +267,7 @@ M1329 524h128v51h-218v-32l2 -1h51z`
             case 2:
                 return "rgba(175, 135, 37,1)"
             default:
-                return "Unknown"
+                return "Deleted"
         }
     }
 
