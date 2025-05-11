@@ -1,381 +1,234 @@
 import { type Scorcher } from "../../lib/entities";
-import ApexChart from "react-apexcharts";
+import { medalsBungie } from "../../lib/entities";
+import { Tooltip } from 'react-tooltip'
+import SCORCHED_CANNONS from "../../lib/cannons";
+import { D2Box } from "./D2Box";
+import { Radar } from "./Radar_chart";
 
-const textColor = '#e3e4ea';
 
-interface RadarInterface {
-    stats: Scorcher,
-    context: ("total" | "character")
-}
+export const Summary = (stats: Scorcher) => {
 
-export const Radar = (props: RadarInterface) => {
-    type calculateNormalizedStatsType = {
-        trueSkill: number,
-        kills: number,
-        totalGold: number,
-        matches: number,
-        wins: number,
-        deaths: number,
-        timeSpent: number,
-        useCombatRating: boolean
-    }
-
-    const stats = props.stats;
-    const context = props.context;
-
-    // A method to turn arbitrary stats into other arbitrary stats but they're normalized
-    function calculateNormalizedStats({ trueSkill, kills, totalGold, matches, wins, deaths, timeSpent, useCombatRating }: calculateNormalizedStatsType) {
-        return [
-            useCombatRating ?
-                Math.min(Math.max(trueSkill / 3, 0), 100).toFixed(0)
-                : Math.min(Math.max(trueSkill / 20, 0), 100).toFixed(0), // Elo 50%:= 1000
-            Math.min(Math.max(kills / 500, 0), 100).toFixed(0), // Experience' 50%:= 25000
-            //Math.min(Math.max(stats.medals.totalGold / 10, 0), 100).toFixed(0), // Gold Medals': 0,
-            Math.min(Math.max(wins * 100 / matches, 0), 100).toFixed(0), // Win Ratio 50%:=50
-            Math.min(Math.max((Math.log((kills / deaths) * 3 + 1) * 0.3607) * 100, 0), 100).toFixed(0), // Performance simply: f(x)=log(ℯ,x*ρ+ϕ)*τ with ℯ=2,718... ρ=3 ϕ=1 τ=0.3607
-            Math.min(Math.max((kills / (timeSpent / 60)) * 20, 0), 100).toFixed(0), // Aggressiveness 50%:= 2.5 100%:=5 (around 30 per match)
-        ]
+    // Reorder the awards
+    Array.prototype.move = function (from, to) {
+        this.splice(to, 0, this.splice(from, 1)[0]);
     };
 
-    function characterClassToString(characterClass: number) {
-        switch (characterClass) {
-            case 0:
-                return "Titan"
-            case 1:
-                return "Hunter"
-            case 2:
-                return "Warlock"
-            default:
-                return "Unknown"
-        }
-    }
-    function characterClassToColor(characterClass: number) {
-        switch (characterClass) {
-            case 0:
-                return "rgba(155, 53, 41,0.6)"
-            case 1:
-                return "rgba(69, 112, 121,0.6)"
-            case 2:
-                return "rgba(175, 135, 37,0.6)"
-            default:
-                return "Unknown"
-        }
-    }
-    if (stats.bungieHistoricAccountStats.activitiesEntered < 10) {
-        return <div className="p-4">Not enough matches</div>
-    }
-    return context == "total" ? (
-        <div className="sm:w-[500px]">
-            <ApexChart
-                width={"100%"}
-                series={[{
-                    name: "Overall Performance",
-                    data: calculateNormalizedStats({
-                        trueSkill: stats.performance.trueSkill,
-                        kills: stats.performance.kills,
-                        totalGold: stats.bungieHistoricAccountStats.medals.totalGold,
-                        matches: stats.performance.matches,
-                        wins: stats.performance.wins,
-                        deaths: stats.performance.deaths,
-                        timeSpent: stats.performance.timeSpent,
-                        useCombatRating: false
-                    }),
-                    color: "rgba(250,50,40,0.3)",
-                } /*,
-                {
-                    name: "Solo Performance",
-                    hidden: true,
-                    data: calculateNormalizedStats({
-                        trueSkill: stats.soloPerformance.trueSkill,
-                        kills: stats.soloPerformance.kills,
-                        totalGold: stats.bungieHistoricAccountStats.medals.totalGold,
-                        matches: stats.soloPerformance.matches,
-                        wins: stats.soloPerformance.wins,
-                        deaths: stats.soloPerformance.deaths,
-                        timeSpent: stats.soloPerformance.timeSpent,
-                        useCombatRating: false
-                    }) || [0, 0, 0, 0, 0],
-                    color: "#FF9800",
-                }*/]}
-                options={{
-                    responsive: [
-                        {
-                            breakpoint: 1000,
-                            options: {
-                                plotOptions: {
-                                    radar: {
-                                        size: '50',
-                                        offsetX: 0,
-                                    }
-                                },
-                                xaxis: {
-                                    labels: {
-                                        show: true,
-                                        offsetY: 0,
-                                        style: {
-                                            colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                            fontSize: "12px",
-                                            fontFamily: 'Arial'
-                                        }
-                                    }
-                                },
-                            }
-                        }],
-                    chart: {
-                        type: 'radar',
-                        dropShadow: {
-                            enabled: true,
-                            blur: 1,
-                            left: 1,
-                            top: 1
-                        },
-                        toolbar: {
-                            show: true,
-                            tools: {
-                                download: true,
-                                zoom: true,
-                                zoomin: true,
-                                zoomout: true,
-                                pan: true,
-                                reset: true,
-                            },
-                        }
-                    },
-                    plotOptions: {
-                        radar: {
-                            size: '120',
-                            offsetX: 0,
-                            offsetY: 0,
-                            polygons: {
-                                strokeColors: '#a8a8a8',
-                                strokeWidth: 1,
-                                connectorColors: 'rgba(0,0,0,0)',
-                            }
-                        }
-                    },
-                    labels: ["Rating", 'Experience', 'Win Ratio', 'Performance', 'Aggressiveness'],
-                    fill: {
-                        colors: ["#fff"],
-                        opacity: 0.5,
-                    },
-                    stroke: {
-                        show: true,
-                        width: 1,
-                        colors: ["#e8e8e8"],
-                        dashArray: 0
-                    },
-                    markers: {
-                        size: 3,
-                        colors: ['#e8e8e8'],
-                        hover: {
-                            size: 8
-                        }
-                    },
-                    yaxis: {
-                        show: false,
-                    },
-                    xaxis: {
-                        labels: {
-                            show: true,
-                            offsetY: 0,
-                            style: {
-                                colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                fontSize: "16px",
-                                fontFamily: 'Arial'
-                            }
-                        }
-                    },
-                    dataLabels: {
-                        enabled: false,
-                        style: {
-                        },
-                        background: {
-                            enabled: true,
-                            foreColor: '#fff',
-                        },
-                    },
-                    legend: {
-                        show: true,
-                        labels: {
-                            colors: textColor,
-                            useSeriesColors: false
-                        },
-                        itemMargin: {
-                            horizontal: 5,
-                            vertical: 0
-                        },
-                    },
+    const awardKeys = Object.keys(stats.awards).filter((award) => stats.awards[award]);
+    awardKeys.move(0, 6)
 
-                }}
-                type={"radar"}
-            />
-        </div>
-    ) : (
-        <div className="block flex-none w-[100%]">
-            {Object.keys(stats.bungieHistoricStats).length > 0 ? <>
-                <ApexChart
-                    height={350}
-                    series={[].concat(Object.keys(stats.bungieHistoricStats).map((charater, i) => {
-                        return {
-                            name: characterClassToString(stats.characters[charater]?.classType || ""),
-                            data: calculateNormalizedStats({
-                                trueSkill: stats.bungieHistoricStats[charater]?.combatRating || 100,
-                                kills: stats.bungieHistoricStats[charater]?.kills || 0,
-                                totalGold: stats.bungieHistoricAccountStats.medals.totalGold,
-                                matches: stats.bungieHistoricStats[charater]?.activitiesEntered || 0,
-                                wins: stats.bungieHistoricStats[charater]?.activitiesWon || 0,
-                                deaths: stats.bungieHistoricStats[charater]?.deaths || 0,
-                                timeSpent: stats.bungieHistoricStats[charater]?.secondsPlayed || 0,
-                                useCombatRating: true
-                            }),
-                            color: characterClassToColor(stats.characters[charater].classType),
-                        }
-                    }))
-                    }
-                    options={{
-                        responsive: [
-                            {
-                                breakpoint: 1000,
-                                options: {
-                                    plotOptions: {
-                                        radar: {
-                                            size: '50',
-                                            offsetX: 0,
-                                        }
-                                    },
-                                    xaxis: {
-                                        labels: {
-                                            show: true,
-                                            offsetY: 0,
-                                            style: {
-                                                colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                                fontSize: "10px",
-                                                fontFamily: 'Arial'
-                                            }
-                                        }
-                                    },
-                                }
-                            }],
-                        chart: {
-                            type: 'radar',
-                            dropShadow: {
-                                enabled: true,
-                                blur: 1,
-                                left: 1,
-                                top: 1
-                            },
-                            toolbar: {
-                                show: true,
-                                tools: {
-                                    download: true,
-                                    zoom: true,
-                                    zoomin: true,
-                                    zoomout: true,
-                                    pan: true,
-                                    reset: true,
-                                },
-                            }
-                        },
-                        plotOptions: {
-                            radar: {
-                                size: '130',
-                                offsetX: 30,
-                                offsetY: 20,
-                                polygons: {
-                                    strokeColors: '#a8a8a8',
-                                    strokeWidth: 1,
-                                    connectorColors: 'rgba(0,0,0,0)',
-                                }
-                            }
-                        },
-                        labels: ["Bungie's Combat Rating", 'Experience', 'Win Ratio', 'Performance', 'Aggressiveness'],
-                        fill: {
-                            colors: ["#fff"],
-                            opacity: 0.5,
-                        },
-                        stroke: {
-                            show: true,
-                            width: 1,
-                            colors: ["#e8e8e8"],
-                            dashArray: 0
-                        },
-                        markers: {
-                            size: 3,
-                            colors: ['#e8e8e8'],
-                            hover: {
-                                size: 8
-                            }
-                        },
-                        yaxis: {
-                            show: false,
-                            min: 0,
-                            max: 100,
-                            tickAmount: 4,
-                            labels: {
-                                show: true,
-                                minWidth: 0,
-                                maxWidth: 160,
-                                style: {
-                                    colors: "#a8a8a8",
-                                    fontSize: '12px',
-                                    fontFamily: 'Helvetica, Arial, sans-serif',
-                                    fontWeight: 400,
-                                    cssClass: 'apexcharts-yaxis-label',
-                                },
-                            },
+    const emblemLength = awardKeys.map(value => (stats.awards[value] === true ? 1 : 0))
+        .reduce((sum, current) => sum + current, 0); // Let's print a max of 8 awards per row
+    const wrapEmblems = emblemLength > 6;
 
-                        },
-                        xaxis: {
-                            labels: {
-                                show: true,
-                                offsetY: 2,
-                                style: {
-                                    colors: ['#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba', '#a6aaba'],
-                                    fontSize: "14px",
-                                    fontFamily: 'Arial'
-                                }
-                            }
-                        },
-                        dataLabels: {
-                            enabled: false,
-                            style: {
-                            },
-                            background: {
-                                enabled: true,
-                                foreColor: '#fff',
-                            },
-                        },
-                        legend: {
-                            show: true,
-                            labels: {
-                                colors: textColor,
-                                useSeriesColors: false
-                            },
-                            itemMargin: {
-                                horizontal: 5,
-                                vertical: 0
-                            },
-                        },
-                        subtitle: {
-                            text: "Characters",
-                            align: 'center',
-                            margin: 0,
-                            offsetX: 0,
-                            offsetY: 0,
-                            floating: false,
-                            style: {
-                                fontSize: '26px',
-                                fontWeight: 'normal',
-                                color: '#f4f5f7'
-                            },
-                        }
+    const iconSize = wrapEmblems ? "22px" : "26px";
+    const glowOffset = wrapEmblems ? "11px" : "13px";
 
-                    }}
-                    type={"radar"}
-                />
-            </>
-                : <></>
+    const hoverTextMedals = (award) => {
+        return `<div style="padding: 12px; z-index: 11000; max-width: 240px; ">
+            <table >
+            <tbody>
+                <tr>
+                <td style="justify-content: center; display: flex; padding: 12px;">
+                    <div style=" position: absolute; transform: rotate(45deg);` +
+            (medalsBungie[award].glow == "shadow-awardGlow" ? "box-shadow: 44px 44px 50px 30px rgba(240,217,170,0.8)" : "") +
+            (medalsBungie[award].glow == "shadow-awardGlowRed" ? "box-shadow: 44px 44px 50px 30px rgba(212,47,47,0.9)" : "") +
+            `"></div>
+                    <img style="" src=` + medalsBungie[award].src + ` />
+                    </td>
+                </tr>
+                <tr >
+                <td style="padding-bottom: 12px;">
+                    <div style="text-align: center; line-height: 1.5rem; font-size: 1.125rem; color: rgb(255 255 255); z-index: 110;">
+                        ` + medalsBungie[award].description + `
+                    </div>
+                    </td>
+                </tr>
+               </tbody>
+            </table>
+        </div>`};
+
+    // use default cannon if necessary
+    const noCannon = stats.minigame.selectedSeason == "" || stats.minigame.equippedCannons[stats.minigame.selectedSeason] == undefined;
+    const equippedSeason = noCannon ? "S1" : stats.minigame.selectedSeason
+    const equippedCannon = noCannon ? 3 : SCORCHED_CANNONS[equippedSeason]?.cannons.map((item, i) => {
+        if (item.hash === stats.minigame.equippedCannons[equippedSeason].base_cannon_hash) return i;
+    }).filter((i) => i != undefined); // 1 == ScornchedCannon
+
+    let last_matches = Object.keys(stats.matchHistory);
+    last_matches = last_matches.sort((a,b) => Number(b) - Number(a));
+    let last_matches_box = "";
+    let number_of_matches = last_matches.length;
+    let last_matches_stats = {
+        kills: 0,
+        deaths: 0,
+        time: 0,
+    }
+    if (number_of_matches > 1) {
+        last_matches_box = last_matches.map((match, i) => {
+            if (i > 4 || stats.matchHistory[match] == undefined) {
+                return <></>
             }
+            last_matches_stats.kills += stats.matchHistory[match].kills;
+            last_matches_stats.deaths += stats.matchHistory[match].deaths;
+            last_matches_stats.time += stats.matchHistory[match].time;
+            return <div className="p-3" key={"last_matches_box_" + stats.matchHistory[match].id}>
+                <div className="flex justify-center mb-1">{
+                    stats.matchHistory[match].won ?
+                        <img className="h-8 w-8" src="/images/icons/outcome_win.webp" />
+                        :
+                        <img className="h-8 w-8" src="/images/icons/outcome_loss.webp" />
+                }</div>
+                <div className="text-center">{stats.matchHistory[match].kills + ":" + stats.matchHistory[match]?.deaths}</div>
+            </div>
+        })
+    } else {
+        last_matches_box = <div>there are no matches</div>
+    }
+
+
+    return (
+        <div className="">
+            <div className="flex flex-wrap justify-center space-y-10 sm:space-y-0">
+                <D2Box title="Stats" body={
+                    <div className="w-full my-6 mx-6">
+                        <table className="w-full">
+                            <tbody className="">
+                                <tr className="text-gray-800 dark:text-gray-200 text-3xl">
+                                    <td className="m-0 p-0 float-left pr-2">
+                                        {stats.performance.trueSkill || "..."}
+                                    </td>
+                                    <td className="m-0 p-0 float-right pl-2">
+                                        {stats.performance.deaths ? (stats.performance.kills / stats.performance.deaths).toLocaleString(undefined, {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        }) : "..."}
+                                    </td>
+                                </tr>
+                                <tr className="mt-0 text-gray-400 text-lg">
+                                    <td className="m-0 p-0 float-left">
+                                        Elo
+                                    </td>
+                                    <td className="m-0 p-0 float-right">
+                                        K/D
+                                    </td>
+                                </tr>
+                                <tr className="text-gray-800 dark:text-gray-200 text-3xl space-x-20">
+                                    <td className="m-0 p-0 float-left pt-3 pr-2">
+                                        {stats.performance.kills ? (stats.performance.kills).toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 0,
+                                        }) : "..."}
+                                    </td>
+                                    <td className="m-0 p-0 float-right pt-3 pl-2">
+                                        {stats.performance.kills ? (stats.performance.kills / (stats.performance.timeSpent / 60)).toLocaleString(undefined, {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        }) : "..."}
+                                    </td>
+                                </tr>
+                                <tr className="mt-0 text-gray-400 text-lg">
+                                    <td className="m-0 p-0 float-left">
+                                        Kills
+                                    </td>
+                                    <td className="m-0 p-0 float-right">
+                                        KPM
+                                    </td>
+                                </tr>
+                                <tr className="mt-0 text-gray-400 text-lg">
+                                    <td className="m-0 p-0 float-left">
+                                    </td>
+                                    <td className="m-0 p-0 float-right text-sm">
+                                        (Kills per minute)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                } />
+                <D2Box title="Medals" body={
+                    <div className="grid grid-cols-8 max-w-[500px] sm:w-[500px] px-4 pt-8 py-2 ">
+                        {Object.keys(stats.bungieHistoricAccountStats.medals).map((medal) => {
+                            return medalsBungie[medal] ? <div className="flex justify-center mb-4" key={"medal_highlight_div_" + medal}>
+                                <div>
+                                <div className={"flex justify-center" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>
+                                    <a
+                                        data-tooltip-id={medal + "_tooltip"}
+                                        data-tooltip-html={hoverTextMedals(medal)}
+                                        className={"w-[" + iconSize + "] h-[" + iconSize + "]"}
+                                    >
+                                        <img className="w-8" src={medalsBungie[medal].src} />
+                                    </a>
+                                </div>
+                                <span className={"flex justify-center mt-2 font-bungo text-gray-800 dark:text-gray-100 text-base sm:text-xl font-medium" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>{stats.bungieHistoricAccountStats.medals[medal]}</span>
+                                <Tooltip id={medal + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
+                            </div>
+                            </div> : <></>
+                        })
+                        }
+                    </div>
+                } />
+                <D2Box title="Equipped Cannon" body={
+                    <div className="max-w-[500px] px-4 sm:px-6 py-4 sm:py-8">
+                        <div className="flex justify-center">
+                            <img className="" src={SCORCHED_CANNONS[equippedSeason]?.cannons[equippedCannon]?.image} />
+                        </div>
+                        <table className="w-full">
+                            <tbody className="">
+                                <tr className="text-gray-800 dark:text-gray-200 text-lg sm:text-3xl">
+                                    <td className="m-0 p-0 float-left pt-3">
+                                        {SCORCHED_CANNONS[equippedSeason]?.cannons[equippedCannon]?.name}
+                                    </td>
+                                    <td className="m-0 p-0 float-right pt-3">
+                                        {(noCannon ? "0" : stats.minigame.equippedCannons[equippedSeason].kills).toLocaleString()}
+                                    </td>
+                                </tr>
+                                <tr className="mt-0 text-gray-400 text-base sm:text-lg">
+                                    <td className="m-0 p-0 float-left">
+                                        Equipped Cannon
+                                    </td>
+                                    <td className="m-0 p-0 float-right">
+                                        Tracked Kills
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                } />
+                <D2Box title={"Radar chart"} body={
+                    <Radar stats={stats} context="total" />
+                } />
+                <D2Box title={"Last Matches"} body={
+                    <div className="p-2">
+                    <div className="p-3 flex flex-wrap">
+                    <table className="w-full">
+                        <tbody className="">
+                            <tr className="text-gray-800 dark:text-gray-200 text-3xl">
+                                <td className="m-0 p-0 float-left pr-2">
+                                    {last_matches_stats.deaths != 0 ? (last_matches_stats.kills / last_matches_stats.deaths).toPrecision(2)  : "..."}
+                                </td>
+                                <td className="m-0 p-0 float-right pl-2">
+                                    {last_matches_stats.deaths != 0 ? (last_matches_stats.kills * 60 / last_matches_stats.time).toPrecision(2)  : "..."}
+                                </td>
+                            </tr>
+                            <tr className="mt-0 text-gray-400 text-lg">
+                                <td className="m-0 p-0 float-left">
+                                K/D
+                                </td>
+                                <td className="m-0 p-0 float-right">
+                                    KPM
+                                </td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            <div className="flex flex-wrap justify-center">
+                        {last_matches_box}
+                    </div>
+                    </div>
+                } />
+            </div>
+            {/*<img className="w-full absolute opacity-30 saturate-50 mask-radial" src="images/potential/4CBDDA80.png" />*/}
         </div>
-    )
+    );
+
 }

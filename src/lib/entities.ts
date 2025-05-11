@@ -139,7 +139,7 @@ export type historicMedal = {
 	"medalTierHash": number
 }
 
-export const medalsBungie: { [index: string]: { "description": string, "text": string, "src": string} } = {
+export const medalsBungie: { [index: string]: { "description": string, "text": string, "src": string } } = {
 	"iMadeThisForYou": {
 		"text": "I Made This for You",
 		"description": "In a single life, defeat 50 opposing Guardians.",
@@ -313,9 +313,12 @@ export const awards: { [index: string]: { "description": string, "text": string,
 
 export type Scorcher = {
 	"id": string, // Let's only convert this to BigInt when necessary
-	"platform": number, // Let's only convert this to BigInt when necessary
+	"platform": number,
 	"profile": {
 		"profileName": string,
+		"platform_all": number[],
+		"crosssaveEnabled": boolean,
+		"bungieNameCode": string,
 		"clanName": string,
 		"bannerUrl": string,
 		"secondarySpecial": string,

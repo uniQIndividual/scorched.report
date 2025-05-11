@@ -13,7 +13,7 @@ import update from 'immutability-helper';
 import LoadingAnimation from "../components/LoadingAnimation";
 import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { type historicStatsPerCharacter, type pgcrCutDown, type Scorcher } from "../lib/entities";
-import { Profile } from "../components/profile/Profile";
+import { Summary } from "../components/profile/Summary";
 import { Activity } from "../components/profile/Experience";
 import { Performance } from "../components/profile/Performance";
 import MatchHistory from "../components/profile/MatchHistory";
@@ -27,6 +27,7 @@ import { Award } from "../components/profile/Award";
 import { Medals } from "../components/profile/Medals";
 import { D2Box } from "../components/profile/D2Box";
 import HistoricalStatsDefinitionSmaller from "../data/fallback/HistoricalStatsDefinitionSmaller.json"
+import { Profile } from "../components/profile/Profile";
 
 
 const ReportLookup = () => {
@@ -37,6 +38,8 @@ const ReportLookup = () => {
     "platform": 0,
     "profile": {
       "profileName": "",
+      "platform_all": [],
+      "bungieNameCode": "",
       "clanName": "",
       "bannerUrl": "",
       "secondarySpecial": "",
@@ -493,11 +496,21 @@ const ReportLookup = () => {
               response = JSON.parse(response)
               response = response.Response;
 
-              newStats = update(newStats, { characters: { $set: response.characters.data } });
-              newStats = update(newStats, { profile: { privacy: { $set: response.characters.privacy } } });
-              newStats = update(newStats, { profile: { profileName: { $set: response.profile.data.userInfo.bungieGlobalDisplayName != "" ? response.profile.data.userInfo.bungieGlobalDisplayName : response.profile.data.userInfo.displayName } } });
-              newStats = update(newStats, { profile: { guardianrank: { $set: response.profile.data.currentGuardianRank } } });
-
+              newStats = update(newStats, {
+                characters: {
+                  $set: response.characters.data
+                }
+              });
+              newStats = update(newStats, {
+                profile: {
+                  privacy: { $set: response.characters.privacy },
+                  profileName: { $set: response.profile.data.userInfo.bungieGlobalDisplayName != "" ? response.profile.data.userInfo.bungieGlobalDisplayName : response.profile.data.userInfo.displayName },
+                  guardianrank: { $set: response.profile.data.currentGuardianRank },
+                  platform_all: {$set: response.profile.data.userInfo.applicableMembershipTypes},
+                  crosssaveEnabled: {$set: response.profile.data.userInfo.crossSaveOverride	!== 0},
+                  bungieNameCode: {$set: String(response.profile.data.userInfo.bungieGlobalDisplayNameCode || "").padStart(4, '0')},
+                }
+              });
               // set info based on the most recently used character
               // in theory we should be able to find it by looking at
               // response.profile.data.dateLastPlayed
@@ -1154,7 +1167,7 @@ const ReportLookup = () => {
             // We assume Bungie is down and roll with fallback information
           }
         })
-        
+
 
 
         /*
@@ -1303,7 +1316,7 @@ const ReportLookup = () => {
     {
       "title": "Summary",
       "id": "summary",
-      "body": <Profile {...stats} />
+      "body": <Summary {...stats} />
     },
     {
       "title": "XP",
@@ -1314,6 +1327,11 @@ const ReportLookup = () => {
       "title": "Performance",
       "id": "performance",
       "body": <Performance {...stats} />
+    },
+    {
+      "title": "Profile",
+      "id": "profile",
+      "body": <Profile {...stats} />
     },
     {
       "title": "Characters",

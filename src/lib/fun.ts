@@ -19,3 +19,39 @@ export function millisecondsToDisplayTime(seconds: number) {
 export function flattenSpeedrunsWithCategories(a) {
     return Object.entries(a).map(b => b[1].runs.map(c => { c.category = b[0]; c.category_name = b[1].name; return c })).flat().sort((a, b) => a.time - b.time)
 }
+export const platformLookup = (platform: number) => {
+    switch (platform) {
+        case 1:
+            return {
+                "icon": "https://www.bungie.net//img/theme/bungienet/icons/xboxLiveLogo.png",
+                "name": "Xbox/Windows Store"
+            }
+        case 2:
+            return {
+                "icon": "https://www.bungie.net//img/theme/bungienet/icons/psnLogo.png",
+                "name": "PlayStation Network"
+            }
+        case 3:
+            return {
+                "icon": "https://www.bungie.net//img/theme/bungienet/icons/steamLogo.png",
+                "name": "Steam"
+            }
+        case 4:
+            return {
+                "icon": "",
+                "name": "Blizzard"
+            } //"Blizzard" //TODO: get images
+        case 5:
+            return {
+                "icon": "https://www.bungie.net//img/theme/destiny/icons/icon_stadia.png",
+                "name": "Stadia"
+            }
+        case 6:
+            return {
+                "icon": "https://www.bungie.net//img/theme/destiny/icons/icon_egs.png",
+                "name": "Epic Games Store"
+            }
+        default:
+            return undefined
+    }
+}
