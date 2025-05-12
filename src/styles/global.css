@@ -101,3 +101,31 @@
         @apply px-1
     }
   }
+  
+  /* Animated masterwork border by Lab*/
+    ._itemMasterworked {
+        border-image: linear-gradient(var(--border-gradient-angle),
+                rgba(201, 166, 42, 1) 20%,
+                rgba(249, 245, 230, 1) 50%,
+                rgba(201, 166, 42, 1) 80%) 1;
+        border-width: 2px;
+        border-style: solid;
+        animation-name: _borderRotation;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+    @keyframes _borderRotation {
+        0% {
+            --border-gradient-angle: 0deg;
+        }
+        100% {
+            --border-gradient-angle: 360deg;
+        }
+    }
+    @property --border-gradient-angle {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+    }

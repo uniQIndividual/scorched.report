@@ -489,7 +489,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                 matchup = matchup_result.matchup;
                                 matchupWins = matchup_result.matchWins;
 
-                                var index = matchHistory.map(function (e) { return String(e.id); }).indexOf(String(matchid)); // Find match in database
+                                var index = matchHistory.map(e => String(e.id)).indexOf(String(matchid)); // Find match in database
 
                                 if (index >= 0 && matchHistory[index].elo != 0) {
 
