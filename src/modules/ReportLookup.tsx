@@ -39,6 +39,7 @@ const ReportLookup = () => {
     "profile": {
       "profileName": "",
       "platform_all": [],
+      "crosssaveEnabled": false,
       "bungieNameCode": "",
       "clanName": "",
       "bannerUrl": "",
@@ -204,45 +205,62 @@ const ReportLookup = () => {
   React.useEffect(() => {
     // Verify parameters
     try {
-      if (urlParams.get('dev') != null && urlParams.get('dev') == "1") { // you are daring, hm
-        setDevMode(true);
-      }
-      if (urlParams.get('id') == null || urlParams.get('id') == "") {
-        throw new Error("Membership id is missing");
-      }
-      if (urlParams.get('platform') == null) {
-        throw new Error("Platform id is missing");
-      }
-      const userid = urlParams.get('id') || "";
-
-      const platform = Number(urlParams.get('platform'));
-
-      if (platform <= 0 || platform >= 256) {
-        throw new Error("Platform id is impossible");
-      }
-
-      // set active section if it was e.g. linked
-      profile_sections.map(section => {
-        if (location.hash == `#${section.id}`) {
-          setActiveSection(section.id)
+      (async () => {
+        if (urlParams.get('dev') != null && urlParams.get('dev') == "1") { // you are daring, hm
+          setDevMode(true);
         }
-      })
+        if (urlParams.get('id') == null || urlParams.get('id') == "") {
+          throw new Error("Membership id is missing");
+        }
+        const userid = urlParams.get('id') || "";
 
-      let flag = false;
+        let platform = Number(urlParams.get('platform'));
 
-      const definitionsDB = new DatabaseMiddleware({
-        databaseName: "DestinyActivityDefinition",
-        storeName: "Entries",
-        version: 1,
-      });
+        if (platform == null || platform <= 0 || platform >= 256) {
+          //We need to figure out the platform i
+          await API.requests.User.GetMembershipsById(userid)
+            .then((data) => {
+              const response = JSON.parse(data);
+              if (response && response.Response && response.Response.destinyMemberships) {
+                for (const result of response.Response.destinyMemberships) {
+                  if (result.crossSaveOverride == 0 || result.crossSaveOverride == result.membershipType) { //iterate over all entries and find the one which has either no cross save overwrite or is the primary
+                    platform = result.membershipType;
+                  }
+                }
+              }
+            })
+            .catch(e => {
+              console.error(e);
+              new Error("Membership id is missing")
+            });
+        }
 
-      const historyDB = new DatabaseMiddleware({
-        databaseName: "PGCRHistory",
-        storeName: "Entries",
-        version: 2,
-      });
+        if (platform == null || platform <= 0 || platform >= 256) {
+          new Error("Unable to determine your platform")
+        }
 
-      (async () => { // A lot of async stuff from here on that we need to enforce
+        // set active section if it was e.g. linked
+        profile_sections.map(section => {
+          if (location.hash == `#${section.id}`) {
+            setActiveSection(section.id)
+          }
+        })
+
+        let flag = false;
+
+        const definitionsDB = new DatabaseMiddleware({
+          databaseName: "DestinyActivityDefinition",
+          storeName: "Entries",
+          version: 1,
+        });
+
+        const historyDB = new DatabaseMiddleware({
+          databaseName: "PGCRHistory",
+          storeName: "Entries",
+          version: 2,
+        });
+
+        // A lot of async stuff from here on that we need to enforce
         // Initialize databases
         setLoadingTitle("Initializing database...");
         let newStats = stats;
@@ -506,9 +524,9 @@ const ReportLookup = () => {
                   privacy: { $set: response.characters.privacy },
                   profileName: { $set: response.profile.data.userInfo.bungieGlobalDisplayName != "" ? response.profile.data.userInfo.bungieGlobalDisplayName : response.profile.data.userInfo.displayName },
                   guardianrank: { $set: response.profile.data.currentGuardianRank },
-                  platform_all: {$set: response.profile.data.userInfo.applicableMembershipTypes},
-                  crosssaveEnabled: {$set: response.profile.data.userInfo.crossSaveOverride	!== 0},
-                  bungieNameCode: {$set: String(response.profile.data.userInfo.bungieGlobalDisplayNameCode || "").padStart(4, '0')},
+                  platform_all: { $set: response.profile.data.userInfo.applicableMembershipTypes },
+                  crosssaveEnabled: { $set: response.profile.data.userInfo.crossSaveOverride !== 0 },
+                  bungieNameCode: { $set: String(response.profile.data.userInfo.bungieGlobalDisplayNameCode || "").padStart(4, '0') },
                 }
               });
               // set info based on the most recently used character
