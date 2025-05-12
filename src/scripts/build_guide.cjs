@@ -91,7 +91,10 @@ async function fetchGoogleDoc(docId) {
 
         setTimeout(() => {
             let modifiedHtml = $.html();
-            modifiedHtml = modifiedHtml.replaceAll(/"https:\/\/[\w\d-]+\.googleusercontent\.com[\w\d\/\-=\?]+"/g,'""')
+            modifiedHtml = modifiedHtml.replaceAll(/"https:\/\/[\w\d-]+\.googleusercontent\.com[\w\d\/\-=\?]+"/g,'""');
+            const discordLink = modifiedHtml.match(/<a class="\w{0,10}\" href="https:\/\/discord\.gg\/jxteYXBtjF">Discord<\/a>/g);
+            const discordClass = discordLink[0].match(/class="\w{0,10}"/);
+            modifiedHtml = modifiedHtml.replaceAll(/<a class="\w{0,10}\" href="https:\/\/discord\.gg\/jxteYXBtjF">Discord<\/a>/g, `<span id="discord_url"><script>document.getElementById("discord_url").outerHTML ='<a ` + discordClass + ` href="' + atob("aHR0cHM6Ly9kaXNjb3JkLmdnL2p4dGVZWEJ0akY") + '">Discord</a>'</script></span>`)
             fs.writeFileSync(path.join(base_path, 'src', 'content', 'pages', 'guide.html'), modifiedHtml);
         }, 5000);
     }, 5000);
