@@ -339,24 +339,24 @@ export const Performance = (stats: Scorcher) => {
                 some: '%number',
                 none: '-/-'
             });
-            statsOutputEfficiency
-                .group(groupKD)
-                .formatNumber(d3.format(".1f"))
-                .valueAccessor(function (d) { return (d.kills + d.assists) / d.deaths; })
-                .html({
-                    one: '%number',
-                    some: '%number',
-                    none: '-/-'
-                });
-                statsOutputKPM
-                    .group(groupKD)
-                    .formatNumber(d3.format(".1f"))
-                    .valueAccessor(function (d) { return d.kills * 60 / d.time; })
-                    .html({
-                        one: '%number',
-                        some: '%number',
-                        none: '-/-'
-                    });
+        statsOutputEfficiency
+            .group(groupKD)
+            .formatNumber(d3.format(".1f"))
+            .valueAccessor(function (d) { return (d.kills + d.assists) / d.deaths; })
+            .html({
+                one: '%number',
+                some: '%number',
+                none: '-/-'
+            });
+        statsOutputKPM
+            .group(groupKD)
+            .formatNumber(d3.format(".1f"))
+            .valueAccessor(function (d) { return d.kills * 60 / d.time; })
+            .html({
+                one: '%number',
+                some: '%number',
+                none: '-/-'
+            });
         statsOutputKills
             .group(groupKD)
             .valueAccessor(function (d) { return d.kills })
@@ -432,28 +432,28 @@ export const Performance = (stats: Scorcher) => {
                                     <td className="text-right pr-2">
                                         Kills
                                     </td>
-                                    <td id="chart-stats-kills" className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
+                                    <td id="chart-stats-kills" className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
                                         K/D
                                     </td>
-                                    <td id="chart-stats-kd" className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
+                                    <td id="chart-stats-kd" className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
                                         Efficiency
                                     </td>
-                                    <td id="chart-stats-efficiency" className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
+                                    <td id="chart-stats-efficiency" className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
                                         KPM
                                     </td>
-                                    <td id="chart-stats-kpm" className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
+                                    <td id="chart-stats-kpm" className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
                                     </td>
                                 </tr>
                             </tbody>
@@ -469,7 +469,7 @@ export const Performance = (stats: Scorcher) => {
                 <D2Box title="Win Chances" body={
                     <div id="chart-win-chances" className="dc-js-chart"></div>
                 } />
-                </div>
+            </div>
             <div className="flex flex-wrap justify-center ">
                 <div className="grid columns-1">
                     <D2Box title="Rating" body={
@@ -503,178 +503,204 @@ export const Performance = (stats: Scorcher) => {
                     <div id="yearly-bubble-chart" className="dc-js-chart"></div>
                 } />
                 <div id="html-dist"></div>
-            <D2Box title="All Time high scores" body={
-            <div className="p-4 text-gray-300 text-lg sm:text-xl flex flex-wrap justify-evenly">
-                <table className="flex w-[280px] justify-center">
-                    <tbody>
-                        <tr>
-                            <td className="text-right pr-2">
-                                K/D
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {(stats.performance.kills / Math.max(stats.performance.deaths || 1, 1)).toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Efficiency
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {((stats.performance.kills + stats.performance.assists) / Math.max(stats.performance.deaths || 0, 1)).toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                KPM
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {(stats.performance.kills * 60 / Math.max(stats.performance.timeSpent, 1)).toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Combat Rating
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {stats.bungieHistoricAccountStats?.combatRating.toLocaleString(undefined, {
-                                    minimumFractionDigits: 0,
-                                    maximumFractionDigits: 2,
-                                })}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Peak Rating
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {Object.values(stats.matchHistory).reduce((highest, current) => highest > current.elo ? highest : current.elo, 0)}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="h-3"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table className="flex w-[280px] justify-center">
-                    <tbody>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Win Ratio
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {((stats.performance.wins * 100) / stats.performance.matches).toFixed(0)} %
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Average kill distance
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {((stats.bungieHistoricAccountStats.totalKillDistance || 0) / Math.max(stats.bungieHistoricAccountStats.kills || 1, 1)).toLocaleString(undefined, {
-                                    minimumFractionDigits: 0,
-                                    maximumFractionDigits: 1,
-                                })} m
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Average Match Duration
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {formatSeconds(stats.performance.timeSpent / Math.max(stats.performance.matches, 1))}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Average Lifespan
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {formatSeconds(stats.bungieHistoricAccountStats.averageLifespan || 0)}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Average Team Score
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {((stats.bungieHistoricAccountStats.teamScore || 0) / (stats.bungieHistoricAccountStats.activitiesEntered || 0)).toLocaleString(undefined, {
-                                    minimumFractionDigits: 0,
-                                    maximumFractionDigits: 1,
-                                })}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Avg Match Completion
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {(100 - ((stats.bungieHistoricAccountStats.remainingTimeAfterQuitSeconds || 0) * 100 / (stats.bungieHistoricAccountStats.totalActivityDurationSeconds || 1))).toLocaleString(undefined, {
-                                    minimumFractionDigits: 0,
-                                    maximumFractionDigits: 1,
-                                })}%
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table className="flex w-[280px] justify-center">
-                    <tbody>
+                <D2Box title="All Time high scores" body={
+                    <div className="p-4 text-gray-300 text-lg sm:text-lg     flex flex-wrap justify-evenly">
+                        <table className="flex w-[280px] justify-center">
+                            <tbody>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        K/D
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {(stats.performance.kills / Math.max(stats.performance.deaths || 1, 1)).toLocaleString(undefined, {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Efficiency
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {((stats.performance.kills + stats.performance.assists) / Math.max(stats.performance.deaths || 0, 1)).toLocaleString(undefined, {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        KPM
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {(stats.performance.kills * 60 / Math.max(stats.performance.timeSpent, 1)).toLocaleString(undefined, {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Combat Rating
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {stats.bungieHistoricAccountStats?.combatRating.toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 2,
+                                        })}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Peak Rating
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {Object.values(stats.matchHistory).reduce((highest, current) => highest > current.elo ? highest : current.elo, 0)}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="h-3"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table className="flex w-[280px] justify-center">
+                            <tbody>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Win Ratio
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {((stats.performance.wins * 100) / stats.performance.matches).toFixed(0)} %
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Highest Winsteak
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {Object.values(stats.matchHistory).sort((a, b) => a.date - b.date).reduce(
+                                            (prev, match) => {
+                                                let current_streak = prev.current_streak;
+                                                if (match.win_chance == -2 || match.win_chance == -3 || match.win_chance == -4) { //match doesn't count
 
-                        <tr>
-                            <td className="text-right pr-2">
-                                Highest Kill Streak
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {stats.bungieHistoricAccountStats?.longestKillSpree}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Highest Score
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {stats.bungieHistoricAccountStats?.bestSingleGameScore}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Highest Kill count
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {stats.bungieHistoricAccountStats?.bestSingleGameKills}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Fastest Match
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {formatSeconds((stats.bungieHistoricAccountStats?.fastestCompletionMs || 0) / 1000)}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="text-right pr-2">
-                                Longest Kill Distance
-                            </td>
-                            <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-2xl">
-                                {(stats.bungieHistoricAccountStats?.longestKillDistance || 0).toLocaleString(undefined, {
-                                    minimumFractionDigits: 0,
-                                    maximumFractionDigits: 1,
-                                })} m
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            } />
+                                                } else {
+                                                    current_streak = match.won ? current_streak + 1 : 0
+                                                }
+
+                                                return {
+                                                    "highest_streak": Math.max(current_streak, prev.highest_streak),
+                                                    "current_streak": current_streak
+                                                }
+                                            },
+                                            {
+                                                "highest_streak": 0,
+                                                "current_streak": 0
+                                            }
+                                        ).highest_streak}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Average Match Duration
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {formatSeconds(stats.performance.timeSpent / Math.max(stats.performance.matches, 1))}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Average Lifespan
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {formatSeconds(stats.bungieHistoricAccountStats.averageLifespan || 0)}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Average Team Score
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {((stats.bungieHistoricAccountStats.teamScore || 0) / (stats.bungieHistoricAccountStats.activitiesEntered || 0)).toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 1,
+                                        })}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Avg Match Completion
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {(100 - ((stats.bungieHistoricAccountStats.remainingTimeAfterQuitSeconds || 0) * 100 / (stats.bungieHistoricAccountStats.totalActivityDurationSeconds || 1))).toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 1,
+                                        })}%
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table className="flex w-[280px] justify-center">
+                            <tbody>
+
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Highest Kill Streak
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {stats.bungieHistoricAccountStats?.longestKillSpree}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Highest Score
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {stats.bungieHistoricAccountStats?.bestSingleGameScore}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Highest Kill count
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {stats.bungieHistoricAccountStats?.bestSingleGameKills}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Fastest Match
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {formatSeconds((stats.bungieHistoricAccountStats?.fastestCompletionMs || 0) / 1000)}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Average kill distance
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {((stats.bungieHistoricAccountStats.totalKillDistance || 0) / Math.max(stats.bungieHistoricAccountStats.kills || 1, 1)).toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 1,
+                                        })} m
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="text-right pr-2">
+                                        Longest Kill Distance
+                                    </td>
+                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                        {(stats.bungieHistoricAccountStats?.longestKillDistance || 0).toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 1,
+                                        })} m
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                } />
             </div>
         </div>
     )
