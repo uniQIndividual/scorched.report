@@ -576,7 +576,7 @@ export const Performance = (stats: Scorcher) => {
                                 </tr>
                                 <tr>
                                     <td className="text-right pr-2">
-                                        Highest Winsteak
+                                        Longest Winsteak
                                     </td>
                                     <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
                                         {Object.values(stats.matchHistory).sort((a, b) => a.date - b.date).reduce(
