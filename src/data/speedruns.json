@@ -208,7 +208,7 @@
                 "date_added": "2025-05-09T00:00:00.000Z",
                 "pgcr": 13604445396,
                 "map": "Vostok",
-                "video": "https://www.youtube.com/watch?v=nuQre56s-fM"
+                "video": "https://www.youtube.com/watch?v=HaR6tp74N0E"
             },
             {
                 "name": "Ravioluuuu",
@@ -287,6 +287,19 @@
                 "pgcr": 13512484045,
                 "map": "Altar of Flame",
                 "video": "https://www.youtube.com/watch?v=gXm_HvV7BcQ"
+            },
+            {
+                "name": "Ravioluuuu",
+                "url": "",
+                "icon": "",
+                "membershipId": "4611686018459350478",
+                "platform": "1",
+                "time": 33367,
+                "date_achieved": "2023-07-22T00:00:00.000Z",
+                "date_added": "2025-05-12T00:00:00.000Z",
+                "pgcr": 13598824991,
+                "map": "Eternity",
+                "video": "https://www.youtube.com/watch?v=eWyzD4PRoV0"
             }
         ]
     }
