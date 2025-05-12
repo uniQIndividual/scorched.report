@@ -124,7 +124,7 @@ export const Search = () => {
 						console.error(e)
 					});
 
-			if (query.includes("#")) {
+			if (/\#\d{1,4}$/.test(query)) { //searching for name#0123
 				let name = query.split("#")[0];
 				let denominator = query.split("#")[1];
 
@@ -136,9 +136,25 @@ export const Search = () => {
 					})
 					.catch(e => console.error(e)); // TODO: Add viewable error output
 			}
+
+			if (/^46\d{17}$/.test(query)) { //searching for a membershipid
+				let id = query;
+
+				await API.requests.User.GetMembershipsById(id)
+					.then((data) => {
+						const response = JSON.parse(data);
+						if (response && response.Response && response.Response.destinyMemberships) {
+							for (const result of response.Response.destinyMemberships) {
+								players = players.concat(interpretBungieResponse(result, true))
+							}
+						}
+					})
+					.catch(e => console.error(e)); // TODO: Add viewable error output
+			}
+
 			players = await addClanToPlayers(players);
 			if (players.length == 0) {
-				setNote(<div className="mt-4 w-[260px] flex-wrap justify-center rounded-lg bg-[rgba(0,0,0,0.5)] flex backdrop-blur-[8px] text-white p-4 text-base">No Player was found</div>);
+				setNote(<div className="mt-4 w-[260px] flex-wrap justify-center rounded-lg bg-[rgba(0,0,0,0.5)] flex backdrop-blur-[8px] text-white p-4 text-base">No players found</div>);
 			} else {
 				setNote(<></>);
 			}
@@ -187,8 +203,8 @@ export const Search = () => {
 				</form>
 			</div>
 			{React.Children.count(note.props.children) > 0 ?
-			<div className="flex justify-center">
-			{note}
+				<div className="flex justify-center">
+					{note}
 				</div> : <></>}
 			<div className="pt-2 flex flex-wrap justify-center">
 				{playerList.map(player => {

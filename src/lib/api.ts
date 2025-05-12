@@ -140,24 +140,23 @@ const API = {
 		User: {
 			SearchByGlobalNamePost(name: string, page = 0) {
 				const data = { displayNamePrefix: name };
-
 				return API.make_call(
 					`https://www.bungie.net/platform/User/Search/GlobalName/${page}/`,
 					"POST",
 					data,
 				);
 			},
-			GetStoredProfieData(id: string) {
-				return API.make_call(
-					`${location.origin}/data/mock/${id}.json.zst`,
-					"GET",
-					null,
-					true
-				);
-			},
 			GetBungieProfieData(id: string, platform: string) {
 				return API.make_call(
 					`https://www.bungie.net/Platform/Destiny2/${platform}/Profile/${id}/?components=100,200`,
+					"GET",
+					null,
+					false
+				);
+			},
+			GetMembershipsById(id: string) {
+				return API.make_call(
+					`https://www.bungie.net/Platform/User/GetMembershipsById/${id}/-1/`, //-1 to get all memeberships
 					"GET",
 					null,
 					false

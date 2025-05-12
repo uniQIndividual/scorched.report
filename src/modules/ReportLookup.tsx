@@ -1303,15 +1303,6 @@ const ReportLookup = () => {
   // http://localhost:2121/report?id=4611686018467284386&platform=22
 
 
-  /*
-  API.requests.User.GetStoredProfieData(id)
-    .then(async data => {
-
-
-
-    })
-    .catch(e => console.error(e));*/
-
   let profile_sections = [
     {
       "title": "Summary",
