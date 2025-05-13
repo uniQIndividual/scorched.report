@@ -13,3 +13,18 @@ Scorched Report is not affiliated with Bungie and uses Bungie's API and content 
 ## The inner workings
 
 The Scorched Report website is built upon [Astro](https://astro.build/) to easily create static content, while all dynamic elements are embedded React components. The entire code for the website is open source and available on [GitHub](https://github.com/uniQIndividual/scorched.report). It also heavily utilizes Tailwind CSS. The data elements are created with a heavily modified version of [zstd-jsonl-filter](https://github.com/uniQIndividual/zstd-jsonl-filter) that is currently not public. I might be able to send you filtered dataset for Team Scorched (or other game modes) upon request.
+
+```mermaid
+flowchart
+APGCR[Andrew's PGCRs]-->LOCALDB[Local zstd compressed archive]-->R[zstd-scorch]
+NBLOCK[Whatever falls off nblock's lorry]-->LOCALDB
+C[My own crawler eventually]-->LOCALDB
+R-->A[Anomaly Detection]
+R-->L[Leaderboards]-->SR[Scorched Report]
+R-->V[Scorched Report data]-->SR
+R-->SCIENCE[Analytics and Science]-->SR
+V-->SRAPI[Scorched Report API]
+GUIDE[Google Docs Guide]-->GUIDESCRIPT[Build script]-->SR
+NBOT[Scorched Bot]-->CDATA[Scorched Cannon data]-->SR
+JSON[Just a JSON file]-->SPEED[Speedruns]-->SR
+```
