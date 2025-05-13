@@ -307,7 +307,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
     const [renderInfo, setRenderInfo] = React.useState(initialState);
     const [crash, triggerCrash] = React.useState({ title: "", text: "" });
     const [render, triggerRender] = React.useState(false);
-    const [started, triggerStarted] = React.useState(false);
+    const [started, triggerStarted] = React.useState(true);
     const [devMode, setDevMode] = React.useState(false);
     const [loadingTitle, setLoadingTitle] = React.useState("...");
     const [activeSection, setActiveSection] = React.useState("summary");
@@ -316,331 +316,337 @@ const PGCRLookup = (props: basicMatchInfo) => {
         if (urlParams.get('dev') != null && urlParams.get('dev') == "1") { // you are daring, hm
             setDevMode(true);
         }
+        if (props.forceRender || props.forceRender === undefined) {
+            startRender();
+        }
     }, [])
 
-    const getRenderInfo = async () => {
-        // Verify parameters
-        try {
-            if (started) {
-                return;
-            }
-            triggerStarted(true);
-            setLoadingTitle("Loading PGCR...")
 
-            let matchid = 0;
-            let membershipId = "";
-            let matchHistoryMain: any[] = []
-
-            if (props?.matchid == undefined) {
-                if (urlParams.get('id') == null || urlParams.get('id') == "") {
-                    throw new Error("Match id is missing");
-                }
-                matchid = Number(urlParams.get('id')) || 0;
-                membershipId = urlParams.get('membershipid') || "";
-            } else {
-                matchid = props.matchid;
-                membershipId = props.membershipId || "";
-            }
-
-            const definitionsDB = new DatabaseMiddleware({
-                databaseName: "DestinyActivityDefinition",
-                storeName: "Entries",
-                version: 1,
-            });
-
-            const historyDB = new DatabaseMiddleware({
-                databaseName: "PGCRHistory",
-                storeName: "Entries",
-                version: 2,
-            });
-            await definitionsDB.initializeDefinitionsDatabase();
-            await historyDB.initializeHistoryDatabase();
-
-            if (membershipId != "") {
-                const vault_id = membershipId.substring(membershipId.length - 4);
-                await fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(
-                    res => {
-                        if (res.status == 200) {
-                            return res.arrayBuffer()
-                        } else {
-                            return new ArrayBuffer(0)
-                        }
-                    }
-                ).then((compressedBuf) => {
-                    try {
-                        if (compressedBuf.byteLength != 0) { // No local DB, skip forward
-                            const compressed = new Uint8Array(compressedBuf)
-                            const out = new TextDecoder().decode(fzstd.decompress(compressed));
-
-                            let json = JSON.parse(out);
-
-                            if (json.hasOwnProperty(membershipId)) { // User is the local database
-                                matchHistoryMain = json[membershipId].matchHistory;
-                            }
-                        }
-                    } catch {
-
-                    }
-                });
-                // update from indexDB if possible
-                let indexedMatchHistory = await historyDB.getValue(membershipId);
-                if (indexedMatchHistory != null) {
-                    matchHistoryMain = Object.values(indexedMatchHistory);
-                }
-            }
-
-
-            // Load from local compressed files
-            await API.requests.PGCR.GetPostGameCarnageReport(matchid.toString()).catch((err => {
-                try { // try to get Bungie's specific response
-                    const bungieResponse = JSON.parse(err.response);
-                    triggerCrash({
-                        title: bungieResponse?.ErrorStatus,
-                        text: bungieResponse?.Message
-                    });
-                } catch (error) {
-                    triggerCrash({
-                        title: err?.title,
-                        text: err?.description
-                    });
-                }
-                throw new Error("Data acquisition failed")
-            }
-            )).then(async (response) => {
-                try {
-                    response = JSON.parse(response);
-                    response = response.Response;
-                    if (response.activityDetails.mode != 62) {
-                        triggerCrash({
-                            title: 'Not a Team Scorched match',
-                            text: "I ain't troubleshooting this for other game modes"
-                        });
-                        throw new Error("Not a Team Scorched match");
-
-                    }
-
-                    let destinyActivityDefinition = await definitionsDB.getValue("DestinyActivityDefinition");
-                    let referenceId = response.activityDetails.referenceId;
-                    let image = destinyActivityDefinition.hasOwnProperty(referenceId) ? destinyActivityDefinition[referenceId]?.pgcrImage : "";
-
-                    let newRenderInfo = update(renderInfo, {
-                        matchid: { $set: matchid },
-                        membershipId: { $set: membershipId },
-                        anonym: { $set: membershipId == "" },
-                        bg_image: { $set: image != undefined && image != "" ? "https://www.bungie.net" + image : "" },
-                        rawPGCR: { $set: response }
-                    });
-
-                    setLoadingTitle("Loading match histories...")
-
-                    // Get Players
-                    //await response.entries.forEach(async entry => {
-                    await Promise.all(response.entries.map((entry: string, i: number) => {
-                        let vault_id = entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 4);
-                        return fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(async res => {
-                            let entry = response.entries[i];
-                            let elo = 1000;
-                            let matchup = 0;
-                            let matchupWins = 0;
-                            let previousElo = "";
-                            let compressedBuf = await res.arrayBuffer();
-
-                            setLoadingTitle("Calculating...")
-
-                            try {
-                                let matchHistory = [];
-
-                                if (compressedBuf.byteLength != 0) { // No local DB, skip forward
-                                    const compressed = new Uint8Array(compressedBuf)
-                                    const out = new TextDecoder().decode(fzstd.decompress(compressed));
-
-                                    let json = JSON.parse(out);
-
-                                    if (json.hasOwnProperty(entry.player.destinyUserInfo.membershipId)) { // User is the local database
-                                        matchHistory = json[entry.player.destinyUserInfo.membershipId].matchHistory;
-                                        let sameMatch = matchHistory.find(e => e.id == matchid);
-                                        if (sameMatch != undefined) {
-                                            elo = sameMatch.elo;
-                                        } else {
-                                            // We assume we're missing only recent entries
-                                            // thus we use the most recent entry
-                                            // We also assume acceding order
-                                            elo = matchHistory[matchHistory.length - 1].elo;
-                                        }
-
-                                    }
-                                }
-
-                                let indexedMatchHistory = await historyDB.getValue(entry.player.destinyUserInfo.membershipId);
-                                if (indexedMatchHistory != null) {
-                                    matchHistory = Object.values(indexedMatchHistory);;
-                                }
-
-                                matchHistory = matchHistory.sort(function (a, b) {
-                                    if (Number(a.id) < Number(b.id))
-                                        return -1;
-                                    if (Number(a.id) > Number(b.id))
-                                        return 1;
-                                    return 0;
-                                });
-
-                                let matchup_result = getMatchup(matchHistoryMain, Object.values(matchHistory));
-
-                                matchup = matchup_result.matchup;
-                                matchupWins = matchup_result.matchWins;
-
-                                var index = matchHistory.map(e => String(e.id)).indexOf(String(matchid)); // Find match in database
-
-                                if (index >= 0 && matchHistory[index].elo != 0) {
-
-                                    if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value % 2 == 0) {
-                                        newRenderInfo = update(newRenderInfo, { team1WinChance: { $set: matchHistory[index].win_chance } })
-                                    }
-
-                                    if (index > 0) {
-                                        previousElo = (elo - matchHistory[index - 1].elo) > 0 ? "+" + (elo - matchHistory[index - 1].elo) : String(elo - matchHistory[index - 1].elo);
-                                    } else {
-                                        let newElo = elo - 1000
-                                        previousElo = previousElo == "" ? (newElo) > 0 ? "+" + (newElo) : String(newElo) : previousElo;
-                                    }
-                                } else {
-
-                                }
-
-                            } catch (error) {
-                                console.log(error);
-                            }
-
-                            const newEntry: userEntry = {
-                                membershipId: entry.player.destinyUserInfo.membershipId,
-                                membershipType: entry.player.destinyUserInfo.membershipType != 0 ? entry.player.destinyUserInfo.membershipType : 3, // why 3 you might ask? funny bungie sometimes returns a membershiptype of 0 in pgcrs which can never succeed
-                                // we thus simple hedge our bets an point to a membershiptype 3 for steam
-                                // this is not relevant for scorched report but might cause incorrect api calls to bungie
-                                // ah well, at least we tried
-                                // if you read this you probably want to use User/GetMembershipDataById instead
-                                name: entry.player.destinyUserInfo.bungieGlobalDisplayName != "" ? entry.player.destinyUserInfo.bungieGlobalDisplayName : entry.player.destinyUserInfo.displayName,
-                                nameCode: String(entry.player.destinyUserInfo.bungieGlobalDisplayNameCode || "").padStart(4, '0'),
-                                platformName: entry.player.destinyUserInfo.displayName || "",
-                                platforms: entry.player.destinyUserInfo.applicableMembershipTypes || "",
-                                characterClassName: entry.player.characterClass || "",
-                                lightLevel: entry.player.lightLevel || "",
-                                icon: entry.player.destinyUserInfo.iconPath,
-                                elo: elo,
-                                previousElo: previousElo,
-                                matchup: matchup,
-                                matchWins: matchupWins,
-                                opponentsDefeated: entry.values.opponentsDefeated.basic.value,
-                                kills: entry.values.kills.basic.value,
-                                deaths: entry.values.deaths.basic.value,
-                                quit: entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value,
-                                playtime: entry.values.timePlayedSeconds.basic.value,
-                                startSeconds: entry.values.startSeconds.basic.value,
-                                medals: {}
-                            }
-                            // Add medals
-                            if (entry.extended && entry.extended.values) {
-                                Object.entries(entry.extended.values).map((medal) => {
-                                    if (MedalDefinitions[medal[0]]) {
-                                        newEntry.medals[medal[0]] = {
-                                            value: medal[1] && medal[1].basic && medal[1].basic.value || 0,
-                                            description: MedalDefinitions[medal[0]]?.statDescription || "",
-                                            icon: MedalDefinitions[medal[0]]?.iconImage || "",
-                                            name: MedalDefinitions[medal[0]]?.statName || "",
-                                            tier: MedalDefinitions[medal[0]]?.medalTierIdentifier || ""
-                                        }
-                                    }
-                                })
-                            }
-
-                            if (Number(entry.values.team.basic.value) % 2 == 0 && Number(entry.values.team.basic.value) != 0) { // Team 1
-                                if (newEntry.quit) {
-                                    newRenderInfo.team_left_1.push(newEntry);
-                                } else {
-                                    newRenderInfo.team1.push(newEntry);
-                                    newRenderInfo = update(newRenderInfo, { team1Score: { $set: entry.values.teamScore.basic.value } });
-                                }
-                            } else {
-                                if (Number(entry.values.team.basic.value) % 2 == 1) { // Team2
-                                    newRenderInfo.team2.push(newEntry);
-                                    newRenderInfo = update(newRenderInfo, { team2Score: { $set: entry.values.teamScore.basic.value } });
-                                } else {
-                                    // Congrats to team 3 and thanks bungie
-                                    newRenderInfo.team3.push(newEntry);
-                                    newRenderInfo = update(newRenderInfo, { team3Score: { $set: entry.values.teamScore.basic.value } });
-                                }
-                            }
-
-                            // Did they quit?
-                            if (entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value) {
-                                newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
-                            }
-
-                            // Update if we want a specific person's stats                        
-                            if (!newRenderInfo.anonym && entry.player.destinyUserInfo.membershipId == membershipId) {
-                                newRenderInfo = update(newRenderInfo, { teamPreference: { $set: entry.values.team.basic.value % 2 == 0 ? 0 : 1 } });
-                                newRenderInfo = update(newRenderInfo, { heading: { $set: entry.values.standing.basic.displayValue } })
-                            }
-
-                            // it doesn't seem to matter which person we choose?
-                            newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
-                            setRenderInfo(newRenderInfo)
-                        })
-                    })
-                    );
-
-                    newRenderInfo = update(newRenderInfo, {
-                        date: {
-                            $set: new Date(response.period).toLocaleDateString(undefined, {
-                                weekday: "short",
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                                hour: "numeric",
-                                minute: "numeric",
-                                timeZoneName: "short",
-                            })
-                        }
-                    })
-
-                    newRenderInfo.team1.sort(function (a, b) {
-                        if (Number(a.opponentsDefeated) < Number(b.opponentsDefeated))
-                            return 1;
-                        if (Number(a.opponentsDefeated) > Number(b.opponentsDefeated))
-                            return -1;
-                        return 0;
-                    });
-
-                    newRenderInfo.team2.sort(function (a, b) {
-                        if (Number(a.opponentsDefeated) < Number(b.opponentsDefeated))
-                            return 1;
-                        if (Number(a.opponentsDefeated) > Number(b.opponentsDefeated))
-                            return -1;
-                        return 0;
-                    });
-
-                    setRenderInfo(newRenderInfo)
-                    triggerRender(true)
-
-
-
-                } catch (error) {
-                    console.log(error);
-
-                    triggerCrash({
-                        title: 'Data parsing failed',
-                        text: error!.toString()
-                    });
+    useEffect(() => {
+        (async () => {
+            // Verify parameters
+            try {
+                if (started) { //Prevent refetching
                     return;
                 }
-            }).catch(err => err ? console.error(err) : "");
-        } catch (error) {
-            triggerCrash({
-                title: 'Incorrect URL Parameters',
-                text: error!.toString()
-            });
-            return;
-        }
-    };
+                triggerStarted(true);
+                setLoadingTitle("Loading PGCR...")
+
+                let matchid = 0;
+                let membershipId = "";
+                let matchHistoryMain: any[] = []
+
+                if (props?.matchid == undefined) {
+                    if (urlParams.get('id') == null || urlParams.get('id') == "") {
+                        throw new Error("Match id is missing");
+                    }
+                    matchid = Number(urlParams.get('id')) || 0;
+                    membershipId = urlParams.get('membershipid') || "";
+                } else {
+                    matchid = props.matchid;
+                    membershipId = props.membershipId || "";
+                }
+
+                const definitionsDB = new DatabaseMiddleware({
+                    databaseName: "DestinyActivityDefinition",
+                    storeName: "Entries",
+                    version: 1,
+                });
+
+                const historyDB = new DatabaseMiddleware({
+                    databaseName: "PGCRHistory",
+                    storeName: "Entries",
+                    version: 2,
+                });
+                await definitionsDB.initializeDefinitionsDatabase();
+                await historyDB.initializeHistoryDatabase();
+
+                if (membershipId != "") {
+                    const vault_id = membershipId.substring(membershipId.length - 4);
+                    await fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(
+                        res => {
+                            if (res.status == 200) {
+                                return res.arrayBuffer()
+                            } else {
+                                return new ArrayBuffer(0)
+                            }
+                        }
+                    ).then((compressedBuf) => {
+                        try {
+                            if (compressedBuf.byteLength != 0) { // No local DB, skip forward
+                                const compressed = new Uint8Array(compressedBuf)
+                                const out = new TextDecoder().decode(fzstd.decompress(compressed));
+
+                                let json = JSON.parse(out);
+
+                                if (json.hasOwnProperty(membershipId)) { // User is the local database
+                                    matchHistoryMain = json[membershipId].matchHistory;
+                                }
+                            }
+                        } catch {
+
+                        }
+                    });
+                    // update from indexDB if possible
+                    let indexedMatchHistory = await historyDB.getValue(membershipId);
+                    if (indexedMatchHistory != null) {
+                        matchHistoryMain = Object.values(indexedMatchHistory);
+                    }
+                }
+
+
+                // Load from local compressed files
+                await API.requests.PGCR.GetPostGameCarnageReport(matchid.toString()).catch((err => {
+                    try { // try to get Bungie's specific response
+                        const bungieResponse = JSON.parse(err.response);
+                        triggerCrash({
+                            title: bungieResponse?.ErrorStatus,
+                            text: bungieResponse?.Message
+                        });
+                    } catch (error) {
+                        triggerCrash({
+                            title: err?.title,
+                            text: err?.description
+                        });
+                    }
+                    throw new Error("Data acquisition failed")
+                }
+                )).then(async (response) => {
+                    try {
+                        response = JSON.parse(response);
+                        response = response.Response;
+                        if (response.activityDetails.mode != 62) {
+                            triggerCrash({
+                                title: 'Not a Team Scorched match',
+                                text: "I ain't troubleshooting this for other game modes"
+                            });
+                            throw new Error("Not a Team Scorched match");
+
+                        }
+
+                        let destinyActivityDefinition = await definitionsDB.getValue("DestinyActivityDefinition");
+                        let referenceId = response.activityDetails.referenceId;
+                        let image = destinyActivityDefinition.hasOwnProperty(referenceId) ? destinyActivityDefinition[referenceId]?.pgcrImage : "";
+
+                        let newRenderInfo = update(renderInfo, {
+                            matchid: { $set: matchid },
+                            membershipId: { $set: membershipId },
+                            anonym: { $set: membershipId == "" },
+                            bg_image: { $set: image != undefined && image != "" ? "https://www.bungie.net" + image : "" },
+                            rawPGCR: { $set: response }
+                        });
+
+                        setLoadingTitle("Loading match histories...")
+
+                        // Get Players
+                        //await response.entries.forEach(async entry => {
+                        await Promise.all(response.entries.map((entry: string, i: number) => {
+                            let vault_id = entry.player.destinyUserInfo.membershipId.substring(entry.player.destinyUserInfo.membershipId.length - 4);
+                            return fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(async res => {
+                                let entry = response.entries[i];
+                                let elo = 1000;
+                                let matchup = 0;
+                                let matchupWins = 0;
+                                let previousElo = "";
+                                let compressedBuf = await res.arrayBuffer();
+
+                                setLoadingTitle("Calculating...")
+
+                                try {
+                                    let matchHistory = [];
+
+                                    if (compressedBuf.byteLength != 0) { // No local DB, skip forward
+                                        const compressed = new Uint8Array(compressedBuf)
+                                        const out = new TextDecoder().decode(fzstd.decompress(compressed));
+
+                                        let json = JSON.parse(out);
+
+                                        if (json.hasOwnProperty(entry.player.destinyUserInfo.membershipId)) { // User is the local database
+                                            matchHistory = json[entry.player.destinyUserInfo.membershipId].matchHistory;
+                                            let sameMatch = matchHistory.find(e => e.id == matchid);
+                                            if (sameMatch != undefined) {
+                                                elo = sameMatch.elo;
+                                            } else {
+                                                // We assume we're missing only recent entries
+                                                // thus we use the most recent entry
+                                                // We also assume acceding order
+                                                elo = matchHistory[matchHistory.length - 1].elo;
+                                            }
+
+                                        }
+                                    }
+
+                                    let indexedMatchHistory = await historyDB.getValue(entry.player.destinyUserInfo.membershipId);
+                                    if (indexedMatchHistory != null) {
+                                        matchHistory = Object.values(indexedMatchHistory);;
+                                    }
+
+                                    matchHistory = matchHistory.sort(function (a, b) {
+                                        if (Number(a.id) < Number(b.id))
+                                            return -1;
+                                        if (Number(a.id) > Number(b.id))
+                                            return 1;
+                                        return 0;
+                                    });
+
+                                    let matchup_result = getMatchup(matchHistoryMain, Object.values(matchHistory));
+
+                                    matchup = matchup_result.matchup;
+                                    matchupWins = matchup_result.matchWins;
+
+                                    var index = matchHistory.map(e => String(e.id)).indexOf(String(matchid)); // Find match in database
+
+                                    if (index >= 0 && matchHistory[index].elo != 0) {
+
+                                        if (matchHistory[index].win_chance != 0 && entry.values.team.basic.value % 2 == 0) {
+                                            newRenderInfo = update(newRenderInfo, { team1WinChance: { $set: matchHistory[index].win_chance } })
+                                        }
+
+                                        if (index > 0) {
+                                            previousElo = (elo - matchHistory[index - 1].elo) > 0 ? "+" + (elo - matchHistory[index - 1].elo) : String(elo - matchHistory[index - 1].elo);
+                                        } else {
+                                            let newElo = elo - 1000
+                                            previousElo = previousElo == "" ? (newElo) > 0 ? "+" + (newElo) : String(newElo) : previousElo;
+                                        }
+                                    } else {
+
+                                    }
+
+                                } catch (error) {
+                                    console.log(error);
+                                }
+
+                                const newEntry: userEntry = {
+                                    membershipId: entry.player.destinyUserInfo.membershipId,
+                                    membershipType: entry.player.destinyUserInfo.membershipType != 0 ? entry.player.destinyUserInfo.membershipType : 3, // why 3 you might ask? funny bungie sometimes returns a membershiptype of 0 in pgcrs which can never succeed
+                                    // we thus simple hedge our bets an point to a membershiptype 3 for steam
+                                    // this is not relevant for scorched report but might cause incorrect api calls to bungie
+                                    // ah well, at least we tried
+                                    // if you read this you probably want to use User/GetMembershipDataById instead
+                                    name: entry.player.destinyUserInfo.bungieGlobalDisplayName != "" ? entry.player.destinyUserInfo.bungieGlobalDisplayName : entry.player.destinyUserInfo.displayName,
+                                    nameCode: String(entry.player.destinyUserInfo.bungieGlobalDisplayNameCode || "").padStart(4, '0'),
+                                    platformName: entry.player.destinyUserInfo.displayName || "",
+                                    platforms: entry.player.destinyUserInfo.applicableMembershipTypes || "",
+                                    characterClassName: entry.player.characterClass || "",
+                                    lightLevel: entry.player.lightLevel || "",
+                                    icon: entry.player.destinyUserInfo.iconPath,
+                                    elo: elo,
+                                    previousElo: previousElo,
+                                    matchup: matchup,
+                                    matchWins: matchupWins,
+                                    opponentsDefeated: entry.values.opponentsDefeated.basic.value,
+                                    kills: entry.values.kills.basic.value,
+                                    deaths: entry.values.deaths.basic.value,
+                                    quit: entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value,
+                                    playtime: entry.values.timePlayedSeconds.basic.value,
+                                    startSeconds: entry.values.startSeconds.basic.value,
+                                    medals: {}
+                                }
+                                // Add medals
+                                if (entry.extended && entry.extended.values) {
+                                    Object.entries(entry.extended.values).map((medal) => {
+                                        if (MedalDefinitions[medal[0]]) {
+                                            newEntry.medals[medal[0]] = {
+                                                value: medal[1] && medal[1].basic && medal[1].basic.value || 0,
+                                                description: MedalDefinitions[medal[0]]?.statDescription || "",
+                                                icon: MedalDefinitions[medal[0]]?.iconImage || "",
+                                                name: MedalDefinitions[medal[0]]?.statName || "",
+                                                tier: MedalDefinitions[medal[0]]?.medalTierIdentifier || ""
+                                            }
+                                        }
+                                    })
+                                }
+
+                                if (Number(entry.values.team.basic.value) % 2 == 0 && Number(entry.values.team.basic.value) != 0) { // Team 1
+                                    if (newEntry.quit) {
+                                        newRenderInfo.team_left_1.push(newEntry);
+                                    } else {
+                                        newRenderInfo.team1.push(newEntry);
+                                        newRenderInfo = update(newRenderInfo, { team1Score: { $set: entry.values.teamScore.basic.value } });
+                                    }
+                                } else {
+                                    if (Number(entry.values.team.basic.value) % 2 == 1) { // Team2
+                                        newRenderInfo.team2.push(newEntry);
+                                        newRenderInfo = update(newRenderInfo, { team2Score: { $set: entry.values.teamScore.basic.value } });
+                                    } else {
+                                        // Congrats to team 3 and thanks bungie
+                                        newRenderInfo.team3.push(newEntry);
+                                        newRenderInfo = update(newRenderInfo, { team3Score: { $set: entry.values.teamScore.basic.value } });
+                                    }
+                                }
+
+                                // Did they quit?
+                                if (entry.values.startSeconds.basic.value + entry.values.timePlayedSeconds.basic.value < entry.values.activityDurationSeconds.basic.value) {
+                                    newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
+                                }
+
+                                // Update if we want a specific person's stats                        
+                                if (!newRenderInfo.anonym && entry.player.destinyUserInfo.membershipId == membershipId) {
+                                    newRenderInfo = update(newRenderInfo, { teamPreference: { $set: entry.values.team.basic.value % 2 == 0 ? 0 : 1 } });
+                                    newRenderInfo = update(newRenderInfo, { heading: { $set: entry.values.standing.basic.displayValue } })
+                                }
+
+                                // it doesn't seem to matter which person we choose?
+                                newRenderInfo = update(newRenderInfo, { duration: { $set: entry.values.activityDurationSeconds.basic.value } })
+                                setRenderInfo(newRenderInfo)
+                            })
+                        })
+                        );
+
+                        newRenderInfo = update(newRenderInfo, {
+                            date: {
+                                $set: new Date(response.period).toLocaleDateString(undefined, {
+                                    weekday: "short",
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                    timeZoneName: "short",
+                                })
+                            }
+                        })
+
+                        newRenderInfo.team1.sort(function (a, b) {
+                            if (Number(a.opponentsDefeated) < Number(b.opponentsDefeated))
+                                return 1;
+                            if (Number(a.opponentsDefeated) > Number(b.opponentsDefeated))
+                                return -1;
+                            return 0;
+                        });
+
+                        newRenderInfo.team2.sort(function (a, b) {
+                            if (Number(a.opponentsDefeated) < Number(b.opponentsDefeated))
+                                return 1;
+                            if (Number(a.opponentsDefeated) > Number(b.opponentsDefeated))
+                                return -1;
+                            return 0;
+                        });
+
+                        setRenderInfo(newRenderInfo)
+                        triggerRender(true)
+
+
+
+                    } catch (error) {
+                        console.log(error);
+
+                        triggerCrash({
+                            title: 'Data parsing failed',
+                            text: error!.toString()
+                        });
+                        return;
+                    }
+                }).catch(err => err ? console.error(err) : "");
+            } catch (error) {
+                triggerCrash({
+                    title: 'Incorrect URL Parameters',
+                    text: error!.toString()
+                });
+                return;
+            }
+        })()
+    }, [started])
 
     // http://localhost:2121/report?id=4611686018467284386&platform=22
 
@@ -764,15 +770,26 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
     const startRender = () => { // Render only once and when an invisible button was pressed for it, so 100 pgcr don't try to render when loading them in a table
         if (!render) {
-            getRenderInfo()
+            triggerStarted(false);
         }
+
     };
 
-    if (props.forceRender || props.forceRender === undefined) {
-        startRender();
-    }
+    const restartRender = () => { // something failed and we offer the user a free reload
+        setRenderInfo(initialState);
+        triggerStarted(false);
+        triggerCrash({ title: "", text: "" });
+    };
 
-    return crash.title != "" ? (<div className="mt-10"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>) :
+
+    return crash.title != "" ? (<div className="mt-10 text-center">
+        Failed to load
+        <br />
+        <button onClick={() => restartRender()} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center m-2 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+            Reload
+        </button>
+        <ErrorDynamic title={crash.title} text={crash.text} />
+    </div>) :
         (!render ? (
             <div className="flex h-72 justify-center">
                 <LoadingAnimationWithTitle title={loadingTitle} /> <button id={matchid} onClick={() => startRender()}></button>
