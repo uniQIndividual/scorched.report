@@ -68,7 +68,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1000,
                 "scoin_bonus": 2,
                 "description": "",
-                "image": "/images/cannons/season1/BasicCannon.webp"
+                "image": "/images/cannons/season1/BasicCannon.webp",
+                "3d": "/data/3d/cannon_default.glb"
             },
             {
                 "hash": "ArcCannon",

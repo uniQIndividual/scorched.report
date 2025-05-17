@@ -34,6 +34,13 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    /*
+    Fix for https://github.com/tabler/tabler-icons/issues/1233#issuecomment-2821326649
+    https://github.com/KevinVandy/mantine-react-table/issues/418
+    */
+    resolve: {
+      alias: { '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs', },
+    }
   }
 });

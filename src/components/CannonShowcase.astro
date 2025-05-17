@@ -1,6 +1,8 @@
 ---
 /* eslint max-lines: 'off' */
+import GLTFViewer from "./cannon_showcase/GLTFViewer";
 import PopUp from "./PopUp.astro";
+import TooltipSimple from "./TooltipSimple.astro";
 
 const { cannon, key } = Astro.props;
 
@@ -8,20 +10,56 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 
 ---
 
-<div class="w-[450px] p-4 m-4 bg-gray-100 border-gray-100 rounded-lg dark:border-gray-920 sm:p-6 dark:bg-gray-920">
+<div class="w-[450px] 2xl: p-4 my-4 lg:mx-4 bg-gray-100 border-gray-100 rounded-lg dark:border-gray-920 sm:p-6 dark:bg-gray-920">
 		<div>
+			<div class="absolute p-2 z-10">
 			<button
 				class="bg-transparent image-to-fullscreen !cursor-pointer"
 				type="button"
+			data-tooltip-target={"cannon_fullscreen_button_tooltip_" + uuid}
 				data-cannon={uuid}
 			>
+			<svg
+			class="w-6 h-6 text-gray-100 hover:text-white hover:brightness-110"
+			aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5"/>
+			</svg>
+			</button>
+		<TooltipSimple id={"cannon_fullscreen_button_tooltip_" + uuid} title="Fullscreen" />
+			{cannon.hasOwnProperty("3d") ? 
+			<button
+				class="bg-transparent image-to-fullscreen !cursor-pointer gltf"
+				type="button"
+				data-cannon={uuid}
+			>
+			<img
+			id={"cannon_3d_toggle_icon_" + uuid}
+			data-tooltip-target={"cannon_3d_toggle_icon_tooltip_" + uuid}
+			 src="/images/3d/3d_small.webp" 
+			 class="h-6 hover:brightness-110 !cursor-pointer"
+					loading="eager"
+			 />
+			<img
+			id={"cannon_2d_toggle_icon_" + uuid}
+			data-tooltip-target={"cannon_2d_toggle_icon_tooltip_" + uuid}
+			 src="/images/3d/2d_small.webp" 
+			 class="h-6 hover:brightness-110 !cursor-pointer"
+					loading="eager"
+					hidden=""
+			 />
+		</button>
+		<TooltipSimple id={"cannon_3d_toggle_icon_tooltip_" + uuid} title="View 3D model" />
+		<TooltipSimple id={"cannon_2d_toggle_icon_tooltip_" + uuid} title="View 2D render" />
+		:""}
+		</div>
+			<GLTFViewer modelURL="/data/3d/cannon_default.glb" modelHash={uuid} view="tiny" client:only="react" />
 				<img
+				id={"cannon_preview_image" + uuid}
 					src={cannon?.image.replace("/cannons/","/cannons/smaller/")}
-					class="object-scale-down justify-center rounded-lg cursor-pointer hover:brightness-110 hover:dark:shadow-highlight hover:shadow-highlight_darken"
+					class="object-scale-down justify-center rounded-lg no-fullscreen"
 					loading="lazy"
 					decoding="async"
 				/>
-			</button>
 		</div>
 		<div class="mt-3 space-y-0.5">
 			<table>
@@ -144,20 +182,3 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 			</div>
 		</div>
 </div>
-
-<script>
-	// Find all buttons with the `alert` class on the page.
-	const buttons = document.querySelectorAll("button.image-to-fullscreen");
-
-	// Handle clicks on each button.
-	buttons.forEach((button) => {
-		button.addEventListener("click", () => {
-			const image = document.getElementById(
-				`popup_image_${button.dataset.cannon}`
-			);
-
-			image.setAttribute("src", image.dataset.url);
-			document.getElementById(`popup_${button.dataset.cannon}`).openPop();
-		});
-	});
-</script>

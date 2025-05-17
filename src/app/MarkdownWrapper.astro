@@ -43,7 +43,7 @@ const uuid = crypto.randomUUID();
         window.addEventListener("load", function(event) {
           let images = document.getElementById(`article_${uuid}`)?.getElementsByTagName("img");
           Object.values(images).map(image => {
-            if (image.naturalHeight > 64 && image.naturalWidth > 64) {
+            if (image.naturalHeight > 64 && image.naturalWidth > 64 && !image.classList.contains("no-fullscreen")) {
               image.classList.add("cursor-pointer", "hover:brightness-110", "hover:dark:shadow-highlight", "hover:shadow-highlight_darken");
               image.addEventListener("click", () => {
                 const popup_image = document.getElementById(`popup_image_${uuid}`);

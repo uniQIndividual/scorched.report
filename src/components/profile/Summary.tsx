@@ -227,7 +227,6 @@ export const Summary = (stats: Scorcher) => {
                     </div>
                 } />
             </div>
-            {/*<img className="w-full absolute opacity-30 saturate-50 mask-radial" src="images/potential/4CBDDA80.png" />*/}
         </div>
     );
 
