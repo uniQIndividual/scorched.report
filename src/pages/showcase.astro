@@ -44,7 +44,7 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
 >
 	<div class="flex justify-center 2xl:justify-normal">
 		<div
-			class="max-w-[100vw] p-6 text-clip overflow-hidden
+			class="max-w-[100vw] lg:p-6 text-clip overflow-hidden
     
     dark:text-gray-300 mt-4 mb-4"
 		>
@@ -61,4 +61,35 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
 			</div>
 		</div>
 	</div>
+<script>
+	// Find all buttons with the `alert` class on the page.
+	const buttons = document.querySelectorAll("button.image-to-fullscreen");
+
+	// Handle clicks on each button.
+	buttons.forEach((button) => {
+		if (button.classList.contains("gltf")) {
+		button.addEventListener("click", () => {
+			const activationButton = document.getElementById('GLTFViewer_button_' + button.dataset.cannon)
+			
+			activationButton?.click(); // Load react content
+
+			document.getElementById("cannon_preview_image" + button.dataset.cannon)?.toggleAttribute("hidden"); // Hide 2d cannon image
+			
+			//toggle icons
+			document.getElementById("cannon_3d_toggle_icon_" + button.dataset.cannon)?.toggleAttribute("hidden"); 
+			document.getElementById("cannon_2d_toggle_icon_" + button.dataset.cannon)?.toggleAttribute("hidden"); 
+		})
+		} else {
+		button.addEventListener("click", () => {
+			const image = document.getElementById(
+				`popup_image_${button.dataset.cannon}`
+			);
+
+			image.setAttribute("src", image.dataset.url);
+			document.getElementById(`popup_${button.dataset.cannon}`).openPop();
+		});
+		}
+	});
+</script>
+
 </LayoutSidebar>
