@@ -52,7 +52,7 @@ export class LoadingAnimationWithTitle extends React.Component<ProgressTitle> {
                 <div className="flex justify-center">
                     {spinner}
                 </div>
-                <div className="flex justify-center mt-4 text-lg text-gray-900 dark:text-gray-200">
+                <div className="flex justify-center text-center mt-4 text-lg text-gray-900 dark:text-gray-200">
                     {this.props.title}
                 </div>
             </div>

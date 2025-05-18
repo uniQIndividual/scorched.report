@@ -70,7 +70,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "scoin_bonus": 2,
                 "description": "",
                 "image": "/images/cannons/season1/BasicCannon.webp",
-                "3d": "851616958.glb"
+                "3d": "https://cdn.scorched.report/851616958.glb"
             },
             {
                 "hash": "ArcCannon",
@@ -566,7 +566,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": "/images/cannons/season3/DSC.webp"
+                "image": "/images/cannons/season3/DSC.webp",
+                "3d": "https://cdn.scorched.report/71654933.glb"
             },
             {
                 "hash": "Vow",

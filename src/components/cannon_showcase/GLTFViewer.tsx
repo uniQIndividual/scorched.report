@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
+import { OrbitControls, useGLTF, Environment, Html, useProgress } from '@react-three/drei';
 import { Bloom, EffectComposer, ToneMapping, Vignette } from '@react-three/postprocessing'
 import { ToneMappingMode } from 'postprocessing'
 import GUI from 'lil-gui';
+import { LoadingAnimationWithTitle } from '../LoadingAnimation';
 
 const Model = ({ url }) => {
 
@@ -29,6 +30,11 @@ const PerformanceMonitor = ({ setPerformanceData }) => {
   return null; // This component does not render anything
 };
 
+function Loader() {
+  const { active, progress, errors, item, loaded, total } = useProgress()
+  return <Html center> <LoadingAnimationWithTitle title={typeof progress == "number" ? ( progress.toFixed(0) + "% loaded") : ""} /> </Html>
+}
+
 const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash: string, view: "tiny" | "large" }) => {
   const [performanceData, setPerformanceData] = useState({ fps: 0 });
   const [hidden, setHidden] = useState(true);
@@ -46,7 +52,7 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
   const [color, setColor] = useState('#ff0000');
   useEffect(() => {
     if (view == 'tiny') {
-    return;
+      return;
     }
 
     const gui = new GUI();
@@ -99,7 +105,9 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
         <group rotation={[0, Math.PI, 0]}>
           <Environment files={hdriUrls[hdriIndex].url} />
         </group>
-        <Model url={modelURL} />
+        <Suspense fallback={<Loader />}>
+          <Model url={modelURL} />
+        </Suspense>
         <OrbitControls />
         <EffectComposer>
           <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.2} height={1000} />
@@ -126,7 +134,7 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
       }}>
         <p>FPS: {performanceData.fps}</p>
         <p>Drag to rotate, scroll to zoom</p>
-			inspired by https://paracausalforge.com
+        inspired by https://paracausalforge.com
       </div>}
       {view == "tiny" ? "" : <div style={{
         position: 'absolute', bottom: '10px', left: '10px',
