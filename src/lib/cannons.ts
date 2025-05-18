@@ -20,7 +20,8 @@ export type SCORCHED_CANNONS = {
     "cost": number,
     "scoin_bonus": number,
     "description": string,
-    "image": string
+    "image": string,
+    "3d"?: string
 }
 
 const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
@@ -69,7 +70,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "scoin_bonus": 2,
                 "description": "",
                 "image": "/images/cannons/season1/BasicCannon.webp",
-                "3d": "/data/3d/cannon_default.glb"
+                "3d": "851616958.glb"
             },
             {
                 "hash": "ArcCannon",

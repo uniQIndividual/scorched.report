@@ -52,7 +52,8 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 		<TooltipSimple id={"cannon_2d_toggle_icon_tooltip_" + uuid} title="Switch to 2D render" />
 		:""}
 		</div>
-			<GLTFViewer modelURL="/data/3d/cannon_default.glb" modelHash={uuid} view="tiny" client:only="react" />
+			{cannon.hasOwnProperty("3d") ? <GLTFViewer modelURL={"https://cdn.scorched.report/" + cannon["3d"] + "?public-api-key=8df12dac7330104b2c0eadc5cfaf238a"} modelHash={uuid} view="tiny" client:only="react" />
+			:  ""}
 				<img
 				id={"cannon_preview_image" + uuid}
 					src={cannon?.image.replace("/cannons/","/cannons/smaller/")}

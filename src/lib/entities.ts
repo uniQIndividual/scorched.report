@@ -4,7 +4,6 @@ export type Cannons = {
 	"kills": number;
 	"masterworkExtraScoins": number;
 	"masterworkAmount": number;
-	"3d"?: string,
 }
 
 
