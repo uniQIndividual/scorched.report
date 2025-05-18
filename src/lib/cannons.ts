@@ -49,7 +49,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 250,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": "/images/cannons/season1/ShrapnelCannon.webp"
+                "image": "/images/cannons/season1/ShrapnelCannon.webp",
+                "3d": "https://cdn.scorched.report/3398177269.glb"
             },
             {
                 "hash": "ScrapCannon",
@@ -59,7 +60,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 500,
                 "scoin_bonus": 1,
                 "description": "",
-                "image": "/images/cannons/season1/ScrapCannon.webp"
+                "image": "/images/cannons/season1/ScrapCannon.webp",
+                "3d": "https://cdn.scorched.report/3860411451.glb"
             },
             {
                 "hash": "BasicCannon",
@@ -80,7 +82,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1250,
                 "scoin_bonus": 3,
                 "description": "",
-                "image": "/images/cannons/season1/ArcCannon.webp"
+                "image": "/images/cannons/season1/ArcCannon.webp",
+                "3d": "https://cdn.scorched.report/2448259848.glb"
             },
             {
                 "hash": "VoidCannon",

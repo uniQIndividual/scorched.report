@@ -102,7 +102,7 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
         far: 100,
       }} >
         <ambientLight intensity={0.0} />
-        <group rotation={[0, Math.PI, 0]}>
+        <group rotation={[0, 0 /*Math.PI*/, 0]}>
           <Environment files={hdriUrls[hdriIndex].url} />
         </group>
         <Suspense fallback={<Loader />}>
