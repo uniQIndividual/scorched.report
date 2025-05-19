@@ -33,6 +33,11 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
             "icon": "/images/icons/external/braytech.webp"
         },
         {
+            "name": "PGCR Viewer",
+            "url": `https://pgcr.eververse.trade/destiny2/${renderInfo.matchid}`,
+            "icon": "/images/icons/external/pgcrviewer.webp"
+        },
+        {
             "name": "Destiny Focus",
             "url": `https://destiny-focus.me/pgcr/${renderInfo.matchid}`,
             "icon": "/images/icons/external/destinyfocus.webp"
