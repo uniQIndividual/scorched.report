@@ -234,7 +234,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 17500,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": "/images/cannons/season1/Gjallon.webp"
+                "image": "/images/cannons/season1/Gjallon.webp",
+                "3d": "https://cdn.scorched.report/153031792.glb"
             },
             {
                 "hash": "PolarisHalberd",
@@ -413,7 +414,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 15000,
                 "scoin_bonus": 45,
                 "description": "",
-                "image": "/images/cannons/season2/NecroCannon.webp"
+                "image": "/images/cannons/season2/NecroCannon.webp",
+                "3d": "https://cdn.scorched.report/3492284667.glb"
             },
             {
                 "hash": "CryoCannon",
@@ -433,7 +435,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 20000,
                 "scoin_bonus": 56,
                 "description": "",
-                "image": "/images/cannons/season2/IcyHotCannon.webp"
+                "image": "/images/cannons/season2/IcyHotCannon.webp",
+                "3d": "https://cdn.scorched.report/1166501168.glb"
             },
             {
                 "hash": "Scorchcalibur",
@@ -501,7 +504,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1000,
                 "scoin_bonus": 10,
                 "description": "",
-                "image": "/images/cannons/season3/Navigator.webp"
+                "image": "/images/cannons/season3/Navigator.webp",
+                "3d": "https://cdn.scorched.report/1195125528.glb"
             },
             {
                 "hash": "Lorentz",
@@ -511,7 +515,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1200,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": "/images/cannons/season3/Lorentz.webp"
+                "image": "/images/cannons/season3/Lorentz.webp",
+                "3d": "https://cdn.scorched.report/1758975919.glb"
             },
             {
                 "hash": "Cannon?",
@@ -521,7 +526,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1400,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": "/images/cannons/season3/cannon.webp"
+                "image": "/images/cannons/season3/cannon.webp",
+                "3d": "https://cdn.scorched.report/1956288669.glb"
             },
             {
                 "hash": "Leviathan",
