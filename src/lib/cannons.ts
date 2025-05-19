@@ -113,7 +113,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 2500,
                 "scoin_bonus": 6,
                 "description": "",
-                "image": "/images/cannons/season1/Scorchality.webp"
+                "image": "/images/cannons/season1/Scorchality.webp",
+                "3d": "https://cdn.scorched.report/2508666414.glb"
             },
             {
                 "hash": "MIRVCannon",
@@ -311,7 +312,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 3000,
                 "scoin_bonus": 7,
                 "description": "",
-                "image": "/images/cannons/season2/NaniteCannon.webp"
+                "image": "/images/cannons/season2/NaniteCannon.webp",
+                "3d": "https://cdn.scorched.report/367352927.glb"
             },
             {
                 "hash": "CoolerNaniteCannon",

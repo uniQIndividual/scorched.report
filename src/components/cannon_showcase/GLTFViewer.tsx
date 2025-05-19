@@ -112,13 +112,13 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
         <EffectComposer>
           <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.2} height={1000} />
           <ToneMapping
-            mode={ToneMappingMode.ACES_FILMIC}
-            adaptive={true}
-            resolution={256}
-            middleGrey={0.6}
-            maxLuminance={16.0}
-            averageLuminance={1.0}
-            adaptationRate={1.0}
+            mode={ToneMappingMode.OPTIMIZED_CINEON}
+            //adaptive={true}
+            //resolution={256}
+            //middleGrey={0.6}
+            //maxLuminance={16.0}
+            //averageLuminance={1.0}
+            //adaptationRate={1.0}
           />
           <PerformanceMonitor setPerformanceData={setPerformanceData} />
         </EffectComposer>
