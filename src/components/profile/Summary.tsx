@@ -1,7 +1,7 @@
 import { type Scorcher } from "../../lib/entities";
 import { medalsBungie } from "../../lib/entities";
 import { Tooltip } from 'react-tooltip'
-import SCORCHED_CANNONS from "../../lib/cannons";
+import SCORCHED_CANNONS, { type SCORCHED_CANNON_TYPE } from "../../lib/cannons";
 import { D2Box } from "./D2Box";
 import { Radar } from "./Radar_chart";
 
@@ -48,14 +48,20 @@ export const Summary = (stats: Scorcher) => {
         </div>`};
 
     // use default cannon if necessary
+    
     const noCannon = stats.minigame.selectedSeason == "" || stats.minigame.equippedCannons[stats.minigame.selectedSeason] == undefined;
     const equippedSeason = noCannon ? "S1" : stats.minigame.selectedSeason
-    const equippedCannon = noCannon ? 3 : SCORCHED_CANNONS[equippedSeason]?.cannons.map((item, i) => {
-        if (item.hash === stats.minigame.equippedCannons[equippedSeason].base_cannon_hash) return i;
-    }).filter((i) => i != undefined); // 1 == ScornchedCannon
+
+    const defaultCannon: SCORCHED_CANNON_TYPE = SCORCHED_CANNONS["1047977621"]!.cannons[851616958];
+    const equippedCannon: SCORCHED_CANNON_TYPE = noCannon ? defaultCannon : Object.entries(SCORCHED_CANNONS[equippedSeason]!.cannons).reduce((previous, current) => {
+        if (current[0] == stats.minigame.equippedCannons[equippedSeason]?.base_cannon_hash) {
+            return current[1];
+        }
+        return previous;
+    }, defaultCannon)
 
     let last_matches = Object.keys(stats.matchHistory);
-    last_matches = last_matches.sort((a,b) => Number(b) - Number(a));
+    last_matches = last_matches.sort((a, b) => Number(b) - Number(a));
     let last_matches_box = "";
     let number_of_matches = last_matches.length;
     let last_matches_stats = {
@@ -150,18 +156,18 @@ export const Summary = (stats: Scorcher) => {
                         {Object.keys(stats.bungieHistoricAccountStats.medals).map((medal) => {
                             return medalsBungie[medal] ? <div className="flex justify-center mb-4" key={"medal_highlight_div_" + medal}>
                                 <div>
-                                <div className={"flex justify-center" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>
-                                    <a
-                                        data-tooltip-id={medal + "_tooltip"}
-                                        data-tooltip-html={hoverTextMedals(medal)}
-                                        className={"w-[" + iconSize + "] h-[" + iconSize + "]"}
-                                    >
-                                        <img className="w-8" src={medalsBungie[medal].src} />
-                                    </a>
+                                    <div className={"flex justify-center" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>
+                                        <a
+                                            data-tooltip-id={medal + "_tooltip"}
+                                            data-tooltip-html={hoverTextMedals(medal)}
+                                            className={"w-[" + iconSize + "] h-[" + iconSize + "]"}
+                                        >
+                                            <img className="w-8" src={medalsBungie[medal].src} />
+                                        </a>
+                                    </div>
+                                    <span className={"flex justify-center mt-2 font-bungo text-gray-800 dark:text-gray-100 text-base sm:text-xl font-medium" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>{stats.bungieHistoricAccountStats.medals[medal]}</span>
+                                    <Tooltip id={medal + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
                                 </div>
-                                <span className={"flex justify-center mt-2 font-bungo text-gray-800 dark:text-gray-100 text-base sm:text-xl font-medium" + (stats.bungieHistoricAccountStats.medals[medal] == 0 ? " opacity-30" : "")}>{stats.bungieHistoricAccountStats.medals[medal]}</span>
-                                <Tooltip id={medal + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)" }} />
-                            </div>
                             </div> : <></>
                         })
                         }
@@ -170,13 +176,13 @@ export const Summary = (stats: Scorcher) => {
                 <D2Box title="Equipped Cannon" body={
                     <div className="max-w-[500px] px-4 sm:px-6 py-4 sm:py-8">
                         <div className="flex justify-center">
-                            <img className="" src={SCORCHED_CANNONS[equippedSeason]?.cannons[equippedCannon]?.image} />
+                            <img className="" src={equippedCannon.image} />
                         </div>
                         <table className="w-full">
                             <tbody className="">
                                 <tr className="text-gray-800 dark:text-gray-200 text-lg sm:text-3xl">
                                     <td className="m-0 p-0 float-left pt-3">
-                                        {SCORCHED_CANNONS[equippedSeason]?.cannons[equippedCannon]?.name}
+                                        {equippedCannon.name}
                                     </td>
                                     <td className="m-0 p-0 float-right pt-3">
                                         {(noCannon ? "0" : stats.minigame.equippedCannons[equippedSeason].kills).toLocaleString()}
@@ -199,31 +205,31 @@ export const Summary = (stats: Scorcher) => {
                 } />
                 <D2Box title={"Last Matches"} body={
                     <div className="p-2">
-                    <div className="p-3 flex flex-wrap">
-                    <table className="w-full">
-                        <tbody className="">
-                            <tr className="text-gray-800 dark:text-gray-200 text-3xl">
-                                <td className="m-0 p-0 float-left pr-2">
-                                    {last_matches_stats.deaths != 0 ? (last_matches_stats.kills / last_matches_stats.deaths).toPrecision(2)  : "..."}
-                                </td>
-                                <td className="m-0 p-0 float-right pl-2">
-                                    {last_matches_stats.deaths != 0 ? (last_matches_stats.kills * 60 / last_matches_stats.time).toPrecision(2)  : "..."}
-                                </td>
-                            </tr>
-                            <tr className="mt-0 text-gray-400 text-lg">
-                                <td className="m-0 p-0 float-left">
-                                K/D
-                                </td>
-                                <td className="m-0 p-0 float-right">
-                                    KPM
-                                </td>
-                            </tr>
-                            </tbody>
+                        <div className="p-3 flex flex-wrap">
+                            <table className="w-full">
+                                <tbody className="">
+                                    <tr className="text-gray-800 dark:text-gray-200 text-3xl">
+                                        <td className="m-0 p-0 float-left pr-2">
+                                            {last_matches_stats.deaths != 0 ? (last_matches_stats.kills / last_matches_stats.deaths).toPrecision(2) : "..."}
+                                        </td>
+                                        <td className="m-0 p-0 float-right pl-2">
+                                            {last_matches_stats.deaths != 0 ? (last_matches_stats.kills * 60 / last_matches_stats.time).toPrecision(2) : "..."}
+                                        </td>
+                                    </tr>
+                                    <tr className="mt-0 text-gray-400 text-lg">
+                                        <td className="m-0 p-0 float-left">
+                                            K/D
+                                        </td>
+                                        <td className="m-0 p-0 float-right">
+                                            KPM
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
-                            </div>
-                            <div className="flex flex-wrap justify-center">
-                        {last_matches_box}
-                    </div>
+                        </div>
+                        <div className="flex flex-wrap justify-center">
+                            {last_matches_box}
+                        </div>
                     </div>
                 } />
             </div>

@@ -60,8 +60,8 @@ const { season } = Astro.props;
 		class={"mt-2 flex flex-wrap justify-center" /*"mt-2 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 w-max"*/}
 	>
 		{
-			Object.keys(season.cannons).map((key) => (
-				<CannonShowcase cannon={season.cannons[`${key}`]} key={key} />
+			Object.entries(season.cannons).sort((a,b)=>a[1].cost - b[1].cost).map((item, index) => (
+				<CannonShowcase cannon={item[1]} key={item[0]} index={index} />
 			))
 		}
 	</div>

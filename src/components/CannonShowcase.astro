@@ -4,7 +4,7 @@ import GLTFViewer from "./cannon_showcase/GLTFViewer";
 import PopUp from "./PopUp.astro";
 import TooltipSimple from "./TooltipSimple.astro";
 
-const { cannon, key } = Astro.props;
+const { cannon, key, index } = Astro.props;
 
 const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 
@@ -101,7 +101,7 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 				</tr>
 			</table>
 			{
-				key ? (
+				typeof index == "number" ? (
 					<table>
 						<tr>
 							<td class="align-top">
@@ -111,7 +111,7 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 							</td>
 							<td class="align-top pl-1">
 								<span class="text-gray-800 font-normal dark:text-gray-200">
-									{Number(key) + 1}
+									{index + 1}
 								</span>
 							</td>
 						</tr>

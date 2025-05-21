@@ -107,11 +107,10 @@ const ReportLookup = () => {
     },
     "minigame": {
       "completedTutorial": false,
-      "scoins": 0,
+      "scoins": {},
       "selectedSeason": "",
       "equippedCannons": {},
       "ownedCannons": {},
-      "coinBonus": 0,
       "currentLevel": 0,
       "ownedSeasons": [],
       "completedSeasons": []
@@ -285,7 +284,7 @@ const ReportLookup = () => {
         setLoadingTitle("Loading Scorched Cannons...");
 
         try {
-          fetch('https://scorched.nblock.dev/api/users/' + userid,
+          fetch('https://scorched.nblock.dev/api/users/' + userid, //'/data/mock/scorched_bot_v2.json'
             {
               headers: {
                 "X-API-Key": "e89f62dfcc413cd8f527872137081a00"
@@ -328,11 +327,25 @@ const ReportLookup = () => {
                 const data = response.data
 
 
-                newStats = update(newStats, { minigame: { selectedSeason: { $set: data.selected_season || newStats.minigame.selectedSeason } } })
-                newStats = update(newStats, { minigame: { ownedSeasons: { $set: data.owned_seasons || newStats.minigame.ownedSeasons } } })
-                newStats = update(newStats, { minigame: { ownedCannons: { $set: data.owned_cannons || newStats.minigame.ownedCannons } } })
-                newStats = update(newStats, { minigame: { equippedCannons: { $set: data.current_cannon || newStats.minigame.equippedCannons } } })
-                newStats = update(newStats, { minigame: { scoins: { $set: data.scoins || newStats.minigame.scoins } } })
+                newStats = update(newStats, {
+                  minigame: {
+                    selectedSeason: {
+                      $set: data.selected_season || newStats.minigame.selectedSeason
+                    },
+                    ownedSeasons: {
+                      $set: data.owned_seasons || newStats.minigame.ownedSeasons
+                    },
+                    ownedCannons: {
+                      $set: data.owned_cannons || newStats.minigame.ownedCannons
+                    },
+                    equippedCannons: {
+                      $set: data.equipped_cannons || newStats.minigame.equippedCannons
+                    },
+                    scoins: {
+                      $set: data.scoins || newStats.minigame.scoins
+                    }
+                  }
+                })
 
                 setStats(newStats)
               }

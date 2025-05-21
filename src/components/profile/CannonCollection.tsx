@@ -4,7 +4,7 @@ import { D2Box } from "./D2Box";
 
 
 export const CannonCollection = (props: Scorcher) => {
-    const seasons = Object.keys(SCORCHED_CANNONS)
+    const seasons = Object.entries(SCORCHED_CANNONS)
     try {
         return (
             <div className="flex flex-wrap justify-center">
@@ -18,31 +18,44 @@ export const CannonCollection = (props: Scorcher) => {
                 } />
                 <D2Box title={"Scoins"} body={
                     <div className="p-4 w-full block">
-                        Season 3: <span className="font-bold text-black dark:text-white">{Number(props.minigame.scoins.S3 || 0).toLocaleString()}</span>
+                        Season 3: <span className="font-bold text-black dark:text-white">{Number(props.minigame.scoins["1047977623"] || 0).toLocaleString()}</span>
                         <br />
-                        Previous seasons: <span className="font-bold text-black dark:text-white">{Number(props.minigame.scoins.old || 0).toLocaleString()}</span>
+                        Previous seasons: <span className="font-bold text-black dark:text-white">{Number(props.minigame.scoins["1031377680"] || 0).toLocaleString()}</span>
                     </div>
                 } />
                 {seasons.map(season => {
-                    if (SCORCHED_CANNONS[season] == undefined) {
-                        return <></>
-                    }
-                    return <D2Box key={"profile_section_seasons_" + season} title={SCORCHED_CANNONS[season]?.name + " - " + (props.minigame.ownedCannons.hasOwnProperty(season) && props.minigame.ownedCannons[season] != null ? Math.min(props.minigame.ownedCannons[season].length, SCORCHED_CANNONS[season]?.cannons.length) : 0) + "/" + SCORCHED_CANNONS[season]?.cannons.length} body={
-                        <div className="m-4 sm:m-10" key={season + "_profile_showcase"}>
-                            <div className="flex flex-wrap justify-center">
-                                {SCORCHED_CANNONS[season].cannons.map(cannon => {
-                                    let unlocked = props.minigame.ownedCannons.hasOwnProperty(season) && props.minigame.ownedCannons[season] && props.minigame.ownedCannons[season].some(c => c.base_cannon_hash == cannon.hash);
+                    const numberSeasonCannons = Object.keys(season[1].cannons).length;
+                    const numberOwnedCannons = (props.minigame.ownedCannons.hasOwnProperty(season[0]) && props.minigame.ownedCannons[season[0]] != null
+                        ? Math.min(numberSeasonCannons, props.minigame.ownedCannons[season[0]]!.length)
+                        : 0)
+                    const ownedCannonsFlattened = (props.minigame.ownedCannons.hasOwnProperty(season[0])
+                        && props.minigame.ownedCannons[season[0]])
+                        ?
+                        props.minigame.ownedCannons[season[0]]!.flatMap((item) => String(item.base_cannon_hash))
+                        :
+                        [];
 
-                                    return <div key={cannon.name + "_profile_season_showcase"} className="p-1">
-                                        <img src={cannon.image.replace("/cannons/", unlocked ? "/cannons/smaller/" : "/cannons/missing/")} className={(unlocked ? "" : "grayscale brightness-75 ") + " max-h-28 object-scale-down w-[120px] sm:w-[200px]"} />
-                                        <div className="mt-1 text-center flex justify-center">
-                                            {cannon.name}
-                                        </div>
-                                    </div>
-                                })}
+                    return <D2Box
+                        key={"profile_section_seasons_" + season[0]}
+                        title={season[1].name + " - " + numberOwnedCannons + "/" + numberSeasonCannons}
+                        body={
+                            <div className="m-4 sm:m-10" key={season + "_profile_showcase"}>
+                                <div className="flex flex-wrap justify-center">
+                                    {Object.entries(season[1].cannons)
+                                        .sort((a, b) => a[1].cost - b[1].cost)
+                                        .map(cannon => {
+                                            let unlocked = ownedCannonsFlattened.includes(cannon[0]);
+
+                                            return <div key={cannon[1].name + "_profile_season_showcase"} className="p-1">
+                                                <img src={cannon[1].image.replace("/cannons/", unlocked ? "/cannons/smaller/" : "/cannons/missing/")} className={(unlocked ? "" : "grayscale brightness-75 ") + " max-h-28 object-scale-down w-[120px] sm:w-[200px]"} />
+                                                <div className="mt-1 text-center flex justify-center">
+                                                    {cannon[1].name}
+                                                </div>
+                                            </div>
+                                        })}
+                                </div>
                             </div>
-                        </div>
-                    } />
+                        } />
                 })}
                 <div className="flex justify-center mt-8">
                 </div>

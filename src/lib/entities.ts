@@ -1,9 +1,7 @@
 /* eslint-disable max-lines */
 export type Cannons = {
-	"hash": string;
+	"base_cannon_hash": string;
 	"kills": number;
-	"masterworkExtraScoins": number;
-	"masterworkAmount": number;
 }
 
 
@@ -380,11 +378,10 @@ export type Scorcher = {
 	},
 	"minigame": {
 		"completedTutorial": boolean,
-		"scoins": object,
+		"scoins": { [key: string]: number },
 		"selectedSeason": string,
-		"equippedCannons": object,
-		"ownedCannons": object,
-		"coinBonus": number,
+		"equippedCannons": { [key: string]: Cannons },
+		"ownedCannons": { [key: string]: Cannons[] },
 		"currentLevel": number,
 		"ownedSeasons": Cannons[],
 		"completedSeasons": []

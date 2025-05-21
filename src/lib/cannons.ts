@@ -6,13 +6,14 @@ export type SCORCHED_DICTIONARY_TYPE = {
 
 export type SCORCHED_SEASON_TYPE = {
     "name": string,
+    "legacy_hash": string,
     "release_date": number,
     "twas": string,
     "pass_price": number,
-    "cannons": SCORCHED_CANNONS[]
+    "cannons": { [key: number]: SCORCHED_CANNON_TYPE }
 }
 
-export type SCORCHED_CANNONS = {
+export type SCORCHED_CANNON_TYPE = {
     "hash": string,
     "name": string,
     "alt_name": string,
@@ -25,13 +26,14 @@ export type SCORCHED_CANNONS = {
 }
 
 const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
-    "S1": {
+    "1047977621": {
         "name": "Season 1",
+        "legacy_hash": "S1",
         "release_date": 0,
         "twas": "",
         "pass_price": 0,
-        "cannons": [
-            {
+        "cannons": {
+            "1590899343": {
                 "hash": "PistolCannon",
                 "name": "Pistol",
                 "alt_name": "",
@@ -41,7 +43,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/PistolCannon.webp"
             },
-            {
+            "3398177269": {
                 "hash": "ShrapnelCannon",
                 "name": "Shrapnel Cannon",
                 "alt_name": "Scorch Rifle",
@@ -52,7 +54,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season1/ShrapnelCannon.webp",
                 "3d": "https://cdn.scorched.report/3398177269.glb"
             },
-            {
+            "3860411451": {
                 "hash": "ScrapCannon",
                 "name": "Scrap Cannon",
                 "alt_name": "",
@@ -63,7 +65,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season1/ScrapCannon.webp",
                 "3d": "https://cdn.scorched.report/3860411451.glb"
             },
-            {
+            "851616958": {
                 "hash": "BasicCannon",
                 "name": "Basic Cannon",
                 "alt_name": "",
@@ -74,7 +76,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season1/BasicCannon.webp",
                 "3d": "https://cdn.scorched.report/851616958.glb"
             },
-            {
+            "2448259848": {
                 "hash": "ArcCannon",
                 "name": "Shock Cannon",
                 "alt_name": "Arc Cannon",
@@ -85,7 +87,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season1/ArcCannon.webp",
                 "3d": "https://cdn.scorched.report/2448259848.glb"
             },
-            {
+            "2097267240": {
                 "hash": "VoidCannon",
                 "name": "Null Cannon",
                 "alt_name": "Void Cannon",
@@ -95,7 +97,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/VoidCannon.webp"
             },
-            {
+            "1893944919": {
                 "hash": "StasisCannon",
                 "name": "Shatter Cannon",
                 "alt_name": "Stasis Cannon",
@@ -105,7 +107,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/StasisCannon.webp"
             },
-            {
+            "2508666414": {
                 "hash": "Scorchality",
                 "name": "Scorchality",
                 "alt_name": "",
@@ -116,7 +118,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season1/Scorchality.webp",
                 "3d": "https://cdn.scorched.report/2508666414.glb"
             },
-            {
+            "3768930984": {
                 "hash": "MIRVCannon",
                 "name": "MIRV Cannon",
                 "alt_name": "",
@@ -126,7 +128,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/MIRVCannon.webp"
             },
-            {
+            "3042792869": {
                 "hash": "WaveCannon",
                 "name": "Wave Cannon",
                 "alt_name": "",
@@ -136,7 +138,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/WaveCannon.webp"
             },
-            {
+            "800573551": {
                 "hash": "ScorchBreaker",
                 "name": "Scorch Breaker",
                 "alt_name": "",
@@ -146,7 +148,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/ScorchBreaker.webp"
             },
-            {
+            "879863726": {
                 "hash": "ScorchBringer",
                 "name": "Scorch Bringer",
                 "alt_name": "",
@@ -156,7 +158,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/ScorchBringer.webp"
             },
-            {
+            "2562135391": {
                 "hash": "ScorchedSimulant",
                 "name": "Scorched Simulant",
                 "alt_name": "",
@@ -166,7 +168,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/ScorchedSimulant.webp"
             },
-            {
+            "2027341681": {
                 "hash": "SaladinsCriticism",
                 "name": "Saladin's Criticism",
                 "alt_name": "",
@@ -176,7 +178,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/SaladinsCriticism.webp"
             },
-            {
+            "2126509505": {
                 "hash": "TrialsCannon",
                 "name": "Trials Cannon",
                 "alt_name": "",
@@ -186,7 +188,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/TrialsCannon.webp"
             },
-            {
+            "2733954114": {
                 "hash": "SaintsReverence",
                 "name": "Saint's Reverence",
                 "alt_name": "",
@@ -196,7 +198,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/SaintsReverence.webp"
             },
-            {
+            "2807280609": {
                 "hash": "ScorchingLion",
                 "name": "Scorching Lion",
                 "alt_name": "",
@@ -206,7 +208,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/ScorchingLion.webp"
             },
-            {
+            "2792948606": {
                 "hash": "ScorchedLens",
                 "name": "Scorched Lens",
                 "alt_name": "",
@@ -216,7 +218,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/ScorchedLens.webp"
             },
-            {
+            "3192621245": {
                 "hash": "MaliceCannon",
                 "name": "Malice Cannon",
                 "alt_name": "",
@@ -226,7 +228,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/MaliceCannon.webp"
             },
-            {
+            "153031792": {
                 "hash": "Gjallon",
                 "name": "Gjallon",
                 "alt_name": "",
@@ -237,7 +239,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season1/Gjallon.webp",
                 "3d": "https://cdn.scorched.report/153031792.glb"
             },
-            {
+            "1753608035": {
                 "hash": "PolarisHalberd",
                 "name": "Polaris Halberd",
                 "alt_name": "",
@@ -247,7 +249,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/PolarisHalberd.webp"
             },
-            {
+            "2310189889": {
                 "hash": "FusorCannon",
                 "name": "Fusor Cannon",
                 "alt_name": "",
@@ -257,7 +259,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/FusorCannon.webp"
             },
-            {
+            "4082509468": {
                 "hash": "TelestoCannon",
                 "name": "Coming Soon...",
                 "alt_name": "Telesto Cannon",
@@ -267,15 +269,16 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season1/TelestoCannon.webp"
             },
-        ]
+        }
     },
-    "S2": {
+    "1047977622": {
         "name": "Season 2",
+        "legacy_hash": "S2",
         "release_date": 1682913600,
         "twas": "1682913600",
         "pass_price": 0,
-        "cannons": [
-            {
+        "cannons": {
+            "1387175964": {
                 "hash": "ThreadboundCannon",
                 "name": "Threadbound Cannon",
                 "alt_name": "Strand",
@@ -285,7 +288,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/ThreadboundCannon.webp"
             },
-            {
+            "4032709312": {
                 "hash": "WhisperingCannon",
                 "name": "The Whispering Cannon",
                 "alt_name": "Taken",
@@ -295,7 +298,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/WhisperingCannon.webp"
             },
-            {
+            "329391937": {
                 "hash": "HeirloomCannon",
                 "name": "Heirloom Cannon",
                 "alt_name": "Heir",
@@ -305,7 +308,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/HeirloomCannon.webp"
             },
-            {
+            "367352927": {
                 "hash": "NaniteCannon",
                 "name": "Nanite Cannon",
                 "alt_name": "Outbreak",
@@ -316,7 +319,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season2/NaniteCannon.webp",
                 "3d": "https://cdn.scorched.report/367352927.glb"
             },
-            {
+            "1474996373": {
                 "hash": "CoolerNaniteCannon",
                 "name": "The Cooler Nanite Cannon",
                 "alt_name": "Quicksilver",
@@ -326,7 +329,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/CoolerNaniteCannon.webp"
             },
-            {
+            "3701718573": {
                 "hash": "TapedTravesty",
                 "name": "The Taped Travesty",
                 "alt_name": "By definition a trident",
@@ -336,7 +339,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/TapedTravesty.webp"
             },
-            {
+            "112436207": {
                 "hash": "VexHeadCannon",
                 "name": "Scorched Cannon?",
                 "alt_name": "Vex Head Cannon; ah yup that things a scorch cannon",
@@ -346,7 +349,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/VexHeadCannon.webp"
             },
-            {
+            "1357385330": {
                 "hash": "CerbCannon",
                 "name": "Headcanon",
                 "alt_name": "Cerb Cannon",
@@ -356,7 +359,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/CerbCannon.webp"
             },
-            {
+            "1889361825": {
                 "hash": "DivCannon",
                 "name": "Divinity Cannon",
                 "alt_name": "",
@@ -366,7 +369,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/DivCannon.webp"
             },
-            {
+            "567386786": {
                 "hash": "RuthlessCannon",
                 "name": "Ruthless Cannon",
                 "alt_name": "",
@@ -376,7 +379,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/RuthlessCannon.webp"
             },
-            {
+            "785293223": {
                 "hash": "VulcanCannon",
                 "name": "Vulcan Cannon",
                 "alt_name": "",
@@ -386,7 +389,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/VulcanCannon.webp"
             },
-            {
+            "2292555887": {
                 "hash": "WitherScorched",
                 "name": "Witherscorched",
                 "alt_name": "",
@@ -396,7 +399,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/WitherScorched.webp"
             },
-            {
+            "1070552926": {
                 "hash": "ClosingAct",
                 "name": "The Closing Act",
                 "alt_name": "ngl I forgot what this one was called",
@@ -406,7 +409,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/ClosingAct.webp"
             },
-            {
+            "3492284667": {
                 "hash": "NecroCannon",
                 "name": "Necro Cannon",
                 "alt_name": "",
@@ -417,7 +420,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season2/NecroCannon.webp",
                 "3d": "https://cdn.scorched.report/3492284667.glb"
             },
-            {
+            "3911958065": {
                 "hash": "CryoCannon",
                 "name": "Cryo Cannon",
                 "alt_name": "",
@@ -427,7 +430,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/CryoCannon.webp"
             },
-            {
+            "1166501168": {
                 "hash": "IcyHotCannon",
                 "name": "IcyHot Cannon",
                 "alt_name": "",
@@ -438,7 +441,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season2/IcyHotCannon.webp",
                 "3d": "https://cdn.scorched.report/1166501168.glb"
             },
-            {
+            "33218595": {
                 "hash": "Scorchcalibur",
                 "name": "Scorchcalibur",
                 "alt_name": "",
@@ -448,15 +451,16 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season2/Scorchcalibur.webp"
             },
-        ]
+        }
     },
-    "S3": {
+    "1047977623": {
         "name": "Season 3",
+        "legacy_hash": "S3",
         "release_date": 1707850800,
         "twas": "1707850800",
         "pass_price": 2500,
-        "cannons": [
-            {
+        "cannons": {
+            "2862327243": {
                 "hash": "WickedImplement",
                 "name": "Tool of Evil",
                 "alt_name": "Wicked Implement, this thing is still really ugly",
@@ -466,7 +470,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/WickedImplement.webp"
             },
-            {
+            "1840757261": {
                 "hash": "Duality",
                 "name": "Calus' Nightmare",
                 "alt_name": "Duality",
@@ -476,7 +480,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/Duality.webp"
             },
-            {
+            "3663052891": {
                 "hash": "Dawn",
                 "name": "Paradoxical Flame",
                 "alt_name": "Dawn",
@@ -486,7 +490,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/Dawn.webp"
             },
-            {
+            "2926159305": {
                 "hash": "CurseofOsiris",
                 "name": "Scorched Calamity 12",
                 "alt_name": "Curse of Osiris",
@@ -496,7 +500,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/Curse_of_Osiris.webp"
             },
-            {
+            "1195125528": {
                 "hash": "Navigator",
                 "name": "The GPS",
                 "alt_name": "Navigator",
@@ -507,18 +511,18 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/Navigator.webp",
                 "3d": "https://cdn.scorched.report/1195125528.glb"
             },
-            {
+            "1758975919": {
                 "hash": "Lorentz",
                 "name": "EM Cannon",
                 "alt_name": "Lorentz",
                 "author": "uniQ",
                 "cost": 1200,
                 "scoin_bonus": 12,
-                "description": "",
+                "description": "My first attempt at creating a kitbash. Even this seemingly straight forward variant required a lot more bending than I expected. I can now certainly see why Gerb always preaches that donor models need to have enough geometry.",
                 "image": "/images/cannons/season3/Lorentz.webp",
                 "3d": "https://cdn.scorched.report/1758975919.glb"
             },
-            {
+            "1956288669": {
                 "hash": "Cannon?",
                 "name": "Cannon?",
                 "alt_name": "",
@@ -529,7 +533,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/cannon.webp",
                 "3d": "https://cdn.scorched.report/1956288669.glb"
             },
-            {
+            "2270463909": {
                 "hash": "Leviathan",
                 "name": "Burning Opulence",
                 "alt_name": "Leviathan",
@@ -539,7 +543,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/Leviathan.webp"
             },
-            {
+            "423691032": {
                 "hash": "LastWish",
                 "name": "Wishful Cannon",
                 "alt_name": "LastWish",
@@ -549,7 +553,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/LastWish.webp"
             },
-            {
+            "3369821932": {
                 "hash": "BlackArmory",
                 "name": "Ada's Retirement Plan",
                 "alt_name": "Black Armory",
@@ -559,7 +563,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/BlackArmory.webp"
             },
-            {
+            "4103190": {
                 "hash": "GOS",
                 "name": "Sanctified Cannon",
                 "alt_name": "GOS",
@@ -569,7 +573,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/GOS.webp"
             },
-            {
+            "71654933": {
                 "hash": "DSC",
                 "name": "STATUS: INFERNO",
                 "alt_name": "DSC",
@@ -580,7 +584,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/DSC.webp",
                 "3d": "https://cdn.scorched.report/71654933.glb"
             },
-            {
+            "538471099": {
                 "hash": "Vow",
                 "name": "Lubrae's Resolution",
                 "alt_name": "Vow",
@@ -590,7 +594,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/Vow.webp"
             },
-            {
+            "753693032": {
                 "hash": "Tesselation",
                 "name": "Refraction",
                 "alt_name": "Tesselation",
@@ -600,7 +604,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/season3/Tesselation.webp"
             },
-            {
+            "2980311541": {
                 "hash": "Nine",
                 "name": "Fire of the Future",
                 "alt_name": "Nine",
@@ -620,7 +624,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "This is my secret cannon. Outside of Scorched and 3D art, I also have a love for going out of bounds and glitching Destiny as a whole. The Simple Prop at the center of the cannon is actually an asset that exists in Destiny, and it can be seen rarely in places such as out of box in the Dreadnaught and the Menagerie, and down below the final boss arena in the original Black Garden. This cannon represents all three of my Destiny-related passions in one neat little package.",
                 "image": "/images/cannons/season3/SimpleProp.webp"
             },*/
-            {
+            "3998474120": {
                 "hash": "hidden",
                 "name": "[Classified]",
                 "alt_name": "",
@@ -630,15 +634,16 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/hidden/hidden.webp"
             },
-        ]
+        }
     },
-    "special": {
+    "3064974266": {
         "name": "Special Cannons",
+        "legacy_hash": "special",
         "release_date": 0,
         "twas": "",
         "pass_price": 0,
-        "cannons": [
-            {
+        "cannons": {
+            "2405325755": {
                 "hash": "CoriolisCannon",
                 "name": "10201",
                 "alt_name": "Coriolis Cannon",
@@ -648,7 +653,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "This is Ecdragonz's Secret Cannon. More details about it can be found in the TWAS, but the gist is that this cannon appears in our DnD campaign and is wielded by an eldritch abomination (played by Zombie). It's made of mostly small parts of the Rasputin heavy frame model and other Rasputin assets, and its 'taken' looking corruption at the front reflects its corrupted power source. Its name ingame is the Scourge Cannon, if you were wondering.",
                 "image": "/images/cannons/special/CoriolisCannon.webp"
             },
-            {
+            "1465060862": {
                 "hash": "ScornchedCannon",
                 "name": "Scornched Cannon",
                 "alt_name": "Cob Cannon",
@@ -658,7 +663,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "This is Zombie's Secret Cannon. It is one of the very first ever created, and its use is fairly outdated since we very rarely see anyone earning a multiple of seven anymore. Either way, I see it as a landmark and it plays into Zombie's love for corn so I think it's nice. Definitely on the list of ones to redo in the future though.",
                 "image": "/images/cannons/special/ScornchedCannon.webp"
             },
-            {
+            "1975453416": {
                 "hash": "CoriolisCannon2",
                 "name": "18470",
                 "alt_name": "[PLACEHOLDER NAME], Scourge_Cannon",
@@ -668,7 +673,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "description": "",
                 "image": "/images/cannons/special/CoriolisCannon2.webp"
             },
-        ]
+        }
     }
 }
 
