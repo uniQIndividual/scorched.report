@@ -613,17 +613,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "scoin_bonus": 90,
                 "description": "",
                 "image": "/images/cannons/season3/Nine.webp"
-            },/*
-            {
-                "hash": "SimpleProp",
-                "name": "■■■.Name = String::new(\"placeholder\");",
-                "alt_name": "SimpleProp",
-                "author": "GerbSnail",
-                "cost": 999999,
-                "scoin_bonus": 100,
-                "description": "This is my secret cannon. Outside of Scorched and 3D art, I also have a love for going out of bounds and glitching Destiny as a whole. The Simple Prop at the center of the cannon is actually an asset that exists in Destiny, and it can be seen rarely in places such as out of box in the Dreadnaught and the Menagerie, and down below the final boss arena in the original Black Garden. This cannon represents all three of my Destiny-related passions in one neat little package.",
-                "image": "/images/cannons/season3/SimpleProp.webp"
-            },*/
+            },
             "3998474120": {
                 "hash": "hidden",
                 "name": "[Classified]",
