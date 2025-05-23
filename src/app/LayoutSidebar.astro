@@ -81,10 +81,9 @@ if (author != undefined) {
 
 		<meta name="author" content="uniQ" />
 		<meta name="copyright" content="MIT" />
-		<meta property="og:image" content={og_image} />
 		{
 			og_hero_image === undefined ? (
-				""
+			<meta property="og:image" content={og_image} />
 			) : (
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:image:src" content={og_hero_image} />
@@ -95,7 +94,6 @@ if (author != undefined) {
 		<meta property="og:title" content={og_title} />
 		<meta property="og:site_name" content="Scorched Report" />
 		<meta property="og:description" content={og_description} />
-		<meta name="theme-color" content="#8a2a2a">
 		<meta
 			property="og:type"
 			content={date === undefined ? "website" : "article"}
@@ -116,6 +114,7 @@ if (author != undefined) {
 		}
 		{tags.map((tag: string) => <meta property="article:tag" content={tag} />)}
 		<meta property="og:url" content="https://scorched.report/" />
+		<meta name="theme-color" content="#8a2a2a" />
 
 		<script
 			type="application/ld+json"
