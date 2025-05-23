@@ -7,7 +7,7 @@ layout: '../app/MarkdownStandalone.astro'
 Scorched Report is available under the MIT License found below. It is built upon the amazing work by many other people:
 
 - [Destiny 2 Post Game Carnage Report Dataset](https://d2.asun.co/pgcr.html) by Andrew Sun under the Open Database License (ODbL)
-- Scorched Cannon images from GerbSnail
+- Scorch Cannon images from GerbSnail
 - Scorched Bot access and additional PGCRs by nblock
 - [Flowbite Astro Admin Dashboard](https://github.com/themesberg/flowbite-astro-admin-dashboard) under the MIT License
 - [Member Report](https://github.com/nwLSteam/member.report) by nwL

@@ -278,10 +278,10 @@ const ReportLookup = () => {
 
         /*
  
-          Load Scorched Cannon data
+          Load Scorch Cannon data
  
         */
-        setLoadingTitle("Loading Scorched Cannons...");
+        setLoadingTitle("Loading Scorch Cannons...");
 
         try {
           fetch('https://scorched.nblock.dev/api/users/' + userid, //'/data/mock/scorched_bot_v2.json'
@@ -291,13 +291,13 @@ const ReportLookup = () => {
               },
               signal: AbortSignal.timeout(3000)
             }).catch(e => {
-              console.error("Error getting Scorched Cannon data");
+              console.error("Error getting Scorch Cannon data");
               return null
             }).then(
               res => {
                 if (res == null) {
                   triggerCrash({
-                    title: 'Failed to load your Scorched Cannons',
+                    title: 'Failed to load your Scorch Cannons',
                     text: ''
                   });
                   return { data: null }
@@ -305,7 +305,7 @@ const ReportLookup = () => {
                 if (res.status != 200 && res.status != 404) {
                   console.error(res);
                   triggerCrash({
-                    title: 'Failed to load your Scorched Cannons',
+                    title: 'Failed to load your Scorch Cannons',
                     text: 'Status code: ' + res.status
                   });
                   console.error(res.statusText)
@@ -359,7 +359,7 @@ const ReportLookup = () => {
 
         } catch (error) {
           triggerCrash({
-            title: 'Error when loading Scorched Cannon data',
+            title: 'Error when loading Scorch Cannon data',
             text: error!.toString()
           });
           return;
@@ -372,7 +372,7 @@ const ReportLookup = () => {
         */
         const indexedMatchHistory = await historyDB.getValue(userid);
         if (indexedMatchHistory != null) {
-          setLoadingTitle("Loading Scorched Cannons...");
+          setLoadingTitle("Loading Scorch Cannons...");
           console.log("Fetching matches from local indexedDB");
           // Update performance stats and history
           newStats = update(newStats, {
@@ -1371,7 +1371,7 @@ const ReportLookup = () => {
       </div>
     },
     {
-      "title": "Scorched Cannons",
+      "title": "Scorch Cannons",
       "id": "cannons",
       "body": <CannonCollection {...stats} />
     },

@@ -302,7 +302,7 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"glow": ""
 	},
 	"specialKills": {
-		"description": "Awarded for getting a kill with something that isn't a Scorched Cannon",
+		"description": "Awarded for getting a kill with something that isn't a Scorch Cannon",
 		"text": "Wait, that's illegal!",
 		"src": "/images/icons/awards/Telesto.webp",
 		"glow": ""
