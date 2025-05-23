@@ -32,12 +32,12 @@ const PerformanceMonitor = ({ setPerformanceData }) => {
 
 function Loader() {
   const { active, progress, errors, item, loaded, total } = useProgress()
-  return <Html center> <LoadingAnimationWithTitle title={typeof progress == "number" ? ( progress.toFixed(0) + "% loaded") : ""} /> </Html>
+  return <Html center> <LoadingAnimationWithTitle title={typeof progress == "number" ? (progress.toFixed(0) + "% loaded") : ""} /> </Html>
 }
 
 const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash: string, view: "tiny" | "large" }) => {
   const [performanceData, setPerformanceData] = useState({ fps: 0 });
-  const [hidden, setHidden] = useState(true);
+  const [show, setShow] = useState(false);
   const [tooltip, setTooltip] = useState('');
   const [hdriIndex, setHdriIndex] = useState(0);
   const hdriUrls = [
@@ -49,17 +49,35 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
   const handleHdriChange = (index) => {
     setHdriIndex(index);
   };
-  const [color, setColor] = useState('#ff0000');
   useEffect(() => {
     if (view == 'tiny') {
       return;
     }
 
-    const gui = new GUI();
-
-    gui.addColor({ color }, 'color').onChange((newColor) => {
-      setColor(newColor);
+    const gui = new GUI({
+      container: document.getElementById('GLTFViewer-large-controls'),
+      title: "3D CONTROLS",
     });
+
+
+    gui.add({
+      show
+    }, 'show')
+    .name("Use 3D Model")
+    .onChange((newVal) => {
+      setShow(newVal);
+      const twoDimImage = document.getElementById("cannon_preview_image" + modelHash)
+      if (twoDimImage) {
+        twoDimImage.toggleAttribute("hidden")
+      }
+    })
+
+    gui.add({
+      hdriIndex
+    }, 'hdriIndex', [ 0, 1, 2 ])
+    .name("HDRI")
+    .onChange((newIndex) => {setHdriIndex(newIndex)})
+
 
     // Clean up the GUI on component unmount
     return () => {
@@ -68,19 +86,20 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
   }, []);
 
 
-  if (hidden) {
-    return <button id={'GLTFViewer_button_' + modelHash} className='hidden' onClick={() => {
-      setHidden(false)
+  if (!show) {
+    return <button id={'GLTFViewer_button_' + modelHash} className='show' onClick={() => {
+      setShow(false)
     }}>
     </button>
   }
 
   return (
     <div
-      className='rounded-lg h-[226px]'
+      className={'rounded-lg ' + (view == 'tiny' ? ' h-[226px] ' : ' w-full ')}
       style={{
         position: 'relative',
         width: '100%',
+        height: '100%'
       }}>
       <img
         src={"/images/3d/background_dark_small.webp"}
@@ -113,17 +132,17 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
           <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.2} height={1000} />
           <ToneMapping
             mode={ToneMappingMode.OPTIMIZED_CINEON}
-            //adaptive={true}
-            //resolution={256}
-            //middleGrey={0.6}
-            //maxLuminance={16.0}
-            //averageLuminance={1.0}
-            //adaptationRate={1.0}
+          //adaptive={true}
+          //resolution={256}
+          //middleGrey={0.6}
+          //maxLuminance={16.0}
+          //averageLuminance={1.0}
+          //adaptationRate={1.0}
           />
           <PerformanceMonitor setPerformanceData={setPerformanceData} />
         </EffectComposer>
       </Canvas>
-      {view == "tiny" ? "" : <div style={{
+      {true ? "" : <div style={{
         position: 'absolute',
         top: 10,
         left: 10,
@@ -136,7 +155,7 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
         <p>Drag to rotate, scroll to zoom</p>
         inspired by https://paracausalforge.com
       </div>}
-      {view == "tiny" ? "" : <div style={{
+      {true ? "" : <div style={{
         position: 'absolute', bottom: '10px', left: '10px',
         color: 'white',
         background: 'rgba(0, 0, 0, 0.5)',
@@ -171,8 +190,8 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
           </div>
         ))}
       </div>}
-      <button id={'GLTFViewer_button_' + modelHash} className='hidden' onClick={() => {
-        setHidden(true)
+      <button id={'GLTFViewer_button_' + modelHash} className='show' onClick={() => {
+        setShow(true)
       }}>
       </button>
     </div>

@@ -1,0 +1,25 @@
+---
+import cannons from "../../lib/cannons";
+import Redirect from "../../modules/Redirect.astro";
+
+export async function getStaticPaths() {
+	const paths = Object.values(cannons)
+		.map((season) => Object.entries(season.cannons))
+		.flat()
+		.map((cannon) => {
+			return {
+				params: {
+					hash: cannon[0],
+				},
+				props: { cannon: cannon },
+			};
+		});
+	return paths;
+}
+
+const { hash } = Astro.params;
+const { cannon } = Astro.props;
+const redirectUrl = `/collections/${hash}/${encodeURI(cannon[1].name.replaceAll(" ", "-"))}`;
+---
+
+<Redirect redirectUrl={redirectUrl} />

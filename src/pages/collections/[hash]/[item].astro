@@ -1,0 +1,212 @@
+---
+import LayoutSidebar from "../../../app/LayoutSidebar.astro";
+import GLTFViewer from "../../../components/cannon_showcase/GLTFViewer";
+import TooltipSimple from "../../../components/TooltipSimple.astro";
+import cannons from "../../../lib/cannons";
+
+export async function getStaticPaths() {
+	const paths = Object.values(cannons)
+		.map((season) => {
+			return Object.entries(season.cannons)
+			.sort((a,b) => a[1].cost - b[1].cost)
+			.map((a, index) => {
+				a[1].tier = index;
+				return a;
+			})
+		})
+		.flat()
+		.map((cannon) => {
+			return {
+				params: {
+					hash: cannon[0],
+					item: cannon[1].name == '[Classified]' ? cannon[0] : encodeURI(cannon[1].name.replaceAll(' ', '-'))
+				},
+				props: { cannon: cannon },
+			};
+		});
+	return paths;
+}
+
+const uuid = crypto.randomUUID();
+const { cannon } = Astro.props;
+---
+
+
+<LayoutSidebar
+	title={cannon[1].name}
+	tag={[cannon[1].name, "Scorched Cannon", "Team Scorched", "Scorched Cannon Collection"]}
+	og_title={cannon[1].name}
+	og_description={"Inspect the " + cannon[1].name + " created by " + cannon[1].author +  " and more on Scorched Report"}
+	og_image={cannon[1].image.replace("/cannons/","/cannons/smaller/")}
+	fullscreen = {true}
+>
+	<div class="flex justify-normal mt-20 lg:mt-0">
+		<div>
+			<div
+			id="hud"
+			class="hud lg:absolute lg:mt-20 ml-2 lg:ml-8 p-2 z-10 text-gray-200"> {/* Name + Image */}
+				<div class="inline-flex"> {/* Name + Image */}
+					<div>
+						<a href="/showcase">
+			<img
+			 src="/images/exotic_cannon.webp" 
+			 class="h-16 lg:h-20 object-scale-down hover:brightness-110 !cursor-pointer"
+					loading="eager"
+			 />
+			</a>
+					</div>
+					<div class="font-bungo text-2xl lg:text-5xl ml-4 text-white font-semibold ">
+						<div>{cannon[1].name.toUpperCase()}</div>
+					<div class="text-1xl lg:text-3xl font-normal text-gray-300">
+						{"SCORCHED CANNON"}
+					</div>
+					</div>
+				</div>
+				{/* Description */}
+				<div class="italic max-w-96 my-6">
+					{cannon[1].description}
+				</div>
+				<TooltipSimple id={"cannon_fullscreen_button_tooltip_" + uuid} title="Fullscreen" />
+				{/* Artist */}
+		<div class="mb-4">
+			<div class="!text-[rgb(149,150,154)] !font-bungo !text-2xl !font-light !tracking-tight !border-b-2 !border-[rgb(149,150,154)] max-w-52">
+				ARTIST
+			</div>
+		<div class="text-[rgb(149,150,154)] mt-2 text-xl  font-bungo">
+			{cannon[1].author}
+		</div>
+		</div>
+		<div
+		class=""
+		id="GLTFViewer-large-controls">
+
+		</div>
+		</div>
+		<div class="hud z-20 lg:absolute lg:right-20 lg:bottom-10 text-gray-50 font-bungo m-4 lg:m-0">
+			<table class="text-xl leading-5">
+				<tbody>
+					<tr>
+						<td>
+							<div class="py-2 text-right">
+								Cost
+							</div>
+						</td>
+						<td>
+							<div class="w-32 lg:w-72 h-5 bg-[rgba(255,255,255,0.07)] mx-3 align-middle">
+					<div class="h-5 bg-gray-50"
+					style={"width: " +
+					Math.min(Math.round(cannon[1].cost * 100 / 50000), 100)
+					+ "%;"}>
+					</div>
+				</div>
+						</td>
+						<td>
+							<div>
+								{cannon[1].cost}
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="py-2 text-right">
+								Scoin Bonus
+							</div>
+						</td>
+						<td>
+							<div class="w-32 lg:w-72 h-5 bg-[rgba(255,255,255,0.07)] mx-3 align-middle">
+					<div class="h-5 bg-gray-50"
+					style={"width: " +
+					Math.min(Math.round(cannon[1].scoin_bonus * 100 / 100), 100)
+					+ "%;"}>
+					</div>
+				</div>
+						</td>
+						<td>
+							<div>
+								{cannon[1].scoin_bonus}
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pt-3">
+						</td>
+						<td>
+						</td>
+						<td>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="py-2 text-right">
+								Tier
+							</div>
+						</td>
+						<td>
+							<div class="ml-5">
+								{cannon[1].tier}
+							</div>
+						</td>
+						<td>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+			{cannon[1].hasOwnProperty("3d")
+			? <div class="lg:fixed top-0 justify-center h-auto lg:h-full lg:w-full">
+				<GLTFViewer
+			modelURL={cannon[1]["3d"] + "?public-api-key=8df12dac7330104b2c0eadc5cfaf238a"}
+			modelHash={uuid}
+			view="large"
+			client:only="react" />
+			</div>
+			:  ""}
+				<img
+				id={"cannon_preview_image" + uuid}
+					src={cannon[1].image}
+					class="lg:fixed top-0 object-cover justify-center no-fullscreen h-auto lg:h-full lg:w-full"
+					loading="lazy"
+					decoding="async"
+				/>
+		</div>
+	</div>
+	<script>
+		//shift hud similar to the ingame screen
+		const hud = document.getElementsByClassName('hud');
+document.addEventListener('mousemove', (event) => {
+	if (!hud || window.innerWidth < 1024) {
+		return;
+	}
+	
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    const offsetX = 40;
+    const offsetY = 40;
+	
+	for (const el in hud) {
+		if (Object.prototype.hasOwnProperty.call(hud, el)) {
+    hud[el].style.transform = `translate(${((mouseX / window.innerWidth) -0.5) * -offsetX}px, ${((mouseY / window.innerWidth) -0.5) * -offsetY}px)`;
+		}
+	}
+});
+/*
+	const buttons = document.querySelectorAll("button.image-to-fullscreen");
+
+	// Handle clicks on each button.
+	buttons.forEach((button) => {
+		if (button.classList.contains("gltf")) {
+		button.addEventListener("click", () => {
+			const activationButton = document.getElementById('GLTFViewer_button_' + button.dataset.cannon)
+			
+			activationButton?.click(); // Load react content
+
+			document.getElementById("cannon_preview_image" + button.dataset.cannon)?.toggleAttribute("hidden"); // Hide 2d cannon image
+			
+			//toggle icons
+			document.getElementById("cannon_3d_toggle_icon_" + button.dataset.cannon)?.toggleAttribute("hidden"); 
+			document.getElementById("cannon_2d_toggle_icon_" + button.dataset.cannon)?.toggleAttribute("hidden"); 
+		})
+		} 
+	})*/
+	</script>
+</LayoutSidebar>

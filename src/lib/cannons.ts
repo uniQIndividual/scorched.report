@@ -22,7 +22,8 @@ export type SCORCHED_CANNON_TYPE = {
     "scoin_bonus": number,
     "description": string,
     "image": string,
-    "3d"?: string
+    "3d"?: string,
+    "tier"?: number
 }
 
 const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {

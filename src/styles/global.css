@@ -21,10 +21,11 @@
     .apexcharts-reset-icon,
     .apexcharts-menu-item,
     .apexcharts-toolbar,
+    input,
     button,
     button::before,
     button::after {
-        @apply !cursor-pointer;
+        @apply cursor-pointer;
     }
 
     h1,
@@ -36,13 +37,28 @@
         scroll-margin-top: 84px;
     }
 
-    div {
-        cursor: var(--cursor-default);
+    .lil-gui {
+	@apply !bg-transparent !font-bungo !text-[rgb(149,150,154)] !text-xl;
     }
 
-    img {
-        cursor: var(--cursor-default);
+    .lil-gui .title::after {
+        content: "" !important;
     }
+
+    .lil-gui option {
+        @apply !bg-gray-900 hover:!bg-gray-800
+    }
+
+    .lil-gui select,
+    .lil-gui input,
+    .lil-gui label {
+        @apply !cursor-pointer
+    }
+
+    .lil-gui .title {
+        @apply !bg-transparent !cursor-pointer !text-[rgb(149,150,154)] !font-bungo !text-2xl !font-light !tracking-tight !border-b-2 !border-[rgb(149,150,154)] !pb-9;
+    }
+
 
     .apexcharts-legend-text,
     .apexcharts-text,

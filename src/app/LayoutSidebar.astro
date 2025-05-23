@@ -16,7 +16,8 @@ const {
 	make_title,
 	date,
 	author,
-	tags = [],
+	tags = ["Scorched Report" ,"Team Scorched", "Destiny 2"],
+	fullscreen = false,
 } = Astro.props;
 
 let newSlug = "";
@@ -130,17 +131,17 @@ if (author != undefined) {
 			"bg-gray-50 dark:bg-gray-900",
 			"scrollbar scrollbar-w-3 scrollbar-thumb-rounded-[0.25rem]",
 			"scrollbar-track-slate-200  scrollbar-thumb-gray-400",
-			"dark:scrollbar-track-gray-900 dark:scrollbar-thumb-gray-700",
+			"dark:scrollbar-track-gray-900 dark:scrollbar-thumb-gray-700 cursor-default",
 		]}
 	>
-		<NavBarSidebar />
+		<NavBarSidebar fullscreen={fullscreen} />
 
-		<SideBar />
+		<SideBar fullscreen={fullscreen} />
 		<div>
-			<div class=" flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+			<div class={"flex overflow-hidden bg-gray-50 dark:bg-gray-900" + (fullscreen ? "" : " pt-16 ")}>
 				<div
 					id="main-content"
-					class="relative w-full h-full overflow-y-hidden bg-gray-50 mx-2 lg:ml-[400px] lg:mr-4 lg:mt-2 dark:bg-gray-900 min-h-screen text-gray-500 dark:text-gray-400"
+					class={"relative w-full h-full overflow-y-hidden bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-500 dark:text-gray-400 " + (fullscreen ? "" : " lg:ml-[400px] lg:mr-4 lg:mt-2 mx-2")}
 				>
 					{
 						make_title ? (
@@ -155,7 +156,8 @@ if (author != undefined) {
 						)
 					}
 					<slot />
-					<FooterSidebar />
+					{fullscreen ? "" :
+					<FooterSidebar />}
 				</div>
 			</div>
 		</div>

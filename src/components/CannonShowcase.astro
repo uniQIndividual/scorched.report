@@ -10,10 +10,11 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 
 ---
 
-<div class="w-[450px] 2xl: p-4 my-4 lg:mx-4 bg-gray-100 border-gray-100 rounded-lg dark:border-gray-920 sm:p-6 dark:bg-gray-920">
+			<a href={"/collections/" + key + "/" + encodeURI(cannon.name.replaceAll(' ', '-'))} class="">
+<div class="w-[450px] 2xl: p-4 my-4 lg:mx-4 bg-gray-100 border-gray-100 rounded-lg dark:border-gray-920 sm:p-6 dark:bg-gray-920  !cursor-pointer hover:brightness-110 hover:dark:shadow-highlight hover:shadow-highlight_darken">
 		<div>
 			<div class="absolute p-2 z-10">
-			<button
+			{/*<button
 				class="bg-transparent image-to-fullscreen !cursor-pointer"
 				type="button"
 			data-tooltip-target={"cannon_fullscreen_button_tooltip_" + uuid}
@@ -25,7 +26,7 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5"/>
 			</svg>
 			</button>
-		<TooltipSimple id={"cannon_fullscreen_button_tooltip_" + uuid} title="Fullscreen" />
+		<TooltipSimple id={"cannon_fullscreen_button_tooltip_" + uuid} title="Fullscreen" /> */}
 			{cannon.hasOwnProperty("3d") ? 
 			<button
 				class="bg-transparent image-to-fullscreen !cursor-pointer gltf"
@@ -57,7 +58,7 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 				<img
 				id={"cannon_preview_image" + uuid}
 					src={cannon?.image.replace("/cannons/","/cannons/smaller/")}
-					class="object-scale-down justify-center rounded-lg no-fullscreen"
+					class="object-scale-down justify-center rounded-lg no-fullscreen "
 					loading="lazy"
 					decoding="async"
 				/>
@@ -164,7 +165,7 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 					""
 				)
 			}
-			<div>
+			{/*<div>
 				<PopUp
 					id=`popup_${uuid}`
 					timer={1}
@@ -181,5 +182,6 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 					</div>
 				</PopUp>
 			</div>
-		</div>
+		</div>*/}
 </div>
+</a>

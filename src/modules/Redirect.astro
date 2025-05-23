@@ -1,0 +1,11 @@
+---
+// Akin to https://rimdev.io/creating-a-redirect-in-astro/
+const {
+	redirectUrl = "",
+} = Astro.props;
+
+---
+<!doctype html>
+<html lang="en">
+	<head><meta http-equiv="refresh" content={`0; url=${redirectUrl}`} /></head>
+</html>
