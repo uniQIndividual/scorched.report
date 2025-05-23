@@ -664,7 +664,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "scoin_bonus": 0,
                 "description": "",
                 "image": "/images/cannons/special/CoriolisCannon2.webp",
-                "3d": "/images/potential/1975453416.glb"
+                "3d": "https://cdn.scorched.report/1975453416.glb"
             },
         }
     }
