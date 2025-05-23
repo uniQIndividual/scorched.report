@@ -28,33 +28,16 @@ const uuid = crypto.randomUUID(); // We need a uuid to load the image popup
 			</button>
 		<TooltipSimple id={"cannon_fullscreen_button_tooltip_" + uuid} title="Fullscreen" /> */}
 			{cannon.hasOwnProperty("3d") ? 
-			<button
-				class="bg-transparent image-to-fullscreen !cursor-pointer gltf"
-				type="button"
-				data-cannon={uuid}
-			>
 			<img
 			id={"cannon_3d_toggle_icon_" + uuid}
 			data-tooltip-target={"cannon_3d_toggle_icon_tooltip_" + uuid}
-			 src="/images/3d/2d_small.webp" 
-			 class="h-6 hover:brightness-110 !cursor-pointer"
-					loading="eager"
-			 />
-			<img
-			id={"cannon_2d_toggle_icon_" + uuid}
-			data-tooltip-target={"cannon_2d_toggle_icon_tooltip_" + uuid}
 			 src="/images/3d/3d_small.webp" 
-			 class="h-6 hover:brightness-110 !cursor-pointer"
+			 class="h-6 hover:brightness-110 !cursor-pointer m-1"
 					loading="eager"
-					hidden=""
 			 />
-		</button>
-		<TooltipSimple id={"cannon_3d_toggle_icon_tooltip_" + uuid} title="Switch to 3D model" />
-		<TooltipSimple id={"cannon_2d_toggle_icon_tooltip_" + uuid} title="Switch to 2D render" />
+		<TooltipSimple id={"cannon_3d_toggle_icon_tooltip_" + uuid} title="View in 3D" />
 		:""}
 		</div>
-			{cannon.hasOwnProperty("3d") ? <GLTFViewer modelURL={cannon["3d"] + "?public-api-key=8df12dac7330104b2c0eadc5cfaf238a"} modelHash={uuid} view="tiny" client:only="react" />
-			:  ""}
 				<img
 				id={"cannon_preview_image" + uuid}
 					src={cannon?.image.replace("/cannons/","/cannons/smaller/")}
