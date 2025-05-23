@@ -642,7 +642,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": Math.min(),
                 "scoin_bonus": 0,
                 "description": "This is Ecdragonz's Secret Cannon. More details about it can be found in the TWAS, but the gist is that this cannon appears in our DnD campaign and is wielded by an eldritch abomination (played by Zombie). It's made of mostly small parts of the Rasputin heavy frame model and other Rasputin assets, and its 'taken' looking corruption at the front reflects its corrupted power source. Its name ingame is the Scourge Cannon, if you were wondering.",
-                "image": "/images/cannons/special/CoriolisCannon.webp"
+                "image": "/images/cannons/special/CoriolisCannon.webp",
+                "3d": "https://cdn.scorched.report/2405325755.glb"
             },
             "1465060862": {
                 "hash": "ScornchedCannon",
