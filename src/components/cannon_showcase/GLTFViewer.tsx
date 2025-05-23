@@ -102,7 +102,7 @@ const GLTFViewer = ({ modelURL, modelHash, view }: { modelURL: string, modelHash
         height: '100%'
       }}>
       <img
-        src={"/images/3d/background_dark_small.webp"}
+        src={"/images/3d/background_dark.webp"}
         alt="Background"
         className='backdrop-blur-3xl rounded-lg'
         style={{
