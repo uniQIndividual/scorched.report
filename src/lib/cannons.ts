@@ -663,7 +663,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": Math.min(),
                 "scoin_bonus": 0,
                 "description": "",
-                "image": "/images/cannons/special/CoriolisCannon2.webp"
+                "image": "/images/cannons/special/CoriolisCannon2.webp",
+                "3d": "/images/potential/1975453416.glb"
             },
         }
     }
