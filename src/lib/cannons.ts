@@ -167,7 +167,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 6000,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": "/images/cannons/season1/ScorchedSimulant.webp"
+                "image": "/images/cannons/season1/ScorchedSimulant.webp",
+                "3d": "https://cdn.scorched.report/2562135391.glb"
             },
             "2027341681": {
                 "hash": "SaladinsCriticism",
@@ -207,7 +208,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 10000,
                 "scoin_bonus": 29,
                 "description": "",
-                "image": "/images/cannons/season1/ScorchingLion.webp"
+                "image": "/images/cannons/season1/ScorchingLion.webp",
+                "3d": "https://cdn.scorched.report/2807280609.glb"
             },
             "2792948606": {
                 "hash": "ScorchedLens",
@@ -258,7 +260,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 25000,
                 "scoin_bonus": 90,
                 "description": "",
-                "image": "/images/cannons/season1/FusorCannon.webp"
+                "image": "/images/cannons/season1/FusorCannon.webp",
+                "3d": "https://cdn.scorched.report/2310189889.glb"
             },
             "4082509468": {
                 "hash": "TelestoCannon",
@@ -268,7 +271,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 999999,
                 "scoin_bonus": 100,
                 "description": "",
-                "image": "/images/cannons/season1/TelestoCannon.webp"
+                "image": "/images/cannons/season1/TelestoCannon.webp",
+                "3d": "https://cdn.scorched.report/4082509468.glb"
             },
         }
     },
@@ -368,7 +372,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 7000,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": "/images/cannons/season2/DivCannon.webp"
+                "image": "/images/cannons/season2/DivCannon.webp",
+                "3d": "https://cdn.scorched.report/1889361825.glb"
             },
             "567386786": {
                 "hash": "RuthlessCannon",
@@ -398,7 +403,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 10000,
                 "scoin_bonus": 29,
                 "description": "",
-                "image": "/images/cannons/season2/WitherScorched.webp"
+                "image": "/images/cannons/season2/WitherScorched.webp",
+                "3d": "https://cdn.scorched.report/2292555887.glb"
             },
             "1070552926": {
                 "hash": "ClosingAct",
@@ -653,7 +659,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": Math.min(),
                 "scoin_bonus": 0,
                 "description": "This is Zombie's Secret Cannon. It is one of the very first ever created, and its use is fairly outdated since we very rarely see anyone earning a multiple of seven anymore. Either way, I see it as a landmark and it plays into Zombie's love for corn so I think it's nice. Definitely on the list of ones to redo in the future though.",
-                "image": "/images/cannons/special/ScornchedCannon.webp"
+                "image": "/images/cannons/special/ScornchedCannon.webp",
+                "3d": "https://cdn.scorched.report/1465060862.glb"
             },
             "1975453416": {
                 "hash": "CoriolisCannon2",
