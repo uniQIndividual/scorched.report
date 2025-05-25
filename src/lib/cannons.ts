@@ -96,7 +96,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 1500,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": "/images/cannons/season1/VoidCannon.webp"
+                "image": "/images/cannons/season1/VoidCannon.webp",
+                "3d": "https://cdn.scorched.report/2097267240.glb"
             },
             "1893944919": {
                 "hash": "StasisCannon",
@@ -178,7 +179,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 7000,
                 "scoin_bonus": 15,
                 "description": "",
-                "image": "/images/cannons/season1/SaladinsCriticism.webp"
+                "image": "/images/cannons/season1/SaladinsCriticism.webp",
+                "3d": "https://cdn.scorched.report/2027341681.glb"
             },
             "2126509505": {
                 "hash": "TrialsCannon",
@@ -188,7 +190,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 8000,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": "/images/cannons/season1/TrialsCannon.webp"
+                "image": "/images/cannons/season1/TrialsCannon.webp",
+                "3d": "https://cdn.scorched.report/2126509505.glb"
             },
             "2733954114": {
                 "hash": "SaintsReverence",
@@ -198,7 +201,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 9000,
                 "scoin_bonus": 23,
                 "description": "",
-                "image": "/images/cannons/season1/SaintsReverence.webp"
+                "image": "/images/cannons/season1/SaintsReverence.webp",
             },
             "2807280609": {
                 "hash": "ScorchingLion",
@@ -383,7 +386,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 8000,
                 "scoin_bonus": 19,
                 "description": "",
-                "image": "/images/cannons/season2/RuthlessCannon.webp"
+                "image": "/images/cannons/season2/RuthlessCannon.webp",
+                "3d": "https://cdn.scorched.report/567386786.glb"
             },
             "785293223": {
                 "hash": "VulcanCannon",
