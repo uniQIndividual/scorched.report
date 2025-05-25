@@ -345,7 +345,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 4000,
                 "scoin_bonus": 9,
                 "description": "",
-                "image": "/images/cannons/season2/TapedTravesty.webp"
+                "image": "/images/cannons/season2/TapedTravesty.webp",
+                "3d": "https://cdn.scorched.report/3701718573.glb"
             },
             "112436207": {
                 "hash": "VexHeadCannon",
@@ -365,7 +366,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 6000,
                 "scoin_bonus": 12,
                 "description": "",
-                "image": "/images/cannons/season2/CerbCannon.webp"
+                "image": "/images/cannons/season2/CerbCannon.webp",
+                "3d": "https://cdn.scorched.report/1357385330.glb"
             },
             "1889361825": {
                 "hash": "DivCannon",
@@ -418,7 +420,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 12500,
                 "scoin_bonus": 36,
                 "description": "",
-                "image": "/images/cannons/season2/ClosingAct.webp"
+                "image": "/images/cannons/season2/ClosingAct.webp",
+                "3d": "https://cdn.scorched.report/1070552926.glb"
             },
             "3492284667": {
                 "hash": "NecroCannon",
@@ -479,7 +482,8 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "cost": 0,
                 "scoin_bonus": 4,
                 "description": "",
-                "image": "/images/cannons/season3/WickedImplement.webp"
+                "image": "/images/cannons/season3/WickedImplement.webp",
+                "3d": "https://cdn.scorched.report/2862327243.glb"
             },
             "1840757261": {
                 "hash": "Duality",
