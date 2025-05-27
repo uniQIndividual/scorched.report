@@ -5,11 +5,11 @@ import PGCRLookup from "../modules/PGCRLookup.tsx";
 
 <LayoutSidebar
 	title="Match Lookup"
-	make_title="Match Lookup"
 	og_title="Match Lookup"
 	og_description="Look up your Team Scorched matches."
+	fullscreen={true}
 >
-	<div class="flex justify-center">
+	<div class="flex justify-center mt-[68px] lg:mt-10">
 		<PGCRLookup client:only="react" />
 	</div>
 </LayoutSidebar>

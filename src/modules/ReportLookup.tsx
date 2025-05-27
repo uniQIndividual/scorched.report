@@ -1406,10 +1406,10 @@ const ReportLookup = () => {
   if (render) return (
     <div className={/*bg-gray-50 dark:bg-gray-920*/"pb-2"}>
       <div
-        className={`h-[146px]`}
+        className={`h-[214px]`}
       >
-        {stats.profile.secondarySpecial != "" ? <img className="absolute object-cover object-center w-full h-[136px]" src={stats.profile.secondarySpecial} /> : <div className="absolute w-full h-[136px] bg-primary-900"></div>}
-        <div className="absolute h-[136px] w-full table px-2">
+        {stats.profile.secondarySpecial != "" ? <img className="absolute object-cover object-center w-full h-[204px]" src={stats.profile.secondarySpecial} /> : <div className="absolute w-full h-[136px] bg-primary-900"></div>}
+        <div className="absolute h-[136px] mt-[68px] w-full table px-2">
           <div className="table-row-group">
             <div className="table-row h-[20px]">
             </div>
@@ -1439,7 +1439,7 @@ const ReportLookup = () => {
             </div>
           </div>
         </div>
-        <div className="absolute w-full mt-[92px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-auto">
+        <div className="absolute w-full mt-[160px] text-sm xl:text-lg 2xl:text-xl right-0 text-white flex overflow-x-auto">
           <div className="table w-full float-right px-8">
             <div className="table-row h-[44px]">
               <div className="table-cell w-full">
@@ -1476,7 +1476,7 @@ const ReportLookup = () => {
       {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
     </div>)
 
-  return (<div className="flex h-72 justify-center">
+  return (<div className="flex mt-24 h-72 justify-center">
     <LoadingAnimationWithTitle title={loadingTitle} />
   </div>)
 }
