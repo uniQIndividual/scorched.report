@@ -2,10 +2,29 @@
 // Akin to https://rimdev.io/creating-a-redirect-in-astro/
 const {
 	redirectUrl = "",
+	og_title = "Scorched Report",
+	og_description = "The home of everything Team Scorched",
+	og_image = "https://scorched.report/images/logo2.png",
+	og_hero_image,
 } = Astro.props;
-
 ---
+
 <!doctype html>
 <html lang="en">
-	<head><meta http-equiv="refresh" content={`0; url=${redirectUrl}`} /></head>
+	<head>
+		{
+			og_hero_image === undefined ? (
+			<meta property="og:image" content={og_image} />
+			) : (
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:image:src" content={og_hero_image} />
+			)
+		}
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:alt" content="Team Scorched Logo" />
+		<meta property="og:title" content={og_title} />
+		<meta property="og:site_name" content="Scorched Report" />
+		<meta property="og:description" content={og_description} />
+		<meta http-equiv="refresh" content={`0; url=${redirectUrl}`} />
+	</head>
 </html>
