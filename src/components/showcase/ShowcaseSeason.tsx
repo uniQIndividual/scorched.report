@@ -73,7 +73,7 @@ export const ShowcaseSeason = () => {
                                                             : ""}
                                                         <img className="lg:max-w-52 border border-[rgb(149,150,154)]" src={cannon[1].image.replace("/cannons/", "/cannons/smaller/")} />
                                                     </div>
-                                                    <ToolTipDestiny title={cannon[1].name} details={true}>
+                                                    <ToolTipDestiny title={cannon[1].name} details={true} colorScheme={["bg-[rgba(199,168,58,0.8)]", "bg-[rgba(51,47,29,0.8)]"]}>
                                                         <div>
                                                             {cannon[1].alt_name != "" ?
                                                                 <div className="font-semibold mb-4">
@@ -83,12 +83,20 @@ export const ShowcaseSeason = () => {
                                                             <div>
                                                                 Created by {cannon[1].author}
                                                             </div>
-
                                                             {cannon[1].description != "" ?
                                                                 <div className="italic mt-4">
                                                                     {cannon[1].description}
                                                                 </div>
                                                                 : ""}
+                                                        </div>
+                                                        <div className="table-row">
+                                                            <div className="table-cell w-full">
+                                                                <img className="inline pr-1" src="/images/icons/scoin_26px.png" />
+                                                                Scoins
+                                                            </div>
+                                                            <div className="table-cell w-full text-right font-bungo font-medium">
+                                                                <div className="text-primary-600 inline">0</div><span className="px-1">/</span>{cannon[1].cost}
+                                                            </div>
                                                         </div>
                                                     </ToolTipDestiny>
                                                 </a>

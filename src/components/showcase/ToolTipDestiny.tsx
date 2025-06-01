@@ -1,21 +1,34 @@
-import type { ReactNode } from "react"
+/*
+Display information as a d2 hover box
+multiple children are displayed with a vertical separator
+*/
+import { Children, type ReactNode } from "react"
 
-export const ToolTipDestiny = ({ title, details, children }:
-    { title: string, details?: boolean, children: ReactNode }) => {
+export const ToolTipDestiny = ({ title, details, children, colorScheme }:
+    { title: string, details?: boolean, children: ReactNode, colorScheme?: string[] }) => {
     if (window.innerWidth < 1024) {
         return "";
     }
+
     return (
         <div
             role="tooltip"
             className="invisible peer-hover:visible absolute destiny-tooltip z-10 m-8 font-bungo tracking-wider transition-opacity duration-300 shadow-sm min-w-[400px] text-gray-200 max-w-[400px] max-h-[600px] text-[0px]  peer-hover:text-base left-0 top-0"
         >
-            <div className="bg-[rgba(65,66,62,0.9)] p-4 text-white font-semibold uppercase text-3xl">
+            <div className={(colorScheme ? colorScheme[0] : "bg-[rgba(65,66,62,0.9)]") + " px-4 py-2 text-white font-semibold uppercase text-3xl"}>
                 {title}
             </div>
-            <div className="bg-[rgba(20,20,20,0.9)] px-4 py-2">
-                {children}
-            </div>
+            {Children.map(children, (child, index) => {
+                return <div>
+                    {/* Add section divider */}
+                    {index > 0 ?
+                        <div className="pt-0.5 bg-[rgba(149,150,154,0.8)]">
+                        </div> : ""}
+                    <div className={(colorScheme ? colorScheme[1] : "bg-[rgba(20,20,20,0.9)]") + " px-4 py-2"}>
+                        {child}
+                    </div>
+                </div>
+            })}
             {
                 details ? (
                     <div className="bg-[rgba(1,1,1,1)] p-1 text-right text-sm font-medium">
