@@ -25,7 +25,6 @@ export const ShowcaseSeason = () => {
     useEffect(() => {
         const handleEscKey = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
-                console.log("as");
                 navigate("/showcase", { viewTransition: true }) // go back to the showcase
             }
         }
