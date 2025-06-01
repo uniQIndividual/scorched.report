@@ -1,0 +1,40 @@
+---
+
+---
+
+<script>
+	const hud = document.getElementsByClassName("destiny-tooltip");
+
+	document.addEventListener("mousemove", (event) => {
+		if (!hud || window.innerWidth < 1024) {
+			return;
+		}
+
+		const mouseX = event.pageX;
+		const mouseY = event.pageY;
+		const screenX = document.body.offsetWidth;
+		const screenY = document.body.offsetHeight;
+
+		for (const el in hud) {
+			if (Object.prototype.hasOwnProperty.call(hud, el)) {
+				const el_width = hud[el]?.offsetWidth;
+				const el_height = hud[el]?.offsetHeight;
+
+				if (
+					!hud[el] ||
+					!hud[el].style ||
+					el_width == 0 ||
+					el_height == 0 ||
+					!hud[el].checkVisibility({ visibilityProperty: true })
+				) {
+					// ignore invisible tooltips
+				} else {
+					hud[el].style.left =
+						Math.min(screenX - (el_width + 64), mouseX) + "px";
+					hud[el].style.top =
+						Math.min(screenY - (el_height + 64), mouseY) + "px";
+				}
+			}
+		}
+	});
+</script>

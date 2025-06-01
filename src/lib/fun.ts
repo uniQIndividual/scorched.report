@@ -17,7 +17,12 @@ export function millisecondsToDisplayTime(seconds: number) {
 }
 
 export function flattenSpeedrunsWithCategories(a) {
-    return Object.entries(a).map(b => b[1].runs.map(c => { c.category = b[0]; c.category_name = b[1].name; return c })).flat().sort((a, b) => a.time - b.time)
+    return Object.entries(a).map(b => b[1].runs
+        .map(c => {
+            c.category = b[0]; c.category_name = b[1].name; return c
+        }))
+        .flat()
+        .sort((a, b) => a.time - b.time)
 }
 export const platformLookup = (platform: number) => {
     switch (platform) {
@@ -54,4 +59,7 @@ export const platformLookup = (platform: number) => {
         default:
             return undefined
     }
+}
+export const cannonSeasonNameToURL = (seasonName: string) => {
+    return encodeURI(seasonName.toLowerCase().replaceAll(" ", "-"));
 }

@@ -1,0 +1,17 @@
+---
+import cannons from "../../lib/cannons";
+import { cannonSeasonNameToURL } from "../../lib/fun";
+
+export async function getStaticPaths() {
+	const paths = Object.values(cannons).map((season) => {
+		return {
+			params: {
+				season: cannonSeasonNameToURL(season.name),
+			},
+		};
+	});
+	return paths;
+}
+
+return Astro.rewrite("/showcase");
+---

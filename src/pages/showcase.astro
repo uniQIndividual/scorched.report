@@ -2,9 +2,11 @@
 import LayoutSidebar from "../app/LayoutSidebar.astro";
 import SCORCHED_CANNONS from "../lib/cannons";
 import SeasonSection from "../components/SeasonSection.astro";
-import TableOfContents from "../components/TableOfContents.astro";
 import MarkdownWrapper from "../app/MarkdownWrapper.astro";
 import CannonShowcaseMd from "../components/CannonShowcase.md";
+import TooltipDestiny from "../components/showcase/TooltipDestiny.astro";
+import TooltipDestinyEventHandler from "../components/showcase/ToolTipDestinyEventHandler.astro";
+import { ShowcaseRouter } from "../components/showcase/ShowcaseRouter";
 
 const headings: {
 	depth: number;
@@ -37,18 +39,87 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
 
 <LayoutSidebar
 	title="Scorch Cannon Showcase"
-	make_title="Scorch Cannon Showcase"
 	og_title="Scorch Cannon Showcase"
 	og_description="Browse and collect all custom Scorch Cannons from Team Scorched"
 	og_image="/images/exotic_cannon.png"
+	fullscreen={true}
 >
-	<div class="flex justify-center 2xl:justify-normal">
+	<img
+		src={"/images/potential/scene3.png"}
+		class="fixed top-0 object-cover justify-center no-fullscreen h-full w-full opacity-50 grayscale-75 contrast-150"
+		loading="lazy"
+		decoding="async"
+	/>
+	<div
+		class="table w-full min-h-svh h-full z-10 relative text-gray-400 font-bungo mt-[68px] lg:mt-0"
+	>
+		<div class="lg:table-row-group">
+			<div
+				class="table-row-group lg:table-cell bg-[rgba(150,125,41,1)] lg:w-8 pt-[68px]"
+			>
+				<div class="py-2 lg:py-0"></div>
+			</div>
+			{
+				/*<div class="absolute w-96 -top-20 align-middle bg-rot">
+					<img
+						src={"/images/potential/archive_spinner.webp"}
+						class="object-cover justify-center h-[1000px] w-[1000px] opacity-50 animate-spin "
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>*/
+			}
+			<div
+				class="table-row-group lg:table-cell bg-[rgba(90,76,24,0.9)] w-96 pt-[68px] align-top bg-rot"
+			>
+				<div
+					class="z-10 flex justify-center flex-col px-3 py-5 lg:p-16 items-center"
+				>
+					<div
+						class="text-center text-gray-200 font-semibold tracking-widest mb-6"
+					>
+						SCORCH CANNON SHOWCASE
+					</div>
+					<div
+						class="text-center text-gray-100 font-semibold tracking-tight text-3xl"
+					>
+						MONUMENT TO LOST LIGHTS
+					</div>
+					<a href="/showcase/">
+						<img
+							src="/images/potential/cannon_archive_icon.png"
+							class="max-w-60 my-6 hover:brightness-125"
+						/>
+					</a>
+					<div class="text-gray-300">
+						To get started on your Team Scorched journey, type <i>/link</i> in the
+						<a
+							class="stylized-link"
+							href="https://discord.com/channels/885424375321464893/885434418733391912"
+							>#bot</a
+						> chanel. Once you've signed up with the bot, you'll start earning scoins
+						by simply playing Team Scorched. Make sure to upgrade your cannon regularly
+						as better cannons also give you more scoins per match. You can find more
+						details on nblock's <a
+							class="stylized-link"
+							href="https://scorched.nblock.dev/">info page</a
+						>.
+					</div>
+				</div>
+			</div>
+			<div
+				class="table-row-group lg:table-cell bg-[rgba(90,76,24,0.6)] p-20 mt-[68px] align-middle"
+			>
+				<ShowcaseRouter client:only="react" />
+			</div>
+		</div>
+	</div>
+	<div class="hidden flex justify-center 2xl:justify-normal z-50 relative">
 		<div
 			class="max-w-[100vw] lg:p-6 text-clip overflow-hidden
     
     dark:text-gray-300 mt-4 mb-4"
 		>
-			<TableOfContents headings={headings} />
 			<MarkdownWrapper>
 				<CannonShowcaseMd />
 			</MarkdownWrapper>
@@ -61,6 +132,7 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
 			</div>
 		</div>
 	</div>
+	<TooltipDestinyEventHandler />
 	<script>
 		// Find all buttons with the `alert` class on the page.
 		const buttons = document.querySelectorAll("button.image-to-fullscreen");
