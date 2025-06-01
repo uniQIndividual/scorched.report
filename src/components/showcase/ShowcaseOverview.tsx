@@ -34,7 +34,11 @@ export const ShowcaseOverview = () => {
                                 }
                                 return (
                                     <div key={"archive_table_season_" + season[0]}>
-                                        <Link to={"/showcase/" + cannonSeasonNameToURL(season[1].name)} viewTransition >
+                                        <Link
+                                            to={"/showcase/" + cannonSeasonNameToURL(season[1].name)}
+                                            viewTransition
+                                            aria-label={season[1].name}
+                                        >
                                             <div className="peer p-[3px] hover:p-[2px]  hover:border border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer lg:mx-1">
                                                 <img className="" src="/images/collection/season_exotic_placeholder.webp" />
                                             </div>
@@ -65,11 +69,17 @@ export const ShowcaseOverview = () => {
                 <div className="table-cell">
                     <div className="flex flex-wrap my-2 justify-center lg:justify-normal">
                         <div>
-                            <Link to={"/showcase/special-cannons"} viewTransition >
+                            <Link
+                                to={"/showcase/special-cannons"}
+                                viewTransition
+                                aria-label={"Special Cannons"}
+                            >
                                 <div
                                     className="peer p-[3px] hover:p-[2px]  hover:border border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer lg:mx-1"
                                 >
-                                    <img src="/images/collection/season_special_placeholder.webp" />
+                                    <img
+                                    src="/images/collection/season_special_placeholder.webp"
+                                    />
                                 </div>
                                 <ToolTipDestiny title="SPECIAL CANNONS" details={true}>
                                     <div>All scorch cannons from special events and promotions.</div>

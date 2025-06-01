@@ -50,7 +50,7 @@ export const ShowcaseSeason = () => {
                     <div
                         className="table-cell border-b-2 border-[rgb(149,150,154)] lg:min-w-96 text-[rgb(149,150,154)]"
                     >
-                        <div className="font-medium text-lg">{scorched_season.name}</div>
+                        <div className="font-medium text-lg uppercase">{scorched_season.name}</div>
                     </div>
                 </div>
                 <div className="table-row-group">
@@ -62,16 +62,24 @@ export const ShowcaseSeason = () => {
                                     .map((cannon) => {
                                         return (
                                             <div key={"archive_cannon_showcase_" + cannon[0]}>
-                                                <a href={"/collections/" + cannon[0]}>
+                                                <a
+                                                    href={"/collections/" + cannon[0]}
+                                                >
                                                     <div className="peer p-[3px] hover:p-[2px]  hover:border border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer">
                                                         {cannon[1].hasOwnProperty("3d") ?
                                                             <img
                                                                 src="/images/3d/3d_small.webp"
                                                                 className="absolute h-4 hover:brightness-110 !cursor-pointer m-1"
+                                                                alt="3D model is available"
                                                                 loading="eager"
                                                             />
                                                             : ""}
-                                                        <img className="lg:max-w-52 border border-[rgb(149,150,154)]" src={cannon[1].image.replace("/cannons/", "/cannons/smaller/")} />
+                                                        <img
+                                                            className="lg:max-w-52 border border-[rgb(149,150,154)]"
+                                                            src={cannon[1].image.replace("/cannons/", "/cannons/smaller/")}
+                                                            alt={cannon[1].name}
+                                                            loading="lazy"
+                                                        />
                                                     </div>
                                                     <ToolTipDestiny title={cannon[1].name} details={true} colorScheme={["bg-[rgba(199,168,58,0.8)]", "bg-[rgba(51,47,29,0.8)]"]}>
                                                         <div>

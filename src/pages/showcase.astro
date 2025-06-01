@@ -3,6 +3,9 @@ import LayoutSidebar from "../app/LayoutSidebar.astro";
 import SCORCHED_CANNONS from "../lib/cannons";
 import TooltipDestinyEventHandler from "../components/showcase/ToolTipDestinyEventHandler.astro";
 import { ShowcaseRouter } from "../components/showcase/ShowcaseRouter";
+import BackgroundImage from "../../public/images/collection/background.webp";
+import KioskImage from "../../public/images/collection/cannon_archive_icon.webp";
+import { Image } from "astro:assets";
 
 const headings: {
 	depth: number;
@@ -40,11 +43,11 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
 	og_image="/images/exotic_cannon.png"
 	fullscreen={true}
 >
-	<img
-		src={"/images/collection/background.webp"}
+	<Image
+		src={BackgroundImage}
+		alt={"Rav holding the Threadbound Cannon"}
 		class="fixed top-0 object-cover justify-center no-fullscreen h-full w-full opacity-50 grayscale-75 contrast-150"
-		loading="lazy"
-		decoding="async"
+		loading={"eager"}
 	/>
 	<div
 		class="table w-full min-h-svh h-full z-10 relative text-gray-400 font-bungo mt-[68px] lg:mt-0"
@@ -81,10 +84,12 @@ Object.keys(SCORCHED_CANNONS).map((key) =>
 					>
 						MONUMENT TO LOST LIGHTS
 					</div>
-					<a href="/showcase/">
-						<img
-							src="/images/collection/cannon_archive_icon.webp"
+					<a href="/showcase/" aria-label="Return to showcase overview">
+						<Image
 							class="max-w-60 my-6 hover:brightness-125"
+							alt="Exotic Scorch Cannon Kiosk"
+							loading={"eager"}
+							src={KioskImage}
 						/>
 					</a>
 					<div class="text-gray-300">
