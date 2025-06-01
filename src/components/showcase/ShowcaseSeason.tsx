@@ -39,7 +39,7 @@ export const ShowcaseSeason = () => {
                     <div className="table-cell">
                         <div className="peer hover:brightness-125 font-medium text-gray-200 float-right mb-8 text-xl flex">
                             <img className="w-6 mr-2 align-middle" src="/images/potential/scoin.png" />
-                            <span>0</span>
+                            <div>0</div>
                         </div>
                         <ToolTipDestiny title="Scoins" >
                             <div>Earn Scoins by playing Team Scorched after you've signed up with the bot.</div>
@@ -94,8 +94,10 @@ export const ShowcaseSeason = () => {
                                                                 <img className="inline pr-1" src="/images/icons/scoin_26px.png" />
                                                                 Scoins
                                                             </div>
-                                                            <div className="table-cell w-full text-right font-bungo font-medium">
-                                                                <div className="text-primary-600 inline">0</div><span className="px-1">/</span>{cannon[1].cost}
+                                                            <div className="table-cell w-full text-right font-bungo font-medium text-nowrap">
+                                                                <div className="text-primary-600 inline">0</div>
+                                                                <div className="px-1 inline">/</div>
+                                                                <div className="inline">{cannon[1].cost}</div>
                                                             </div>
                                                         </div>
                                                     </ToolTipDestiny>
