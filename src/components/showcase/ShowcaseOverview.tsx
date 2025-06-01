@@ -9,7 +9,7 @@ export const ShowcaseOverview = () => {
             <div className="lg:table-row-group hidden">
                 <div className="table-cell">
                     <div className="peer hover:brightness-125 font-medium text-gray-200 float-right mb-8 text-xl flex">
-                        <img className="w-6 mr-2 align-middle" src="/images/potential/scoin.png" />
+                        <img className="w-6 mr-2 align-middle" src="/images/icons/scoin_26px.png" />
                         <span>0</span>
                     </div>
                     <ToolTipDestiny title="Scoins" >
@@ -36,7 +36,7 @@ export const ShowcaseOverview = () => {
                                     <div key={"archive_table_season_" + season[0]}>
                                         <Link to={"/showcase/" + cannonSeasonNameToURL(season[1].name)} viewTransition >
                                             <div className="peer p-[3px] hover:p-[2px]  hover:border border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer lg:mx-1">
-                                                <img className="" src="/images/potential/season_custom_6.png" />
+                                                <img className="" src="/images/collection/season_exotic_placeholder.webp" />
                                             </div>
                                             <ToolTipDestiny title={season[1].name} details={true}>
                                                 <div>
@@ -69,7 +69,7 @@ export const ShowcaseOverview = () => {
                                 <div
                                     className="peer p-[3px] hover:p-[2px]  hover:border border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer lg:mx-1"
                                 >
-                                    <img src="/images/potential/season_special_1.png" />
+                                    <img src="/images/collection/season_special_placeholder.webp" />
                                 </div>
                                 <ToolTipDestiny title="SPECIAL CANNONS" details={true}>
                                     <div>All scorch cannons from special events and promotions.</div>

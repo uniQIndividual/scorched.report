@@ -38,7 +38,7 @@ export const ShowcaseSeason = () => {
                 <div className="lg:table-row-group hidden">
                     <div className="table-cell">
                         <div className="peer hover:brightness-125 font-medium text-gray-200 float-right mb-8 text-xl flex">
-                            <img className="w-6 mr-2 align-middle" src="/images/potential/scoin.png" />
+                            <img className="w-6 mr-2 align-middle" src="/images/icons/scoin_26px.png" />
                             <div>0</div>
                         </div>
                         <ToolTipDestiny title="Scoins" >
