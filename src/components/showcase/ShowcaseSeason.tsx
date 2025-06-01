@@ -6,7 +6,8 @@ import { useEffect } from "react";
 
 export const ShowcaseSeason = () => {
     const navigate = useNavigate();
-    const season_from_path = location.pathname.split("/").slice(-1)[0];
+    const cleaned_path = location.pathname.slice(-1) === '/' ? location.pathname.slice(0, -1) : location.pathname;
+    const season_from_path = cleaned_path.split("/").slice(-1)[0];
     let scorched_season: SCORCHED_SEASON_TYPE = null;
 
     Object.entries(SCORCHED_CANNONS).map(season => {
