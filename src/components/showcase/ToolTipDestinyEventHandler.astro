@@ -10,10 +10,10 @@
 			return;
 		}
 
-		const mouseX = event.pageX;
-		const mouseY = event.pageY;
-		const screenX = document.body.offsetWidth;
-		const screenY = document.body.offsetHeight;
+		const mouseX = event.clientX;
+		const mouseY = event.clientY;
+		const screenX = window.innerWidth;
+		const screenY = window.innerHeight;
 
 		for (const el in hud) {
 			if (Object.prototype.hasOwnProperty.call(hud, el)) {

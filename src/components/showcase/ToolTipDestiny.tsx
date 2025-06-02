@@ -13,7 +13,7 @@ export const ToolTipDestiny = ({ title, details, children, colorScheme }:
     return (
         <div
             role="tooltip"
-            className="invisible peer-hover:visible absolute destiny-tooltip z-10 m-8 font-bungo tracking-wider transition-opacity duration-300 shadow-sm min-w-[400px] text-gray-200 max-w-[400px] max-h-[600px] text-[0px]  peer-hover:text-base left-0 top-0"
+            className="invisible peer-hover:visible fixed destiny-tooltip z-10 m-8 font-bungo tracking-wider transition-opacity duration-300 shadow-sm min-w-[400px] text-gray-200 max-w-[400px] max-h-[600px] text-[0px]  peer-hover:text-base left-0 top-0"
         >
             <div className={(colorScheme ? colorScheme[0] : "bg-[rgba(65,66,62,0.9)]") + " px-4 py-2 text-white font-semibold uppercase text-3xl"}>
                 {title}
