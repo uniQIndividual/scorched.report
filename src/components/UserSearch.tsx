@@ -179,7 +179,7 @@ export const Search = () => {
 							<input
 								type="text"
 								name="scorcher_search"
-								className=" bg-[rgba(0,0,0,0.3)] dark:bg-[rgba(0,0,0,0.2)] focus:bg-[rgba(0,0,0,0.5)] text-white dark:text-white sm:text-sm rounded-lg block w-full pl-10 p-4 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] border border-gray-300 dark:border-gray-300 placeholder-gray-100 dark:placeholder-gray-300 lg:dark:placeholder-gray-200 "
+								className=" bg-[rgba(0,0,0,0.3)] dark:bg-[rgba(0,0,0,0.2)] focus:bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.5)] focus:dark:bg-[rgba(0,0,0,0.5)] hover:dark:bg-[rgba(0,0,0,0.5)] text-white dark:text-white sm:text-sm rounded-lg block w-full pl-10 p-4 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] border border-gray-300 dark:border-gray-300 placeholder-gray-100 dark:placeholder-gray-300 lg:dark:placeholder-gray-200 "
 								placeholder="Find scorchers..."
 							/>
 							<div
