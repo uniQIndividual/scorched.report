@@ -18,6 +18,7 @@ const {
 	date,
 	author,
 	tags = ["Scorched Report", "Team Scorched", "Destiny 2"],
+	bg_color = "bg-gray-50 dark:bg-gray-900",
 	fullscreen = false,
 } = Astro.props;
 
@@ -137,7 +138,7 @@ if (author != undefined) {
 		class:list={[
 			//
 			clazz,
-			"bg-gray-50 dark:bg-gray-900",
+			bg_color,
 			"scrollbar scrollbar-w-3 scrollbar-thumb-rounded-[0.25rem]",
 			"scrollbar-track-slate-200  scrollbar-thumb-gray-400",
 			"dark:scrollbar-track-gray-900 dark:scrollbar-thumb-gray-700 cursor-default",
@@ -148,12 +149,12 @@ if (author != undefined) {
 		<SideBar fullscreen={fullscreen} />
 		<div>
 			<div
-				class={"flex overflow-hidden bg-gray-50 dark:bg-gray-900" +
+				class={"flex overflow-hidden" +
 					(fullscreen ? "" : " pt-16 ")}
 			>
 				<div
 					id="main-content"
-					class={"relative w-full h-full overflow-x-hidden bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-500 dark:text-gray-400 " +
+					class={"relative w-full h-full overflow-x-hidden min-h-screen text-gray-500 dark:text-gray-400 " +
 						(fullscreen ? "" : " lg:ml-[400px] lg:mr-4 lg:mt-2 mx-2")}
 				>
 					{

@@ -16,6 +16,8 @@ import sidebarIconTWAS from "../assets/icons/sidebar/twas.webp";
 import sidebarIconHome from "../assets/icons/sidebar/home.webp";
 import sidebarIconLeaderboard from "../assets/icons/sidebar/leaderboards.webp";
 import sidebarIconExoticCannon from "../assets/icons/sidebar/exotic_cannon.webp";
+import SCORCHED_CANNONS from "../lib/cannons";
+import { cannonSeasonNameToURL } from "../lib/fun";
 
 const allTWAS = await getCollection("twas");
 
@@ -269,9 +271,11 @@ const { fullscreen = false } = Astro.props;
 						</ul>
 					</li>
 					<li class="">
-						<a
-							href="/showcase"
-							class="flex items-center p-2 text-base transition-all duration-300 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+						<button
+							type="button"
+							class="flex items-center p-2 text-base transition-all duration-300 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[72px] lg:grayscale lg:hover:grayscale-0"
+							aria-controls="dropdown-archive"
+							data-collapse-toggle="dropdown-archive"
 						>
 							<Image
 								alt="Cannon Showcase Icon"
@@ -283,9 +287,43 @@ const { fullscreen = false } = Astro.props;
 							/>
 							<span
 								class="flex-1 ml-3 text-lg lg:text-[0px] group-hover:text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition-all duration-300 lg:grayscale lg:hover:grayscale-0"
-								sidebar-toggle-item>All Scorch Cannons</span
+								sidebar-toggle-item>Scorch Cannon Ornaments</span
 							>
-						</a>
+							<svg
+								sidebar-toggle-item
+								class="w-9 h-9"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+								>
+								</path>
+							</svg>
+						</button>
+						<ul id="dropdown-archive" class="hidden py-2 space-y-2 ml-14">
+									<li class="">
+										<a
+											href={`/showcase`}
+											class="flex items-center h-10 p-2 group-hover:pl-6 text-gray-100 transition-all duration-300 lg:grayscale lg:hover:grayscale-0 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg group hover:bg-[rgba(0,0,0,0.75)]"
+										>
+											{"All"}
+										</a>
+									</li>
+							{
+								Object.entries(SCORCHED_CANNONS).map((entry) => (
+									<li class="">
+										<a
+											href={`/showcase/${cannonSeasonNameToURL(entry[1].name)}`}
+											class="flex items-center h-10 p-2 group-hover:pl-6 text-gray-100 transition-all duration-300 lg:grayscale lg:hover:grayscale-0 bg-[rgba(0,0,0,0.5)] backdrop-blur-[4px] lg:text-[0px] group-hover:text-base group-hover:w-[244px] w-[244px] lg:w-[0px] rounded-lg group hover:bg-[rgba(0,0,0,0.75)]"
+										>
+											{entry[1].name}
+										</a>
+									</li>
+								))
+							}
+						</ul>
 					</li>
 					<li class="">
 						<button
