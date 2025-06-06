@@ -4,8 +4,8 @@ multiple children are displayed with a vertical separator
 */
 import { Children, type ReactNode } from "react"
 
-export const ToolTipDestiny = ({ title, details, children, colorScheme }:
-    { title: string, details?: boolean, children: ReactNode, colorScheme?: string[] }) => {
+export const ToolTipDestiny = ({ title, details, children, colorScheme, heroImage }:
+    { title: string, details?: boolean, children: ReactNode, colorScheme?: string[], heroImage?: ReactNode }) => {
     if (window.innerWidth < 1024) {
         return "";
     }
@@ -13,11 +13,15 @@ export const ToolTipDestiny = ({ title, details, children, colorScheme }:
     return (
         <div
             role="tooltip"
-            className="invisible peer-hover:visible fixed destiny-tooltip z-10 m-8 font-bungo tracking-wider transition-opacity duration-300 shadow-sm min-w-[400px] text-gray-200 max-w-[400px] max-h-[600px] text-[0px]  peer-hover:text-base left-0 top-0"
+            className="invisible peer-hover:visible fixed destiny-tooltip z-50 m-8 font-bungo tracking-wider transition-opacity duration-300 shadow-sm min-w-[400px] text-gray-200 max-w-[400px] max-h-[600px] text-[0px]  peer-hover:text-base left-0 top-0"
         >
+            {colorScheme && colorScheme.length > 2
+                ? <div className={"pt-1 " + colorScheme[2]}></div>
+                : ""}
             <div className={(colorScheme ? colorScheme[0] : "bg-[rgba(65,66,62,0.9)]") + " px-4 py-2 text-white font-semibold uppercase text-3xl"}>
                 {title}
             </div>
+            {heroImage ? heroImage : ""}
             {Children.map(children, (child, index) => {
                 return <div>
                     {/* Add section divider */}

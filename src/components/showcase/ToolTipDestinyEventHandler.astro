@@ -30,9 +30,9 @@
 					// ignore invisible tooltips
 				} else {
 					hud[el].style.left =
-						Math.min(screenX - (el_width + 64), mouseX) + "px";
+						(mouseX > screenX - (el_width + 32) ? mouseX - (el_width + 40) : mouseX) + "px";
 					hud[el].style.top =
-						Math.min(screenY - (el_height + 64), mouseY) + "px";
+						(mouseY > screenY - (el_height + 32) ? mouseY - (el_height + 40) : mouseY) + "px";
 				}
 			}
 		}
