@@ -99,8 +99,10 @@ export const ShowcaseSeason = () => {
                                                         </div>
                                                         {cannon[1].requirements && cannon[1].requirements.length != 0 ?
                                                             <div>
-                                                                {cannon[1].requirements.map(requirement =>
-                                                                    <div className="table-row">
+                                                                {cannon[1].requirements.map((requirement, i) =>
+                                                                    <div
+                                                                    className="table-row"
+                                                                    key={"cannon_requirements_" + cannon[0] + "_" + i}>
                                                                         <div className="table-cell w-full">
                                                                             <img className="inline-block pr-2" src="/images/icons/checkbox_empty.webp" />
                                                                             <div className="inline-block text-gray-50 leading-8">
@@ -111,7 +113,7 @@ export const ShowcaseSeason = () => {
                                                                 )}
                                                             </div>
                                                             : ""}
-                                                        {cannon[1].cost != 0 ?
+                                                        {cannon[1].cost != 0 && cannon[1].cost != Infinity ?
                                                             <div className="table-row">
                                                                 <div className="table-cell w-full">
                                                                     <img className="inline pr-1" src="/images/icons/scoin_26px.png" />
