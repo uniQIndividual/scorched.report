@@ -23,6 +23,9 @@ export const ToolTipDestiny = ({ title, details, children, colorScheme, heroImag
             </div>
             {heroImage ? heroImage : ""}
             {Children.map(children, (child, index) => {
+                if (child == "") {
+                    return <></>
+                }
                 return <div>
                     {/* Add section divider */}
                     {index > 0 ?

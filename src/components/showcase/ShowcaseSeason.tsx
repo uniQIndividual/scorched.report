@@ -97,17 +97,35 @@ export const ShowcaseSeason = () => {
                                                                 </div>
                                                                 : ""}
                                                         </div>
-                                                        <div className="table-row">
-                                                            <div className="table-cell w-full">
-                                                                <img className="inline pr-1" src="/images/icons/scoin_26px.png" />
-                                                                Scoins
+                                                        {cannon[1].requirements && cannon[1].requirements.length != 0 ?
+                                                            <div>
+                                                                {cannon[1].requirements.map(requirement =>
+                                                                    <div className="table-row">
+                                                                        <div className="table-cell w-full">
+                                                                            <img className="inline-block pr-2" src="/images/icons/checkbox_empty.webp" />
+                                                                            <div className="inline-block text-gray-50 leading-8">
+                                                                                {requirement}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
                                                             </div>
-                                                            <div className="table-cell w-full text-right font-bungo font-medium text-nowrap">
-                                                                <div className="text-primary-600 inline">0</div>
-                                                                <div className="px-1 inline">/</div>
-                                                                <div className="inline">{cannon[1].cost}</div>
+                                                            : ""}
+                                                        {cannon[1].cost != 0 ?
+                                                            <div className="table-row">
+                                                                <div className="table-cell w-full">
+                                                                    <img className="inline pr-1" src="/images/icons/scoin_26px.png" />
+                                                                    Scoins
+                                                                </div>
+                                                                <div className="table-cell w-full text-right font-bungo font-medium text-nowrap">
+                                                                    <div className="text-primary-600 inline">0</div>
+                                                                    <div className="px-1 inline">/</div>
+                                                                    <div className="inline">
+                                                                        {cannon[1].cost}
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                            : ""}
                                                     </ToolTipDestiny>
                                                 </a>
                                                 <div className="text-center text-gray-100 font-bungo lg:hidden mx-[3px] mb-4 p-y-2 text-lg backdrop-blur-sm bg-[rgba(0,0,0,0.5)]">
