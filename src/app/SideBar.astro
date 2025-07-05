@@ -14,6 +14,7 @@ import sidebarIconAbout from "../assets/icons/sidebar/about.webp";
 import sidebarIconScience from "../assets/icons/sidebar/science.webp";
 import sidebarIconTWAS from "../assets/icons/sidebar/twas.webp";
 import sidebarIconHome from "../assets/icons/sidebar/home.webp";
+import sidebarIconTimeline from "../assets/icons/sidebar/timeline.webp";
 import sidebarIconLeaderboard from "../assets/icons/sidebar/leaderboards.webp";
 import sidebarIconExoticCannon from "../assets/icons/sidebar/exotic_cannon.webp";
 import SCORCHED_CANNONS from "../lib/cannons";
@@ -373,6 +374,24 @@ const { fullscreen = false } = Astro.props;
 						</ul>
 					</li>
 					<li class="">
+						<a
+							href="/se"
+							class="flex items-center p-2 text-base transition-all duration-300 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
+						>
+							<Image
+								alt="Timeline"
+								src={sidebarIconTimeline}
+								loading="eager"
+								height="36"
+								width="36"
+								class="w-9 h-9 min-w-9"
+							/>
+							<span
+								class="flex-1 ml-3 text-lg lg:text-[0px] group-hover:text-lg hover:text-white text-gray-100 drop-shadow-[0_2.2px_1.2px_rgba(0,0,0,0.9)] text-left lg:invisible group-hover:visible transition-all duration-300 lg:grayscale lg:hover:grayscale-0"
+								sidebar-toggle-item>Timeline</span
+							>
+						</a>
+					</li><li class="">
 						<a
 							href="/guide"
 							class="flex items-center p-2 text-base transition-all duration-300 group-hover:w-[300px] w-[300px] lg:w-[52px] rounded-lg hover:bg-[rgba(0,0,0,0.5)] group text-white backdrop-brightness-50 backdrop-blur-[4px] h-[52px] lg:grayscale lg:hover:grayscale-0"
