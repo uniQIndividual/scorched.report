@@ -42,7 +42,7 @@ export const ShowcaseOverview = () => {
                                             <div className="peer p-[3px] hover:p-[2px]  hover:border border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer lg:mx-1">
                                                 <img className="" src="/images/collection/season_exotic_placeholder.webp" />
                                             </div>
-                                            <ToolTipDestiny title={season[1].name} details={true}>
+                                            <ToolTipDestiny title={season[1].full_name} details={true}>
                                                 <div>
                                                     All scorch cannons from {season[1].name}.
                                                 </div>

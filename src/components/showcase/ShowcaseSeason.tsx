@@ -50,7 +50,7 @@ export const ShowcaseSeason = () => {
                     <div
                         className="table-cell border-b-2 border-[rgb(149,150,154)] lg:min-w-96 text-[rgb(149,150,154)]"
                     >
-                        <div className="font-medium text-lg uppercase">{scorched_season.name}</div>
+                        <div className="font-medium text-lg uppercase">{scorched_season.full_name}</div>
                     </div>
                 </div>
                 <div className="table-row-group">

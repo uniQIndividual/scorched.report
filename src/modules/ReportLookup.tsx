@@ -1404,11 +1404,11 @@ const ReportLookup = () => {
   if (hardCrash) return (<div className="mt-12"><ErrorNotFound /><ErrorDynamic title={crash.title} text={crash.text} /></div>)
 
   if (render) return (
-    <div className={/*bg-gray-50 dark:bg-gray-920*/"pb-2"}>
+    <div className={/*bg-gray-50 dark:bg-gray-920*/"pb-2 min-h-[calc(100vh-500px)] bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(27,26,37,0.5)]"}>
       <div
         className={`h-[214px]`}
       >
-        {stats.profile.secondarySpecial != "" ? <img className="absolute object-cover object-center w-full h-[204px]" src={stats.profile.secondarySpecial} /> : <div className="absolute w-full h-[136px] bg-primary-900"></div>}
+        {stats.profile.secondarySpecial != "" ? <img className="absolute object-cover object-center w-full h-[204px]" src={stats.profile.secondarySpecial} /> : <div className="absolute w-full h-[204px] bg-primary-900"></div>}
         <div className="absolute h-[136px] mt-[68px] w-full table px-2">
           <div className="table-row-group">
             <div className="table-row h-[20px]">
@@ -1476,7 +1476,7 @@ const ReportLookup = () => {
       {crash.title != "" ? <ErrorDynamic title={crash.title} text={crash.text} /> : ""}
     </div>)
 
-  return (<div className="flex mt-24 h-72 justify-center">
+  return (<div className="flex pt-24 min-h-screen justify-center bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(27,26,37,0.5)]">
     <LoadingAnimationWithTitle title={loadingTitle} />
   </div>)
 }

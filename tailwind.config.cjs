@@ -102,6 +102,8 @@ module.exports = {
 				bungie_loading_inner: 'bungie_loading_inner_frames 1.5s linear infinite',
 				bungie_loading_outer: 'bungie_loading_outer_frames 3s linear infinite',
 				'infinite-scroll': 'infinite-scroll 25s linear infinite',
+				'fade-in': 'fade-in-frames 0.5s ease-in-out',
+				'fade-out': 'fade-out-frames 0.5s ease-in-out'
 			},
 			keyframes: {
 				bungie_loading_inner_frames: {
@@ -119,6 +121,14 @@ module.exports = {
 				'infinite-scroll': {
 					from: { transform: 'translateX(0)' },
 					to: { transform: 'translateX(-100%)' },
+				},
+				'fade-in-frames': {
+					'0%': {opacity: '0'},
+					'100%': {opacity: '0.5'}
+				},
+				'fade-out-frames': {
+					'0%': {opacity: '0.5'},
+					'100%': {opacity: '0'}
 				}
 			},
 			boxShadow: {

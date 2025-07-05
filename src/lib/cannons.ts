@@ -6,6 +6,7 @@ export type SCORCHED_DICTIONARY_TYPE = {
 
 export type SCORCHED_SEASON_TYPE = {
     "name": string,
+    "full_name": string,
     "legacy_hash": string,
     "release_date": number,
     "twas": string,
@@ -30,6 +31,7 @@ export type SCORCHED_CANNON_TYPE = {
 const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
     "1047977621": {
         "name": "Season 1",
+        "full_name": "Season of the Spark",
         "legacy_hash": "S1",
         "release_date": 0,
         "twas": "",
@@ -282,6 +284,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
     },
     "1047977622": {
         "name": "Season 2",
+        "full_name": "Season of the Outlanders",
         "legacy_hash": "S2",
         "release_date": 1682913600,
         "twas": "1682913600",
@@ -470,6 +473,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
     },
     "1047977623": {
         "name": "Season 3",
+        "full_name": "Season of the Conquest",
         "legacy_hash": "S3",
         "release_date": 1707850800,
         "twas": "1707850800",
@@ -645,6 +649,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
     },
     "3064974266": {
         "name": "Special Cannons",
+        "full_name": "Special Cannons",
         "legacy_hash": "special",
         "release_date": 0,
         "twas": "",
