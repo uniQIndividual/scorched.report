@@ -2,6 +2,7 @@
 import FooterSidebar from "../app/FooterSidebar.astro";
 import LayoutSidebar from "../app/LayoutSidebar.astro";
 import ReportLookup from "../modules/ReportLookup.tsx";
+import TooltipDestinyEventHandler from "../components/showcase/ToolTipDestinyEventHandler.astro";
 ---
 
 <LayoutSidebar
@@ -17,6 +18,7 @@ import ReportLookup from "../modules/ReportLookup.tsx";
 		loading="lazy"
 	/>
 	<ReportLookup client:only="react" />
+	<TooltipDestinyEventHandler />
 	<div class=" bg-[rgba(202,201,211,0.5)] dark:bg-[rgba(27,26,37,0.5)]">
 		<FooterSidebar />
 	</div>

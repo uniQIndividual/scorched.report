@@ -1,6 +1,7 @@
 import { type Scorcher } from "../../lib/entities";
 import SCORCHED_CANNONS from "../../lib/cannons";
 import { D2Box } from "./D2Box";
+import { cannonBungieTooltip } from "../../lib/fun";
 
 
 export const CannonCollection = (props: Scorcher) => {
@@ -46,12 +47,20 @@ export const CannonCollection = (props: Scorcher) => {
                                         .map(cannon => {
                                             let unlocked = ownedCannonsFlattened.includes(cannon[0]);
 
-                                            return <div key={cannon[1].name + "_profile_season_showcase"} className="p-1">
+                                            return <a
+                                            href={"/collections/" + cannon[0]}
+                                            target="_blank"
+                                            >
+                                            <div
+                                            key={cannon[1].name + "_profile_season_showcase"}
+                                            className="peer p-1 hover:brightness-150 hover:!cursor-pointer">
                                                 <img src={cannon[1].image.replace("/cannons/", unlocked ? "/cannons/smaller/" : "/cannons/missing/")} className={(unlocked ? "" : "grayscale brightness-75 ") + " max-h-28 object-scale-down w-[120px] sm:w-[200px]"} />
                                                 <div className="mt-1 text-center flex justify-center">
                                                     {cannon[1].name}
                                                 </div>
                                             </div>
+                                            {cannonBungieTooltip(cannon)}
+                                            </a>
                                         })}
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import SCORCHED_CANNONS, { type SCORCHED_SEASON_TYPE } from "../../lib/cannons";
-import { cannonSeasonNameToURL } from "../../lib/fun";
+import { cannonBungieTooltip, cannonSeasonNameToURL } from "../../lib/fun";
 import { ToolTipDestiny } from "./ToolTipDestiny";
 import { useEffect } from "react";
 
@@ -81,54 +81,7 @@ export const ShowcaseSeason = () => {
                                                             loading="lazy"
                                                         />
                                                     </div>
-                                                    <ToolTipDestiny title={cannon[1].name} details={true} colorScheme={["bg-[rgba(199,168,58,0.8)]", "bg-[rgba(51,47,29,0.8)]"]}>
-                                                        <div>
-                                                            {cannon[1].alt_name != "" ?
-                                                                <div className="font-semibold mb-4">
-                                                                    {cannon[1].alt_name}
-                                                                </div>
-                                                                : ""}
-                                                            <div>
-                                                                Created by {cannon[1].author}
-                                                            </div>
-                                                            {cannon[1].description != "" ?
-                                                                <div className="italic mt-4">
-                                                                    {cannon[1].description}
-                                                                </div>
-                                                                : ""}
-                                                        </div>
-                                                        {cannon[1].requirements && cannon[1].requirements.length != 0 ?
-                                                            <div>
-                                                                {cannon[1].requirements.map((requirement, i) =>
-                                                                    <div
-                                                                    className="table-row"
-                                                                    key={"cannon_requirements_" + cannon[0] + "_" + i}>
-                                                                        <div className="table-cell w-full">
-                                                                            <img className="inline-block pr-2" src="/images/icons/checkbox_empty.webp" />
-                                                                            <div className="inline-block text-gray-50 leading-8">
-                                                                                {requirement}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                            : ""}
-                                                        {cannon[1].cost != 0 && cannon[1].cost != Infinity ?
-                                                            <div className="table-row">
-                                                                <div className="table-cell w-full">
-                                                                    <img className="inline pr-1" src="/images/icons/scoin_26px.png" />
-                                                                    Scoins
-                                                                </div>
-                                                                <div className="table-cell w-full text-right font-bungo font-medium text-nowrap">
-                                                                    <div className="text-primary-600 inline">0</div>
-                                                                    <div className="px-1 inline">/</div>
-                                                                    <div className="inline">
-                                                                        {cannon[1].cost}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            : ""}
-                                                    </ToolTipDestiny>
+                                                    {cannonBungieTooltip(cannon)}
                                                 </a>
                                                 <div className="text-center text-gray-100 font-bungo lg:hidden mx-[3px] mb-4 p-y-2 text-lg backdrop-blur-sm bg-[rgba(0,0,0,0.5)]">
                                                     {cannon[1].name}
