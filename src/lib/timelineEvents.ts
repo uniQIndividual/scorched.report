@@ -176,7 +176,7 @@ export const timelineEvents: {
             "date": "2025-02-01",
             "icon": "/images/timeline/icons/achievement.webp",
             "tooltipTitle": "Naze hits 4000 Elo",
-            "tooltipDescription": "TheZombieReborn becomes the first person to hit 100 000 kills in Team Scorched.",
+            "tooltipDescription": "The undisputed champion of Team Scorched reaches a ludicrous rating of 4000 Elo points.",
             "tooltipImage": "/images/timeline/tooltip/Naze Wick_tooltip.webp",
             "backgroundImage": "/images/timeline/backgrounds/Naze Wick.webp"
         },
