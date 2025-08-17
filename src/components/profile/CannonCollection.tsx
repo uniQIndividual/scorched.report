@@ -12,7 +12,7 @@ export const CannonCollection = (props: Scorcher) => {
                 <D2Box title={"Info"} body={
                     <div className="p-4 w-full block">
                         Sign up with the Scorched Bot to earn Scorched Coins. <br />
-                        Once you have enough scoins you can purchase cannons with <span className="font-bold">/shop</span> <br />
+                        Once you have enough Scoins you can purchase cannons with <span className="font-bold">/shop</span> <br />
                         <br />
                         You can find all Scorch Cannons in the <a className="stylized-link" href="/showcase">collection</a>.
                     </div>
