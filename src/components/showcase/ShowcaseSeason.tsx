@@ -65,7 +65,7 @@ export const ShowcaseSeason = () => {
                                                 <a
                                                     href={"/collections/" + cannon[0]}
                                                 >
-                                                    <div className="peer p-[3px] hover:p-[2px]  hover:border border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer">
+                                                    <div className="peer p-[3px] hover:p-[2px]  hover:border-[1px] border-[rgb(149,150,154)] hover:brightness-125 hover:!cursor-pointer">
                                                         {cannon[1].hasOwnProperty("3d") ?
                                                             <img
                                                                 src="/images/3d/3d_small.webp"
