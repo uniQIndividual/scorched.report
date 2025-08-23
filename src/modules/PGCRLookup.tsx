@@ -415,7 +415,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                     try {
                         response = JSON.parse(response);
                         response = response.Response;
-                        if (response.activityDetails.mode != 62) {
+                        if (!(devMode || [62, 73, 88, 71].includes(response.activityDetails.mode))) {
                             triggerCrash({
                                 title: 'Not a Team Scorched match',
                                 text: "I ain't troubleshooting this for other game modes"
