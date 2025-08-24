@@ -129,6 +129,11 @@
         {
             "name": "Episode 3: Heresy",
             "start": "February 10, 2025",
-            "end": "June 15, 2025",
+            "end": "July 15, 2025",
+        },
+        {
+            "name": "The Edge of Fate",
+            "start": "July 15, 2025",
+            "end": "September 9, 2025",
         },
     ]

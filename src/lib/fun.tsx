@@ -63,6 +63,16 @@ export const platformLookup = (platform: number) => {
     }
 }
 
+export function hasVisibleChar(str: string) {
+  if (!str) return false;
+  try {
+    const visibleRE = /(?:(?!\u3164)[^\p{Z}\p{C}])/u;
+    return visibleRE.test(str);
+  } catch (_) {
+    return true; // we'll display empty names in that case
+  }
+}
+
 export const cannonSeasonNameToURL = (seasonName: string) => {
     return encodeURI(seasonName.toLowerCase().replaceAll(" ", "-"));
 }

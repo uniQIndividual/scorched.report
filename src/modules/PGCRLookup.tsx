@@ -7,7 +7,7 @@ import update from 'immutability-helper';
 import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Tooltip } from "react-tooltip";
-import { secondsToDisplayTime } from "../lib/fun";
+import { hasVisibleChar, secondsToDisplayTime } from "../lib/fun";
 import { PGCR_Sections_Links } from "../components/pgcr_sections/links";
 import { PGCR_Sections_Summary } from "../components/pgcr_sections/summary";
 import { PGCR_Sections_Medals } from "../components/pgcr_sections/medals";
@@ -274,7 +274,15 @@ export const renderPlayerIconAndName = (entry: userEntry) => {
         <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
         <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
             <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200">
-                {entry.name != undefined ? entry.name : (entry.membershipId == "0" ? <i>banned by Bungie</i> : <i>Bungie didn't include a name 🤷</i>)}
+                {entry.name != undefined
+                    ? (hasVisibleChar(entry.name)
+                        ? entry.name
+                        : <i>empty name</i>
+                    )
+                    : (entry.membershipId == "0"
+                        ? <i>banned by Bungie</i>
+                        : <i>Bungie didn't include a name 🤷</i>)
+                        }
             </a>
         </div>
     </td>
