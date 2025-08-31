@@ -77,6 +77,10 @@ export const cannonSeasonNameToURL = (seasonName: string) => {
     return encodeURI(seasonName.toLowerCase().replaceAll(" ", "-"));
 }
 
+export const cannonNameToURL = (seasonName: string) => {
+    return encodeURI(seasonName.replaceAll(" ", "-").replaceAll(/[^\w-]/gu, ""));
+}
+
 export const cannonBungieTooltip = (cannon: [string, SCORCHED_CANNON_TYPE]) =>
     <ToolTipDestiny title={cannon[1].name} details={true} colorScheme={["bg-[rgba(199,168,58,0.8)]", "bg-[rgba(51,47,29,0.8)]"]}>
         <div>

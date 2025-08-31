@@ -636,14 +636,14 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "image": "/images/cannons/season3/Nine.webp"
             },
             "3998474120": {
-                "hash": "hidden",
-                "name": "[Classified]",
+                "hash": "SimpleProp",
+                "name": "\u25a0\u25a0\u25a0.Name = String::new(\"placeholder\");",
                 "alt_name": "",
                 "author": "GerbSnail",
                 "cost": 999999,
                 "scoin_bonus": 100,
                 "description": "",
-                "image": "/images/cannons/hidden/hidden.webp"
+                "image": "/images/cannons/season3/SimpleProp.webp"
             },
         }
     },

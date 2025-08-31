@@ -1,5 +1,6 @@
 ---
 import cannons from "../../lib/cannons";
+import { cannonNameToURL } from "../../lib/fun";
 import Redirect from "../../modules/Redirect.astro";
 
 export async function getStaticPaths() {
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
 
 const { hash } = Astro.params;
 const { cannon } = Astro.props;
-const redirectUrl = `/collections/${hash}/${encodeURI(cannon[1].name.replaceAll(" ", "-"))}`;
+const redirectUrl = `/collections/${hash}/${cannonNameToURL(cannon[1].name)}`;
 ---
 
 <Redirect redirectUrl={redirectUrl} />

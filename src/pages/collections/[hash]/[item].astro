@@ -3,6 +3,7 @@ import LayoutSidebar from "../../../app/LayoutSidebar.astro";
 import GLTFViewer from "../../../components/cannon_showcase/GLTFViewer";
 import TooltipSimple from "../../../components/TooltipSimple.astro";
 import cannons from "../../../lib/cannons";
+import { cannonNameToURL } from "../../../lib/fun";
 
 export async function getStaticPaths() {
 	const paths = Object.values(cannons)
@@ -22,7 +23,7 @@ export async function getStaticPaths() {
 					item:
 						cannon[1].name == "[Classified]"
 							? cannon[0]
-							: encodeURI(cannon[1].name.replaceAll(" ", "-")),
+							: cannonNameToURL(cannon[1].name),
 				},
 				props: { cannon: cannon },
 			};
