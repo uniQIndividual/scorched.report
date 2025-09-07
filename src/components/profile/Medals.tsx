@@ -39,7 +39,7 @@ export const Medals = (props: Scorcher) => {
                 <D2Box title={"Info"} body={
                     <div className="p-4">
                         <div className="">
-                            Due to <a href="/faq#missing-data" target="_blank" className="underline underline-offset-2 hover:text-gray-950 hover:dark:text-gray-100">known issues with Bungie's API</a> some medals will be missing. The actual numbers should be about 5% higher.
+                            Due to <a href="/faq#missing-data" target="_blank" className="underline underline-offset-2 hover:text-gray-950 hover:dark:text-gray-100">known issues with Bungie's API</a> some medals and <a href="/faq#where-are-my-stats-from-solstice-scorched" target="_blank" className="underline underline-offset-2 hover:text-gray-950 hover:dark:text-gray-100">Solstice matches</a> will be missing. The actual numbers should be at least 5% higher.
                         </div>
                     </div>
                 } />

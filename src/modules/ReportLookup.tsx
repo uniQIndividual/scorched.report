@@ -861,6 +861,52 @@ const ReportLookup = () => {
                   }
                 })
 
+                // Imperfect solution to updating medals with non-teamscorched pgcrs
+                newStats = update(newStats, {
+                  bungieHistoricAccountStats: {
+                    medals: {
+                      $apply(v) {
+                        return {
+                          iMadeThisForYou: v.iMadeThisForYou +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.iMadeThisForYou ? 1 : 0) : prev
+                          , 0),
+                          weRan: v.weRan +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.weRan ? 1 : 0) : prev
+                          , 0),
+                          annihilation: v.annihilation +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.annihilation ? 1 : 0) : prev
+                          , 0),
+                          crownTaker: v.crownTaker +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.crownTaker ? 1 : 0) : prev
+                          , 0),
+                          ghost: v.ghost +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.ghost ? 1 : 0) : prev
+                          , 0),
+                          seventhColumn: v.seventhColumn +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.seventhColumn ? 1 : 0) : prev
+                          , 0),
+                          undefeated: v.undefeated +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.undefeated ? 1 : 0) : prev
+                          , 0),
+                          mostDamage: v.mostDamage +
+                          Object.values(newStats.matchHistory)
+                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.mostDamage ? 1 : 0) : prev
+                          , 0),
+                          total: v.total,
+                          totalGold: v.totalGold
+                        }
+                      },
+                    }
+                  }
+                })
+
 
 
                 // We now need to calculate the averages for the combined stats
