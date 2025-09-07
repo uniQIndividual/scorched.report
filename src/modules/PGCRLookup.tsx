@@ -99,7 +99,7 @@ export const renderTeamList = (renderInfo: combinedPGCR, tableHeaders: ReactElem
                                 <tbody>
                                     <tr className="">
                                         <td className="!border-0 leading-7 w-max align-bottom min-w-[220px]">
-                                            {renderInfo.team1Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{(renderInfo.team1WinChance * 100).toLocaleString(undefined, {
+                                            {renderInfo.team1Score} Point{renderInfo.team1Score != 1 ? "s" : ""} {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{(renderInfo.team1WinChance * 100).toLocaleString(undefined, {
                                                 minimumFractionDigits: 0,
                                                 maximumFractionDigits: 5,
                                             }) + "% Win Chance"}</span>}
@@ -158,7 +158,7 @@ export const renderTeamList = (renderInfo: combinedPGCR, tableHeaders: ReactElem
                                     </tr>
                                     <tr>
                                         <td className="!border-0 w-max align-bottom min-w-[220px]">
-                                            {renderInfo.team2Score} Points {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{((1 - renderInfo.team1WinChance) * 100).toLocaleString(undefined, {
+                                            {renderInfo.team2Score} Point{renderInfo.team2Score != 1 ? "s" : ""} {renderInfo.team1WinChance < 0 ? "" : <span className="text-lg font-thin">{((1 - renderInfo.team1WinChance) * 100).toLocaleString(undefined, {
                                                 minimumFractionDigits: 0,
                                                 maximumFractionDigits: 5,
                                             }) + "% Win Chance"}</span>}
@@ -211,7 +211,7 @@ export const renderTeamList = (renderInfo: combinedPGCR, tableHeaders: ReactElem
                                         </tr>
                                         <tr>
                                             <td className="!border-0 w-max align-bottom min-w-[220px]">
-                                                {renderInfo.team3Score} Points
+                                                {renderInfo.team3Score} Point{renderInfo.team3Score != 1 ? "s" : ""}
                                             </td>
                                         </tr>
                                         <tr className="w-[100%]">
