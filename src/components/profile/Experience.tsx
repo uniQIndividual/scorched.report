@@ -279,6 +279,14 @@ M1329 524h128v51h-218v-32l2 -1h51z`
 
     return (
         <div className="flex flex-wrap justify-center">
+            <D2Box title={"Info"} body={
+                <div className="p-4 text-center">
+                    <div className="">
+                        Due to <a href="/faq#where-are-my-stats-from-solstice-scorched" target="_blank" className="underline underline-offset-2 hover:text-gray-950 hover:dark:text-gray-100">known limitations of Bungie's API</a> Solstice matches will be missing.
+                    </div>
+                </div>
+            } />
+            <div className="w-full"></div>
             <D2Box title="Total" body={
                 <div className="p-4 text-left">
                     <span className="text-gray-400 text-xl"><span className="text-gray-900 dark:text-gray-100 text-4xl  font-black">{(stats.performance.kills).toLocaleString()}</span> Kills<br /><span className="text-gray-900 dark:text-gray-100 text-4xl font-black">
@@ -716,36 +724,36 @@ M1329 524h128v51h-218v-32l2 -1h51z`
             } />
             <D2Box title="Weapon Categories" body={
                 <div>
-                <div className="flex justify-center p-2">
-                    <a href="/leaderboards/special" className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">Yes, it is possible</a>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 p-3">
-                    {weaponCategories.sort((a, b) => b.kills - a.kills).map(category =>
-                        <div key={category.hint + "_profileBox"}>
-                            <div className={"p-2 flex " + (category.kills > 0 ? "" : "opacity-30")}>
-                                <svg
-                                    className="mx-auto mb-1 fill-gray-800 dark:fill-gray-100 h-6 sm:h-8 p-1"
-                                    aria-hidden="true"
-                                    data-tooltip-id={category.hint + "_tooltip"}
-                                    data-tooltip-html={category.hint}
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox={"0 0 "+ category.viewbox + " 1000"}
-                                >
-                                    <metadata> Copyright (c) Bungie, 2015. All rights reserved. </metadata>
-                                    <path
-                                        transform="matrix(1 0 0 -1 0 800)"
-                                        d={category.svg}
+                    <div className="flex justify-center p-2">
+                        <a href="/leaderboards/special" className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">Yes, it is possible</a>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 p-3">
+                        {weaponCategories.sort((a, b) => b.kills - a.kills).map(category =>
+                            <div key={category.hint + "_profileBox"}>
+                                <div className={"p-2 flex " + (category.kills > 0 ? "" : "opacity-30")}>
+                                    <svg
+                                        className="mx-auto mb-1 fill-gray-800 dark:fill-gray-100 h-6 sm:h-8 p-1"
+                                        aria-hidden="true"
+                                        data-tooltip-id={category.hint + "_tooltip"}
+                                        data-tooltip-html={category.hint}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox={"0 0 " + category.viewbox + " 1000"}
                                     >
-                                    </path>
-                                </svg>
-                                <span className="sm:text-lg font-semibold">
-                                    {category.kills.toLocaleString()}
-                                </span>
+                                        <metadata> Copyright (c) Bungie, 2015. All rights reserved. </metadata>
+                                        <path
+                                            transform="matrix(1 0 0 -1 0 800)"
+                                            d={category.svg}
+                                        >
+                                        </path>
+                                    </svg>
+                                    <span className="sm:text-lg font-semibold">
+                                        {category.kills.toLocaleString()}
+                                    </span>
+                                </div>
+                                <Tooltip id={category.hint + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(8,9,10,0.9)" }} />
                             </div>
-                            <Tooltip id={category.hint + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(8,9,10,0.9)" }} />
-                        </div>
-                    )}
-                    {/*
+                        )}
+                        {/*
                               "weaponKillsRelic": responseSingle?.weaponKillsRelic.basic.value,
                               "weaponKillsAutoRifle": responseSingle?.weaponKillsAutoRifle.basic.value,
                               "weaponKillsBeamRifle": responseSingle?.weaponKillsBeamRifle.basic.value,
@@ -768,7 +776,7 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                               "weaponKillsGrenadeLauncher": responseSingle?.weaponKillsGrenadeLauncher.basic.value,
                               "weaponKillsSuper": responseSingle?.weaponKillsSuper.basic.value,
                               "weaponKillsMelee": responseSingle?.weaponKillsMelee.basic.value,*/}
-                </div>
+                    </div>
                 </div>
             } />
         </div>

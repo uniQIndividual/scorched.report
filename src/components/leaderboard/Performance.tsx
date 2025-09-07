@@ -130,23 +130,6 @@ export const LeaderboardPerformance = () => {
           const deaths = Object.values(updatedEntry).reduce((sum, current) => sum + current.deaths, 0);
           const assists = Object.values(updatedEntry).reduce((sum, current) => sum + current.assists, 0);
           const playtime = Object.values(updatedEntry).reduce((sum, current) => sum + current.time, 0);
-          /*newData.push(
-            {
-              "membershipID": entry.membershipID,
-              "platform": entry.platform,
-              "displayName": entry.displayName,
-              "awards": entry.awards,
-              "kills": kills,
-              "deaths": deaths,
-              "assists": assists,
-              "kd": kills / (deaths == 0 ? 1 : deaths),
-              "kda": (kills + assists) / (deaths == 0 ? 1 : deaths),
-              "kpm": (kills) / (playtime == 0 ? 1 : playtime / 60),
-              "wins": Object.values(updatedEntry).reduce((sum, current) => sum + current.won, 0),
-              "matches": Object.keys(updatedEntry).length,
-              "losses": Object.values(updatedEntry).reduce((sum, current) => sum - current.won, Object.keys(updatedEntry).length),
-              "lastUpdated": Object.values(updatedEntry).reduce((highest, current) => highest > current.date ? highest : current.date, 0),
-            });*/
         } else {
           newData.push({
             "membershipID": entry.membershipID,

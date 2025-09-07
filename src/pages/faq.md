@@ -65,6 +65,10 @@ Also OpenSkill can never perfectly reflect "skill", it is a approximation of you
 
 For more information visit the [dedicated article](/science/elo_distribution).
 
+## Where are my stats from Solstice Scorched?
+
+Bungie made the unfortunate decision to label matches from Solstice Scorched as Control, Rift, and Clash respectively instead of Team Scorched (the PGCR mode). This makes it substantially more difficult to obtain correct stats which includes all game modes minus their normal casual versions. Data which only covers Team Scorched is labeled as such.
+
 ## I'm missing an achievement/match/etc
 
 Simply send me a message.

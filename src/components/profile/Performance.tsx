@@ -30,6 +30,7 @@ export const Performance = (stats: Scorcher) => {
 
 
         const chatOutcomes = dc.pieChart('#chart-outcomes');
+        const chatModes = dc.pieChart('#chart-modes');
         const chartTeamSolo = dc.pieChart('#chart-team-solo');
         const chartWinChances = dc.barChart('#chart-win-chances');
         const chartKillsPerMatch = dc.barChart('#chart-kills-per-match');
@@ -54,7 +55,7 @@ export const Performance = (stats: Scorcher) => {
 
         const cFilter = crossfilter(data);
         const all = cFilter.groupAll();
-        const dimentionYear = cFilter.dimension(d => d3.timeYear(d.dd).getFullYear());
+        const dimensionYear = cFilter.dimension(d => d3.timeYear(d.dd).getFullYear());
         const groupKD = cFilter.groupAll().reduce(
             (p, v) => {
                 ++p.count;
@@ -87,7 +88,7 @@ export const Performance = (stats: Scorcher) => {
                 avgWinChance: 0,
             })
         )
-        const yearlyPerformanceGroup = dimentionYear.group().reduce(
+        const yearlyPerformanceGroup = dimensionYear.group().reduce(
             (p, v) => {
                 ++p.count;
                 p.kills += v.kills;
@@ -113,16 +114,16 @@ export const Performance = (stats: Scorcher) => {
                 avgWinChance: 0,
             })
         );
-        const dimentionDate = cFilter.dimension(d => d.day);
-        const dimentionMonth = cFilter.dimension(d => d.month);
-        const dimentionElo = cFilter.dimension(d => d.elo);
-        const groupMatchesPerMonth = dimentionMonth.group().reduceCount();
-        const groupElo = dimentionDate.group().reduce(
+        const dimensionDate = cFilter.dimension(d => d.day);
+        const dimensionMonth = cFilter.dimension(d => d.month);
+        const dimensionElo = cFilter.dimension(d => d.elo);
+        const groupMatchesPerMonth = dimensionMonth.group().reduceCount();
+        const groupElo = dimensionDate.group().reduce(
             (p, v) => Math.max(p, v.elo),
             (p, v) => p,
             () => (0)
         );
-        const indexAvgByMonthGroup = dimentionMonth.group().reduce(
+        const indexAvgByMonthGroup = dimensionMonth.group().reduce(
             (p, v) => {
                 ++p.count;
                 p.kills += v.kills;
@@ -137,14 +138,43 @@ export const Performance = (stats: Scorcher) => {
             },
             () => ({ count: 0, kills: 0, avg: 0 })
         );
-        const gainOrLoss = cFilter.dimension(d => d.won ? 'Win' : 'Loss');
-        const gainOrLossGroup = gainOrLoss.group();
-        const dimentionTeamOrSolo = cFilter.dimension(d => d.team ? 'Team' : 'Solo');
-        const groupTeamOrSolo = dimentionTeamOrSolo.group();
-        const dimentionWinChance = cFilter.dimension(d => Math.round(d.win_chance * 100));
-        const groupWinChance = dimentionWinChance.group();
-        const dimentionKills = cFilter.dimension(d => d.kills);
-        const groupKills = dimentionKills.group();
+        const dimensionOutcome = cFilter.dimension(d => {
+            switch (d.outcome) {
+                case 0:
+                    return "Victory"
+                case 1:
+                    return "Defeat"
+                case 2:
+                    return "Tie"
+                default:
+                case 0:
+                    return "Unknown"
+            }
+        }
+        );
+        const dimensionMode = cFilter.dimension(d => {
+            switch (d.mode) {
+                case 62:
+                    return "Team Scorched";
+                case 73:
+                    return "Control";
+                case 88:
+                    return "Rift";
+                case 71:
+                    return "Clash";
+                default:
+                    return "Unknown";
+            }
+        }
+        );
+        const dimensionOutcomeGroup = dimensionOutcome.group();
+        const dimensionModeGroup = dimensionMode.group();
+        const dimensionTeamOrSolo = cFilter.dimension(d => d.team ? 'Team' : 'Solo');
+        const groupTeamOrSolo = dimensionTeamOrSolo.group();
+        const dimensionWinChance = cFilter.dimension(d => Math.round(d.win_chance * 100));
+        const groupWinChance = dimensionWinChance.group();
+        const dimensionKills = cFilter.dimension(d => d.kills);
+        const groupKills = dimensionKills.group();
         const dayOfWeek = cFilter.dimension(d => {
             const day = d.dd.getDay();
             const name = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -154,13 +184,13 @@ export const Performance = (stats: Scorcher) => {
             .height(250)
             .transitionDuration(1500)
             .margins({ top: 10, right: 50, bottom: 30, left: 40 })
-            .dimension(dimentionYear)
+            .dimension(dimensionYear)
             .group(yearlyPerformanceGroup)
             .colorDomain([-500, 500])
             .colorAccessor(d => d.value.absGain)
             .keyAccessor(p => p.value.absGain)
             .valueAccessor(p => p.value.percentageGain)
-            .radiusValueAccessor(p => p.value.dimentionWinChancePercentage)
+            .radiusValueAccessor(p => p.value.dimensionWinChancePercentage)
             .maxBubbleRelativeSize(0.3)
             .x(d3.scaleLinear().domain([-2500, 2500]))
             .y(d3.scaleLinear().domain([-100, 100]))
@@ -180,7 +210,7 @@ export const Performance = (stats: Scorcher) => {
                 p.key,
                 `Index Gain: ${numberFormat(p.value.absGain)}`,
                 `Index Gain in Percentage: ${numberFormat(p.value.percentageGain)}%`,
-                `dimentionWinChance / Index Ratio: ${numberFormat(p.value.dimentionWinChancePercentage)}%`
+                `dimensionWinChance / Index Ratio: ${numberFormat(p.value.dimensionWinChancePercentage)}%`
             ].join('\n'))
             .yAxis().tickFormat(v => `${v}%`);
 
@@ -188,10 +218,36 @@ export const Performance = (stats: Scorcher) => {
             .width(220)
             .height(180)
             .radius(80)
-            .dimension(gainOrLoss)
-            .group(gainOrLossGroup)
+            .dimension(dimensionOutcome)
+            .group(dimensionOutcomeGroup)
             .label(d => {
                 if (chatOutcomes.hasFilter() && !chatOutcomes.hasFilter(d.key)) {
+                    return `${d.key}(0%)`;
+                }
+                let label = d.key;
+                if (all.value()) {
+                    label += `(${(d.value / all.value() * 100).toLocaleString(undefined, {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 1,
+                    })}%)`;
+                }
+                return label;
+            })
+            .renderLabel(true)
+            .innerRadius(40)
+            .transitionDuration(500)
+            .colors(colorsChart)
+            .colorDomain([0, 100])
+            .colorAccessor(function (d, i) { return (d.value / all.value() * 100); })
+
+        chatModes
+            .width(220)
+            .height(180)
+            .radius(80)
+            .dimension(dimensionMode)
+            .group(dimensionModeGroup)
+            .label(d => {
+                if (chatModes.hasFilter() && !chatModes.hasFilter(d.key)) {
                     return `${d.key}(0%)`;
                 }
                 let label = d.key;
@@ -214,7 +270,7 @@ export const Performance = (stats: Scorcher) => {
             .width(220)
             .height(180)
             .radius(80)
-            .dimension(dimentionTeamOrSolo)
+            .dimension(dimensionTeamOrSolo)
             .group(groupTeamOrSolo)
             .label(d => {
                 if (chartTeamSolo.hasFilter() && !chartTeamSolo.hasFilter(d.key)) {
@@ -240,7 +296,7 @@ export const Performance = (stats: Scorcher) => {
             .yAxisLabel('Matches')
             .height(180)
             .margins({ top: 10, right: 10, bottom: 30, left: 50 })
-            .dimension(dimentionKills)
+            .dimension(dimensionKills)
             .group(groupKills)
             .elasticY(true)
             .centerBar(true)
@@ -261,7 +317,7 @@ export const Performance = (stats: Scorcher) => {
             .yAxisLabel('Matches')
             .height(180)
             .margins({ top: 10, right: 10, bottom: 30, left: 50 })
-            .dimension(dimentionWinChance)
+            .dimension(dimensionWinChance)
             .group(groupWinChance)
             .elasticY(true)
             .centerBar(true)
@@ -286,7 +342,7 @@ export const Performance = (stats: Scorcher) => {
             .height(200)
             .transitionDuration(500)
             .margins({ top: 30, right: 50, bottom: 25, left: 40 })
-            .dimension(dimentionDate)
+            .dimension(dimensionDate)
             .mouseZoomable(true)
             .rangeChart(chartEloSmaller)
             .x(d3.scaleTime().domain([new Date(dateFirst), new Date(dateLast)]))
@@ -311,7 +367,7 @@ export const Performance = (stats: Scorcher) => {
         chartEloSmaller/* dc.barChart('#chart-elo-smaller', 'chartGroup'); */
             .height(100)
             .margins({ top: 0, right: 50, bottom: 20, left: 40 })
-            .dimension(dimentionMonth)
+            .dimension(dimensionMonth)
             .group(groupMatchesPerMonth)
             .centerBar(true)
             .gap(1)
@@ -366,7 +422,7 @@ export const Performance = (stats: Scorcher) => {
                 none: '-/-'
             });
         tableMatches /* dc.dataTable('.dc-data-table', 'chartGroup') */
-            .dimension(dimentionDate)
+            .dimension(dimensionDate)
             .size(10)
             .columns([{
                 label: 'Date',
@@ -463,6 +519,9 @@ export const Performance = (stats: Scorcher) => {
                 <D2Box title="Outcomes" body={
                     <div id="chart-outcomes" className="dc-js-chart"></div>
                 } />
+                <D2Box title="Modes" body={
+                    <div id="chart-modes" className="dc-js-chart"></div>
+                } />
                 <D2Box title="Solo vs Team" body={
                     <div id="chart-team-solo" className="dc-js-chart"></div>
                 } />
@@ -504,201 +563,208 @@ export const Performance = (stats: Scorcher) => {
                 } />
                 <div id="html-dist"></div>
                 <D2Box title="All Time high scores" body={
-                    <div className="p-4 text-gray-300 text-lg sm:text-lg     flex flex-wrap justify-evenly">
-                        <table className="flex w-[280px] justify-center">
-                            <tbody>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        K/D
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {(stats.performance.kills / Math.max(stats.performance.deaths || 1, 1)).toLocaleString(undefined, {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                        })}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Efficiency
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {((stats.performance.kills + stats.performance.assists) / Math.max(stats.performance.deaths || 0, 1)).toLocaleString(undefined, {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                        })}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        KPM
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {(stats.performance.kills * 60 / Math.max(stats.performance.timeSpent, 1)).toLocaleString(undefined, {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                        })}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Combat Rating
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {stats.bungieHistoricAccountStats?.combatRating.toLocaleString(undefined, {
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 2,
-                                        })}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Peak Rating
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {Object.values(stats.matchHistory).reduce((highest, current) => highest > current.elo ? highest : current.elo, 0)}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="h-3"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="flex w-[280px] justify-center">
-                            <tbody>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Win Ratio
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {((stats.performance.wins * 100) / stats.performance.matches).toFixed(0)} %
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Longest Winsteak
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {Object.values(stats.matchHistory).sort((a, b) => a.date - b.date).reduce(
-                                            (prev, match) => {
-                                                let current_streak = prev.current_streak;
-                                                if (match.win_chance == -2 || match.win_chance == -3 || match.win_chance == -4) { //match doesn't count
+                    <div>
+                        <div className="p-4 text-center">
+                            <div className="">
+                                Due to <a href="/faq#where-are-my-stats-from-solstice-scorched" target="_blank" className="underline underline-offset-2 hover:text-gray-950 hover:dark:text-gray-100">known limitations of Bungie's API</a> Solstice matches will be missing.
+                            </div>
+                        </div>
+                        <div className="p-4 text-gray-300 text-lg sm:text-lg     flex flex-wrap justify-evenly">
+                            <table className="flex w-[280px] justify-center">
+                                <tbody>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            K/D
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {(stats.performance.kills / Math.max(stats.performance.deaths || 1, 1)).toLocaleString(undefined, {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            })}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Efficiency
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {((stats.performance.kills + stats.performance.assists) / Math.max(stats.performance.deaths || 0, 1)).toLocaleString(undefined, {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            })}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            KPM
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {(stats.performance.kills * 60 / Math.max(stats.performance.timeSpent, 1)).toLocaleString(undefined, {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            })}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Combat Rating
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {stats.bungieHistoricAccountStats?.combatRating.toLocaleString(undefined, {
+                                                minimumFractionDigits: 0,
+                                                maximumFractionDigits: 2,
+                                            })}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Peak Rating
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {Object.values(stats.matchHistory).reduce((highest, current) => highest > current.elo ? highest : current.elo, 0)}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="h-3"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table className="flex w-[280px] justify-center">
+                                <tbody>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Win Ratio
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {((stats.performance.wins * 100) / stats.performance.matches).toFixed(0)} %
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Longest Winsteak
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {Object.values(stats.matchHistory).sort((a, b) => a.date - b.date).reduce(
+                                                (prev, match) => {
+                                                    let current_streak = prev.current_streak;
+                                                    if (match.win_chance == -2 || match.win_chance == -3 || match.win_chance == -4) { //match doesn't count
 
-                                                } else {
-                                                    current_streak = match.won ? current_streak + 1 : 0
+                                                    } else {
+                                                        current_streak = match.outcome == 0 ? current_streak + 1 : 0
+                                                    }
+
+                                                    return {
+                                                        "highest_streak": Math.max(current_streak, prev.highest_streak),
+                                                        "current_streak": current_streak
+                                                    }
+                                                },
+                                                {
+                                                    "highest_streak": 0,
+                                                    "current_streak": 0
                                                 }
+                                            ).highest_streak}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Average Match Duration
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {formatSeconds(stats.performance.timeSpent / Math.max(stats.performance.matches, 1))}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Average Lifespan
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {formatSeconds(stats.bungieHistoricAccountStats.averageLifespan || 0)}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Average Team Score
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {((stats.bungieHistoricAccountStats.teamScore || 0) / (stats.bungieHistoricAccountStats.activitiesEntered || 0)).toLocaleString(undefined, {
+                                                minimumFractionDigits: 0,
+                                                maximumFractionDigits: 1,
+                                            })}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Avg Match Completion
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {(100 - ((stats.bungieHistoricAccountStats.remainingTimeAfterQuitSeconds || 0) * 100 / (stats.bungieHistoricAccountStats.totalActivityDurationSeconds || 1))).toLocaleString(undefined, {
+                                                minimumFractionDigits: 0,
+                                                maximumFractionDigits: 1,
+                                            })}%
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table className="flex w-[280px] justify-center">
+                                <tbody>
 
-                                                return {
-                                                    "highest_streak": Math.max(current_streak, prev.highest_streak),
-                                                    "current_streak": current_streak
-                                                }
-                                            },
-                                            {
-                                                "highest_streak": 0,
-                                                "current_streak": 0
-                                            }
-                                        ).highest_streak}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Average Match Duration
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {formatSeconds(stats.performance.timeSpent / Math.max(stats.performance.matches, 1))}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Average Lifespan
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {formatSeconds(stats.bungieHistoricAccountStats.averageLifespan || 0)}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Average Team Score
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {((stats.bungieHistoricAccountStats.teamScore || 0) / (stats.bungieHistoricAccountStats.activitiesEntered || 0)).toLocaleString(undefined, {
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 1,
-                                        })}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Avg Match Completion
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {(100 - ((stats.bungieHistoricAccountStats.remainingTimeAfterQuitSeconds || 0) * 100 / (stats.bungieHistoricAccountStats.totalActivityDurationSeconds || 1))).toLocaleString(undefined, {
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 1,
-                                        })}%
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="flex w-[280px] justify-center">
-                            <tbody>
-
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Highest Kill Streak
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {stats.bungieHistoricAccountStats?.longestKillSpree}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Highest Score
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {stats.bungieHistoricAccountStats?.bestSingleGameScore}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Highest Kill count
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {stats.bungieHistoricAccountStats?.bestSingleGameKills}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Fastest Match
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {formatSeconds((stats.bungieHistoricAccountStats?.fastestCompletionMs || 0) / 1000)}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Average kill distance
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {((stats.bungieHistoricAccountStats.totalKillDistance || 0) / Math.max(stats.bungieHistoricAccountStats.kills || 1, 1)).toLocaleString(undefined, {
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 1,
-                                        })} m
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-right pr-2">
-                                        Longest Kill Distance
-                                    </td>
-                                    <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
-                                        {(stats.bungieHistoricAccountStats?.longestKillDistance || 0).toLocaleString(undefined, {
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 1,
-                                        })} m
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Highest Kill Streak
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {stats.bungieHistoricAccountStats?.longestKillSpree}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Highest Score
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {stats.bungieHistoricAccountStats?.bestSingleGameScore}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Highest Kill count
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {stats.bungieHistoricAccountStats?.bestSingleGameKills}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Fastest Match
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {formatSeconds((stats.bungieHistoricAccountStats?.fastestCompletionMs || 0) / 1000)}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Average kill distance
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {((stats.bungieHistoricAccountStats.totalKillDistance || 0) / Math.max(stats.bungieHistoricAccountStats.kills || 1, 1)).toLocaleString(undefined, {
+                                                minimumFractionDigits: 0,
+                                                maximumFractionDigits: 1,
+                                            })} m
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2">
+                                            Longest Kill Distance
+                                        </td>
+                                        <td className="text-gray-800 dark:text-gray-100 text-lg sm:text-xl">
+                                            {(stats.bungieHistoricAccountStats?.longestKillDistance || 0).toLocaleString(undefined, {
+                                                minimumFractionDigits: 0,
+                                                maximumFractionDigits: 1,
+                                            })} m
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 } />
             </div>

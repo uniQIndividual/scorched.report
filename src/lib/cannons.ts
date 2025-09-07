@@ -9,6 +9,7 @@ export type SCORCHED_SEASON_TYPE = {
     "full_name": string,
     "legacy_hash": string,
     "release_date": number,
+    "bg_image": string,
     "twas": string,
     "pass_price": number,
     "cannons": { [key: number]: SCORCHED_CANNON_TYPE }
@@ -34,6 +35,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
         "full_name": "Season of the Spark",
         "legacy_hash": "S1",
         "release_date": 0,
+        "bg_image": "/images/seasons/Season_1.webp",
         "twas": "",
         "pass_price": 0,
         "cannons": {
@@ -288,6 +290,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
         "legacy_hash": "S2",
         "release_date": 1682913600,
         "twas": "1682913600",
+        "bg_image": "/images/seasons/Season_2.webp",
         "pass_price": 0,
         "cannons": {
             "1387175964": {
@@ -476,6 +479,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
         "full_name": "Season of the Conquest",
         "legacy_hash": "S3",
         "release_date": 1707850800,
+        "bg_image": "/images/seasons/Season_3.webp",
         "twas": "1707850800",
         "pass_price": 2500,
         "cannons": {
@@ -652,6 +656,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
         "full_name": "Special Cannons",
         "legacy_hash": "special",
         "release_date": 0,
+        "bg_image": "/images/seasons/background.webp",
         "twas": "",
         "pass_price": 0,
         "cannons": {

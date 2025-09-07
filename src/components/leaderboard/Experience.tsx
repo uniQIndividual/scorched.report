@@ -109,23 +109,6 @@ export const LeaderboardExperience = () => {
         // const updatedEntry = await historyDB.getValue(entry.membershipID);
         const updatedEntry = "";
         if (updatedEntry != undefined && updatedEntry != "") {
-          /*newData.push(
-            {
-              "membershipID": entry.membershipID,
-              "platform": entry.platform,
-              "displayName": entry.displayName,
-              "awards": entry.awards,
-              "opponents_defeated": opponents_defeated,
-              "deaths": deaths,
-              "assists": assists,
-              "kd": opponents_defeated / (deaths == 0 ? 1 : deaths),
-              "kda": (opponents_defeated + assists) / (deaths == 0 ? 1 : deaths),
-              "kpm": (opponents_defeated) / (playstart_date == 0 ? 1 : playstart_date / 60),
-              "wins": Object.values(updatedEntry).reduce((sum, current) => sum + current.won, 0),
-              "matches": Object.keys(updatedEntry).length,
-              "losses": Object.values(updatedEntry).reduce((sum, current) => sum - current.won, Object.keys(updatedEntry).length),
-              "lastUpdated": Object.values(updatedEntry).reduce((highest, current) => highest > current.date ? highest : current.date, 0),
-            });*/
         } else {
           newData.push({
             "membershipID": entry.membershipID,

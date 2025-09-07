@@ -79,7 +79,7 @@ export const Summary = (stats: Scorcher) => {
             last_matches_stats.time += stats.matchHistory[match].time;
             return <div className="p-3" key={"last_matches_box_" + stats.matchHistory[match].id}>
                 <div className="flex justify-center mb-1">{
-                    stats.matchHistory[match].won ?
+                    stats.matchHistory[match].outcome == 0 ?
                         <img className="h-8 w-8" src="/images/icons/outcome_win.webp" />
                         :
                         <img className="h-8 w-8" src="/images/icons/outcome_loss.webp" />
@@ -104,10 +104,13 @@ export const Summary = (stats: Scorcher) => {
                                         {stats.performance.trueSkill || "..."}
                                     </td>
                                     <td className="m-0 p-0 float-right pl-2">
-                                        {stats.performance.deaths ? (stats.performance.kills / stats.performance.deaths).toLocaleString(undefined, {
+                                        {Object.keys(stats.matchHistory).length > 0 ?
+                                        (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.kills, 0)
+                                    / (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.deaths, 0)) )
+                                        .toLocaleString(undefined, {
                                             minimumFractionDigits: 2,
                                             maximumFractionDigits: 2,
-                                        }) : "..."}
+                                        }) : "0"}
                                     </td>
                                 </tr>
                                 <tr className="mt-0 text-gray-400 text-lg">
@@ -120,16 +123,21 @@ export const Summary = (stats: Scorcher) => {
                                 </tr>
                                 <tr className="text-gray-800 dark:text-gray-200 text-3xl space-x-20">
                                     <td className="m-0 p-0 float-left pt-3 pr-2">
-                                        {stats.performance.kills ? (stats.performance.kills).toLocaleString(undefined, {
+                                        {Object.keys(stats.matchHistory).length > 0 ?
+                                        (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.kills, 0))
+                                        .toLocaleString(undefined, {
                                             minimumFractionDigits: 0,
                                             maximumFractionDigits: 0,
-                                        }) : "..."}
+                                        }) : "0"}
                                     </td>
                                     <td className="m-0 p-0 float-right pt-3 pl-2">
-                                        {stats.performance.kills ? (stats.performance.kills / (stats.performance.timeSpent / 60)).toLocaleString(undefined, {
+                                        {Object.keys(stats.matchHistory).length > 0 ?
+                                        (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.kills, 0)
+                                    / (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.time, 0) / 60) )
+                                        .toLocaleString(undefined, {
                                             minimumFractionDigits: 2,
                                             maximumFractionDigits: 2,
-                                        }) : "..."}
+                                        }) : "0"}
                                     </td>
                                 </tr>
                                 <tr className="mt-0 text-gray-400 text-lg">

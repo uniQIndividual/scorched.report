@@ -76,7 +76,8 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         },
         "team": match.team,
         "map": match.map,
-        "won": match.won,
+        "mode": match.mode,
+        "outcome": match.outcome,
         "win_chance": match.win_chance,
         "kd": match.kills / (match.deaths == 0 ? 1 : match.deaths),
         "time": match.time,
@@ -245,43 +246,72 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         },
       },
       {
-        accessorKey: 'won',
+        accessorKey: 'mode',
+        header: 'Mode',
+        size: 50,
+        filterVariant: 'select' as const,
+        mantineFilterMultiSelectProps: {
+          data: ["Team Scorched", "Control", "Rift", "Clash", "Unknown"],
+        },
+        accessorFn(originalRow) { // makes them searchable by outcome
+          switch (originalRow.mode) {
+            case 62:
+              return "Team Scorched";
+            case 73:
+              return "Control";
+            case 88:
+              return "Rift";
+              case 71:
+              return "Clash";
+            default:
+              return "Unknown";
+          }
+        }, // essentially we're storing only the achieved medals as a string which can be filtered
+        Cell: ({ cell }) => {
+          switch (cell.row.original.mode) {
+            case 62:
+              return "Team Scorched";
+            case 73:
+              return "Control";
+            case 88:
+              return "Rift";
+              case 71:
+              return "Clash";
+            default:
+              return "Unknown";
+          }
+        }
+      },
+      {
+        accessorKey: 'outcome',
         header: 'Outcome',
         size: 50,
         filterVariant: 'select' as const,
         mantineFilterMultiSelectProps: {
-          data: ["Victory", "Defeat", "Tie(broken rn)", "Unknown"],
+          data: ["Victory", "Defeat", "Tie", "Unknown"],
         },
-        accessorFn(originalRow) { // this is so funny but it works lmao
-          switch (Math.floor(originalRow.win_chance)) {
-            case -4:
-              return "unknown";
-            case -3:
-              return "unknown";
-            case -2:
+        accessorFn(originalRow) { // makes them searchable by outcome
+          switch (originalRow.outcome) {
+            case 0:
+              return "Victory";
+            case 1:
+              return "Defeat";
+            case 2:
+              return "Tie";
+            default:
               return "Unknown";
           }
-          switch (originalRow.won) {
-            case true:
-              return "Victory";
-            case false:
-              return "Defeat";
-          }
-        }, // essentially we're storing only the achived medals as a string which can be filtered
+        }, // essentially we're storing only the achieved medals as a string which can be filtered
         Cell: ({ cell }) => {
-          switch (Math.floor(cell.row.original.win_chance)) {
-            case -4:
-              return <i>-</i>;
-            case -3:
-              return <i>-</i>;
-            case -2:
-              return <i>-</i>;
-          }
-          switch (cell.row.original.won) {
-            case true:
+          switch (cell.row.original.outcome) {
+            case 0:
               return <span className="text-green-600">Victory</span>;
-            case false:
+            case 1:
               return <span className="text-red-600">Defeat</span>;
+            case 2:
+              return <span className="text-gray-200">Tie</span>;
+            default:
+              return <i>-</i>;
           }
         }
       },

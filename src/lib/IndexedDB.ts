@@ -53,6 +53,14 @@ export class DatabaseMiddleware {
     // Clear all entries in the object store
     private async clearDatabase(): Promise<void> {
         const db = await this.openDatabase();
+
+            const transaction = db.transaction("Meta", "readwrite");
+            const store = transaction.objectStore("Meta");
+            store.clear();
+            const timestamp = Date.now();
+
+            store.put({ key: "lastUpdated", value: timestamp });
+
         return new Promise((resolve, reject) => {
             const transaction = db.transaction(this.config.storeName, "readwrite");
             const store = transaction.objectStore(this.config.storeName);

@@ -256,7 +256,7 @@ const ReportLookup = () => {
         const historyDB = new DatabaseMiddleware({
           databaseName: "PGCRHistory",
           storeName: "Entries",
-          version: 2,
+          version: 3,
         });
 
         // A lot of async stuff from here on that we need to enforce
@@ -391,7 +391,7 @@ const ReportLookup = () => {
         setLoadingTitle("Loading Profile Stats...");
         // yes this is indeed nothing you should copy
         const vault_id = userid.substring(userid.length - 4);
-        await fetch(`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(
+        await fetch(/*"/data/mock/3.json.zst"*/`${url_data}/vault/${vault_id[0]}/${vault_id[1]}/${vault_id[2]}/${vault_id[3]}.json.zst`).then(
           res => {
             if (res.status != 200 && res.status != 404) {
               console.error(res);
@@ -443,8 +443,8 @@ const ReportLookup = () => {
                       kills: Number(soloMatches.reduce((sum, current) => sum + current.kills, 0)),
                       deaths: Number(soloMatches.reduce((sum, current) => sum + current.deaths, 0)),
                       assists: Number(soloMatches.reduce((sum, current) => sum + current.assists, 0)),
-                      wins: Number(soloMatches.reduce((sum, current) => sum + current.won, 0)),
-                      losses: Number(soloMatches.reduce((sum, current) => sum + !current.won, 0)),
+                      wins: Number(soloMatches.reduce((sum, current) => sum + (current.outcome == 0 ? 1 : 0), 0)),
+                      losses: Number(soloMatches.reduce((sum, current) => sum + (current.outcome == 1 ? 1 : 0), 0)),
                       matches: soloMatches.reduce((sum, current) => sum + 1, 0),
                       timeSpent: Number(soloMatches.reduce((sum, current) => sum + current.playtime, 0)),
                       trueSkill: json.matchHistory[json.matchHistory.length - 1].elo,
@@ -474,7 +474,8 @@ const ReportLookup = () => {
                         },
                         "team": match?.team,
                         "map": match?.map,
-                        "won": match.won,
+                        "mode": match.mode,
+                        "outcome": match.outcome,
                         "win_chance": match.win_chance,
                         "kd": 0,
                         "kpm": 0,
@@ -1043,6 +1044,13 @@ const ReportLookup = () => {
                   let setToPrivate = false;
                   let addedEntries = 0;
 
+                  let highestKnownPGCRId = Object.values(newStats.matchHistory).reduce(
+                    (prev, match) =>
+                      prev > Number(match.id) ? prev : Number(match.id),
+                    0);
+                  console.log("Highest known PGCR: " + highestKnownPGCRId);
+
+
                   for (let i = 0; i < characters.length; i++) {
                     // We want to avoid parallelism here to avoid getting throttled
 
@@ -1054,6 +1062,7 @@ const ReportLookup = () => {
                     if (character.activitiesEntered > previousLatestMatchCount && !setToPrivate) {
                       // We know there are new matches missing, we need to calculate the page they are on (250 per page)
                       // Page 0 has the newest ones
+                      let skip = false;
                       const startPage = 0;
                       const endPage = Math.floor((character.activitiesEntered - previousLatestMatchCount) / matchesPerPage);
                       console.log("Missing matches: " + (character.activitiesEntered - previousLatestMatchCount));
@@ -1062,7 +1071,7 @@ const ReportLookup = () => {
 
                       for (let page = startPage; page <= endPage; page++) {
 
-                        if (!setToPrivate) {
+                        if (!setToPrivate && !skip) {
 
                           let response;
                           try {
@@ -1116,38 +1125,46 @@ const ReportLookup = () => {
                                 addedEntries++; // Count new entries to keep track of entries per character
                                 //}
 
-                                newStats = update(newStats, {
-                                  matchHistory: {
-                                    $apply(oldHistory: { [key: string]: pgcrCutDown }) {
-                                      //const previousEntryExists = oldHistory.hasOwnProperty(match.activityDetails.instanceId);
-                                      oldHistory[match.activityDetails.instanceId] = {
-                                        "id": Number(match.activityDetails.instanceId),
-                                        "elo": oldHistory[match.activityDetails.instanceId]?.elo || 0,
-                                        "date": new Date(match.period).getTime(),
-                                        "kills": match.values.kills.basic.value,
-                                        "deaths": match.values.deaths.basic.value,
-                                        "assists": match.values.assists.basic.value,
-                                        "medals": {
-                                          "iMadeThisForYou": match.activityDetails.instanceId == "13923339040" ? true : (oldHistory[match.activityDetails.instanceId]?.medals.iMadeThisForYou || false), //Naze
-                                          "weRan": oldHistory[match.activityDetails.instanceId]?.medals.weRan || false,
-                                          "crownTaker": oldHistory[match.activityDetails.instanceId]?.medals.crownTaker || false,
-                                          "seventhColumn": oldHistory[match.activityDetails.instanceId]?.medals.seventhColumn || false,
-                                          "annihilation": oldHistory[match.activityDetails.instanceId]?.medals.annihilation || false,
-                                          "ghost": oldHistory[match.activityDetails.instanceId]?.medals.ghost || false,
-                                          "undefeated": oldHistory[match.activityDetails.instanceId]?.medals.undefeated || false,
-                                          "mostDamage": oldHistory[match.activityDetails.instanceId]?.medals.mostDamage || false,
-                                        },
-                                        "team": oldHistory[match.activityDetails.instanceId]?.team || true, // TODO: should allow undefined
-                                        "map": match.activityDetails.referenceId,
-                                        "won": match.values.standing.basic.value === 0,
-                                        "win_chance": oldHistory[match.activityDetails.instanceId]?.win_chance || -1,
-                                        "time": match.values.timePlayedSeconds.basic.value,
-                                      }
-                                      return oldHistory
-                                    },
-                                  }
-                                })
-                              })
+                                if (Number(match.activityDetails.instanceId) > highestKnownPGCRId) {
+
+                                  newStats = update(newStats, {
+                                    matchHistory: {
+                                      $apply(oldHistory: { [key: string]: pgcrCutDown }) {
+                                        //const previousEntryExists = oldHistory.hasOwnProperty(match.activityDetails.instanceId);
+                                        oldHistory[match.activityDetails.instanceId] = {
+                                          "id": Number(match.activityDetails.instanceId),
+                                          "elo": oldHistory[match.activityDetails.instanceId]?.elo || 0,
+                                          "date": new Date(match.period).getTime(),
+                                          "kills": match.values.kills.basic.value,
+                                          "deaths": match.values.deaths.basic.value,
+                                          "assists": match.values.assists.basic.value,
+                                          "medals": {
+                                            "iMadeThisForYou": match.activityDetails.instanceId == "13923339040" ? true : (oldHistory[match.activityDetails.instanceId]?.medals.iMadeThisForYou || false), //Naze
+                                            "weRan": oldHistory[match.activityDetails.instanceId]?.medals.weRan || false,
+                                            "crownTaker": oldHistory[match.activityDetails.instanceId]?.medals.crownTaker || false,
+                                            "seventhColumn": oldHistory[match.activityDetails.instanceId]?.medals.seventhColumn || false,
+                                            "annihilation": oldHistory[match.activityDetails.instanceId]?.medals.annihilation || false,
+                                            "ghost": oldHistory[match.activityDetails.instanceId]?.medals.ghost || false,
+                                            "undefeated": oldHistory[match.activityDetails.instanceId]?.medals.undefeated || false,
+                                            "mostDamage": oldHistory[match.activityDetails.instanceId]?.medals.mostDamage || false,
+                                          },
+                                          "team": oldHistory[match.activityDetails.instanceId]?.team || true, // TODO: should allow undefined
+                                          "map": match.activityDetails.referenceId,
+                                          "mode": match.activityDetails.mode,
+                                          "outcome": match.values.standing.basic.value === 0 ? (match.values.standing.basic.displayValue === "Tie" ? 2 : 0) : (match.values.standing.basic.value === 1 ? 1 : -1),
+                                          "win_chance": oldHistory[match.activityDetails.instanceId]?.win_chance || -1,
+                                          "time": match.values.timePlayedSeconds.basic.value,
+                                        }
+                                        return oldHistory
+                                      },
+                                    }
+                                  })
+                                } else {
+                                  console.log("Skipping already known PGCRs");
+                                  skip = true; // don't need to update anything else
+                                }
+                              }
+                              )
 
                               throttleAmount = Math.max(timestampLastCall - Date.now() - 100, 0) + (response?.ThrottleSeconds * 1.2); // wait a min of 100ms between calls
                               timestampLastCall = Date.now();
@@ -1270,8 +1287,8 @@ const ReportLookup = () => {
                 kills: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + current.kills, 0)),
                 deaths: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + current.deaths, 0)),
                 assists: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + current.assists, 0)),
-                wins: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + (current.won ? 1 : 0), 0)),
-                losses: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + (!current.won ? 1 : 0), 0)),
+                wins: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + (current.outcome == 0 ? 1 : 0), 0)),
+                losses: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + (current.outcome == 1 ? 1 : 0), 0)),
                 matches: Object.values(newStats.matchHistory).length,
                 timeSpent: Number(Object.values(newStats.matchHistory).reduce((sum, current) => sum + current.time, 0)),
                 trueSkill: newStats.performance.trueSkill,
@@ -1358,8 +1375,17 @@ const ReportLookup = () => {
     {
       "title": "Characters",
       "id": "characters",
-      "body": <div className="mt-16 w-full flex justify-center">
+      "body": <div className="mt-2 w-full flex justify-center">
         <div className="">
+          <div className="flex justify-center">
+            <D2Box title={"Info"} body={
+              <div className="p-4 text-center">
+                <div className="">
+                  Due to <a href="/faq#where-are-my-stats-from-solstice-scorched" target="_blank" className="underline underline-offset-2 hover:text-gray-950 hover:dark:text-gray-100">known limitations of Bungie's API</a> Solstice matches will be missing.
+                </div>
+              </div>
+            } />
+          </div>
           <div className="flex flex-wrap justify-center lg:mx-7">
             {Object.keys(stats.characters).length == 0 ?
               <div className="text-3xl text-gray-100 text-center mt-16">No character stats could be loaded</div> :

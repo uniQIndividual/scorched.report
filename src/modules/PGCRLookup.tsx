@@ -364,7 +364,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                 const historyDB = new DatabaseMiddleware({
                     databaseName: "PGCRHistory",
                     storeName: "Entries",
-                    version: 2,
+                    version: 3,
                 });
                 await definitionsDB.initializeDefinitionsDatabase();
                 await historyDB.initializeHistoryDatabase();
@@ -687,10 +687,12 @@ const PGCRLookup = (props: basicMatchInfo) => {
         while (countMain < listMain.length && countEnemy < listEnemy.length) {
             if (Number(listMain[countMain].id) == Number(listEnemy[countEnemy].id)) {
                 // Ignore matches on the same team
-                if (listMain[countMain].won != listEnemy[countEnemy].won) {
+                if (listMain[countMain].outcome >= 0 && listMain[countMain].outcome != listEnemy[countEnemy].outcome) {
                     matchup++
-                    if (listMain[countMain].won) {
+                    if (listMain[countMain].outcome == 0) {
                         matchWins++
+                    } else if (listMain[countMain].outcome == 2) { // Tie
+                        matchWins += 0.5;
                     }
                 }
 
