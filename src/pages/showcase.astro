@@ -1,39 +1,10 @@
 ---
 import LayoutSidebar from "../app/LayoutSidebar.astro";
-import SCORCHED_CANNONS from "../lib/cannons";
 import TooltipDestinyEventHandler from "../components/showcase/ToolTipDestinyEventHandler.astro";
 import { ShowcaseRouter } from "../components/showcase/ShowcaseRouter";
 import BackgroundImage from "../../public/images/collection/background.webp";
 import KioskImage from "../../public/images/collection/cannon_archive_icon.webp";
 import { Image } from "astro:assets";
-
-const headings: {
-	depth: number;
-	slug: string;
-	text: string;
-	subheadings: never[];
-}[] = [];
-
-headings.push({
-	depth: 1,
-	slug: "Scorch Cannon Showcase"
-		.toLowerCase()
-		.replaceAll(" ", "-")
-		.replaceAll(/[^\w-_]/gm, ""),
-	text: "Scorch Cannon Showcase",
-	subheadings: [],
-});
-
-Object.keys(SCORCHED_CANNONS).map((key) =>
-	headings.push({
-		depth: 2,
-		slug: SCORCHED_CANNONS[key]!.name.toLowerCase()
-			.replaceAll(" ", "-")
-			.replaceAll(/[^\w-_]/gm, ""),
-		text: SCORCHED_CANNONS[key]!.name,
-		subheadings: [],
-	})
-);
 ---
 
 <LayoutSidebar
