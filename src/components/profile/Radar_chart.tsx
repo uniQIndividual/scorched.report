@@ -64,6 +64,8 @@ export const Radar = (props: RadarInterface) => {
     if (stats.bungieHistoricAccountStats.activitiesEntered < 10) {
         return <div className="p-4">Not enough matches</div>
     }
+    const usePGCRData = Object.keys(stats.matchHistory).length > stats.performance.matches;
+    
     return context == "total" ? (
         <div className="sm:w-[500px]">
             <ApexChart
@@ -72,12 +74,22 @@ export const Radar = (props: RadarInterface) => {
                     name: "Overall Performance",
                     data: calculateNormalizedStats({
                         trueSkill: stats.performance.trueSkill,
-                        kills: stats.performance.kills,
+                        kills: usePGCRData
+                            ? Object.values(stats.matchHistory).reduce((prev, match) => prev + match.kills, 0)
+                            : stats.performance.kills,
                         totalGold: stats.bungieHistoricAccountStats.medals.totalGold,
-                        matches: stats.performance.matches,
-                        wins: stats.performance.wins,
-                        deaths: stats.performance.deaths,
-                        timeSpent: stats.performance.timeSpent,
+                        matches:  usePGCRData
+                            ? Object.keys(stats.matchHistory).length
+                            : stats.performance.matches,
+                        wins:  usePGCRData
+                            ? Object.values(stats.matchHistory).reduce((prev, match) => prev + (match.outcome == 0 ? 1 : 0), 0)
+                            : stats.performance.wins,
+                        deaths:  usePGCRData
+                            ? Object.values(stats.matchHistory).reduce((prev, match) => prev + match.deaths, 0)
+                            : stats.performance.deaths,
+                        timeSpent:  usePGCRData
+                            ? Object.values(stats.matchHistory).reduce((prev, match) => prev + match.time, 0)
+                            : stats.performance.timeSpent,
                         useCombatRating: false
                     }),
                     color: "rgba(250,50,40,0.3)",

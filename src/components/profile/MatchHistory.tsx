@@ -141,7 +141,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       },
       {
         accessorKey: 'eloDiff',
-        header: 'Elo +/-',
+        header: '+/-',
         filterVariant: 'range',
         size: 50,
         Cell: ({ cell }) => {
