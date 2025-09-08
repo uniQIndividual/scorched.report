@@ -183,7 +183,7 @@ export const LeaderboardPerformance = () => {
       {
         accessorKey: 'elo',
         header: 'Elo',
-        size: 100
+        size: 50
       },
       {
         accessorKey: 'kills',
