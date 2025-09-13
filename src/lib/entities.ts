@@ -1,4 +1,20 @@
 /* eslint-disable max-lines */
+
+    /*
+    -1: unknown / not applicable
+    0: victory
+    1: defeat
+    2: tie
+     */
+	
+    /* directActivityModeType https://bungie-net.github.io/index.html
+    5: AllPvP / Unknown
+    62: Team Scorched
+    71: ClashQuickplay
+    73: Control
+    88: Rift
+     */
+
 export type Cannons = {
 	"base_cannon_hash": string;
 	"kills": number;
@@ -201,12 +217,6 @@ export const awards: { [index: string]: { "description": string, "text": string,
 		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
 		"glow": ""
 	},
-	"seEnemy": {
-		"description": "Awarded to special enemies of SE (This a satirical award not to be taken seriously)",
-		"text": "Enemy of SE",
-		"src": "/images/icons/awards/Crossed_Cannons_gold.webp",
-		"glow": "shadow-award-glowRed"
-	},
 	"streak50": {
 		"description": "Awarded for getting an \"I made this for you\" medal by reaching a 50 streak",
 		"text": "I also made this for you",
@@ -332,7 +342,6 @@ export type Scorcher = {
 		"contributor": boolean,
 		"seMember": boolean,
 		"seFriend": boolean,
-		"seEnemy": boolean,
 		"streak50": boolean,
 		"streak2x20": boolean,
 		"streak20": boolean,
@@ -351,7 +360,11 @@ export type Scorcher = {
 		"carryPartner": boolean,
 		"specialKills": boolean
 	},
-	"performance": { // These are redundant when Bungie's api is up, otherwise is calculated from backups
+	/*
+	The total performance values for all scorched game modes.
+	These are calculated from Bungie's api + PGCRs is necessary, otherwise is calculated entirely from backup PCGRs
+	*/
+	"performance": {
 		"trueSkill": number,
 		"matches": number,
 		"wins": number,
@@ -361,16 +374,6 @@ export type Scorcher = {
 		"assists": number,
 		"timeSpent": number,
 		"fastestWin": number,
-	},
-	"soloPerformance": {
-		"trueSkill": number,
-		"matches": number,
-		"wins": number,
-		"losses": number,
-		"kills": number,
-		"deaths": number,
-		"assists": number,
-		"timeSpent": number,
 	},
 	"specials": {
 		"abilities": number,

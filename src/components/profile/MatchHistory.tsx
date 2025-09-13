@@ -246,6 +246,18 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         },
       },
       {
+        accessorKey: 'team',
+        header: 'Teaming',
+        size: 50,
+        filterVariant: 'select' as const,
+        mantineFilterMultiSelectProps: {
+          data: ["Team", "Solo"],
+        },
+        Cell: ({ cell }) => {
+          return cell.row.original.team ? "Team" : "Solo";
+        }
+      },
+      {
         accessorKey: 'mode',
         header: 'Mode',
         size: 50,
@@ -372,6 +384,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       density: 'xs',
       columnVisibility: {
         'win_chance': true,
+        'team': false,
         'time': false,
         'id': false,
       },

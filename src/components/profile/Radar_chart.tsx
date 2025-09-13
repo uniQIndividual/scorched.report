@@ -93,22 +93,7 @@ export const Radar = (props: RadarInterface) => {
                         useCombatRating: false
                     }),
                     color: "rgba(250,50,40,0.3)",
-                } /*,
-                {
-                    name: "Solo Performance",
-                    hidden: true,
-                    data: calculateNormalizedStats({
-                        trueSkill: stats.soloPerformance.trueSkill,
-                        kills: stats.soloPerformance.kills,
-                        totalGold: stats.bungieHistoricAccountStats.medals.totalGold,
-                        matches: stats.soloPerformance.matches,
-                        wins: stats.soloPerformance.wins,
-                        deaths: stats.soloPerformance.deaths,
-                        timeSpent: stats.soloPerformance.timeSpent,
-                        useCombatRating: false
-                    }) || [0, 0, 0, 0, 0],
-                    color: "#FF9800",
-                }*/]}
+                }]}
                 options={{
                     responsive: [
                         {

@@ -17,7 +17,7 @@ import { PGCR_Sections_Profiles } from "../components/pgcr_sections/profiles";
 
 export type userEntry = {
     membershipId: string,
-    membershipType: string,
+    membershipType: number,
     name: string,
     nameCode: string,
     platformName: string,
@@ -273,7 +273,7 @@ export const renderPlayerIconAndName = (entry: userEntry) => {
     return <td className="!border-0 p-0 min-w-[38px] flex">
         <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
         <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
-            <a href={location.origin + "/report?id=" + entry.membershipId + "&platform=" + entry.membershipType} className="hover:text-gray-200">
+            <a href={location.origin + "/report?id=" + entry.membershipId + ( entry.membershipType != -1  ? "&platform=" + entry.membershipType : "")} className="hover:text-gray-200">
                 {entry.name != undefined
                     ? (hasVisibleChar(entry.name)
                         ? entry.name
@@ -526,15 +526,11 @@ const PGCRLookup = (props: basicMatchInfo) => {
 
                                 const newEntry: userEntry = {
                                     membershipId: entry.player.destinyUserInfo.membershipId,
-                                    membershipType: entry.player.destinyUserInfo.membershipType != 0 ? entry.player.destinyUserInfo.membershipType : 3, // why 3 you might ask? funny bungie sometimes returns a membershiptype of 0 in pgcrs which can never succeed
-                                    // we thus simple hedge our bets an point to a membershiptype 3 for steam
-                                    // this is not relevant for scorched report but might cause incorrect api calls to bungie
-                                    // ah well, at least we tried
-                                    // if you read this you probably want to use User/GetMembershipDataById instead
+                                    membershipType: entry.player.destinyUserInfo.membershipType != 0 ? entry.player.destinyUserInfo.membershipType : -1, // we default to -1 to indicate a missing value
                                     name: entry.player.destinyUserInfo.bungieGlobalDisplayName != "" ? entry.player.destinyUserInfo.bungieGlobalDisplayName : entry.player.destinyUserInfo.displayName,
                                     nameCode: String(entry.player.destinyUserInfo.bungieGlobalDisplayNameCode || "").padStart(4, '0'),
                                     platformName: entry.player.destinyUserInfo.displayName || "",
-                                    platforms: entry.player.destinyUserInfo.applicableMembershipTypes || "",
+                                    platforms: entry.player.destinyUserInfo.applicableMembershipTypes || [],
                                     characterClassName: entry.player.characterClass || "",
                                     lightLevel: entry.player.lightLevel || "",
                                     icon: entry.player.destinyUserInfo.iconPath,

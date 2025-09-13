@@ -1,7 +1,7 @@
 import { awards, type Scorcher } from "../../lib/entities";
 import ApexChart from "react-apexcharts";
 import { Tooltip } from 'react-tooltip'
-import { D2Box } from "./D2Box";
+import { D2Box, TSOnlyMessage } from "./D2Box";
 
 
 export const Activity = (stats: Scorcher) => {
@@ -279,14 +279,6 @@ M1329 524h128v51h-218v-32l2 -1h51z`
 
     return (
         <div className="flex flex-wrap justify-center">
-            <D2Box title={"Info"} body={
-                <div className="p-4 text-center">
-                    <div className="">
-                        Due to <a href="/faq#where-are-my-stats-from-solstice-scorched" target="_blank" className="underline underline-offset-2 hover:text-gray-950 hover:dark:text-gray-100">known limitations of Bungie's API</a> Solstice matches will be missing.
-                    </div>
-                </div>
-            } />
-            <div className="w-full"></div>
             <D2Box title="Total" body={
                 <div className="p-4 text-left">
                     <span className="text-gray-400 text-xl"><span className="text-gray-900 dark:text-gray-100 text-4xl  font-black">{(stats.performance.kills).toLocaleString()}</span> Kills<br /><span className="text-gray-900 dark:text-gray-100 text-4xl font-black">
@@ -359,78 +351,82 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                     />
                 </div>
             } />
-            <D2Box title={"Matches per character"} body={
-                <div className="p-4">
-                    <ApexChart
-                        className="sparkline-chart"
-                        type={"pie"}
-                        height={200}
-                        series={Object.keys(stats.bungieHistoricStats).map(character => {
-                            return stats.bungieHistoricStats[character]?.activitiesEntered
-                        })}
-                        options={{
-                            colors: Object.keys(stats.bungieHistoricStats).map(character => {
-                                return characterClassToColor(stats.characters[character]?.classType)
-                            }),
-                            chart: {
-                                dropShadow: {
-                                    enabled: true,
-                                    blur: 1,
-                                    left: 1,
-                                    top: 1
-                                }
-                            },
-                            labels: Object.keys(stats.bungieHistoricStats).map(character => {
-                                return characterClassToString(stats.characters[character]?.classType)
-                            }),
-                            fill: {
-                                opacity: 1,
-                            },
-                            stroke: {
-                                show: true,
-                                width: 0.4,
-                                colors: [],
-                                dashArray: 0
-                            },
-                            yaxis: {
-                                show: true,
-                            },
-                            xaxis: {
-                                labels: {
+            <D2Box
+                title={
+                    <div>Matches per character {TSOnlyMessage()}</div>
+                }
+                body={
+                    <div className="p-4">
+                        <ApexChart
+                            className="sparkline-chart"
+                            type={"pie"}
+                            height={200}
+                            series={Object.keys(stats.bungieHistoricStats).map(character => {
+                                return stats.bungieHistoricStats[character]?.activitiesEntered
+                            })}
+                            options={{
+                                colors: Object.keys(stats.bungieHistoricStats).map(character => {
+                                    return characterClassToColor(stats.characters[character]?.classType)
+                                }),
+                                chart: {
+                                    dropShadow: {
+                                        enabled: true,
+                                        blur: 1,
+                                        left: 1,
+                                        top: 1
+                                    }
+                                },
+                                labels: Object.keys(stats.bungieHistoricStats).map(character => {
+                                    return characterClassToString(stats.characters[character]?.classType)
+                                }),
+                                fill: {
+                                    opacity: 1,
+                                },
+                                stroke: {
                                     show: true,
-                                }
-                            },
-                            dataLabels: {
-                                enabled: true,
-                                formatter: function (value, { seriesIndex, dataPointIndex, w }) {
-                                    return w.config.series[seriesIndex] + " (" + value.toLocaleString(undefined, {
-                                        minimumFractionDigits: 0,
-                                        maximumFractionDigits: 1,
-                                    }) + "%)"
+                                    width: 0.4,
+                                    colors: [],
+                                    dashArray: 0
                                 },
-                                style: {
-                                    fontSize: '14px',
-                                    fontWeight: 'bold',
-                                    colors: ['#333']
+                                yaxis: {
+                                    show: true,
                                 },
-                                background: {
+                                xaxis: {
+                                    labels: {
+                                        show: true,
+                                    }
+                                },
+                                dataLabels: {
                                     enabled: true,
-                                    foreColor: '#fff',
-                                    padding: 10,
+                                    formatter: function (value, { seriesIndex, dataPointIndex, w }) {
+                                        return w.config.series[seriesIndex] + " (" + value.toLocaleString(undefined, {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 1,
+                                        }) + "%)"
+                                    },
+                                    style: {
+                                        fontSize: '14px',
+                                        fontWeight: 'bold',
+                                        colors: ['#333']
+                                    },
+                                    background: {
+                                        enabled: true,
+                                        foreColor: '#fff',
+                                        padding: 10,
+                                    },
                                 },
-                            },
-                            legend: {
-                                show: true,
-                                position: 'bottom',
-                                labels: {
-                                    colors: "#e8e8e8",
-                                    useSeriesColors: false
-                                },
-                            }
-                        }}
-                    />
-                </div>
-            } />
+                                legend: {
+                                    show: true,
+                                    position: 'bottom',
+                                    labels: {
+                                        colors: "#e8e8e8",
+                                        useSeriesColors: false
+                                    },
+                                }
+                            }}
+                        />
+                    </div>
+                } />
             <D2Box title={"Matches per fireteam"} body={
                 <div className="p-4">
                     <ApexChart
@@ -651,7 +647,11 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                     </tbody>
                 </table>
             } />
-            <D2Box title="Miscellaneous" body={
+            <D2Box
+                title={
+                    <div>Miscellaneous {TSOnlyMessage()}</div>
+                }
+                body={
                 <table className="flex max-w-[400px] p-4">
                     <tbody>
                         <tr>
@@ -722,11 +722,12 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                     })}
                 </div>
             } />
-            <D2Box title="Weapon Categories" body={
+            <D2Box
+                title={
+                    <div>Weapon Categories {TSOnlyMessage()}</div>
+                }
+                body={
                 <div>
-                    <div className="flex justify-center p-2">
-                        <a href="/leaderboards/special" className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">Yes, it is possible</a>
-                    </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 p-3">
                         {weaponCategories.sort((a, b) => b.kills - a.kills).map(category =>
                             <div key={category.hint + "_profileBox"}>
@@ -776,6 +777,9 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                               "weaponKillsGrenadeLauncher": responseSingle?.weaponKillsGrenadeLauncher.basic.value,
                               "weaponKillsSuper": responseSingle?.weaponKillsSuper.basic.value,
                               "weaponKillsMelee": responseSingle?.weaponKillsMelee.basic.value,*/}
+                    </div>
+                    <div className="flex justify-center px-2 pb-4">
+                        <a href="/leaderboards/special" className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">Yes, it is possible</a>
                     </div>
                 </div>
             } />

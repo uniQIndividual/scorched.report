@@ -28,6 +28,7 @@ import { Medals } from "../components/profile/Medals";
 import { D2Box } from "../components/profile/D2Box";
 import HistoricalStatsDefinitionSmaller from "../data/fallback/HistoricalStatsDefinitionSmaller.json"
 import { Profile } from "../components/profile/Profile";
+import { isTeamScorchedMatch } from "../lib/fun";
 
 
 const ReportLookup = () => {
@@ -54,7 +55,6 @@ const ReportLookup = () => {
       "contributor": false,
       "seMember": false,
       "seFriend": false,
-      "seEnemy": false,
       "streak50": false,
       "streak2x20": false,
       "streak20": false,
@@ -84,16 +84,6 @@ const ReportLookup = () => {
       "timeSpent": 0,
       "fastestWin": 0,
 
-    },
-    "soloPerformance": {
-      "trueSkill": 1000,
-      "matches": 0,
-      "wins": 0,
-      "losses": 0,
-      "kills": 0,
-      "deaths": 0,
-      "assists": 0,
-      "timeSpent": 0,
     },
     "specials": {
       "abilities": 0,
@@ -374,7 +364,7 @@ const ReportLookup = () => {
         if (indexedMatchHistory != null) {
           setLoadingTitle("Loading Scorch Cannons...");
           console.log("Fetching matches from local indexedDB");
-          // Update performance stats and history
+          // Update stats and history
           newStats = update(newStats, {
             matchHistory: {
               $set: indexedMatchHistory
@@ -435,24 +425,8 @@ const ReportLookup = () => {
                       { $set: flag && json.flags.includes("se_member") },
                     seFriend:
                       { $set: flag && json.flags.includes("se_friend") },
-                    seEnemy:
-                      { $set: false },
-                  },
-                  soloPerformance: { // This depends on flagged solo matches which we can only find in the pre-computed match history
-                    $set: {
-                      kills: Number(soloMatches.reduce((sum, current) => sum + current.kills, 0)),
-                      deaths: Number(soloMatches.reduce((sum, current) => sum + current.deaths, 0)),
-                      assists: Number(soloMatches.reduce((sum, current) => sum + current.assists, 0)),
-                      wins: Number(soloMatches.reduce((sum, current) => sum + (current.outcome == 0 ? 1 : 0), 0)),
-                      losses: Number(soloMatches.reduce((sum, current) => sum + (current.outcome == 1 ? 1 : 0), 0)),
-                      matches: soloMatches.reduce((sum, current) => sum + 1, 0),
-                      timeSpent: Number(soloMatches.reduce((sum, current) => sum + current.playtime, 0)),
-                      trueSkill: json.matchHistory[json.matchHistory.length - 1].elo,
-                    }
                   },
                   performance: { trueSkill: { $set: json.matchHistory[json.matchHistory.length - 1].elo } },
-                  //soloPerformance: { $set: json.soloPerformance },
-                  //specials: { $set: json.specials },
                   matchHistory: {
                     $merge: json.matchHistory.map((match) => {
                       return {
@@ -839,7 +813,7 @@ const ReportLookup = () => {
                       }
                     });
 
-                    // Get all medals
+                    // Get all medals, performance
                     Object.keys(responseSingle).map(key => {
                       if (historicalStatsDefinition.hasOwnProperty(key) && responseSingle[key].basic.value > 0) {
                         newStats = update(newStats, { // Add medal
@@ -868,42 +842,104 @@ const ReportLookup = () => {
                       $apply(v) {
                         return {
                           iMadeThisForYou: v.iMadeThisForYou +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.iMadeThisForYou ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.iMadeThisForYou ? 1 : 0) : prev
+                                , 0),
                           weRan: v.weRan +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.weRan ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.weRan ? 1 : 0) : prev
+                                , 0),
                           annihilation: v.annihilation +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.annihilation ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.annihilation ? 1 : 0) : prev
+                                , 0),
                           crownTaker: v.crownTaker +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.crownTaker ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.crownTaker ? 1 : 0) : prev
+                                , 0),
                           ghost: v.ghost +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.ghost ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.ghost ? 1 : 0) : prev
+                                , 0),
                           seventhColumn: v.seventhColumn +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.seventhColumn ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.seventhColumn ? 1 : 0) : prev
+                                , 0),
                           undefeated: v.undefeated +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.undefeated ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.undefeated ? 1 : 0) : prev
+                                , 0),
                           mostDamage: v.mostDamage +
-                          Object.values(newStats.matchHistory)
-                          .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.mostDamage ? 1 : 0) : prev
-                          , 0),
+                            Object.values(newStats.matchHistory)
+                              .reduce((prev, match) => match.mode != 62 ? prev + (match.medals.mostDamage ? 1 : 0) : prev
+                                , 0),
                           total: v.total,
                           totalGold: v.totalGold
                         }
                       },
                     }
+                  },
+                  /*
+                  
+                  Updating overall performance with the combined character information + missing non-team scorched matches, e.g. solstice scorched
+  
+                  */
+                  performance: {
+                    matches: {
+                      $set:
+                        newStats.bungieHistoricAccountStats.activitiesEntered +
+                        Object.values(newStats.matchHistory)
+                          .filter(match => !isTeamScorchedMatch(match.mode))
+                          .length
+                    },
+                    wins: {
+                      $set:
+                        newStats.bungieHistoricAccountStats.activitiesWon +
+                        Object.values(newStats.matchHistory)
+                          .filter(match => !isTeamScorchedMatch(match.mode))
+                          .reduce((sum, current) => sum + (current.outcome == 0 ? 1 : 0), 0)
+                    },
+                    losses: {
+                      $set:
+                        newStats.bungieHistoricAccountStats.activitiesEntered
+                        - newStats.bungieHistoricAccountStats.activitiesWon
+                        + Object.values(newStats.matchHistory)
+                          .filter(match => !isTeamScorchedMatch(match.mode))
+                          .reduce((sum, current) => sum + (current.outcome == 1 ? 1 : 0), 0)
+                    },
+                    kills: {
+                      $set:
+                        newStats.bungieHistoricAccountStats.kills +
+                        Object.values(newStats.matchHistory)
+                          .filter(match => !isTeamScorchedMatch(match.mode))
+                          .reduce((sum, current) => sum + current.kills, 0)
+                    },
+                    deaths: {
+                      $set:
+                        newStats.bungieHistoricAccountStats.deaths +
+                        Object.values(newStats.matchHistory)
+                          .filter(match => !isTeamScorchedMatch(match.mode))
+                          .reduce((sum, current) => sum + current.deaths, 0)
+                    },
+                    assists: {
+                      $set:
+                        newStats.bungieHistoricAccountStats.assists +
+                        Object.values(newStats.matchHistory)
+                          .filter(match => !isTeamScorchedMatch(match.mode))
+                          .reduce((sum, current) => sum + current.assists, 0)
+                    },
+                    timeSpent: {
+                      $set:
+                        newStats.bungieHistoricAccountStats.totalActivityDurationSeconds +
+                        Object.values(newStats.matchHistory)
+                          .filter(match => !isTeamScorchedMatch(match.mode))
+                          .reduce((sum, current) => sum + current.time, 0)
+                    },
+                    fastestWin: {
+                      $set: Object.values(newStats.matchHistory)
+                        .filter(match => !isTeamScorchedMatch(match.mode))
+                        .reduce((fastest, current) => fastest < current.time ? fastest : current.time, Math.min())
+                    },
                   }
                 })
 
@@ -1016,59 +1052,6 @@ const ReportLookup = () => {
 
 
 
-
-                /*
-                
-                Updating overall performance with the combined character information
-                (performance stats always exist, bungieHistoricAccountStats depends on Bungie's api)
-
-                */
-                const disregardBungieResponse = Object.keys(newStats.characters).length == 0; // No suitable data from Bungie thus we rely on our local data or initial state
-
-                newStats = update(newStats, {
-                  performance: {
-                    matches: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.activitiesEntered
-                      },
-                    },
-                    wins: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.activitiesWon
-                      },
-                    },
-                    losses: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.activitiesEntered
-                      },
-                    },
-                    kills: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.kills
-                      },
-                    },
-                    deaths: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.deaths
-                      },
-                    },
-                    assists: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.assists
-                      },
-                    },
-                    timeSpent: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.secondsPlayed
-                      },
-                    },
-                    fastestWin: {
-                      $apply(v) {
-                        return disregardBungieResponse ? v : newStats.bungieHistoricAccountStats.fastestCompletionMs / 1000
-                      },
-                    },
-                  }
-                });
 
 
                 /*
@@ -1286,7 +1269,6 @@ const ReportLookup = () => {
                 "contributor": newStats.awards.contributor,
                 "seMember": newStats.awards.seMember,
                 "seFriend": newStats.awards.seFriend,
-                "seEnemy": newStats.awards.seEnemy,
                 "streak50": Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.iMadeThisForYou, false),
                 "streak2x20": newStats.awards.streak2x20,
                 "streak20": false, //TODO: Object.values(newStats.matchHistory).reduce((sum, current) => sum || current.medals.weRan, false),

@@ -1,9 +1,27 @@
 import type { ReactElement } from "react";
+import { Tooltip } from "react-tooltip";
 
 
 interface Props {
-    title: string,
+    title: ReactElement | string,
     body: ReactElement
+}
+
+export const TSOnlyMessage = () => {
+    const id = crypto.randomUUID()
+    return <div>
+        <div className="text-center hover:text-gray-950 hover:dark:text-gray-100" data-tooltip-id={id}
+            data-tooltip-html="Due to the limits of Bungie's API Solstice Scorched matches will be missing.">
+            <a
+                href="/faq#where-are-my-stats-from-solstice-scorched"
+                target="_blank"
+                className="text-xs tracking-normal underline decoration-dotted underline-offset-2 ">
+                Team Scorched only
+            </a>
+        </div>
+
+        <Tooltip id={id} opacity={1} style={{ backgroundColor: "rgba(20,20,20,0.9)", textTransform: "initial", letterSpacing: "0.1em" }} />
+    </div>
 }
 
 export const D2Box = ({ title, body }: Props) => {
