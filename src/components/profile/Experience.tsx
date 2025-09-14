@@ -291,7 +291,24 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                         className="sparkline-chart"
                         type={"pie"}
                         height={200}
-                        series={[stats.performance.matches, stats.crucible.matches - stats.performance.matches]}
+                        series={[
+                            Object.values(stats.matchHistory)
+                            .reduce((count, match) => 
+                            count + (match.mode == 62 ? 1 : 0),
+                            0),
+                            Object.values(stats.matchHistory)
+                            .reduce((count, match) => 
+                            count + (match.mode == 73 ? 1 : 0),
+                            0),
+                            Object.values(stats.matchHistory)
+                            .reduce((count, match) => 
+                            count + (match.mode == 71 ? 1 : 0),
+                            0),
+                            Object.values(stats.matchHistory)
+                            .reduce((count, match) => 
+                            count + (match.mode == 88 ? 1 : 0),
+                            0),
+                            stats.crucible.matches - stats.performance.matches]}
                         options={{
                             colors: ["rgba(250,50,40,0.4)", "#a8a8a8"],
                             chart: {
@@ -302,7 +319,7 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                                     top: 1
                                 }
                             },
-                            labels: ['Team Scorched', 'Wrong game modes'],
+                            labels: ['Team Scorched', 'Control', 'Clash', 'Rift', 'Wrong game modes'],
                             fill: {
                                 opacity: 1,
                             },
@@ -754,29 +771,6 @@ M1329 524h128v51h-218v-32l2 -1h51z`
                                 <Tooltip id={category.hint + "_tooltip"} opacity={1} style={{ backgroundColor: "rgba(8,9,10,0.9)" }} />
                             </div>
                         )}
-                        {/*
-                              "weaponKillsRelic": responseSingle?.weaponKillsRelic.basic.value,
-                              "weaponKillsAutoRifle": responseSingle?.weaponKillsAutoRifle.basic.value,
-                              "weaponKillsBeamRifle": responseSingle?.weaponKillsBeamRifle.basic.value,
-                              "weaponKillsBow": responseSingle?.weaponKillsBow.basic.value,
-                              "weaponKillsGlaive": responseSingle?.weaponKillsGlaive.basic.value,
-                              "weaponKillsFusionRifle": responseSingle?.weaponKillsFusionRifle.basic.value,
-                              "weaponKillsHandCannon": responseSingle?.weaponKillsHandCannon.basic.value,
-                              "weaponKillsTraceRifle": responseSingle?.weaponKillsTraceRifle.basic.value,
-                              "weaponKillsMachineGun": responseSingle?.weaponKillsMachineGun.basic.value,
-                              "weaponKillsPulseRifle": responseSingle?.weaponKillsPulseRifle.basic.value,
-                              "weaponKillsRocketLauncher": responseSingle?.weaponKillsRocketLauncher.basic.value,
-                              "weaponKillsScoutRifle": responseSingle?.weaponKillsScoutRifle.basic.value,
-                              "weaponKillsShotgun": responseSingle?.weaponKillsShotgun.basic.value,
-                              "weaponKillsSniper": responseSingle?.weaponKillsSniper.basic.value,
-                              "weaponKillsSubmachinegun": responseSingle?.weaponKillsSubmachinegun.basic.value,
-                              "weaponKillsSideArm": responseSingle?.weaponKillsSideArm.basic.value,
-                              "weaponKillsSword": responseSingle?.weaponKillsSword.basic.value,
-                              "weaponKillsAbility": responseSingle?.weaponKillsAbility.basic.value,
-                              "weaponKillsGrenade": responseSingle?.weaponKillsGrenade.basic.value,
-                              "weaponKillsGrenadeLauncher": responseSingle?.weaponKillsGrenadeLauncher.basic.value,
-                              "weaponKillsSuper": responseSingle?.weaponKillsSuper.basic.value,
-                              "weaponKillsMelee": responseSingle?.weaponKillsMelee.basic.value,*/}
                     </div>
                     <div className="flex justify-center px-2 pb-4">
                         <a href="/leaderboards/special" className="hover:text-black dark:hover:text-white hover:decoration-2 underline underline-offset-4 decoration-[1px]">Yes, it is possible</a>

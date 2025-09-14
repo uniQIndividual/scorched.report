@@ -147,7 +147,6 @@ export const Performance = (stats: Scorcher) => {
                 case 2:
                     return "Tie"
                 default:
-                case 0:
                     return "Unknown"
             }
         }

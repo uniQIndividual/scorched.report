@@ -48,7 +48,7 @@ export const Summary = (stats: Scorcher) => {
         </div>`};
 
     // use default cannon if necessary
-    
+
     const noCannon = stats.minigame.selectedSeason == "" || stats.minigame.equippedCannons[stats.minigame.selectedSeason] == undefined;
     const equippedSeason = noCannon ? "S1" : stats.minigame.selectedSeason
 
@@ -105,12 +105,11 @@ export const Summary = (stats: Scorcher) => {
                                     </td>
                                     <td className="m-0 p-0 float-right pl-2">
                                         {Object.keys(stats.matchHistory).length > 0 ?
-                                        (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.kills, 0)
-                                    / (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.deaths, 0)) )
-                                        .toLocaleString(undefined, {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                        }) : "0"}
+                                            (stats.performance.kills / (stats.performance.deaths || 1))
+                                                .toLocaleString(undefined, {
+                                                    minimumFractionDigits: 2,
+                                                    maximumFractionDigits: 2,
+                                                }) : "0"}
                                     </td>
                                 </tr>
                                 <tr className="mt-0 text-gray-400 text-lg">
@@ -124,20 +123,20 @@ export const Summary = (stats: Scorcher) => {
                                 <tr className="text-gray-800 dark:text-gray-200 text-3xl space-x-20">
                                     <td className="m-0 p-0 float-left pt-3 pr-2">
                                         {Object.keys(stats.matchHistory).length > 0 ?
-                                        (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.kills, 0))
-                                        .toLocaleString(undefined, {
-                                            minimumFractionDigits: 0,
-                                            maximumFractionDigits: 0,
-                                        }) : "0"}
+                                            (stats.performance.kills)
+                                                .toLocaleString(undefined, {
+                                                    minimumFractionDigits: 0,
+                                                    maximumFractionDigits: 0,
+                                                }) : "0"}
                                     </td>
                                     <td className="m-0 p-0 float-right pt-3 pl-2">
                                         {Object.keys(stats.matchHistory).length > 0 ?
-                                        (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.kills, 0)
-                                    / (Object.values(stats.matchHistory).reduce((prev, match) => prev + match.time, 0) / 60) )
-                                        .toLocaleString(undefined, {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                        }) : "0"}
+                                            (stats.performance.kills
+                                                / (stats.performance.timeSpent / 60))
+                                                .toLocaleString(undefined, {
+                                                    minimumFractionDigits: 2,
+                                                    maximumFractionDigits: 2,
+                                                }) : "0"}
                                     </td>
                                 </tr>
                                 <tr className="mt-0 text-gray-400 text-lg">

@@ -429,7 +429,7 @@ const ReportLookup = () => {
                   performance: { trueSkill: { $set: json.matchHistory[json.matchHistory.length - 1].elo } },
                   matchHistory: {
                     $merge: json.matchHistory.map((match) => {
-                      return {
+                      const newMatchEntry: pgcrCutDown = {
                         "id": Number(match?.id),
                         "elo": match.elo,
                         "date": match.date * 1000,
@@ -451,11 +451,9 @@ const ReportLookup = () => {
                         "mode": match.mode,
                         "outcome": match.outcome,
                         "win_chance": match.win_chance,
-                        "kd": 0,
-                        "kpm": 0,
-                        "time": match?.playtime,
-                        "efficiency": 0
+                        "time": match?.playtime
                       }
+                      return newMatchEntry;
                     }).reduce((a: any, v: any) => ({ ...a, [v.id]: v }), {}) //.sort((a, b) => a.id - b.id) // Sort array by timestamp
                   }
                 })
@@ -1460,9 +1458,14 @@ const ReportLookup = () => {
   if (render) return (
     <div className={/*bg-gray-50 dark:bg-gray-920*/"pb-2 min-h-[calc(100vh-500px)] bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(27,26,37,0.5)]"}>
       <div
-        className={`h-[214px]`}
+        className='h-[214px]'
       >
-        {stats.profile.secondarySpecial != "" ? <img className="absolute object-cover object-center w-full h-[204px]" src={stats.profile.secondarySpecial} /> : <div className="absolute w-full h-[204px] bg-primary-900"></div>}
+        {stats.profile.secondarySpecial != ""
+          ? <img
+            className="absolute object-cover object-center w-full h-[204px]"
+            alt="Profile banner wide"
+            src={stats.profile.secondarySpecial} />
+          : <div className="absolute w-full h-[204px] bg-primary-900"></div>}
         <div className="absolute h-[136px] mt-[68px] w-full table px-2">
           <div className="table-row-group">
             <div className="table-row h-[20px]">
@@ -1470,7 +1473,10 @@ const ReportLookup = () => {
             <div className="table-row h-[96px]">
               <div className="table-cell">
                 <div className="pl-4 font-bungo flex overflow-x-auto">
-                  <img className="h-[96px]" src={stats.profile.secondaryOverlay} />
+                  <img
+                    className="h-[96px]"
+                    alt="Profile banner icon"
+                    src={stats.profile.secondaryOverlay} />
                   <div className="ml-2">
                     {stats.profile.profileName == "" ?
                       <div className="text-white italic text-3xl pt-1">
@@ -1502,7 +1508,9 @@ const ReportLookup = () => {
                 if (section == undefined) {
                   return <></>
                 }
-                return <div className="h-7 table-cell text-nowrap align-middle lg:hover:bg-[rgba(255,255,255,0.1)]" key={"profile_section_title_" + section.id}>
+                return <div
+                  className="h-7 table-cell text-nowrap align-middle lg:hover:bg-[rgba(255,255,255,0.1)]"
+                  key={"profile_section_title_" + section.id}>
                   <button className={"w-full py-2 px-2 xl:px-4 hover:opacity-100 transition-all duration-200 " + (activeSection == section.id ? "opacity-80" : "opacity-60")} onClick={() => {
                     location.hash = section.id; // don't push since we don't handle those
                     setActiveSection(section.id);

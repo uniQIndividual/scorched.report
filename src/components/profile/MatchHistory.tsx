@@ -201,7 +201,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       },
       {
         accessorKey: 'kpm',
-        header: 'K/min',
+        header: 'KPM',
         filterVariant: 'range',
         size: 50,
         accessorFn(originalRow) {
@@ -253,8 +253,8 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         mantineFilterMultiSelectProps: {
           data: ["Team", "Solo"],
         },
-        Cell: ({ cell }) => {
-          return cell.row.original.team ? "Team" : "Solo";
+        accessorFn(originalRow) {
+          return originalRow.team ? "Team" : "Solo";
         }
       },
       {
@@ -278,21 +278,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
             default:
               return "Unknown";
           }
-        }, // essentially we're storing only the achieved medals as a string which can be filtered
-        Cell: ({ cell }) => {
-          switch (cell.row.original.mode) {
-            case 62:
-              return "Team Scorched";
-            case 73:
-              return "Control";
-            case 88:
-              return "Rift";
-              case 71:
-              return "Clash";
-            default:
-              return "Unknown";
-          }
-        }
+        },
       },
       {
         accessorKey: 'outcome',
@@ -385,12 +371,13 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       columnVisibility: {
         'win_chance': true,
         'team': false,
+        'kpm': false,
         'time': false,
         'id': false,
       },
     },
     mantineTableHeadCellProps: {
-      className: "!bg-primary-900 !text-gray-100"
+      className: "!bg-primary-900 !text-gray-100 !px-1"
     },
     mantineTopToolbarProps: {
       className: "!bg-primary-900"
@@ -401,7 +388,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
       className: "!bg-primary-900"
     },
     mantineTableBodyCellProps: {
-      className: "!bg-gray-50 dark:!bg-gray-900 !text-gray-900 dark:!text-gray-300"
+      className: "!bg-gray-50 dark:!bg-gray-900 !text-gray-900 dark:!text-gray-300 !px-1"
     },
     mantineBottomToolbarProps: {
       className: "!bg-primary-900 "
