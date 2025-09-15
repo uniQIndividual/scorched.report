@@ -1076,7 +1076,8 @@ const ReportLookup = () => {
                       prev > Number(match.id) ? prev : Number(match.id),
                     0);
                   console.log("Highest known PGCR: " + highestKnownPGCRId);
-
+                  
+                  let teamScorchedMatchesAreMissing = newStats.bungieHistoricAccountStats.activitiesEntered > Object.values(newStats.matchHistory).filter(match=>isTeamScorchedMatch(match.mode)).length
 
                   for (let i = 0; i < characters.length; i++) {
                     // We want to avoid parallelism here to avoid getting throttled
@@ -1086,7 +1087,7 @@ const ReportLookup = () => {
                     const character: historicStatsPerCharacter = newStats.bungieHistoricStats[characterName];
                     const previousLatestMatchCount = (matchesInIndexedDB.hasOwnProperty(characterName) ? matchesInIndexedDB[characterName] : 0)
 
-                    if (character.activitiesEntered > previousLatestMatchCount && !setToPrivate) {
+                    if (character.activitiesEntered > previousLatestMatchCount && !setToPrivate && teamScorchedMatchesAreMissing) {
                       // We know there are new matches missing, we need to calculate the page they are on (250 per page)
                       // Page 0 has the newest ones
                       let skip = false;
