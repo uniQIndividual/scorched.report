@@ -7,7 +7,7 @@ import update from 'immutability-helper';
 import { LoadingAnimationWithTitle } from "../components/LoadingAnimation";
 import { DatabaseMiddleware } from "../lib/IndexedDB";
 import { Tooltip } from "react-tooltip";
-import { hasVisibleChar, secondsToDisplayTime } from "../lib/fun";
+import { hasVisibleChar, modeToString, secondsToDisplayTime } from "../lib/fun";
 import { PGCR_Sections_Links } from "../components/pgcr_sections/links";
 import { PGCR_Sections_Summary } from "../components/pgcr_sections/summary";
 import { PGCR_Sections_Medals } from "../components/pgcr_sections/medals";
@@ -71,6 +71,7 @@ export type combinedPGCR = {
     team_left_1: userEntry[],
     team_left_2: userEntry[],
     team3: userEntry[],
+    mode: number,
     rawPGCR: any,
 }
 
@@ -273,7 +274,7 @@ export const renderPlayerIconAndName = (entry: userEntry) => {
     return <td className="!border-0 p-0 min-w-[38px] flex">
         <img className="h-[38px] w-[38px]" src={entry.icon == undefined ? "" : "https://www.bungie.net" + entry.icon} />
         <div className="pr-4 pl-3 w-[calc(100%-38px)]  min-w-[180px] h-[38px] pt-1">
-            <a href={location.origin + "/report?id=" + entry.membershipId + ( entry.membershipType != -1  ? "&platform=" + entry.membershipType : "")} className="hover:text-gray-200">
+            <a href={location.origin + "/report?id=" + entry.membershipId + (entry.membershipType != -1 ? "&platform=" + entry.membershipType : "")} className="hover:text-gray-200">
                 {entry.name != undefined
                     ? (hasVisibleChar(entry.name)
                         ? entry.name
@@ -282,7 +283,7 @@ export const renderPlayerIconAndName = (entry: userEntry) => {
                     : (entry.membershipId == "0"
                         ? <i>banned by Bungie</i>
                         : <i>Bungie didn't include a name 🤷</i>)
-                        }
+                }
             </a>
         </div>
     </td>
@@ -310,6 +311,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
         team_left_1: [],
         team_left_2: [],
         team3: [],
+        mode: 0,
         rawPGCR: {}
     }
     const [renderInfo, setRenderInfo] = React.useState(initialState);
@@ -441,9 +443,10 @@ const PGCRLookup = (props: basicMatchInfo) => {
                             membershipId: { $set: membershipId },
                             anonym: { $set: membershipId == "" },
                             bg_image: { $set: image != undefined && image != "" ? "https://www.bungie.net" + image : "" },
-                            rawPGCR: { $set: response }
+                            rawPGCR: { $set: response },
+                            mode: { $set: response.activityDetails.mode }
                         });
-
+                        
                         setLoadingTitle("Loading match histories...")
 
                         // Get Players
@@ -814,7 +817,7 @@ const PGCRLookup = (props: basicMatchInfo) => {
                                         {renderInfo.heading}
                                     </div>
                                     <div className="text-white opacity-70">
-                                        The Crucible
+                                        {modeToString(renderInfo.mode)}
                                     </div>
                                 </div>
                             </div>

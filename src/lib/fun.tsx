@@ -73,6 +73,21 @@ export function hasVisibleChar(str: string) {
   }
 }
 
+export const modeToString = (mode:number) => {
+          switch (mode) {
+            case 62:
+              return "Team Scorched";
+            case 73:
+              return "Control";
+            case 88:
+              return "Rift";
+              case 71:
+              return "Clash";
+            default:
+              return "Unknown";
+          }
+}
+
 export const cannonSeasonNameToURL = (seasonName: string) => {
     return encodeURI(seasonName.toLowerCase().replaceAll(" ", "-"));
 }

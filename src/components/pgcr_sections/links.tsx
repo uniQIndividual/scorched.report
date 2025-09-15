@@ -74,7 +74,7 @@ export const PGCR_Sections_Links = (renderInfo: combinedPGCR) => {
         },
         {
             "name": "Dungeon Report",
-            "url": `https://dungeon.report/${renderInfo.matchid}`,
+            "url": `https://dungeon.report/pgcr/${renderInfo.matchid}`,
             "icon": "/images/icons/external/dungeonreport.webp"
         },
     ]

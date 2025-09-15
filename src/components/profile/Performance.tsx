@@ -7,7 +7,7 @@ import * as d3 from 'd3';
 import "dc/src/compat/d3v6";  // needed for DataTable to render
 import crossfilter from 'crossfilter2';
 import { D2Box } from "./D2Box";
-import { secondsToDisplayTime } from "../../lib/fun";
+import { modeToString, secondsToDisplayTime } from "../../lib/fun";
 
 export const Performance = (stats: Scorcher) => {
 
@@ -152,18 +152,7 @@ export const Performance = (stats: Scorcher) => {
         }
         );
         const dimensionMode = cFilter.dimension(d => {
-            switch (d.mode) {
-                case 62:
-                    return "Team Scorched";
-                case 73:
-                    return "Control";
-                case 88:
-                    return "Rift";
-                case 71:
-                    return "Clash";
-                default:
-                    return "Unknown";
-            }
+            return modeToString(d.mode);
         }
         );
         const dimensionOutcomeGroup = dimensionOutcome.group();

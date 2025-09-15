@@ -9,6 +9,7 @@ import { type DestinyActivityDefinitionType, type Scorcher } from '../../lib/ent
 import { type matchTableEntry, medalsBungie } from '../../lib/entities';
 import PGCRLookup from '../../modules/PGCRLookup';
 import React from 'react';
+import { modeToString } from '../../lib/fun';
 
 interface MatchHistoryInterface {
   stats: Scorcher,
@@ -266,18 +267,7 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
           data: ["Team Scorched", "Control", "Rift", "Clash", "Unknown"],
         },
         accessorFn(originalRow) { // makes them searchable by outcome
-          switch (originalRow.mode) {
-            case 62:
-              return "Team Scorched";
-            case 73:
-              return "Control";
-            case 88:
-              return "Rift";
-              case 71:
-              return "Clash";
-            default:
-              return "Unknown";
-          }
+          return modeToString(originalRow.mode)
         },
       },
       {
