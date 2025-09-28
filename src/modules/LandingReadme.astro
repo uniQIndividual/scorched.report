@@ -5,6 +5,14 @@ import metadata from "../assets/metadata.json";
 
 const activities = [
 	{
+		name: "Exclusive rewards for the most passionate Scorchers",
+		date: "September 2025",
+		text: "Scorched Report is happy to announce that we've started shipping custom scorch cannons replicas. All models are made by hand and include LEDs for that eye-catching look. These are not for sale, you will have to earn them in competitions or by dedication.",
+		link: "/showcase",
+		link_text: "All custom cannons",
+		image: "replica.webp",
+	},
+	{
 		name: "Scorched Enthusiasts celebrates its 3 year anniversary",
 		date: "March 2025",
 		text: "SE has always been a loose group Team Scorched Enjoyers so there is no actual founding date. However since most started joining about 3 years ago that's what we're going with. It's certainly not because I'm 3 months late to New Year's Eve.",
@@ -219,6 +227,7 @@ const activities = [
 									alt={activity.name}
 									src={`/images/news/${activity.image}`}
 									loading="lazy"
+									class="mb-2"
 								/>
 							)}
 							{activity.link === "" ? (
