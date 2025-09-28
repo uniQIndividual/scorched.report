@@ -26,9 +26,9 @@ export const IsScorchedLive = () => {
     if (!render) {
         return "";
     }
-    return <div className="text-lg font-thin text-gray-300 text-center mb-10">
+    /*return <div className="text-lg font-thin text-gray-300 text-center mb-10">
                 Bungie changed some API related stuff. I'll update Scorched Report when I have some spare time.
-            </div>
+            </div>*/
     return scorchedStatus == -1 ?
         <div className="text-2xl font-bold text-gray-300 text-center mt-10">
             Destiny 2 seems to be down
