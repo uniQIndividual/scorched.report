@@ -38,6 +38,11 @@ export const Profile = (stats: Scorcher) => {
             "icon": "/images/icons/external/cruciblereport.webp"
         },
         {
+            "name": "PGCR Report",
+            "url": `https://pgcr.report/@${stats.id}/${stats.platform}`,
+            "icon": "/images/icons/external/pgcrreport.webp"
+        },
+        {
             "name": "Trials Report",
             "url": `https://trials.report/report/${stats.platform}/${stats.id}`,
             "icon": "/images/icons/external/cruciblereport.webp"
