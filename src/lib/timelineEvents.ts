@@ -160,7 +160,7 @@ export const timelineEvents: {
             "tooltipTitle": "Weekly Kill Record",
             "tooltipDescription": "We The East sets the world record for the most Team Scorched kills in a single week, reaching almost 10k.",
             "tooltipImage": "/images/timeline/tooltip/wetheeastweeklycut.webp",
-            "backgroundImage": ""
+            "backgroundImage": "/images/timeline/backgrounds/wetheeast.webp"
         },
         {
             "title": "Naze and uniQ hit 100k",
