@@ -123,13 +123,15 @@ export const MatchHistory = (props: MatchHistoryInterface) => {
         },
         size: 50,
         filterVariant: 'date-range' as const,
-        Cell: ({ cell }) => cell.getValue<Date>().toLocaleString(undefined, {
+        Cell: ({ cell }) => cell.row.original.date != 0
+          ? cell.getValue<Date>().toLocaleString(undefined, {
           year: "numeric",
           month: "short",
           day: "numeric",
           hour: "2-digit",
           minute: "2-digit"
         })
+        : <i>?</i>
       },
       {
         accessorKey: 'elo',
