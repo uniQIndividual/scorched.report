@@ -1,15 +1,16 @@
 ---
 const {
-	og_title = "Scorched Report",
-	og_description = "The home of everything Team Scorched",
-	og_image = "https://scorched.report/images/logo2.png",
+	og_title = "Scorched Realm Discord",
+	og_description = "Join the Scorched Enthusiast Community",
+	og_hero_image = "https://scorched.report/images/news/pms.jpg",
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		{(<meta property="og:image" content={og_image} />)}
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image:src" content={og_hero_image} />
 		<meta property="og:image:type" content="image/png" />
 		<meta property="og:image:alt" content="Team Scorched Logo" />
 		<meta property="og:title" content={og_title} />
