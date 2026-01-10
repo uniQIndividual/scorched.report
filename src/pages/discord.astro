@@ -1,0 +1,48 @@
+---
+const {
+	og_title = "Scorched Report",
+	og_description = "The home of everything Team Scorched",
+	og_image = "https://scorched.report/images/logo2.png",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		{(<meta property="og:image" content={og_image} />)}
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:alt" content="Team Scorched Logo" />
+		<meta property="og:title" content={og_title} />
+		<meta property="og:site_name" content="Scorched Report" />
+		<meta property="og:description" content={og_description} />
+		<meta property="og:url" content="https://scorched.report/" />
+		<meta name="theme-color" content="#8a2a2a" />
+	</head>
+	<body style="background-color: black;">
+		<script>
+			{
+				const API_ENDPOINT = "https://api.scorched.report/discord";
+				async function fetchLatestUrl() {
+					try {
+						const resp = await fetch(API_ENDPOINT, {
+							headers: { "x-api-key": "f011e359c75413ca79c44e59f45176ae" },
+							cache: "no-store",
+						});
+						if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+						const data = await resp.json();
+						if (!data?.url || typeof data.url !== "string") {
+							throw new Error("Invalid payload");
+						}
+						window.location.replace(data.url);
+					} catch (err) {
+						console.error("Link not found:", err);
+						const msg = document.createElement("p");
+						msg.textContent = "Link not found.";
+						document.body.appendChild(msg);
+					}
+				}
+				fetchLatestUrl();
+			}
+		</script>
+	</body>
+</html>
