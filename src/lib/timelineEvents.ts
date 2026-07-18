@@ -188,5 +188,14 @@ export const timelineEvents: {
             "tooltipDescription": "Leeroy Danekins becomes the second person to earn an \"I made this for you\" medal. Truly a guardian made for Team Scorched!",
             "tooltipImage": "/images/timeline/tooltip/IMG_5065.webp",
             "backgroundImage": "/images/timeline/backgrounds/IMG_5064.webp"
-        }
+        },
+        {
+            "title": "Season of the Remnants",
+            "date": "2026-05-26",
+            "icon": "/images/timeline/icons/clanbanner.webp",
+            "tooltipTitle": "The final update",
+            "tooltipDescription": "After almost a decade of Team Scorched, Bungie has announced the discontinuation of Destiny 2. There will not be any future official updates and the game enters its final state. We decided to launch Season of the Remnants as a final goodbye. It includes all the scorch cannons Gerb had been working on in the background.",
+            "backgroundImage": "/images/timeline/backgrounds/Season_4.webp",
+            "tooltipImage": "/images/timeline/backgrounds/Season_4.webp",
+        },
     ]

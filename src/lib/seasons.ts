@@ -141,4 +141,14 @@
             "start": "September 9, 2025",
             "end": "December 2, 2025",
         },
+        {
+            "name": "Renegades",
+            "start": "December 2, 2025",
+            "end": "June 9, 2026",
+        },
+        {
+            "name": "Monument of Triumph",
+            "start": "June 9, 2026",
+            "end": "June 17, 2519",
+        },
     ]

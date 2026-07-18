@@ -273,7 +273,7 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
             },
             "4082509468": {
                 "hash": "TelestoCannon",
-                "name": "Coming Soon...",
+                "name": "Telesto Cannon",
                 "alt_name": "Telesto Cannon",
                 "author": "GerbSnail",
                 "cost": 999999,
@@ -648,6 +648,105 @@ const SCORCHED_CANNONS: SCORCHED_DICTIONARY_TYPE = {
                 "scoin_bonus": 100,
                 "description": "",
                 "image": "/images/cannons/season3/SimpleProp.webp"
+            },
+        }
+    },
+    "1047977624": {
+        "name": "Season 4",
+        "full_name": "Season of the Remnants",
+        "legacy_hash": "S4",
+        "release_date": 1779753600,
+        "bg_image": "/images/seasons/Season_4.webp",
+        "twas": "1707850800",
+        "pass_price": 2500,
+        "cannons": {
+            "2862327244": {
+                "hash": "Transcendant",
+                "name": "Transcendant",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 0,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/Transcendant.webp"
+            },
+            "1840757262": {
+                "hash": "Suros",
+                "name": "Suros",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 1,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/Suros.webp"
+            },
+            "1840757263": {
+                "hash": "Neomuna",
+                "name": "Neomuna",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 2,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/Neomuna.webp"
+            },
+            "1840757264": {
+                "hash": "Moon",
+                "name": "Moon",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 3,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/Moon.webp"
+            },
+            "1840757265": {
+                "hash": "Finalized",
+                "name": "Finalized",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 4,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/Finalized.webp"
+            },
+            "1840757266": {
+                "hash": "Vex",
+                "name": "Vex",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 5,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/Vex.webp"
+            },
+            "1840757267": {
+                "hash": "Cutscene",
+                "name": "Cutscene",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 6,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/cutscene.webp"
+            },
+            "1840757268": {
+                "hash": "Cozy",
+                "name": "Cozy",
+                "alt_name": "",
+                "author": "GerbSnail",
+                "cost": 7,
+                "requirements": ["Unlock Season 4"],
+                "scoin_bonus": 0,
+                "description": "",
+                "image": "/images/cannons/season4/Cozy.webp"
             },
         }
     },
